@@ -10,6 +10,27 @@
 - Old codebase scan completed across `old-1.12.2`.
 - All primary registries mapped: blocks, items, block-items, tile entities, enchantments, entity, networking, GUI containers, sounds, recipes, and add-on modules.
 - No fluid registry found in old source.
+- 1.20.1 placeholder smoke-test pass added for all 37 legacy blocks:
+- Blocks + block-items registered in-game via `DeferredRegister`.
+- Creative tab now lists all registered smoke-test block items.
+- Blockstate/model/item JSON files generated for all registered blocks.
+- `./gradlew compileJava` passes with the new registry/assets.
+- 1.20.1 placeholder smoke-test pass extended to all 31 legacy standalone items:
+- Standalone items registered in-game via `DeferredRegister`.
+- Creative tab now lists block-items and standalone items.
+- Item model JSON files generated for all standalone items.
+- `./gradlew processResources` passes with full smoke-test asset set.
+- Visual baseline pass completed for smoke testing:
+- Copied legacy textures and OBJ/MTL assets from `old-1.12.2` into current resources.
+- Replaced all 37 block model JSON files with Forge OBJ loader definitions (`flip_v=true`).
+- Replaced 31 standalone item model JSON files with legacy texture-backed models (no paper placeholders).
+- Normalized legacy MTL references for 1.20 naming/path differences.
+- `./gradlew processResources compileJava` passes with the visual baseline assets.
+- Log-driven model validation baseline (without launching client in this pass):
+- Existing `run/logs/latest.log` and `run/logs/debug.log` currently report `0` missing textures and `0` failed model loads.
+- Initial custom-item 3D baseline restored for key legacy items:
+- `atlas_book`, `compass`, `death_compass`, `maptool`, and `painting_canvas` now use Forge OBJ item models.
+- Added `deathcompass.mtl` and `mtl_override` so death compass uses its own texture map.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -22,22 +43,22 @@
 
 ## Phase 1 - 1.20.1 Registry Skeleton
 - [ ] Create `DeferredRegister` sets for:
-- [ ] `Block`
-- [ ] `Item`
+- [x] `Block`
+- [x] `Item`
 - [ ] `BlockEntityType`
 - [ ] `MenuType`
 - [ ] `EntityType`
 - [ ] `Enchantment`
 - [ ] `SoundEvent`
-- [ ] `CreativeModeTab`
+- [x] `CreativeModeTab`
 - [ ] `RecipeSerializer`/`RecipeType` (only where needed)
-- [ ] Create one central registry bootstrap package (no feature logic yet).
+- [x] Create one central registry bootstrap package (no feature logic yet).
 - [ ] Add placeholder registrations for every legacy block/item/entity/enchantment by ID (can be stub behavior).
 - [ ] Ensure game starts with full registry surface present (even if mostly placeholder blocks/items).
 
 ## Phase 2 - Block + Item Breadth Port
-- [ ] Port all block classes as compile-safe stubs with registry IDs preserved.
-- [ ] Port all item classes as compile-safe stubs with registry IDs preserved.
+- [x] Port all block classes as compile-safe stubs with registry IDs preserved.
+- [x] Port all item classes as compile-safe stubs with registry IDs preserved.
 - [ ] Preserve variant strategy placeholders:
 - [ ] Wood variants (7-state concept including framed)
 - [ ] Color variants (16 colors)
@@ -59,9 +80,12 @@
 
 ## Phase 5 - Rendering + Data Breadth
 - [ ] Stand up model/data pipeline for 1.20.1:
-- [ ] Blockstate + model JSON strategy for every block/item ID
-- [ ] Temporary/generated assets to make all IDs visible in game
+- [x] Blockstate + model JSON strategy for every block/item ID
+- [x] Temporary/generated assets to make all IDs visible in game
+- [x] Replace placeholder oak/paper visuals with legacy-asset smoke baseline
+- [x] Restore first-pass OBJ item models for legacy custom-rendered tools (`atlas_book`, `compass`, `death_compass`, `maptool`, `painting_canvas`)
 - [ ] Convert or replace OBJ-driven dynamic model system incrementally
+- [ ] Recreate legacy dynamic transform/state behavior (old `ExtendedBlockState` + custom baked model logic) for off-axis/shifted models
 - [ ] Migrate sounds (`sounds.json` + `SoundEvent` registry).
 - [ ] Move legacy recipes into data pack format where needed.
 

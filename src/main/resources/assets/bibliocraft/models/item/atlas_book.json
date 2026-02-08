@@ -1,0 +1,6 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/item/atlas.obj",
+  "flip_v": true,
+  "automatic_culling": false
+}

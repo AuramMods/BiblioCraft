@@ -1,0 +1,7 @@
+newmtl Default
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/oak_planks
+
+newmtl pin
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/red_wool

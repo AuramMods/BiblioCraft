@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/clipboard.obj",
+  "flip_v": true
+}

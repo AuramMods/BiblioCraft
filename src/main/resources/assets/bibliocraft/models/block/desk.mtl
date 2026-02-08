@@ -1,0 +1,9 @@
+newmtl stuff
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:block/desk_books
+newmtl wood
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/oak_planks
+newmtl carpet
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/white_wool

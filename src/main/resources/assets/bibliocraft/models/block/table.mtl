@@ -1,0 +1,9 @@
+newmtl Default
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/oak_planks
+newmtl cloth
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/red_wool
+newmtl carpet
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/white_wool

@@ -13,6 +13,47 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Core package Java files (`jds/bibliocraft`): 421
 - Add-on package Java files (`jds/bibliowoods`): 4
 
+## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
+- Current resources root: `src/main/resources/assets/bibliocraft`
+- Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
+- Imported for baseline:
+- `textures/**`
+- `models/block/*.obj` + `models/block/*.mtl`
+- `models/item/*.obj` + `models/item/*.mtl`
+- Block model loader strategy:
+- All 37 block model JSON files now use Forge OBJ loader with `flip_v: true`.
+- Path pattern:
+- `src/main/resources/assets/bibliocraft/models/block/<block_id>.json`
+- -> `bibliocraft:models/block/<legacy_obj_name>.obj`
+- Key model filename exceptions (1.20 id -> legacy OBJ):
+- `marker_pole` -> `markerpole`
+- `furniture_paneler` -> `paneler`
+- `framed_chest` -> `framedchest`
+- `fancy_sign` -> `sign`
+- `potion_shelf` -> `potionshelf`
+- `tool_rack` -> `toolrack`
+- `map_frame` -> `mapframe`
+- `painting_frame_*` -> `paintingframe`
+- `painting_press` -> `paintpress`
+- `sword_pedestal` -> `swordpedestal`
+- `armor_stand` -> `armorstand`
+- `typesetting_table` -> `typesettingtable`
+- `printing_press` -> `printpress`
+- `cookie_jar` -> `cookiejar`
+- `dinner_plate` -> `dinnerplate`
+- `disc_rack` -> `discrack`
+- Standalone item model baseline:
+- All 31 standalone item JSON files are now explicit `minecraft:item/generated` with legacy texture paths (no paper placeholders).
+- First-pass custom item OBJ restorations (from legacy baked-model path):
+- `atlas_book` -> `models/item/atlas.obj`
+- `compass` -> `models/item/compass.obj`
+- `death_compass` -> `models/item/compass.obj` + `mtl_override=models/item/deathcompass.mtl`
+- `maptool` -> `models/item/maptool.obj`
+- `painting_canvas` -> `models/item/canvas.obj`
+- Known parity gap:
+- Legacy 1.12 rendering used `ExtendedBlockState` + `OBJModel.OBJState` dynamic transforms and part selection.
+- Current 1.20 smoke baseline is static OBJ JSON, so some models may still appear offset or incomplete until dynamic behavior is ported.
+
 ## Registry Entry Points (Legacy)
 - Main mod class and event subscriber: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`
 - Block registration: `old-1.12.2/src/main/java/jds/bibliocraft/BlockLoader.java` (`initBlocks`)

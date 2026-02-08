@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/paintpress.obj",
+  "flip_v": true
+}

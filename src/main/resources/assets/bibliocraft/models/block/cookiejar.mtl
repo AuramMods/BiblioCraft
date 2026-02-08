@@ -1,0 +1,11 @@
+newmtl lid
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/iron_block
+
+newmtl glass
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/glass
+
+newmtl cookies
+Kd 1.00 1.00 1.00
+map_Kd minecraft:item/cookie

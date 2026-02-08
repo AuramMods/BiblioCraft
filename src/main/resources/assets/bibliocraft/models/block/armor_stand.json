@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/armorstand.obj",
+  "flip_v": true
+}

@@ -1,0 +1,15 @@
+newmtl wood
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/oak_planks
+
+newmtl top
+Kd 1.00 1.00 1.00
+map_Kd minecraft:block/crafting_table_top
+
+newmtl sides
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:block/benchsides
+
+newmtl books
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:block/bookcase_books

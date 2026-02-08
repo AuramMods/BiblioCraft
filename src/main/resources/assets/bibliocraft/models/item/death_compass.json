@@ -1,0 +1,7 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/item/compass.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "mtl_override": "bibliocraft:models/item/deathcompass.mtl"
+}
