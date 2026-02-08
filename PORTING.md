@@ -38,6 +38,11 @@
 - Added follow-up `+1 z` translation for `sign.obj` and `label.obj` (still north-shifted after first pass).
 - Added broad 1.12-informed OBJ `visibility` maps to many block models so static 1.20 baseline no longer renders all variant groups at once.
 - Added iron material overrides for lamp/lantern model parity (`lamp_iron.mtl`, `lantern_iron.mtl`).
+- Added pass-1 non-full block shapes in 1.20 registry:
+- New `StaticShapeBlock` class with fixed `getShape`/`getCollisionShape`.
+- Replaced full-cube placeholder registration for most display blocks with explicit voxel shapes derived from old 1.12 bounding boxes and current OBJ extents.
+- `./gradlew compileJava` passes after shape wiring.
+- `runClient` is still manual only (user-run visual checks), no automatic launch.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -66,6 +71,7 @@
 ## Phase 2 - Block + Item Breadth Port
 - [x] Port all block classes as compile-safe stubs with registry IDs preserved.
 - [x] Port all item classes as compile-safe stubs with registry IDs preserved.
+- [x] Replace full-cube placeholder shapes with first-pass non-full voxel shapes for smoke testing.
 - [ ] Preserve variant strategy placeholders:
 - [ ] Wood variants (7-state concept including framed)
 - [ ] Color variants (16 colors)

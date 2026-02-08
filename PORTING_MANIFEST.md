@@ -67,6 +67,39 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `lamp_iron` -> `models/block/lamp_iron.mtl`
 - `lantern_iron` -> `models/block/lantern_iron.mtl`
 
+## Current 1.20 Voxel Shape Snapshot (Pass 1)
+- Source of truth: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` (`SHAPE_*` constants + registrations).
+- Shape block class: `src/main/java/art/arcane/bibliocraft/block/StaticShapeBlock.java`.
+- Intent: remove full-cube placeholder behavior so model hitboxes are closer to legacy.
+
+| Block ID | Current Shape (normalized 0-1) | Basis |
+|---|---|---|
+| `bookcase`, `bookcase_creative`, `shelf`, `tool_rack` | `x:0.0-0.5 y:0.0-1.0 z:0.0-1.0` | old half-block behavior + OBJ extent |
+| `potion_shelf` | `x:0.5-1.0 y:0.0-1.0 z:0.0-1.0` | OBJ extent (`potionshelf.obj`) |
+| `marker_pole` | `x:0.25-0.75 y:0.0-0.9 z:0.25-0.75` | OBJ extent (`markerpole.obj`) |
+| `clipboard` | `x:0.0-0.08 y:0.08-0.92 z:0.15-0.85` | old wall board bbox |
+| `lantern_gold`, `lantern_iron` | `x/z:0.3-0.7 y:0.0-0.7` | old `BlockLantern*` bbox |
+| `lamp_gold`, `lamp_iron` | `x/z:0.18-0.82 y:0.0-1.0` | old floor lamp bbox |
+| `furniture_paneler` | `x/z:0.0-1.0 y:0.0-0.63` | old `BlockFurniturePaneler` bbox |
+| `framed_chest` | `x/z:0.054-0.946 y:0.0-0.866` | old single chest bbox |
+| `fancy_sign` | `x:0.0-0.06 y:0.2-0.8 z:0.0-1.0` | old wall sign bbox |
+| `label` | `x:0.0-0.06 y:0.12-0.38 z:0.28-0.72` | old wall label bbox |
+| `table` | union of top slab `y:0.88-1.0` + center leg | old table top logic + current visible variant |
+| `seat` | `x/z:0.16-0.84 y:0.0-0.74` | old `BlockSeat` bbox |
+| `clock` | `x/z:0.3-0.7 y:0.0-1.0` | conservative non-full placeholder |
+| `case` | `x/z:0.06-0.94 y:0.0-0.5` | old floor case bbox |
+| `map_frame` + all `painting_frame_*` | `x:0.0-0.08 y:0.0-1.0 z:0.0-1.0` | old frame thin-wall bbox |
+| `painting_press` | `x/z:0.0-1.0 y:0.0-0.98` | OBJ/legacy near-full profile |
+| `typewriter` | `x:0.1384-0.7053 y:0.0-0.4835 z:0.2073-0.7927` | OBJ extent (`typewriter.obj`) |
+| `sword_pedestal` | `x:0.2758-0.7242 y:0.0-0.234 z:0.0712-0.9288` | OBJ extent + old bbox |
+| `armor_stand` | `x/z:0.3-0.7 y:0.0-1.0` | old orientation bbox collapsed to static |
+| `bell` | `x/z:0.4-0.6 y:0.0-0.2` | old `BlockBell` bbox |
+| `typesetting_table` | `x/z:0.0-1.0 y:0.0-0.92` | old `BlockTypesettingTable` bbox |
+| `cookie_jar` | `x/z:0.18-0.82 y:0.0-0.75` | old `BlockCookieJar` bbox |
+| `dinner_plate` | `x/z:0.15-0.85 y:0.0-0.1` | old `BlockDinnerPlate` bbox |
+| `disc_rack` | `x:0.0-1.0 y:0.0-0.35 z:0.25-0.75` | old floor disc-rack bbox |
+| `fancy_workbench`, `desk`, `printing_press` | currently full cube placeholder | pending deeper shape pass |
+
 ## Registry Entry Points (Legacy)
 - Main mod class and event subscriber: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`
 - Block registration: `old-1.12.2/src/main/java/jds/bibliocraft/BlockLoader.java` (`initBlocks`)

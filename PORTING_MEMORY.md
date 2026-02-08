@@ -40,6 +40,11 @@
 - Added iron-specific material overrides:
 - `models/block/lamp_iron.mtl` used by `lamp_iron.json`.
 - `models/block/lantern_iron.mtl` used by `lantern_iron.json`.
+- Added first-pass 1.20 voxel shape system:
+- New `src/main/java/art/arcane/bibliocraft/block/StaticShapeBlock.java`.
+- `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` now assigns explicit non-full shapes to most display blocks instead of plain full-cube `Block`.
+- Shape values are based on old 1.12 `getBoundingBox` plus current OBJ extents when needed.
+- Build validation after shape pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -56,6 +61,8 @@
 - `{"loader":"forge:obj","model":"bibliocraft:models/block/<file>.obj","flip_v":true}`
 - User workflow constraint:
 - Do not run `runClient` automatically; ask user when a visual smoke test is needed.
+- Shape/source reminder:
+- First-pass shape constants now live in `ModBlocks` (`SHAPE_*` fields) and should be kept in sync with `PORTING_MANIFEST.md` shape notes.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37
@@ -101,8 +108,8 @@
 - Legacy block render alignment relied on 1.12 `ExtendedBlockState` + `OBJModel.OBJState` transforms (angle/shift/vertical variants); static 1.20 OBJ JSONs can still appear offset until those transforms are ported.
 
 ## Immediate Next Steps (When Continuing)
-- Expand placeholder registry from blocks to remaining surfaces (standalone items, block entities, menus, sounds, enchantments, entity).
-- Ask user to run a visual smoke test and verify all 37 block models render/place correctly (especially known offset-risk blocks).
+- Ask user to run a visual smoke test focused on block hitbox alignment after the new shape pass.
+- Triage remaining misaligned models by block id and adjust either OBJ translation, visibility group selection, or shape constants.
 - Ask user to verify upgraded OBJ items (`atlas_book`, `compass`, `death_compass`, `maptool`, `painting_canvas`) render as 3D and use expected textures.
 - Fix any model/texture issues surfaced in client log (especially lighting and dynamic-state models).
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
