@@ -1,5 +1,21 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/case.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "case_inside": true,
+    "case_bottom": true,
+    "case_lid_glass": true,
+    "case_lid_latch": true,
+    "case_lid_wood": true,
+    "case_lid_glass_open": false,
+    "case_lid_latch_open": false,
+    "case_lid_wood_open": false,
+    "case_lid_glass_item": false,
+    "case_lid_latch_item": false,
+    "case_lid_wood_item": false
+  },
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  }
 }

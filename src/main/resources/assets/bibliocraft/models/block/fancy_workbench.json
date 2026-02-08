@@ -1,5 +1,21 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/fancyworkbench.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "bench": true,
+    "top": true,
+    "sides": true,
+    "book1": false,
+    "book2": false,
+    "book3": false,
+    "book4": false,
+    "book5": false,
+    "book6": false,
+    "book7": false,
+    "book8": false
+  },
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  }
 }

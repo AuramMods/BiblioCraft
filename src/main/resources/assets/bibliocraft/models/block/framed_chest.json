@@ -1,5 +1,19 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/framedchest.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "small_chest": true,
+    "small_lid": true,
+    "latch": true,
+    "small_lid_item": false,
+    "latch_item": false,
+    "large_chest_left": false,
+    "large_chest_right": false,
+    "large_lid_left": false,
+    "large_lid_right": false
+  },
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  }
 }

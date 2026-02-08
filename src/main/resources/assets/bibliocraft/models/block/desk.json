@@ -1,5 +1,34 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/desk.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "candle": true,
+    "pen": true,
+    "deskTopEndRight": true,
+    "deskTopEndLeft": true,
+    "legLeft": true,
+    "legRight": true,
+    "shelfSingle": true,
+    "deskTopRight": false,
+    "deskTopLeft": false,
+    "shelfRight": false,
+    "shelfLeft": false,
+    "backRight": false,
+    "backLeft": false,
+    "backBoth": false,
+    "bookOpen": false,
+    "lbook1": false,
+    "lbook2": false,
+    "lbook3": false,
+    "lbook4": false,
+    "rbook1": false,
+    "rbook2": false,
+    "rbook3": false,
+    "rbook4": false,
+    "carpet": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/desk_books"
+  }
 }

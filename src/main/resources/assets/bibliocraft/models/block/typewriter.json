@@ -1,5 +1,19 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/typewriter.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "base": true,
+    "slide": false,
+    "paperLine1": false,
+    "paperLine2": false,
+    "paperLine3": false,
+    "paperLine4": false,
+    "paperLine5": false,
+    "paperLine6": false,
+    "paperLine7": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/typewriter0"
+  }
 }

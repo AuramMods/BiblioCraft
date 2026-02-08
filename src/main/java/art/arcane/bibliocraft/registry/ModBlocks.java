@@ -73,7 +73,14 @@ public final class ModBlocks {
     }
 
     private static BlockBehaviour.Properties woodProps() {
-        return BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.0F, 3.0F);
+        // OBJ display blocks should not occlude neighboring faces like full cubes.
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.WOOD)
+                .strength(2.0F, 3.0F)
+                .noOcclusion()
+                .isSuffocating((state, level, pos) -> false)
+                .isViewBlocking((state, level, pos) -> false)
+                .isRedstoneConductor((state, level, pos) -> false);
     }
 
     private static BlockBehaviour.Properties lightProps() {

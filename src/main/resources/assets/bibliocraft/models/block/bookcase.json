@@ -1,5 +1,27 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/bookcase.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "bookcase": true,
+    "book1": false,
+    "book2": false,
+    "book3": false,
+    "book4": false,
+    "book5": false,
+    "book6": false,
+    "book7": false,
+    "book8": false,
+    "book9": false,
+    "book10": false,
+    "book11": false,
+    "book12": false,
+    "book13": false,
+    "book14": false,
+    "book15": false,
+    "book16": false
+  },
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  }
 }

@@ -53,6 +53,19 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Known parity gap:
 - Legacy 1.12 rendering used `ExtendedBlockState` + `OBJModel.OBJState` dynamic transforms and part selection.
 - Current 1.20 smoke baseline is static OBJ JSON, so some models may still appear offset or incomplete until dynamic behavior is ported.
+- Current visual-fix overlays on top of smoke baseline:
+- All 37 block model JSON files now include a particle texture entry derived from legacy MTL maps.
+- Current block placeholder code marks models as non-occluding (prevents full-cube face culling behavior).
+- Applied temporary mesh translations (`+1 x`, `+1 z`) to these OBJ files to counter whole-model offset in static render path:
+- `cookiejar.obj`, `dinnerplate.obj`, `discrack.obj`, `lamp.obj`, `lantern.obj`, `markerpole.obj`, `paneler.obj`, `potionshelf.obj`, `seat.obj`, `swordpedestal.obj`, `table.obj`, `typewriter.obj`.
+- Applied temporary mesh translations (`+1 z`) to:
+- `sign.obj`, `label.obj`.
+- Added static `visibility` maps (Forge model JSON `visibility`) to suppress overlapping orientation/inventory/frame variant groups for current no-BE/no-dynamic-render baseline.
+- First-pass visibility tuned files:
+- `lamp_gold`, `lamp_iron`, `case`, `clock`, `table`, `seat`, `typewriter`, `furniture_paneler`, `fancy_sign`, `framed_chest`, `painting_press`, `printing_press`, `desk`, `typesetting_table`, `fancy_workbench`, `cookie_jar`, `bookcase`, `bookcase_creative`, `map_frame`, `painting_frame_borderless`, `painting_frame_simple`, `painting_frame_flat`, `painting_frame_middle`, `painting_frame_fancy`.
+- Iron variant material overrides now explicit:
+- `lamp_iron` -> `models/block/lamp_iron.mtl`
+- `lantern_iron` -> `models/block/lantern_iron.mtl`
 
 ## Registry Entry Points (Legacy)
 - Main mod class and event subscriber: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`

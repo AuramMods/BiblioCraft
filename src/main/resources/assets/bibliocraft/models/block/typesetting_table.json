@@ -1,5 +1,20 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/typesettingtable.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "base": true,
+    "bookRed": false,
+    "bookBlue": false,
+    "bookEnchant": false,
+    "chase1": false,
+    "chase2": false,
+    "chase3": false,
+    "chase4": false,
+    "plateLeft": false,
+    "plateRight": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/typesettingtable"
+  }
 }

@@ -31,6 +31,13 @@
 - Initial custom-item 3D baseline restored for key legacy items:
 - `atlas_book`, `compass`, `death_compass`, `maptool`, and `painting_canvas` now use Forge OBJ item models.
 - Added `deathcompass.mtl` and `mtl_override` so death compass uses its own texture map.
+- Early block visual-correction pass applied:
+- Non-occluding placeholder block behavior enabled (removes full-cube face-culling assumptions).
+- Added explicit block particle texture mapping to all 37 OBJ block model JSON files.
+- Translated major negatively-authored OBJ meshes by `+1 x`/`+1 z` to reduce whole-model offset in static render path.
+- Added follow-up `+1 z` translation for `sign.obj` and `label.obj` (still north-shifted after first pass).
+- Added broad 1.12-informed OBJ `visibility` maps to many block models so static 1.20 baseline no longer renders all variant groups at once.
+- Added iron material overrides for lamp/lantern model parity (`lamp_iron.mtl`, `lantern_iron.mtl`).
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.

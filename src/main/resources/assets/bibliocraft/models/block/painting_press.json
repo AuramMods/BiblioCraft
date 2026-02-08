@@ -1,5 +1,15 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/paintpress.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "base": true,
+    "canvas": true,
+    "painting": false,
+    "lid": false,
+    "lid_item": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/canvas"
+  }
 }

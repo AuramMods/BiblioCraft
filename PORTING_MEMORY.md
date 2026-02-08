@@ -28,6 +28,18 @@
 - `atlas_book`, `compass`, `death_compass`, `maptool`, `painting_canvas` now point to OBJ models.
 - Added `models/item/deathcompass.mtl` + `mtl_override` for death-compass texture mapping.
 - Re-validated build after model changes with `./gradlew processResources compileJava`.
+- Block-model correction pass for early visual parity:
+- Added non-occluding placeholder block properties (`noOcclusion`, non-suffocating, non-view-blocking, non-redstone-conductor) in `ModBlocks.woodProps()`.
+- Added explicit `"textures": {"particle": ...}` to all 37 block OBJ model JSON files, using first MTL `map_Kd` texture as particle source.
+- Translated negatively-authored OBJ meshes to reduce whole-model offset:
+- `+1 x` and `+1 z`: `cookiejar.obj`, `dinnerplate.obj`, `discrack.obj`, `lamp.obj`, `lantern.obj`, `markerpole.obj`, `paneler.obj`, `potionshelf.obj`, `seat.obj`, `swordpedestal.obj`, `table.obj`, `typewriter.obj`.
+- `+1 z`: `sign.obj`, `label.obj`.
+- Added major static visibility maps to emulate 1.12 default OBJ part selection and prevent overlapping variant geometry.
+- Updated visibility on:
+- `lamp_gold`, `lamp_iron`, `case`, `clock`, `table`, `seat`, `typewriter`, `furniture_paneler`, `fancy_sign`, `framed_chest`, `painting_press`, `printing_press`, `desk`, `typesetting_table`, `fancy_workbench`, `cookie_jar`, `bookcase`, `bookcase_creative`, `map_frame`, and all 5 `painting_frame_*` models.
+- Added iron-specific material overrides:
+- `models/block/lamp_iron.mtl` used by `lamp_iron.json`.
+- `models/block/lantern_iron.mtl` used by `lantern_iron.json`.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.

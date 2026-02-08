@@ -1,5 +1,20 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/clock.obj",
-  "flip_v": true
+  "flip_v": true,
+  "visibility": {
+    "face": true,
+    "smallClock": true,
+    "smallHardware": true,
+    "itemhardware": false,
+    "hour": false,
+    "second": false,
+    "smallPendulum": false,
+    "largeClock": false,
+    "largeHardware": false,
+    "largePendulum": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/clock"
+  }
 }

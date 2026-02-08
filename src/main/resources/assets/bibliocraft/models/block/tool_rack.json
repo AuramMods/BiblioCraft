@@ -1,5 +1,8 @@
 {
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/toolrack.obj",
-  "flip_v": true
+  "flip_v": true,
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  }
 }
