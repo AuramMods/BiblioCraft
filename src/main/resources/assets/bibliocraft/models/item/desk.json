@@ -1,3 +1,156 @@
 {
-  "parent": "bibliocraft:block/desk"
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/desk.obj",
+  "flip_v": true,
+  "visibility": {
+    "candle": true,
+    "pen": true,
+    "deskTopEndRight": true,
+    "deskTopEndLeft": true,
+    "legLeft": true,
+    "legRight": true,
+    "shelfSingle": true,
+    "deskTopRight": false,
+    "deskTopLeft": false,
+    "shelfRight": false,
+    "shelfLeft": false,
+    "backRight": false,
+    "backLeft": false,
+    "backBoth": false,
+    "bookOpen": false,
+    "lbook1": false,
+    "lbook2": false,
+    "lbook3": false,
+    "lbook4": false,
+    "rbook1": false,
+    "rbook2": false,
+    "rbook3": false,
+    "rbook4": false,
+    "carpet": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/desk_books"
+  },
+  "automatic_culling": false,
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  }
 }

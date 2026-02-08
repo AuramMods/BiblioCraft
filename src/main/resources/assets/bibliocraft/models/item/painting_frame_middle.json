@@ -1,3 +1,216 @@
 {
-  "parent": "bibliocraft:block/painting_frame_middle"
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/paintingframe.obj",
+  "flip_v": true,
+  "visibility": {
+    "middleBLcorner": false,
+    "middleTRcorner": false,
+    "woodinner": false,
+    "simpleBL45": false,
+    "middleLB45": false,
+    "fancyBL45": false,
+    "fancyTL45": false,
+    "simpleT45": false,
+    "middleL": false,
+    "fancyB45": false,
+    "fancyR": false,
+    "simpleTR45": false,
+    "simpleR45": false,
+    "flatBR45": false,
+    "canvas": true,
+    "flatBLcorner": false,
+    "middleL45": true,
+    "middleBR45": false,
+    "fancyT": false,
+    "middleTLcorner": false,
+    "middleB45": true,
+    "middleR45": true,
+    "flatL": false,
+    "fancyRT45": false,
+    "fancyL45": false,
+    "middleT": false,
+    "fancyTRcorner": false,
+    "back": true,
+    "simpleR": false,
+    "flatLB45": false,
+    "flatB45": false,
+    "middleTL45": false,
+    "flatTL45": false,
+    "middleTR45": false,
+    "middleBRcorner": false,
+    "simpleLT45": false,
+    "middleB": false,
+    "flatLT45": false,
+    "flatR": false,
+    "fancyRB45": false,
+    "fancyLT45": false,
+    "fancyT45": false,
+    "simpleTRcorner": false,
+    "flatBRcorner": false,
+    "flatL45": false,
+    "flatBL45": false,
+    "flatRT45": false,
+    "middleT45": true,
+    "flatTR45": false,
+    "simpleBRcorner": false,
+    "flatTRcorner": false,
+    "fancyTLcorner": false,
+    "middleR": false,
+    "middleRB45": false,
+    "flatT45": false,
+    "simpleLB45": false,
+    "simpleB45": false,
+    "middleRT45": false,
+    "flatB": false,
+    "fancyL": false,
+    "fancyTR45": false,
+    "simpleT": false,
+    "simpleBLcorner": false,
+    "flatTLcorner": false,
+    "simpleTLcorner": false,
+    "simpleBR45": false,
+    "flatR45": false,
+    "fancyR45": false,
+    "fancyBRcorner": false,
+    "simpleRT45": false,
+    "simpleRB45": false,
+    "middleLT45": false,
+    "middleBL45": false,
+    "flatRB45": false,
+    "fancyB": false,
+    "fancyBR45": false,
+    "simpleTL45": false,
+    "flatT": false,
+    "largeCanvas": false,
+    "fancyBLcorner": false,
+    "simpleL": false,
+    "simpleL45": false,
+    "simpleB": false,
+    "fancyLB45": false
+  },
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  },
+  "automatic_culling": false,
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  }
 }

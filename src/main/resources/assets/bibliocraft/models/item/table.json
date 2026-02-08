@@ -1,3 +1,162 @@
 {
-  "parent": "bibliocraft:block/table"
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/table.obj",
+  "flip_v": true,
+  "visibility": {
+    "monoleg": true,
+    "tableBevel01": true,
+    "tableBevel02": true,
+    "tableBevel03": true,
+    "tableBevel04": true,
+    "tableSquare01": false,
+    "tableSquare02": false,
+    "tableSquare03": false,
+    "tableSquare04": false,
+    "leg01": false,
+    "leg02": false,
+    "leg03": false,
+    "leg04": false,
+    "carpet": false,
+    "bevCloth001": false,
+    "bevCloth002": false,
+    "bevCloth003": false,
+    "bevCloth004": false,
+    "squareCloth01": false,
+    "squareCloth002": false,
+    "squareCloth003": false,
+    "squareCloth004": false,
+    "squareClothSide001a": false,
+    "squareClothSide001b": false,
+    "squareClothSide002a": false,
+    "squareClothSide002b": false,
+    "squareClothSide003a": false,
+    "squareClothSide003b": false,
+    "squareClothSide004a": false,
+    "squareClothSide004b": false
+  },
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  },
+  "automatic_culling": false,
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  }
 }

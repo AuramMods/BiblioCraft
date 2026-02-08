@@ -45,6 +45,11 @@
 - `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` now assigns explicit non-full shapes to most display blocks instead of plain full-cube `Block`.
 - Shape values are based on old 1.12 `getBoundingBox` plus current OBJ extents when needed.
 - Build validation after shape pass: `./gradlew --no-daemon compileJava` succeeded.
+- Added item-model 3D parity pass:
+- Replaced all block item JSONs (`models/item/<block_id>.json`) from `parent: bibliocraft:block/...` to direct `forge:obj` model definitions matching each block OBJ config.
+- Added explicit shared `display` transforms and `automatic_culling=false` across OBJ-backed item models to improve in-hand and GUI behavior.
+- Converted `seatback1..seatback5` to 3D OBJ item models using `models/block/seat.obj` with per-item visibility part sets.
+- Build validation after item pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -63,6 +68,8 @@
 - Do not run `runClient` automatically; ask user when a visual smoke test is needed.
 - Shape/source reminder:
 - First-pass shape constants now live in `ModBlocks` (`SHAPE_*` fields) and should be kept in sync with `PORTING_MANIFEST.md` shape notes.
+- Item-model reminder:
+- Block items now source 3D geometry directly from OBJ in their item model JSONs; avoid reverting to parent-linked block item JSONs unless a specific regression requires it.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

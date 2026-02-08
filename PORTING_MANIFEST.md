@@ -50,6 +50,15 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `death_compass` -> `models/item/compass.obj` + `mtl_override=models/item/deathcompass.mtl`
 - `maptool` -> `models/item/maptool.obj`
 - `painting_canvas` -> `models/item/canvas.obj`
+- Item 3D parity update:
+- All 37 block item model JSONs now use direct `forge:obj` configs instead of `parent: bibliocraft:block/...`.
+- OBJ-backed item models now include explicit `display` transforms and `automatic_culling=false`.
+- `seatback1..seatback5` are now OBJ item models based on `models/block/seat.obj` visibility groups:
+- `seatback1`: `backSupport`, `backCloth`
+- `seatback2`: `backWood2`, `backCloth2`
+- `seatback3`: `backWood2`, `backCloth2`, `backWood2Top`
+- `seatback4`: `backCloth003`, `backsupport2`
+- `seatback5`: `backCloth2`, `backWood2`, `fancyBackWood`
 - Known parity gap:
 - Legacy 1.12 rendering used `ExtendedBlockState` + `OBJModel.OBJState` dynamic transforms and part selection.
 - Current 1.20 smoke baseline is static OBJ JSON, so some models may still appear offset or incomplete until dynamic behavior is ported.

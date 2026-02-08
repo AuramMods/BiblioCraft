@@ -43,6 +43,11 @@
 - Replaced full-cube placeholder registration for most display blocks with explicit voxel shapes derived from old 1.12 bounding boxes and current OBJ extents.
 - `./gradlew compileJava` passes after shape wiring.
 - `runClient` is still manual only (user-run visual checks), no automatic launch.
+- Block/custom-item in-hand + inventory 3D pass:
+- All 37 block item model JSONs now use direct Forge OBJ loader definitions (copied from block OBJ model config), not `parent` links to block models.
+- Added explicit `display` transforms and `automatic_culling=false` to all OBJ-backed item models for more consistent first/third-person and GUI rendering.
+- Converted `seatback1..seatback5` from flat generated sprites to OBJ-based item models using `seat.obj` part visibility maps.
+- `./gradlew processResources compileJava` passes after item-model rewiring.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
