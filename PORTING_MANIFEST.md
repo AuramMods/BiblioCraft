@@ -20,6 +20,12 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `textures/**`
 - `models/block/*.obj` + `models/block/*.mtl`
 - `models/item/*.obj` + `models/item/*.mtl`
+- `sounds.json`
+- `sounds/*.ogg`
+- Sound baseline migration (2026-02-09):
+- `src/main/resources/assets/bibliocraft/sounds.json` copied from legacy.
+- `src/main/resources/assets/bibliocraft/sounds/*.ogg` copied from legacy (39 files).
+- `src/main/java/art/arcane/bibliocraft/registry/ModSounds.java` currently registers 17 keys matching `sounds.json` one-to-one.
 - Block model loader strategy:
 - All 37 block model JSON files now use Forge OBJ loader with `flip_v: true`.
 - Path pattern:
@@ -177,6 +183,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Entity types: 1 (`seat_entity`)
 - Enchantments: 2 (`deathcompassench`, `readingench`)
 - Sound events: 17 (from legacy `sounds.json` keys)
+- Sound assets: 1 `sounds.json` + 39 `.ogg` files migrated into active resources
 - Packet registrations (placeholder): 33 (23 serverbound + 10 clientbound)
 - Recipe placeholders: 1 serializer + 1 type (`enchantedatlas`)
 

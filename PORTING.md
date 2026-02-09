@@ -6,7 +6,7 @@
 - Use `PORTING_MANIFEST.md` as the source index for old 1.12.2 locations.
 - Keep this file updated whenever phase scope changes.
 
-## Current Snapshot (2026-02-08)
+## Current Snapshot (2026-02-09)
 - Old codebase scan completed across `old-1.12.2`.
 - All primary registries mapped: blocks, items, block-items, tile entities, enchantments, entity, networking, GUI containers, sounds, recipes, and add-on modules.
 - No fluid registry found in old source.
@@ -113,6 +113,10 @@
 - Wired `atlas_book`, `slotted_book`, and `tester_item` to open their placeholder menus (`atlas`, `slotted_book`, `tester`) on main-hand use.
 - Preserved stack-size parity baseline for menu-heavy books (`atlas_book`, `slotted_book` are single-stack).
 - `./gradlew --no-daemon compileJava` passes after item-menu wiring.
+- Sound asset migration breadth pass completed:
+- Copied legacy `sounds.json` and 39 `.ogg` files into active resources under `assets/bibliocraft/`.
+- Verified all 17 `ModSounds` `SoundEvent` ids match `sounds.json` keys one-to-one.
+- `./gradlew --no-daemon processResources compileJava` passes after sound asset import.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -174,7 +178,7 @@
 - [x] Restore first-pass OBJ item models for legacy custom-rendered tools (`atlas_book`, `compass`, `death_compass`, `maptool`, `painting_canvas`)
 - [ ] Convert or replace OBJ-driven dynamic model system incrementally
 - [ ] Recreate legacy dynamic transform/state behavior (old `ExtendedBlockState` + custom baked model logic) for off-axis/shifted models
-- [ ] Migrate sounds (`sounds.json` + `SoundEvent` registry).
+- [x] Migrate sounds (`sounds.json` + `SoundEvent` registry).
 - [ ] Move legacy recipes into data pack format where needed.
 
 ## Phase 6 - Feature Depth Passes (Iterative)

@@ -2,7 +2,7 @@
 
 **FIRST STEP EVERY SESSION: read this file first, then `PORTING.md`, then `PORTING_MANIFEST.md` before touching code.**
 
-## Session Snapshot (2026-02-08)
+## Session Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).
 - Core registry flow located and mapped.
 - Initial port planning and manifest docs created.
@@ -135,6 +135,11 @@
 - Main-hand right-click now opens placeholder menus for these items via `NetworkHooks.openScreen`.
 - `atlas_book` and `slotted_book` are explicitly `stacksTo(1)` in placeholder baseline.
 - Build validation after item-menu pass: `./gradlew --no-daemon compileJava` succeeded.
+- Added sound-asset parity baseline:
+- Copied `old-1.12.2` `sounds.json` into `src/main/resources/assets/bibliocraft/sounds.json`.
+- Copied all legacy `sounds/*.ogg` files into `src/main/resources/assets/bibliocraft/sounds/` (39 files).
+- Verified `ModSounds` registry keys match all 17 `sounds.json` entries one-to-one.
+- Build validation after sound pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -173,6 +178,8 @@
 - Block items now source 3D geometry directly from OBJ in their item model JSONs; avoid reverting to parent-linked block item JSONs unless a specific regression requires it.
 - OBJ item-part reminder:
 - Some OBJ files include both block and item meshes (`*_item`). For item models, prefer item groups (`*_item`) over block/open groups when both exist.
+- Sound reminder:
+- Active sounds are now migrated in `src/main/resources/assets/bibliocraft/sounds.json` + `src/main/resources/assets/bibliocraft/sounds/*.ogg`; keep `ModSounds` ids in sync when adding or renaming events.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37
@@ -196,7 +203,9 @@
 - Placeholder recipe registrations: 1 serializer + 1 recipe type (`enchantedatlas`).
 - Baseline visual asset pass completed:
 - 37 block models now OBJ-backed (legacy meshes + textures)
-- 68 item models now mapped (37 block-item parents + 31 standalone texture-backed models)
+- 68 item models now mapped (37 block-item OBJ-backed + 31 standalone texture-backed models)
+- Sound asset baseline completed:
+- 1 `sounds.json` + 39 `.ogg` files migrated to active resources
 
 ## Important Architecture Notes
 - Many blocks inherit custom base classes (`BiblioBlock`, `BiblioWoodBlock`, `BiblioColorBlock`, `BiblioLightBlock`) and depend on:
@@ -224,6 +233,8 @@
 - Continue minimal block class upgrades beyond placeholder BE hookup (state properties, interaction hooks, and menu open paths).
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
 - Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
+- Next breadth target: start 1.20 config scaffold (`ForgeConfigSpec`) for legacy enable flags and key behavior toggles.
+- Next data target: begin representative recipe datapack migration (at least one machine/atlas recipe family) to reduce custom serializer dependence.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
 
