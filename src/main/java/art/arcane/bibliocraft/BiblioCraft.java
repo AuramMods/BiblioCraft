@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft;
 
 import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.network.ModNetwork;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
@@ -39,8 +40,16 @@ public class BiblioCraft {
                     .title(Component.translatable("itemGroup.bibliocraft.bibliocraft_tab"))
                     .icon(() -> new ItemStack(ModBlocks.BOOKCASE.get()))
                     .displayItems((params, output) -> {
-                        ModBlocks.getTabItems().forEach(item -> output.accept(item.get()));
-                        ModItems.getTabItems().forEach(item -> output.accept(item.get()));
+                        ModBlocks.getTabItems().forEach(item -> {
+                            if (BiblioFeatureToggles.isBlockItemEnabled(item.getId())) {
+                                output.accept(item.get());
+                            }
+                        });
+                        ModItems.getTabItems().forEach(item -> {
+                            if (BiblioFeatureToggles.isItemEnabled(item.getId())) {
+                                output.accept(item.get());
+                            }
+                        });
                     })
                     .build()
     );

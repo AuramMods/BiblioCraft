@@ -153,6 +153,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/config/BiblioConfig.java`
 - Registered from `src/main/java/art/arcane/bibliocraft/BiblioCraft.java` as `ModConfig.Type.COMMON`.
 - Current config categories: `blocks_enabled`, `recipes`, `rendering`, `gameplay`, `keywords`.
+- Config gate-consumption layer:
+- `src/main/java/art/arcane/bibliocraft/config/BiblioFeatureToggles.java`
+- Current runtime consumers:
+- `src/main/java/art/arcane/bibliocraft/BiblioCraft.java` (creative tab filtering by toggle)
+- `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java` (block menu open toggle checks)
+- `src/main/java/art/arcane/bibliocraft/item/MenuOpeningItem.java` (item menu open toggle checks)
+- `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java` (seat interaction toggle check)
 - Placeholder runtime classes:
 - `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java`

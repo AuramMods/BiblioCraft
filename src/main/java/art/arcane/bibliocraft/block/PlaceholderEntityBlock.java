@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.block;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.registry.ModMenus;
 import net.minecraft.core.BlockPos;
@@ -60,6 +61,9 @@ public class PlaceholderEntityBlock extends StaticShapeBlock implements EntityBl
 
         ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(state.getBlock());
         if (blockId == null) {
+            return InteractionResult.PASS;
+        }
+        if (!BiblioFeatureToggles.isBlockEnabled(blockId)) {
             return InteractionResult.PASS;
         }
 

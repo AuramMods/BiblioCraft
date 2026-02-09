@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.event;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.entity.SeatEntity;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModEntities;
@@ -97,6 +98,10 @@ public final class CommonGameplayEvents {
             return;
         }
         if (!level.getBlockState(event.getPos()).is(ModBlocks.SEAT.get())) {
+            return;
+        }
+        ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(level.getBlockState(event.getPos()).getBlock());
+        if (!BiblioFeatureToggles.isBlockEnabled(blockId)) {
             return;
         }
 

@@ -146,6 +146,14 @@
 - Includes breadth placeholders for legacy `enable*` booleans and key numeric/string settings.
 - Registered common config from mod bootstrap in `BiblioCraft` via `ModLoadingContext.registerConfig`.
 - Build validation after config pass: `./gradlew --no-daemon compileJava` succeeded.
+- Added config toggle runtime-consumption baseline:
+- Added `src/main/java/art/arcane/bibliocraft/config/BiblioFeatureToggles.java` with old 1.12 gate parity for all registered block ids and standalone item ids.
+- Wired gate checks into:
+- `src/main/java/art/arcane/bibliocraft/BiblioCraft.java` creative tab output filtering.
+- `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java` block menu-open path.
+- `src/main/java/art/arcane/bibliocraft/item/MenuOpeningItem.java` item menu-open path.
+- `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java` seat interaction hook.
+- Build validation after config-consumption pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -188,6 +196,8 @@
 - Active sounds are now migrated in `src/main/resources/assets/bibliocraft/sounds.json` + `src/main/resources/assets/bibliocraft/sounds/*.ogg`; keep `ModSounds` ids in sync when adding or renaming events.
 - Config reminder:
 - Current 1.20 config scaffold is in `src/main/java/art/arcane/bibliocraft/config/BiblioConfig.java`; wire future feature gating to this class instead of adding ad-hoc static booleans.
+- Toggle mapping reminder:
+- `BiblioFeatureToggles` is now the source of truth for legacy `enable*` parity checks in runtime behavior; keep mappings aligned with `old-1.12.2` `BlockLoader`/`ItemLoader`.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37
@@ -244,7 +254,7 @@
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
 - Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
 - Next data target: begin representative recipe datapack migration (at least one machine/atlas recipe family) to reduce custom serializer dependence.
-- Next breadth target: start consuming config toggles in registry/feature wiring (first pass: map `enable*` toggles to registration visibility decisions or runtime behavior flags).
+- Next breadth target: extend config-gate consumption to remaining runtime systems (packet/event paths, drops/placement restrictions, and recipe visibility) where old 1.12 registration toggles implied absence.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
 

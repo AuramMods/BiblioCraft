@@ -122,6 +122,14 @@
 - Registered common config in mod bootstrap (`ModLoadingContext.registerConfig`).
 - This is a breadth scaffold only; feature-level registry gating/behavior checks are still pending.
 - `./gradlew --no-daemon compileJava` passes after config wiring.
+- Config toggle runtime-consumption pass completed:
+- Added `BiblioFeatureToggles` as the legacy gate mapping layer (`ResourceLocation` -> config boolean supplier).
+- Applied block/item gate checks to runtime placeholder behavior:
+- Creative tab output now filters block-items and standalone items by legacy toggle parity.
+- Block interaction menu opens (`PlaceholderEntityBlock#use`) now respect block feature toggles.
+- Item-held menu opens (`MenuOpeningItem#use`) now respect item feature toggles.
+- Seat interaction hook (`CommonGameplayEvents#onSeatInteract`) now respects seat toggle parity.
+- `./gradlew --no-daemon compileJava` passes after config-consumption wiring.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -160,6 +168,7 @@
 - [x] Mount-state placeholder coverage for legacy mounted blocks (lamp/lantern/case/fancy_sign/map_frame)
 - [ ] Typewriter/Sword pedestal color variants
 - [ ] Recreate creative tab exposure in new tab system.
+- [x] Add config-aware creative tab filtering for block-items and standalone items.
 
 ## Phase 3 - Block Entities + Menus Breadth
 - [x] Register all legacy block entities in 1.20.1.

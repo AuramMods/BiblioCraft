@@ -1,8 +1,10 @@
 package art.arcane.bibliocraft.item;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 
@@ -31,6 +34,11 @@ public class MenuOpeningItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack held = player.getItemInHand(hand);
         if (hand != InteractionHand.MAIN_HAND) {
+            return InteractionResultHolder.pass(held);
+        }
+
+        ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(held.getItem());
+        if (!BiblioFeatureToggles.isItemEnabled(itemId)) {
             return InteractionResultHolder.pass(held);
         }
 
