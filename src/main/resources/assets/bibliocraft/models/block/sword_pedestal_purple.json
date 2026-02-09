@@ -1,0 +1,9 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/swordpedestal.obj",
+  "flip_v": true,
+  "mtl_override": "bibliocraft:models/block/sword_pedestal_purple.mtl",
+  "textures": {
+    "particle": "minecraft:block/purple_wool"
+  }
+}

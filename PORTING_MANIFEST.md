@@ -35,6 +35,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Blockstate strategy (current baseline):
 - Most blockstate JSON files use `facing` variants (`north/east/south/west`) with Y rotations.
 - Mount-aware blocks use `face + facing` variants (`face=floor|wall|ceiling` or `face=floor|wall`) with Y rotations.
+- Color-aware placeholders use `facing + color` variants (`color=white..black`) with Y rotations.
 - Path pattern:
 - `src/main/resources/assets/bibliocraft/blockstates/<block_id>.json`
 - -> model `bibliocraft:block/<block_id>` with optional `y` transform.
@@ -101,12 +102,18 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - floor: `sign` + `front` + `feetBottom`
 - ceiling: `sign` + `front` + `feetTop`
 - `map_frame` now uses `face + facing` blockstate variants and mount-specific shapes.
+- Typewriter/sword color-state parity updates now in baseline:
+- `typewriter` and `sword_pedestal` now use `facing + color` blockstates (`color=white..black`).
+- Added 16 color-specific block model JSON + MTL overrides per block:
+- `models/block/typewriter_<color>.json` + `typewriter_<color>.mtl` (`typewriter0..15` texture mapping).
+- `models/block/sword_pedestal_<color>.json` + `sword_pedestal_<color>.mtl` (`minecraft:block/<color>_wool` color material mapping).
 
 ## Current 1.20 Voxel Shape Snapshot (Pass 1)
 - Source of truth: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` (`SHAPE_*` constants + registrations).
 - Shape block classes:
 - `src/main/java/art/arcane/bibliocraft/block/StaticShapeBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java` (adds facing-based shape rotation)
+- `src/main/java/art/arcane/bibliocraft/block/ColorFacingEntityBlock.java` (adds `facing + color` state for colorized placeholders)
 - `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java` (adds `face + facing` mount-state shape rotation)
 - `src/main/java/art/arcane/bibliocraft/block/FloorWallFacingEntityBlock.java` (adds floor/wall mount-state shape rotation)
 - Intent: remove full-cube placeholder behavior so model hitboxes are closer to legacy.
@@ -165,6 +172,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/recipe/EnchantedAtlasRecipe.java` (recipe availability toggle checks)
 - Placeholder runtime classes:
 - `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java`
+- `src/main/java/art/arcane/bibliocraft/block/ColorFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/FloorWallFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java`
@@ -305,7 +313,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
-- color-variant lamp/lantern/typewriter/swordpedestal flows are currently represented by placeholder recolor recipes because runtime color variants are not yet split into dedicated ids/states.
+- color-variant recolor recipes are still placeholder datapack outputs; runtime color-state now exists for `typewriter` + `sword_pedestal`, while `lamp_*` + `lantern_*` are still pending color-state depth support.
 - block loot-table files are currently generic self-drop placeholders; block-entity/state-specific drop parity remains deferred.
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.

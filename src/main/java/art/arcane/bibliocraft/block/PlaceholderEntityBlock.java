@@ -13,6 +13,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -67,6 +70,11 @@ public class PlaceholderEntityBlock extends StaticShapeBlock implements EntityBl
             return InteractionResult.PASS;
         }
 
+        InteractionResult dyeResult = tryApplyDye(state, level, pos, player, hand);
+        if (dyeResult.consumesAction()) {
+            return dyeResult;
+        }
+
         MenuType<PlaceholderMenu> menuType = ModMenus.getMenuForBlock(blockId);
         if (menuType == null) {
             return InteractionResult.PASS;
@@ -85,5 +93,38 @@ public class PlaceholderEntityBlock extends StaticShapeBlock implements EntityBl
         }
 
         return InteractionResult.CONSUME;
+    }
+
+    private InteractionResult tryApplyDye(
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            Player player,
+            InteractionHand hand
+    ) {
+        if (!state.hasProperty(ColorFacingEntityBlock.COLOR)) {
+            return InteractionResult.PASS;
+        }
+
+        ItemStack held = player.getItemInHand(hand);
+        if (!(held.getItem() instanceof DyeItem dyeItem)) {
+            return InteractionResult.PASS;
+        }
+
+        DyeColor currentColor = state.getValue(ColorFacingEntityBlock.COLOR);
+        DyeColor targetColor = dyeItem.getDyeColor();
+        if (currentColor == targetColor) {
+            return InteractionResult.CONSUME;
+        }
+
+        if (!level.isClientSide()) {
+            level.setBlock(pos, state.setValue(ColorFacingEntityBlock.COLOR, targetColor), 3);
+            level.levelEvent(player, 3003, pos, targetColor.getId());
+            if (!player.getAbilities().instabuild) {
+                held.shrink(1);
+            }
+        }
+
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 }

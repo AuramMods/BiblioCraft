@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.block.ColorFacingEntityBlock;
 import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
@@ -118,9 +119,9 @@ public final class ModBlocks {
     public static final RegistryObject<Block> PAINTING_PRESS =
             register("painting_press", () -> shapedWoodEntity(SHAPE_PAINTING_PRESS, "painting_press"));
     public static final RegistryObject<Block> TYPEWRITER =
-            register("typewriter", () -> shapedWoodEntity(SHAPE_TYPEWRITER, "typewriter"));
+            register("typewriter", () -> colorShapedWoodEntity(SHAPE_TYPEWRITER, "typewriter"));
     public static final RegistryObject<Block> SWORD_PEDESTAL =
-            register("sword_pedestal", () -> shapedWoodEntity(SHAPE_SWORD_PEDESTAL, "sword_pedestal"));
+            register("sword_pedestal", () -> colorShapedWoodEntity(SHAPE_SWORD_PEDESTAL, "sword_pedestal"));
     public static final RegistryObject<Block> ARMOR_STAND =
             register("armor_stand", () -> shapedWoodEntity(SHAPE_ARMOR_STAND, "armor_stand"));
     public static final RegistryObject<Block> BELL =
@@ -151,6 +152,10 @@ public final class ModBlocks {
 
     private static Block shapedWoodEntity(VoxelShape shape, String blockEntityPath) {
         return new HorizontalFacingEntityBlock(woodProps(), shape, blockEntityPath);
+    }
+
+    private static Block colorShapedWoodEntity(VoxelShape shape, String blockEntityPath) {
+        return new ColorFacingEntityBlock(woodProps(), shape, blockEntityPath);
     }
 
     private static Block mountedLightEntity(

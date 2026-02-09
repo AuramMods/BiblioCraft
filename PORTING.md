@@ -182,6 +182,11 @@
 - `monocle` and `tinted_glasses` now map to `biblio_glasses` output in current collapsed-variant runtime.
 - Current registry-ID recipe output coverage is now `65 / 68` IDs (remaining intentionally non-craftable: `bookcase_creative`, `biblio_creative_lock`, `tester_item`).
 - `./gradlew --no-daemon processResources compileJava` passes after procedural/variant recipe pass.
+- Typewriter/Sword pedestal color-state parity pass completed:
+- Added `ColorFacingEntityBlock` (`facing + color`) and switched `typewriter` + `sword_pedestal` registrations to this block class.
+- Added in-world dye application in `PlaceholderEntityBlock#use` for color-capable placeholders.
+- Added 16-color OBJ material/model variants for both blocks plus `facing + color` blockstate variant maps.
+- `./gradlew --no-daemon processResources compileJava` passes after color-state/model pass.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -218,7 +223,7 @@
 - [ ] Color variants (16 colors)
 - [x] Lamp/Lantern metal variants (gold/iron)
 - [x] Mount-state placeholder coverage for legacy mounted blocks (lamp/lantern/case/fancy_sign/map_frame)
-- [ ] Typewriter/Sword pedestal color variants
+- [x] Typewriter/Sword pedestal color variants
 - [ ] Recreate creative tab exposure in new tab system.
 - [x] Add config-aware creative tab filtering for block-items and standalone items.
 
@@ -269,6 +274,11 @@
 - [ ] Decide scope for BiblioWoods add-ons in 1.20.1.
 - [ ] Re-implement framed texture variant support or replace with modern data-driven alternative.
 - [ ] Add integration tests for optional-mod behavior.
+
+## Near-Term Lookahead
+- Implement lamp/lantern 16-color state strategy (matching existing candle/light texture families) and wire dye application through the same `ColorFacingEntityBlock` path.
+- Add item/block-entity persistence for colorized blocks (drop/pick/place parity) so recolor state survives break/re-place.
+- Convert placeholder recolor datapack recipes (`*_recolor`) into true state-aware outputs once item-state strategy for color variants is finalized.
 
 ## Definition of Done (Port Breadth Milestone)
 - [ ] Every legacy registry ID has a 1.20.1 registered counterpart.

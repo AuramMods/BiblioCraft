@@ -214,6 +214,12 @@
 - recipe output ids now cover `65 / 68` registered ids.
 - intentionally still non-craftable: `bookcase_creative`, `biblio_creative_lock`, `tester_item`.
 - Build validation after procedural/variant recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added typewriter/sword-pedestal color-state parity baseline:
+- Added `src/main/java/art/arcane/bibliocraft/block/ColorFacingEntityBlock.java` (`facing + color` state).
+- Switched `typewriter` and `sword_pedestal` registrations to color-capable placeholders.
+- Added in-world dye application in `PlaceholderEntityBlock#use` for blocks exposing color state.
+- Added 16 color-specific OBJ model/MTL variants per block and rewrote blockstates to `facing + color` variant maps.
+- Build validation after color-state pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -239,6 +245,9 @@
 - `MountedFacingEntityBlock` (`face=floor|wall|ceiling`, all faces rotated by facing),
 - or `FloorWallFacingEntityBlock` (`face=floor|wall`, no ceiling placement).
 - Their blockstate JSON must include `face` + `facing` keys, not `facing` alone.
+- Color-state reminder:
+- Color-capable placeholders now use `ColorFacingEntityBlock` (`facing + color`) and require blockstate JSON keys that include both properties.
+- Current color-state coverage is intentionally limited to `typewriter` and `sword_pedestal` until lamp/lantern color-state depth pass lands.
 - Event-hook reminder:
 - Legacy FORGE event surface now has placeholders in `event/CommonGameplayEvents` and `event/ClientRenderEvents`; extend these classes instead of scattering ad-hoc subscribers.
 - Seat-behavior reminder:
@@ -267,13 +276,18 @@
 - Block recipe consolidation reminder:
 - Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
 - Color-variant recipe reminder:
-- Recolor recipes for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal` are currently placeholder no-op conversions because 1.20 runtime still collapses color variants into single ids; replace with true variant outputs when color-state strategy lands.
+- Recolor recipes are still placeholder no-op conversions in datapack outputs; `typewriter` and `sword_pedestal` now have runtime color-state + dye interaction, while lamp/lantern remain collapsed until their color-state pass.
 - Obtainability reminder:
 - Three registered ids are intentionally still non-craftable in datapack outputs for now: `bookcase_creative` (creative variant), `biblio_creative_lock` (creative/admin surface), and `tester_item` (debug surface).
 - Loot-table reminder:
 - Block loot tables are currently broad self-drop placeholders; revisit block-entity-heavy blocks (`desk`, `printing_press`, `fancy_workbench`, etc.) for parity drops/NBT handling in depth passes.
 - Atlas-enchant reminder:
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
+
+## Near-Term Lookahead
+- Extend `ColorFacingEntityBlock` coverage to `lamp_*` and `lantern_*` so existing 16-color texture sets are state-driven instead of static texture-0.
+- Add color persistence on break/re-place (item/block-entity handoff) for colorized blocks.
+- Replace placeholder recolor recipe outputs with state-aware recolor behavior once item-state strategy is finalized.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37
