@@ -150,6 +150,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/blockentity/PlaceholderBlockEntity.java`
 - `src/main/java/art/arcane/bibliocraft/menu/PlaceholderMenu.java`
+- `src/main/java/art/arcane/bibliocraft/item/MenuOpeningItem.java`
 - `src/main/java/art/arcane/bibliocraft/entity/SeatEntity.java`
 - `src/main/java/art/arcane/bibliocraft/enchantment/PlaceholderEnchantment.java`
 - `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java`
@@ -214,6 +215,9 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Placeholder menu class:
 - `src/main/java/art/arcane/bibliocraft/menu/PlaceholderMenu.java`
 - now requires a real registered `MenuType` (no null placeholder type).
+- Placeholder menu-opening item class:
+- `src/main/java/art/arcane/bibliocraft/item/MenuOpeningItem.java`
+- opens mapped placeholder menus from main-hand right-click.
 - Menu registration:
 - `src/main/java/art/arcane/bibliocraft/registry/ModMenus.java`
 - uses holder-backed registration so client menu factory can construct typed placeholder menus.
@@ -223,6 +227,11 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
 - `bookcase`, `bookcase_creative`, `shelf`, `armor_stand`, `potion_shelf`, `tool_rack`, `case`, `label`, `desk`, `table`, `cookie_jar`, `dinner_plate`, `disc_rack`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `furniture_paneler`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- Item-held placeholder menu mapping:
+- in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
+- `atlas_book` -> `ModMenus.ATLAS`
+- `slotted_book` -> `ModMenus.SLOTTED_BOOK`
+- `tester_item` -> `ModMenus.TESTER`
 
 ## Registry Entry Points (Legacy)
 - Main mod class and event subscriber: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`

@@ -126,6 +126,15 @@
 - added `use(...)` override that opens mapped placeholder menus server-side (`NetworkHooks.openScreen`).
 - returns `PASS` for unmapped blocks, so non-menu blocks keep default behavior.
 - Build validation after menu-open pass: `./gradlew --no-daemon compileJava` succeeded.
+- Added item-held menu-open interaction breadth pass:
+- Added `src/main/java/art/arcane/bibliocraft/item/MenuOpeningItem.java`.
+- Updated `src/main/java/art/arcane/bibliocraft/registry/ModItems.java` to register:
+- `atlas_book` as `MenuOpeningItem` -> `ModMenus.ATLAS`.
+- `slotted_book` as `MenuOpeningItem` -> `ModMenus.SLOTTED_BOOK`.
+- `tester_item` as `MenuOpeningItem` -> `ModMenus.TESTER`.
+- Main-hand right-click now opens placeholder menus for these items via `NetworkHooks.openScreen`.
+- `atlas_book` and `slotted_book` are explicitly `stacksTo(1)` in placeholder baseline.
+- Build validation after item-menu pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -158,6 +167,8 @@
 - Menu-open reminder:
 - Placeholder menu open paths currently route through `PlaceholderEntityBlock#use` + `ModMenus.getMenuForBlock`.
 - Add/remove mappings in one place (`ModMenus`) to keep interactive-surface coverage coherent.
+- Item-held menu reminder:
+- Atlas/slotted/tester item menu opens now route through `MenuOpeningItem`; use this class for additional item-driven menu surfaces instead of ad-hoc event hooks.
 - Item-model reminder:
 - Block items now source 3D geometry directly from OBJ in their item model JSONs; avoid reverting to parent-linked block item JSONs unless a specific regression requires it.
 - OBJ item-part reminder:
@@ -212,7 +223,7 @@
 ## Immediate Next Steps (When Continuing)
 - Continue minimal block class upgrades beyond placeholder BE hookup (state properties, interaction hooks, and menu open paths).
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
-- Next interaction target: add item-held menu open parity for atlas/slotted-book style flows, then convert selected high-traffic blocks from generic placeholder menu to block-specific placeholder menus with slot scaffolding.
+- Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
 

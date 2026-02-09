@@ -108,6 +108,11 @@
 - Added server-side placeholder menu open flow in `PlaceholderEntityBlock#use` via `NetworkHooks.openScreen`.
 - This establishes compile-safe/open-safe interaction paths for placeholder menus while deeper container logic remains TODO.
 - `./gradlew --no-daemon compileJava` passes after menu-open wiring.
+- Item-held menu interaction breadth pass completed:
+- Added `MenuOpeningItem` placeholder class for right-click item menu opens.
+- Wired `atlas_book`, `slotted_book`, and `tester_item` to open their placeholder menus (`atlas`, `slotted_book`, `tester`) on main-hand use.
+- Preserved stack-size parity baseline for menu-heavy books (`atlas_book`, `slotted_book` are single-stack).
+- `./gradlew --no-daemon compileJava` passes after item-menu wiring.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -159,6 +164,7 @@
 - [x] Stub packet handlers to no-op/log first.
 - [x] Recreate core event bus hooks (death drop, toss, spawn, overlays, highlights) as placeholders.
 - [x] Port entity seat registration and minimal behavior.
+- [x] Add placeholder item-held menu open hooks for atlas/slotted/tester interaction flow.
 
 ## Phase 5 - Rendering + Data Breadth
 - [ ] Stand up model/data pipeline for 1.20.1:

@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.item.MenuOpeningItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,14 +28,23 @@ public final class ModItems {
     public static final RegistryObject<Item> FRAMING_SAW = register("framing_saw");
     public static final RegistryObject<Item> FRAMING_BOARD = register("framing_board");
     public static final RegistryObject<Item> FRAMING_SHEET = register("framing_sheet");
-    public static final RegistryObject<Item> TESTER_ITEM = register("tester_item");
-    public static final RegistryObject<Item> ATLAS_BOOK = register("atlas_book");
+    public static final RegistryObject<Item> TESTER_ITEM = register(
+            "tester_item",
+            () -> new MenuOpeningItem(new Item.Properties(), ModMenus.TESTER::get, "tester")
+    );
+    public static final RegistryObject<Item> ATLAS_BOOK = register(
+            "atlas_book",
+            () -> new MenuOpeningItem(new Item.Properties().stacksTo(1), ModMenus.ATLAS::get, "atlas")
+    );
     public static final RegistryObject<Item> ATLAS_PLATE = register("atlas_plate");
     public static final RegistryObject<Item> DEATH_COMPASS = register("death_compass");
     public static final RegistryObject<Item> PAINTING_CANVAS = register("painting_canvas");
     public static final RegistryObject<Item> BIG_BOOK = register("big_book");
     public static final RegistryObject<Item> RECIPE_BOOK = register("recipe_book");
-    public static final RegistryObject<Item> SLOTTED_BOOK = register("slotted_book");
+    public static final RegistryObject<Item> SLOTTED_BOOK = register(
+            "slotted_book",
+            () -> new MenuOpeningItem(new Item.Properties().stacksTo(1), ModMenus.SLOTTED_BOOK::get, "slotted_book")
+    );
     public static final RegistryObject<Item> HAND_DRILL = register("hand_drill");
     public static final RegistryObject<Item> TAPE_MEASURE = register("tape_measure");
     public static final RegistryObject<Item> TAPE = register("tape");
@@ -54,7 +64,11 @@ public final class ModItems {
     }
 
     private static RegistryObject<Item> register(String name) {
-        RegistryObject<Item> item = ITEMS.register(name, () -> new Item(new Item.Properties()));
+        return register(name, () -> new Item(new Item.Properties()));
+    }
+
+    private static RegistryObject<Item> register(String name, java.util.function.Supplier<Item> supplier) {
+        RegistryObject<Item> item = ITEMS.register(name, supplier);
         TAB_ITEMS.add(item);
         return item;
     }
