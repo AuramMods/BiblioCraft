@@ -197,6 +197,14 @@
 - Conversion notes:
 - old metadata/material usages normalized (e.g., slab/plank metadata -> `minecraft:wooden_slabs`/`minecraft:planks`, old dye metadata -> `forge:dyes/*`, old stained clay color usage -> concrete terracotta item mapping in placeholder recipes).
 - Build validation after extended recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added mapped legacy JSON-output recipe completion pass:
+- New recipe in `src/main/resources/data/bibliocraft/recipes`:
+- `painting_canvas.json` (ported from `old-1.12.2` `paintingcanvas.json`).
+- Mapped old JSON output coverage is now complete (`58 / 58` mapped outputs present in 1.20 datapack recipe results).
+- Added first-pass block loot-table baseline:
+- New path: `src/main/resources/data/bibliocraft/loot_tables/blocks/*.json` (37 files, one per registered block id).
+- Loot strategy is currently placeholder self-drop with `minecraft:survives_explosion` condition.
+- Build validation after recipe + loot pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -251,6 +259,8 @@
 - Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
 - Color-variant recipe reminder:
 - Recolor recipes for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal` are currently placeholder no-op conversions because 1.20 runtime still collapses color variants into single ids; replace with true variant outputs when color-state strategy lands.
+- Loot-table reminder:
+- Block loot tables are currently broad self-drop placeholders; revisit block-entity-heavy blocks (`desk`, `printing_press`, `fancy_workbench`, etc.) for parity drops/NBT handling in depth passes.
 - Atlas-enchant reminder:
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 

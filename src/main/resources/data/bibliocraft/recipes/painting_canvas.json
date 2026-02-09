@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bibliocraft",
+  "pattern": [
+    "IXI",
+    "XWX",
+    "IXI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:string"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:painting_canvas"
+  }
+}

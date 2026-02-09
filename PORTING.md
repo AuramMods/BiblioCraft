@@ -168,6 +168,13 @@
 - Added temporary placeholder recolor datapack flows for collapsed color-variant runtime ids:
 - `lamp_gold_recolor`, `lamp_iron_recolor`, `lantern_gold_recolor`, `lantern_iron_recolor`, `sword_pedestal_recolor`, `typewriter_recolor`.
 - `./gradlew --no-daemon processResources compileJava` passes after extended recipe batch.
+- Legacy JSON-output recipe coverage pass completed:
+- Added `painting_canvas` datapack recipe (`painting_canvas.json`) from legacy recipe set.
+- Current mapped old JSON output coverage is now `58 / 58` outputs (with consolidated variant strategy still applied).
+- Block loot-table breadth pass completed:
+- Added first-pass block loot tables for all 37 registered blocks under `data/bibliocraft/loot_tables/blocks`.
+- Current loot-table strategy is self-drop + `minecraft:survives_explosion` placeholders for survival smoke tests.
+- `./gradlew --no-daemon processResources compileJava` passes after recipe + loot-table pass.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -236,6 +243,8 @@
 - [x] Migrate representative core furniture recipe family to 1.20 datapack format (`bookcase`, `shelf`, `table`, `seat`, `seatback1..5`).
 - [x] Migrate representative supporting block recipe family to 1.20 datapack format (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`).
 - [x] Migrate extended block/workstation/color recipe family to 1.20 datapack format (`bell`, `clock`, `cookie_jar`, `desk`, `dinner_plate`, `disc_rack`, `furniture_paneler`, `label`, `lamp_*`, `lantern_*`, `painting_frame_*`, `painting_press`, `printing_press`, `sword_pedestal`, `typesetting_table`, `typewriter`, `biblio_chase`, `biblio_drill`).
+- [x] Migrate remaining mapped legacy JSON output recipe (`painting_canvas`) to 1.20 datapack format.
+- [x] Add first-pass block loot-table coverage for all registered block IDs (self-drop placeholders).
 - [ ] Move legacy recipes into data pack format where needed.
 
 ## Phase 6 - Feature Depth Passes (Iterative)

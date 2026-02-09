@@ -274,6 +274,8 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/typewriter.json`
 - `src/main/resources/data/bibliocraft/recipes/biblio_chase.json`
 - `src/main/resources/data/bibliocraft/recipes/biblio_drill.json`
+- Added mapped legacy-output completion recipe:
+- `src/main/resources/data/bibliocraft/recipes/painting_canvas.json`
 - Color-surface placeholder recolor subset:
 - `src/main/resources/data/bibliocraft/recipes/lamp_gold_recolor.json`
 - `src/main/resources/data/bibliocraft/recipes/lamp_iron_recolor.json`
@@ -281,13 +283,19 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/lantern_iron_recolor.json`
 - `src/main/resources/data/bibliocraft/recipes/sword_pedestal_recolor.json`
 - `src/main/resources/data/bibliocraft/recipes/typewriter_recolor.json`
-- Current migrated datapack recipe count: 64
+- Current migrated datapack recipe count: 65
+- Mapped legacy JSON output coverage: 58 / 58 outputs represented (consolidated-variant strategy applied).
+- First-pass block loot-table subset:
+- Path: `src/main/resources/data/bibliocraft/loot_tables/blocks/*.json`
+- Count: 37 files (one per registered block id).
+- Current loot strategy: self-drop + `minecraft:survives_explosion` placeholder condition.
 - Deferred metadata-variant recipe set:
 - `monocle`, `tinted_glasses` (depends on future `biblio_glasses` subtype/state parity).
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - color-variant lamp/lantern/typewriter/swordpedestal flows are currently represented by placeholder recolor recipes because runtime color variants are not yet split into dedicated ids/states.
+- block loot-table files are currently generic self-drop placeholders; block-entity/state-specific drop parity remains deferred.
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.
 - Output atlas currently includes placeholder marker NBT (`bibliocraft:death_compass_enabled=true`) until full enchantment parity is ported.
