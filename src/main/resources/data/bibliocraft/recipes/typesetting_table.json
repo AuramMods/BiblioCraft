@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "ICI",
+    "SSS",
+    "PRP"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "bibliocraft:biblio_chase"
+    },
+    "S": [
+      {
+        "tag": "minecraft:wooden_slabs"
+      },
+      {
+        "item": "bibliocraft:framing_board"
+      }
+    ],
+    "P": [
+      {
+        "tag": "minecraft:planks"
+      },
+      {
+        "item": "bibliocraft:framing_sheet"
+      }
+    ],
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:typesetting_table"
+  }
+}

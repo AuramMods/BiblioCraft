@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    " B ",
+    " I ",
+    "IRI"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:stone_button"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:bell"
+  }
+}

@@ -249,12 +249,45 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/tool_rack.json`
 - `src/main/resources/data/bibliocraft/recipes/armor_stand.json`
 - `src/main/resources/data/bibliocraft/recipes/framed_chest.json`
-- Current migrated datapack recipe count: 34
+- Extended block/workstation/color migrated subset:
+- `src/main/resources/data/bibliocraft/recipes/bell.json`
+- `src/main/resources/data/bibliocraft/recipes/clock.json`
+- `src/main/resources/data/bibliocraft/recipes/cookie_jar.json`
+- `src/main/resources/data/bibliocraft/recipes/desk.json`
+- `src/main/resources/data/bibliocraft/recipes/dinner_plate.json`
+- `src/main/resources/data/bibliocraft/recipes/disc_rack.json`
+- `src/main/resources/data/bibliocraft/recipes/furniture_paneler.json`
+- `src/main/resources/data/bibliocraft/recipes/label.json`
+- `src/main/resources/data/bibliocraft/recipes/lamp_gold.json`
+- `src/main/resources/data/bibliocraft/recipes/lamp_iron.json`
+- `src/main/resources/data/bibliocraft/recipes/lantern_gold.json`
+- `src/main/resources/data/bibliocraft/recipes/lantern_iron.json`
+- `src/main/resources/data/bibliocraft/recipes/painting_frame_borderless.json`
+- `src/main/resources/data/bibliocraft/recipes/painting_frame_flat.json`
+- `src/main/resources/data/bibliocraft/recipes/painting_frame_simple.json`
+- `src/main/resources/data/bibliocraft/recipes/painting_frame_middle.json`
+- `src/main/resources/data/bibliocraft/recipes/painting_frame_fancy.json`
+- `src/main/resources/data/bibliocraft/recipes/painting_press.json`
+- `src/main/resources/data/bibliocraft/recipes/printing_press.json`
+- `src/main/resources/data/bibliocraft/recipes/sword_pedestal.json`
+- `src/main/resources/data/bibliocraft/recipes/typesetting_table.json`
+- `src/main/resources/data/bibliocraft/recipes/typewriter.json`
+- `src/main/resources/data/bibliocraft/recipes/biblio_chase.json`
+- `src/main/resources/data/bibliocraft/recipes/biblio_drill.json`
+- Color-surface placeholder recolor subset:
+- `src/main/resources/data/bibliocraft/recipes/lamp_gold_recolor.json`
+- `src/main/resources/data/bibliocraft/recipes/lamp_iron_recolor.json`
+- `src/main/resources/data/bibliocraft/recipes/lantern_gold_recolor.json`
+- `src/main/resources/data/bibliocraft/recipes/lantern_iron_recolor.json`
+- `src/main/resources/data/bibliocraft/recipes/sword_pedestal_recolor.json`
+- `src/main/resources/data/bibliocraft/recipes/typewriter_recolor.json`
+- Current migrated datapack recipe count: 64
 - Deferred metadata-variant recipe set:
 - `monocle`, `tinted_glasses` (depends on future `biblio_glasses` subtype/state parity).
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
+- color-variant lamp/lantern/typewriter/swordpedestal flows are currently represented by placeholder recolor recipes because runtime color variants are not yet split into dedicated ids/states.
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.
 - Output atlas currently includes placeholder marker NBT (`bibliocraft:death_compass_enabled=true`) until full enchantment parity is ported.

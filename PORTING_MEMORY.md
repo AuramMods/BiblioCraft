@@ -189,6 +189,14 @@
 - consolidated old per-wood + framed variants into single recipes via ingredient alternatives (same strategy as furniture batch).
 - normalized old sign and dye usages to modern tags (`minecraft:signs`, `forge:dyes/black`).
 - Build validation after supporting block recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added extended block/workstation/color recipe migration baseline:
+- New recipes in `src/main/resources/data/bibliocraft/recipes`:
+- `bell.json`, `clock.json`, `cookie_jar.json`, `desk.json`, `dinner_plate.json`, `disc_rack.json`, `furniture_paneler.json`, `label.json`, `lamp_gold.json`, `lamp_iron.json`, `lantern_gold.json`, `lantern_iron.json`, `painting_frame_borderless.json`, `painting_frame_flat.json`, `painting_frame_simple.json`, `painting_frame_middle.json`, `painting_frame_fancy.json`, `painting_press.json`, `printing_press.json`, `sword_pedestal.json`, `typesetting_table.json`, `typewriter.json`, `biblio_chase.json`, `biblio_drill.json`.
+- Added placeholder recolor recipe surface for collapsed 1.20 runtime color ids:
+- `lamp_gold_recolor.json`, `lamp_iron_recolor.json`, `lantern_gold_recolor.json`, `lantern_iron_recolor.json`, `sword_pedestal_recolor.json`, `typewriter_recolor.json`.
+- Conversion notes:
+- old metadata/material usages normalized (e.g., slab/plank metadata -> `minecraft:wooden_slabs`/`minecraft:planks`, old dye metadata -> `forge:dyes/*`, old stained clay color usage -> concrete terracotta item mapping in placeholder recipes).
+- Build validation after extended recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -241,6 +249,8 @@
 - Wood/framed furniture recipes are currently merged into generic recipes due missing wood metadata/state strategy in placeholder runtime; split them back into variant-specific outputs once block/item variant depth pass is implemented.
 - Block recipe consolidation reminder:
 - Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
+- Color-variant recipe reminder:
+- Recolor recipes for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal` are currently placeholder no-op conversions because 1.20 runtime still collapses color variants into single ids; replace with true variant outputs when color-state strategy lands.
 - Atlas-enchant reminder:
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 

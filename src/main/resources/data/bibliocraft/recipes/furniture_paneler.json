@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "IXI",
+    "SSS",
+    "PPP"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "X": {
+      "item": "bibliocraft:framing_saw"
+    },
+    "S": [
+      {
+        "tag": "minecraft:wooden_slabs"
+      },
+      {
+        "item": "bibliocraft:framing_board"
+      }
+    ],
+    "P": [
+      {
+        "tag": "minecraft:planks"
+      },
+      {
+        "item": "bibliocraft:framing_sheet"
+      }
+    ]
+  },
+  "result": {
+    "item": "bibliocraft:furniture_paneler"
+  }
+}

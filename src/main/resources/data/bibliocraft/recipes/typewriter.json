@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "IRI",
+    "BDB",
+    "WWW"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:paper"
+    },
+    "B": {
+      "item": "minecraft:iron_block"
+    },
+    "D": {
+      "tag": "forge:dyes/white"
+    },
+    "W": {
+      "item": "minecraft:white_terracotta"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:typewriter"
+  }
+}

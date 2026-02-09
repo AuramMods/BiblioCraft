@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bibliocraft",
+  "pattern": [
+    "ICC",
+    " BC",
+    "  R"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:orange_terracotta"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item": "minecraft:stone_button"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:biblio_drill"
+  }
+}

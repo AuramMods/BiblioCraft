@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "NGN",
+    "ITI",
+    "NGN"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:glass_pane"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "T": {
+      "item": "minecraft:torch"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:lantern_gold"
+  }
+}

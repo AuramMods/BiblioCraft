@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    " L ",
+    "LWL"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:smooth_stone_slab"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:sword_pedestal"
+  }
+}

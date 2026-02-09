@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "minecraft:smooth_quartz_slab"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:dinner_plate"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "bibliocraft",
+  "ingredients": [
+    {
+      "item": "bibliocraft:sword_pedestal"
+    },
+    {
+      "tag": "forge:dyes"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:sword_pedestal"
+  }
+}

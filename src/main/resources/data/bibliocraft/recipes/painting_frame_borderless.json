@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "ISI",
+    "SSS",
+    "ISI"
+  ],
+  "key": {
+    "S": [
+      {
+        "tag": "minecraft:wooden_slabs"
+      },
+      {
+        "item": "bibliocraft:framing_board"
+      }
+    ],
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:painting_frame_borderless"
+  }
+}

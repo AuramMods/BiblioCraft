@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "T F",
+    "SSS",
+    "P P"
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:torch"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "S": [
+      {
+        "tag": "minecraft:wooden_slabs"
+      },
+      {
+        "item": "bibliocraft:framing_board"
+      }
+    ],
+    "P": [
+      {
+        "tag": "minecraft:planks"
+      },
+      {
+        "item": "bibliocraft:framing_sheet"
+      }
+    ]
+  },
+  "result": {
+    "item": "bibliocraft:desk"
+  }
+}

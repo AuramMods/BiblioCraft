@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "III",
+    "IFI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "F": {
+      "item": "bibliocraft:painting_frame_borderless"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:painting_frame_fancy"
+  }
+}

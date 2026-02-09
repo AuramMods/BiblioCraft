@@ -162,6 +162,12 @@
 - Conversion strategy reused consolidated wood/framed alternatives for current placeholder runtime:
 - `minecraft:wooden_slabs` + `framing_board`, `minecraft:planks` + `framing_sheet`, plus normalized tag usage (`minecraft:signs`, `forge:dyes/black`).
 - `./gradlew --no-daemon processResources compileJava` passes after supporting block recipe batch.
+- Extended block + color-surface recipe migration breadth pass completed:
+- Added additional consolidated 1.20 datapack recipes for remaining broad block/dependency surfaces:
+- `bell`, `clock`, `cookie_jar`, `desk`, `dinner_plate`, `disc_rack`, `furniture_paneler`, `label`, `lamp_gold`, `lamp_iron`, `lantern_gold`, `lantern_iron`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `painting_press`, `printing_press`, `sword_pedestal`, `typesetting_table`, `typewriter`, plus utility dependencies `biblio_chase`, `biblio_drill`.
+- Added temporary placeholder recolor datapack flows for collapsed color-variant runtime ids:
+- `lamp_gold_recolor`, `lamp_iron_recolor`, `lantern_gold_recolor`, `lantern_iron_recolor`, `sword_pedestal_recolor`, `typewriter_recolor`.
+- `./gradlew --no-daemon processResources compileJava` passes after extended recipe batch.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -229,6 +235,7 @@
 - [x] Migrate representative utility-item recipe family to 1.20 datapack format (`hand_drill`, `tape`, `tape_measure`, `framing_*`, `plumb_line`, `biblio_clipboard`, `big_book`, `biblio_red_book`, `stockroom_catalog`, `biblio_glasses`).
 - [x] Migrate representative core furniture recipe family to 1.20 datapack format (`bookcase`, `shelf`, `table`, `seat`, `seatback1..5`).
 - [x] Migrate representative supporting block recipe family to 1.20 datapack format (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`).
+- [x] Migrate extended block/workstation/color recipe family to 1.20 datapack format (`bell`, `clock`, `cookie_jar`, `desk`, `dinner_plate`, `disc_rack`, `furniture_paneler`, `label`, `lamp_*`, `lantern_*`, `painting_frame_*`, `painting_press`, `printing_press`, `sword_pedestal`, `typesetting_table`, `typewriter`, `biblio_chase`, `biblio_drill`).
 - [ ] Move legacy recipes into data pack format where needed.
 
 ## Phase 6 - Feature Depth Passes (Iterative)

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "III",
+    "SSS"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:disc_rack"
+  }
+}

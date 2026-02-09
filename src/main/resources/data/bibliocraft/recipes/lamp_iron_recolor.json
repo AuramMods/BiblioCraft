@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "bibliocraft",
+  "ingredients": [
+    {
+      "item": "bibliocraft:lamp_iron"
+    },
+    {
+      "tag": "forge:dyes"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:lamp_iron"
+  }
+}
