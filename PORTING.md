@@ -175,6 +175,13 @@
 - Added first-pass block loot tables for all 37 registered blocks under `data/bibliocraft/loot_tables/blocks`.
 - Current loot-table strategy is self-drop + `minecraft:survives_explosion` placeholders for survival smoke tests.
 - `./gradlew --no-daemon processResources compileJava` passes after recipe + loot-table pass.
+- Procedural/variant-recipe obtainability breadth pass completed:
+- Added placeholder obtainability datapack recipes for non-creative, non-debug registered IDs that were still without outputs:
+- `atlas_plate`, `clipboard` (from `biblio_clipboard`), `death_compass`, `print_plate`, `enchanted_plate`, `recipe_book`, `marker_pole`.
+- Added deferred glasses variant recipe files from legacy set as placeholder no-op variant flows:
+- `monocle` and `tinted_glasses` now map to `biblio_glasses` output in current collapsed-variant runtime.
+- Current registry-ID recipe output coverage is now `65 / 68` IDs (remaining intentionally non-craftable: `bookcase_creative`, `biblio_creative_lock`, `tester_item`).
+- `./gradlew --no-daemon processResources compileJava` passes after procedural/variant recipe pass.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -244,6 +251,8 @@
 - [x] Migrate representative supporting block recipe family to 1.20 datapack format (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`).
 - [x] Migrate extended block/workstation/color recipe family to 1.20 datapack format (`bell`, `clock`, `cookie_jar`, `desk`, `dinner_plate`, `disc_rack`, `furniture_paneler`, `label`, `lamp_*`, `lantern_*`, `painting_frame_*`, `painting_press`, `printing_press`, `sword_pedestal`, `typesetting_table`, `typewriter`, `biblio_chase`, `biblio_drill`).
 - [x] Migrate remaining mapped legacy JSON output recipe (`painting_canvas`) to 1.20 datapack format.
+- [x] Add first-pass placeholder obtainability recipes for non-creative/non-debug registered IDs still missing recipe outputs (`atlas_plate`, `clipboard`, `death_compass`, `print_plate`, `enchanted_plate`, `recipe_book`, `marker_pole`).
+- [x] Add deferred glasses-variant legacy recipe files (`monocle`, `tinted_glasses`) as collapsed-variant placeholders.
 - [x] Add first-pass block loot-table coverage for all registered block IDs (self-drop placeholders).
 - [ ] Move legacy recipes into data pack format where needed.
 

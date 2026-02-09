@@ -205,6 +205,15 @@
 - New path: `src/main/resources/data/bibliocraft/loot_tables/blocks/*.json` (37 files, one per registered block id).
 - Loot strategy is currently placeholder self-drop with `minecraft:survives_explosion` condition.
 - Build validation after recipe + loot pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added procedural/variant recipe obtainability baseline:
+- New recipes in `src/main/resources/data/bibliocraft/recipes`:
+- `atlas_plate.json`, `clipboard_block.json`, `death_compass.json`, `print_plate.json`, `enchanted_plate.json`, `recipe_book.json`, `marker_pole.json`.
+- Added deferred glasses variant recipes from legacy set as collapsed-variant placeholders:
+- `monocle.json`, `tinted_glasses.json` (both output `biblio_glasses` in current runtime).
+- Coverage after pass:
+- recipe output ids now cover `65 / 68` registered ids.
+- intentionally still non-craftable: `bookcase_creative`, `biblio_creative_lock`, `tester_item`.
+- Build validation after procedural/variant recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -252,13 +261,15 @@
 - Recipe reminder:
 - Representative 1.20 datapack recipes now live under `src/main/resources/data/bibliocraft/recipes`; future recipe migration should prefer this path over legacy `assets/.../recipes`.
 - Recipe gap reminder:
-- Metadata-variant-only glasses recipes (`monocle`, `tinted_glasses`) are not migrated yet because current placeholder item surface has a single `biblio_glasses` item without subtype/state parity.
+- Glasses variant recipe files (`monocle`, `tinted_glasses`) are now migrated as placeholder no-op variant flows; when glasses subtype/state parity is implemented, split outputs to real variant states.
 - Recipe consolidation reminder:
 - Wood/framed furniture recipes are currently merged into generic recipes due missing wood metadata/state strategy in placeholder runtime; split them back into variant-specific outputs once block/item variant depth pass is implemented.
 - Block recipe consolidation reminder:
 - Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
 - Color-variant recipe reminder:
 - Recolor recipes for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal` are currently placeholder no-op conversions because 1.20 runtime still collapses color variants into single ids; replace with true variant outputs when color-state strategy lands.
+- Obtainability reminder:
+- Three registered ids are intentionally still non-craftable in datapack outputs for now: `bookcase_creative` (creative variant), `biblio_creative_lock` (creative/admin surface), and `tester_item` (debug surface).
 - Loot-table reminder:
 - Block loot tables are currently broad self-drop placeholders; revisit block-entity-heavy blocks (`desk`, `printing_press`, `fancy_workbench`, etc.) for parity drops/NBT handling in depth passes.
 - Atlas-enchant reminder:

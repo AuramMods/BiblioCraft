@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "bibliocraft",
+  "ingredients": [
+    {
+      "item": "bibliocraft:print_plate"
+    },
+    {
+      "item": "minecraft:enchanted_book"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:enchanted_plate"
+  }
+}

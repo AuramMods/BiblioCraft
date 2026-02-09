@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "bibliocraft",
+  "ingredients": [
+    {
+      "item": "bibliocraft:biblio_clipboard"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:clipboard"
+  }
+}

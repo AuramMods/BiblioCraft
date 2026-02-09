@@ -283,14 +283,25 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/lantern_iron_recolor.json`
 - `src/main/resources/data/bibliocraft/recipes/sword_pedestal_recolor.json`
 - `src/main/resources/data/bibliocraft/recipes/typewriter_recolor.json`
-- Current migrated datapack recipe count: 65
+- Procedural/variant obtainability subset:
+- `src/main/resources/data/bibliocraft/recipes/atlas_plate.json`
+- `src/main/resources/data/bibliocraft/recipes/clipboard_block.json`
+- `src/main/resources/data/bibliocraft/recipes/death_compass.json`
+- `src/main/resources/data/bibliocraft/recipes/print_plate.json`
+- `src/main/resources/data/bibliocraft/recipes/enchanted_plate.json`
+- `src/main/resources/data/bibliocraft/recipes/recipe_book.json`
+- `src/main/resources/data/bibliocraft/recipes/marker_pole.json`
+- `src/main/resources/data/bibliocraft/recipes/monocle.json`
+- `src/main/resources/data/bibliocraft/recipes/tinted_glasses.json`
+- Current migrated datapack recipe count: 74
 - Mapped legacy JSON output coverage: 58 / 58 outputs represented (consolidated-variant strategy applied).
+- Current registry-id recipe output coverage: 65 / 68 ids (remaining intentional non-craftable surfaces: `bookcase_creative`, `biblio_creative_lock`, `tester_item`).
 - First-pass block loot-table subset:
 - Path: `src/main/resources/data/bibliocraft/loot_tables/blocks/*.json`
 - Count: 37 files (one per registered block id).
 - Current loot strategy: self-drop + `minecraft:survives_explosion` placeholder condition.
-- Deferred metadata-variant recipe set:
-- `monocle`, `tinted_glasses` (depends on future `biblio_glasses` subtype/state parity).
+- Deferred metadata-variant recipe split:
+- `monocle`, `tinted_glasses` currently output base `biblio_glasses`; split to true subtype/state outputs when glasses variant support exists.
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
