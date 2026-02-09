@@ -152,6 +152,8 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/menu/PlaceholderMenu.java`
 - `src/main/java/art/arcane/bibliocraft/entity/SeatEntity.java`
 - `src/main/java/art/arcane/bibliocraft/enchantment/PlaceholderEnchantment.java`
+- `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java`
+- `src/main/java/art/arcane/bibliocraft/event/ClientRenderEvents.java`
 
 ### Current 1.20 Block -> BlockEntity ID Mapping (Placeholder Runtime)
 - Source: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` + `src/main/java/art/arcane/bibliocraft/registry/ModBlockEntities.java`.
@@ -187,6 +189,26 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/registry/ModRecipes.java`
 - `src/main/java/art/arcane/bibliocraft/recipe/EnchantedAtlasRecipe.java`
 - Registered key: `bibliocraft:enchantedatlas` (serializer + recipe type placeholder).
+
+### Current 1.20 Event Hook + Seat Snapshot
+- Common Forge event subscriber:
+- `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java`
+- Placeholder legacy hook coverage:
+- death flow (`LivingDeathEvent`) captures pending player death position.
+- spawn/join flow (`EntityJoinLevelEvent`) consumes pending death marker (placeholder waypoint handoff hook).
+- item toss flow (`ItemTossEvent`) closes container for legacy packet-heavy item set.
+- seat interaction flow (`PlayerInteractEvent.RightClickBlock`) mounts player onto seat entity for `bibliocraft:seat`.
+- Client Forge event subscriber:
+- `src/main/java/art/arcane/bibliocraft/event/ClientRenderEvents.java`
+- Placeholder legacy client hook coverage:
+- overlay hook (`RenderGuiOverlayEvent.Post`).
+- highlight hook (`RenderHighlightEvent.Block`).
+- Seat entity runtime behavior:
+- `src/main/java/art/arcane/bibliocraft/entity/SeatEntity.java`
+- persists target seat block position in NBT.
+- snaps to seat center every tick.
+- self-removes when target block is not `bibliocraft:seat`.
+- self-removes after short empty timeout when no passenger remains.
 
 ## Registry Entry Points (Legacy)
 - Main mod class and event subscriber: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`

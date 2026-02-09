@@ -102,6 +102,21 @@
 - `map_frame` now uses mounted state with floor/wall/ceiling shape baseline.
 - Updated `MountedFacingEntityBlock` internals so floor and ceiling shapes also rotate by `facing`.
 - Build validation after mount-state expansion: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added event-hook + seat behavior breadth pass:
+- Added common Forge event hooks in `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java`:
+- death (`LivingDeathEvent`) placeholder state capture.
+- spawn/join (`EntityJoinLevelEvent`) placeholder replay hook.
+- item toss (`ItemTossEvent`) packet-heavy item container-close placeholder.
+- seat interaction (`PlayerInteractEvent.RightClickBlock`) mount behavior for `seat` block.
+- Added client Forge render hook placeholders in `src/main/java/art/arcane/bibliocraft/event/ClientRenderEvents.java`:
+- GUI overlay placeholder (`RenderGuiOverlayEvent.Post`).
+- block highlight placeholder (`RenderHighlightEvent.Block`).
+- Upgraded `src/main/java/art/arcane/bibliocraft/entity/SeatEntity.java`:
+- stores/persists seat block position.
+- repositions to seat center every tick.
+- discards when target block is no longer a seat.
+- auto-despawns shortly after losing rider.
+- Build validation after event/seat pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -127,6 +142,10 @@
 - `MountedFacingEntityBlock` (`face=floor|wall|ceiling`, all faces rotated by facing),
 - or `FloorWallFacingEntityBlock` (`face=floor|wall`, no ceiling placement).
 - Their blockstate JSON must include `face` + `facing` keys, not `facing` alone.
+- Event-hook reminder:
+- Legacy FORGE event surface now has placeholders in `event/CommonGameplayEvents` and `event/ClientRenderEvents`; extend these classes instead of scattering ad-hoc subscribers.
+- Seat-behavior reminder:
+- Seat mounting baseline currently lives in `CommonGameplayEvents.onSeatInteract` + `SeatEntity`; when seat tile behavior is ported, migrate/add occupancy checks there rather than removing this hook outright.
 - Item-model reminder:
 - Block items now source 3D geometry directly from OBJ in their item model JSONs; avoid reverting to parent-linked block item JSONs unless a specific regression requires it.
 - OBJ item-part reminder:
@@ -179,9 +198,9 @@
 - Legacy block render alignment relied on 1.12 `ExtendedBlockState` + `OBJModel.OBJState` transforms (angle/shift/vertical variants); static 1.20 OBJ JSONs can still appear offset until those transforms are ported.
 
 ## Immediate Next Steps (When Continuing)
-- Continue registry breadth where still missing (`RecipeSerializer`/`RecipeType` surface and packet channel skeleton parity).
 - Continue minimal block class upgrades beyond placeholder BE hookup (state properties, interaction hooks, and menu open paths).
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
+- Start wiring menu-open hooks for key interactive blocks now that placeholder menu/event surfaces exist.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
 

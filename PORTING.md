@@ -93,6 +93,15 @@
 - Switched `map_frame` to mounted wood placeholder with floor/wall/ceiling shape parity baseline.
 - Rewrote `case`, `fancy_sign`, and `map_frame` blockstate JSON files to `face + facing` variant grids.
 - `./gradlew --no-daemon processResources compileJava` passes after mount-state expansion.
+- Event-hook + seat behavior breadth pass completed:
+- Added Forge FORGE-bus placeholder event subscribers for legacy hook surface:
+- Common: death drop, item toss, spawn/join, seat right-click interaction.
+- Client: GUI overlay and block highlight render hooks.
+- Added minimal seat entity behavior:
+- `SeatEntity` now persists target seat block position, pins itself to seat center, discards when seat block is missing, and self-cleans after passenger leaves.
+- Implemented seat mounting baseline:
+- Right-clicking `seat` block server-side spawns/reuses `SeatEntity` and mounts player.
+- `./gradlew --no-daemon compileJava` passes after event/seat pass.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -141,8 +150,8 @@
 ## Phase 4 - Interaction + Network Breadth
 - [x] Create packet channel and message registration equivalent to legacy packet list.
 - [x] Stub packet handlers to no-op/log first.
-- [ ] Recreate core event bus hooks (death drop, toss, spawn, overlays, highlights) as placeholders.
-- [ ] Port entity seat registration and minimal behavior.
+- [x] Recreate core event bus hooks (death drop, toss, spawn, overlays, highlights) as placeholders.
+- [x] Port entity seat registration and minimal behavior.
 
 ## Phase 5 - Rendering + Data Breadth
 - [ ] Stand up model/data pipeline for 1.20.1:
