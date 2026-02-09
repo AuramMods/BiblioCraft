@@ -1,0 +1,16 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/lantern.obj",
+  "flip_v": true,
+  "visibility": {
+    "lamp": true,
+    "candle": true,
+    "glass": true,
+    "lampHanger": true,
+    "wallPlate": true,
+    "topPlate": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/lantern"
+  }
+}

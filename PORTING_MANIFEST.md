@@ -26,7 +26,8 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/assets/bibliocraft/models/block/<block_id>.json`
 - -> `bibliocraft:models/block/<legacy_obj_name>.obj`
 - Blockstate strategy (current baseline):
-- All 37 blockstate JSON files now use `facing` variants (`north/east/south/west`) with Y rotations.
+- Most blockstate JSON files use `facing` variants (`north/east/south/west`) with Y rotations.
+- Mount-aware blocks use `face + facing` variants (`face=floor|wall|ceiling` or `face=floor|wall`) with Y rotations.
 - Path pattern:
 - `src/main/resources/assets/bibliocraft/blockstates/<block_id>.json`
 - -> model `bibliocraft:block/<block_id>` with optional `y` transform.
@@ -85,12 +86,22 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Iron variant material overrides now explicit:
 - `lamp_iron` -> `models/block/lamp_iron.mtl`
 - `lantern_iron` -> `models/block/lantern_iron.mtl`
+- Mounted-state parity updates now in baseline:
+- `lamp_*` + `lantern_*` now use `face + facing` blockstates and dedicated wall/ceiling model JSON variants.
+- `case` now uses `face=floor|wall` + `facing` blockstate variants (legacy floor/wall placement parity baseline).
+- `fancy_sign` now uses `face + facing` with mount-specific visibility:
+- wall: `sign` + `front`
+- floor: `sign` + `front` + `feetBottom`
+- ceiling: `sign` + `front` + `feetTop`
+- `map_frame` now uses `face + facing` blockstate variants and mount-specific shapes.
 
 ## Current 1.20 Voxel Shape Snapshot (Pass 1)
 - Source of truth: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` (`SHAPE_*` constants + registrations).
 - Shape block classes:
 - `src/main/java/art/arcane/bibliocraft/block/StaticShapeBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java` (adds facing-based shape rotation)
+- `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java` (adds `face + facing` mount-state shape rotation)
+- `src/main/java/art/arcane/bibliocraft/block/FloorWallFacingEntityBlock.java` (adds floor/wall mount-state shape rotation)
 - Intent: remove full-cube placeholder behavior so model hitboxes are closer to legacy.
 
 | Block ID | Current Shape (normalized 0-1) | Basis |
@@ -103,13 +114,14 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `lamp_gold`, `lamp_iron` | `x/z:0.18-0.82 y:0.0-1.0` | old floor lamp bbox |
 | `furniture_paneler` | `x/z:0.0-1.0 y:0.0-0.63` | old `BlockFurniturePaneler` bbox |
 | `framed_chest` | `x/z:0.054-0.946 y:0.0-0.866` | old single chest bbox |
-| `fancy_sign` | `x:0.0-0.06 y:0.2-0.8 z:0.0-1.0` | old wall sign bbox |
+| `fancy_sign` | mounted shape baseline: thin sign plane (`x:0.0-0.06 y:0.2-0.8 z:0.0-1.0`) rotated by `facing` for floor/wall/ceiling placements | old sign bbox + legacy mount states |
 | `label` | `x:0.0-0.06 y:0.12-0.38 z:0.28-0.72` | old wall label bbox |
 | `table` | union of top slab `y:0.88-1.0` + center leg | old table top logic + current visible variant |
 | `seat` | `x/z:0.16-0.84 y:0.0-0.74` | old `BlockSeat` bbox |
 | `clock` | `x/z:0.3-0.7 y:0.0-1.0` | conservative non-full placeholder |
-| `case` | `x/z:0.06-0.94 y:0.0-0.5` | old floor case bbox |
-| `map_frame` + all `painting_frame_*` | `x:0.0-0.08 y:0.0-1.0 z:0.0-1.0` | old frame thin-wall bbox |
+| `case` | floor/wall mount baseline: floor (`x:0.06-0.94 y:0.0-0.5 z:0.0-1.0`), wall (`x:0.0-0.5 y:0.0-1.0 z:0.06-0.94`), both rotated by `facing` | old floor/wall case bbox |
+| `map_frame` | mounted baseline: wall (`x:0.0-0.05 y:0.0-1.0 z:0.0-1.0`), floor (`y:0.0-0.05` full XZ), ceiling (`y:0.95-1.0` full XZ) | old map-frame floor/wall/ceiling bbox |
+| `painting_frame_*` | `x:0.0-0.08 y:0.0-1.0 z:0.0-1.0` | old painting-frame wall bbox |
 | `painting_press` | `x/z:0.0-1.0 y:0.0-0.98` | OBJ/legacy near-full profile |
 | `typewriter` | `x:0.1384-0.7053 y:0.0-0.4835 z:0.2073-0.7927` | OBJ extent (`typewriter.obj`) |
 | `sword_pedestal` | `x:0.2758-0.7242 y:0.0-0.234 z:0.0712-0.9288` | OBJ extent + old bbox |
@@ -133,6 +145,8 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/registry/ModSounds.java`
 - Placeholder runtime classes:
 - `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java`
+- `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java`
+- `src/main/java/art/arcane/bibliocraft/block/FloorWallFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/blockentity/PlaceholderBlockEntity.java`
 - `src/main/java/art/arcane/bibliocraft/menu/PlaceholderMenu.java`

@@ -1,18 +1,48 @@
 {
   "variants": {
-    "facing=north": {
+    "face=floor,facing=north": {
+      "model": "bibliocraft:block/fancy_sign_floor"
+    },
+    "face=floor,facing=east": {
+      "model": "bibliocraft:block/fancy_sign_floor",
+      "y": 90
+    },
+    "face=floor,facing=south": {
+      "model": "bibliocraft:block/fancy_sign_floor",
+      "y": 180
+    },
+    "face=floor,facing=west": {
+      "model": "bibliocraft:block/fancy_sign_floor",
+      "y": 270
+    },
+    "face=wall,facing=north": {
       "model": "bibliocraft:block/fancy_sign"
     },
-    "facing=east": {
+    "face=wall,facing=east": {
       "model": "bibliocraft:block/fancy_sign",
       "y": 90
     },
-    "facing=south": {
+    "face=wall,facing=south": {
       "model": "bibliocraft:block/fancy_sign",
       "y": 180
     },
-    "facing=west": {
+    "face=wall,facing=west": {
       "model": "bibliocraft:block/fancy_sign",
+      "y": 270
+    },
+    "face=ceiling,facing=north": {
+      "model": "bibliocraft:block/fancy_sign_ceiling"
+    },
+    "face=ceiling,facing=east": {
+      "model": "bibliocraft:block/fancy_sign_ceiling",
+      "y": 90
+    },
+    "face=ceiling,facing=south": {
+      "model": "bibliocraft:block/fancy_sign_ceiling",
+      "y": 180
+    },
+    "face=ceiling,facing=west": {
+      "model": "bibliocraft:block/fancy_sign_ceiling",
       "y": 270
     }
   }

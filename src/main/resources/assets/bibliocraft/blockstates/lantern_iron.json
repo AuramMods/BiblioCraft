@@ -1,18 +1,48 @@
 {
   "variants": {
-    "facing=north": {
+    "face=floor,facing=north": {
       "model": "bibliocraft:block/lantern_iron"
     },
-    "facing=east": {
+    "face=floor,facing=east": {
       "model": "bibliocraft:block/lantern_iron",
       "y": 90
     },
-    "facing=south": {
+    "face=floor,facing=south": {
       "model": "bibliocraft:block/lantern_iron",
       "y": 180
     },
-    "facing=west": {
+    "face=floor,facing=west": {
       "model": "bibliocraft:block/lantern_iron",
+      "y": 270
+    },
+    "face=wall,facing=north": {
+      "model": "bibliocraft:block/lantern_iron_wall"
+    },
+    "face=wall,facing=east": {
+      "model": "bibliocraft:block/lantern_iron_wall",
+      "y": 90
+    },
+    "face=wall,facing=south": {
+      "model": "bibliocraft:block/lantern_iron_wall",
+      "y": 180
+    },
+    "face=wall,facing=west": {
+      "model": "bibliocraft:block/lantern_iron_wall",
+      "y": 270
+    },
+    "face=ceiling,facing=north": {
+      "model": "bibliocraft:block/lantern_iron_ceiling"
+    },
+    "face=ceiling,facing=east": {
+      "model": "bibliocraft:block/lantern_iron_ceiling",
+      "y": 90
+    },
+    "face=ceiling,facing=south": {
+      "model": "bibliocraft:block/lantern_iron_ceiling",
+      "y": 180
+    },
+    "face=ceiling,facing=west": {
+      "model": "bibliocraft:block/lantern_iron_ceiling",
       "y": 270
     }
   }

@@ -5,7 +5,7 @@
   "visibility": {
     "sign": true,
     "front": true,
-    "feetBottom": false,
+    "feetBottom": true,
     "feetTop": false
   },
   "textures": {

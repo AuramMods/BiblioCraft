@@ -1,7 +1,9 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
+import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -31,9 +33,11 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_CLIPBOARD = box(0.0, 0.08, 0.15, 0.08, 0.92, 0.85);
     private static final VoxelShape SHAPE_LANTERN = box(0.3, 0.0, 0.3, 0.7, 0.7, 0.7);
     private static final VoxelShape SHAPE_LAMP = box(0.18, 0.0, 0.18, 0.82, 1.0, 0.82);
+    private static final VoxelShape SHAPE_LAMP_WALL = box(0.1, 0.05, 0.1, 0.9, 0.55, 0.9);
+    private static final VoxelShape SHAPE_LAMP_CEILING = box(0.1, 0.0, 0.1, 0.9, 1.0, 0.9);
     private static final VoxelShape SHAPE_FURNITURE_PANELER = box(0.0, 0.0, 0.0, 1.0, 0.63, 1.0);
     private static final VoxelShape SHAPE_FRAMED_CHEST = box(0.054, 0.0, 0.054, 0.946, 0.866, 0.946);
-    private static final VoxelShape SHAPE_FANCY_SIGN = box(0.0, 0.2, 0.0, 0.06, 0.8, 1.0);
+    private static final VoxelShape SHAPE_SIGN_PLANE = box(0.0, 0.2, 0.0, 0.06, 0.8, 1.0);
     private static final VoxelShape SHAPE_LABEL = box(0.0, 0.12, 0.28, 0.06, 0.38, 0.72);
     private static final VoxelShape SHAPE_TABLE = combine(
             box(0.0, 0.88, 0.0, 1.0, 1.0, 1.0),
@@ -41,8 +45,11 @@ public final class ModBlocks {
     );
     private static final VoxelShape SHAPE_SEAT = box(0.16, 0.0, 0.16, 0.84, 0.74, 0.84);
     private static final VoxelShape SHAPE_CLOCK = box(0.3, 0.0, 0.3, 0.7, 1.0, 0.7);
-    private static final VoxelShape SHAPE_CASE = box(0.06, 0.0, 0.06, 0.94, 0.5, 0.94);
-    private static final VoxelShape SHAPE_MAP_FRAME = box(0.0, 0.0, 0.0, 0.08, 1.0, 1.0);
+    private static final VoxelShape SHAPE_CASE_FLOOR = box(0.06, 0.0, 0.0, 0.94, 0.5, 1.0);
+    private static final VoxelShape SHAPE_CASE_WALL = box(0.0, 0.0, 0.06, 0.5, 1.0, 0.94);
+    private static final VoxelShape SHAPE_MAP_FRAME_WALL = box(0.0, 0.0, 0.0, 0.05, 1.0, 1.0);
+    private static final VoxelShape SHAPE_MAP_FRAME_FLOOR = box(0.0, 0.0, 0.0, 1.0, 0.05, 1.0);
+    private static final VoxelShape SHAPE_MAP_FRAME_CEILING = box(0.0, 0.95, 0.0, 1.0, 1.0, 1.0);
     private static final VoxelShape SHAPE_PAINTING_FRAME = box(0.0, 0.0, 0.0, 0.08, 1.0, 1.0);
     private static final VoxelShape SHAPE_PAINTING_PRESS = box(0.0, 0.0, 0.0, 1.0, 0.98, 1.0);
     private static final VoxelShape SHAPE_TYPEWRITER = box(0.1384, 0.0, 0.2073, 0.7053, 0.4835, 0.7927);
@@ -65,19 +72,19 @@ public final class ModBlocks {
     public static final RegistryObject<Block> CLIPBOARD =
             register("clipboard", () -> shapedWoodEntity(SHAPE_CLIPBOARD, "clipboard"));
     public static final RegistryObject<Block> LANTERN_GOLD =
-            register("lantern_gold", () -> shapedLightEntity(SHAPE_LANTERN, "bibliolight"));
+            register("lantern_gold", () -> mountedLightEntity(SHAPE_LANTERN, SHAPE_LANTERN, SHAPE_LANTERN, "bibliolight"));
     public static final RegistryObject<Block> LANTERN_IRON =
-            register("lantern_iron", () -> shapedLightEntity(SHAPE_LANTERN, "bibliolight"));
+            register("lantern_iron", () -> mountedLightEntity(SHAPE_LANTERN, SHAPE_LANTERN, SHAPE_LANTERN, "bibliolight"));
     public static final RegistryObject<Block> LAMP_GOLD =
-            register("lamp_gold", () -> shapedLightEntity(SHAPE_LAMP, "bibliolight"));
+            register("lamp_gold", () -> mountedLightEntity(SHAPE_LAMP, SHAPE_LAMP_WALL, SHAPE_LAMP_CEILING, "bibliolight"));
     public static final RegistryObject<Block> LAMP_IRON =
-            register("lamp_iron", () -> shapedLightEntity(SHAPE_LAMP, "bibliolight"));
+            register("lamp_iron", () -> mountedLightEntity(SHAPE_LAMP, SHAPE_LAMP_WALL, SHAPE_LAMP_CEILING, "bibliolight"));
     public static final RegistryObject<Block> FURNITURE_PANELER =
             register("furniture_paneler", () -> shapedWoodEntity(SHAPE_FURNITURE_PANELER, "furniture_paneler"));
     public static final RegistryObject<Block> FRAMED_CHEST =
             register("framed_chest", () -> shapedWoodEntity(SHAPE_FRAMED_CHEST, "framed_chest"));
     public static final RegistryObject<Block> FANCY_SIGN =
-            register("fancy_sign", () -> shapedWoodEntity(SHAPE_FANCY_SIGN, "fancy_sign"));
+            register("fancy_sign", () -> mountedWoodEntity(SHAPE_SIGN_PLANE, SHAPE_SIGN_PLANE, SHAPE_SIGN_PLANE, "fancy_sign"));
     public static final RegistryObject<Block> FANCY_WORKBENCH =
             register("fancy_workbench", () -> fullWoodEntity("fancy_workbench"));
     public static final RegistryObject<Block> POTION_SHELF =
@@ -95,9 +102,9 @@ public final class ModBlocks {
     public static final RegistryObject<Block> CLOCK =
             register("clock", () -> shapedWoodEntity(SHAPE_CLOCK, "clock"));
     public static final RegistryObject<Block> CASE =
-            register("case", () -> shapedWoodEntity(SHAPE_CASE, "case"));
+            register("case", () -> floorWallWoodEntity(SHAPE_CASE_FLOOR, SHAPE_CASE_WALL, "case"));
     public static final RegistryObject<Block> MAP_FRAME =
-            register("map_frame", () -> shapedWoodEntity(SHAPE_MAP_FRAME, "map_frame"));
+            register("map_frame", () -> mountedWoodEntity(SHAPE_MAP_FRAME_FLOOR, SHAPE_MAP_FRAME_WALL, SHAPE_MAP_FRAME_CEILING, "map_frame"));
     public static final RegistryObject<Block> PAINTING_FRAME_FLAT =
             register("painting_frame_flat", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_flat"));
     public static final RegistryObject<Block> PAINTING_FRAME_SIMPLE =
@@ -146,8 +153,26 @@ public final class ModBlocks {
         return new HorizontalFacingEntityBlock(woodProps(), shape, blockEntityPath);
     }
 
-    private static Block shapedLightEntity(VoxelShape shape, String blockEntityPath) {
-        return new HorizontalFacingEntityBlock(lightProps(), shape, blockEntityPath);
+    private static Block mountedLightEntity(
+            VoxelShape floorShape,
+            VoxelShape wallShape,
+            VoxelShape ceilingShape,
+            String blockEntityPath
+    ) {
+        return new MountedFacingEntityBlock(lightProps(), floorShape, wallShape, ceilingShape, blockEntityPath);
+    }
+
+    private static Block mountedWoodEntity(
+            VoxelShape floorShape,
+            VoxelShape wallShape,
+            VoxelShape ceilingShape,
+            String blockEntityPath
+    ) {
+        return new MountedFacingEntityBlock(woodProps(), floorShape, wallShape, ceilingShape, blockEntityPath);
+    }
+
+    private static Block floorWallWoodEntity(VoxelShape floorShape, VoxelShape wallShape, String blockEntityPath) {
+        return new FloorWallFacingEntityBlock(woodProps(), floorShape, wallShape, blockEntityPath);
     }
 
     private static Block fullWoodEntity(String blockEntityPath) {

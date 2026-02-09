@@ -78,6 +78,21 @@
 - `EnchantedAtlasRecipe` + `enchantedatlas` serializer/type registration as a placeholder for legacy atlas-enchant recipe flow.
 - Registered network/recipe surfaces from mod bootstrap.
 - `./gradlew --no-daemon compileJava` passes after wiring.
+- Mounted-light placement/state parity pass completed:
+- Added `MountedFacingEntityBlock` with `facing + face` (`floor/wall/ceiling`) placement/state logic.
+- Switched `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` registrations to mounted placeholders.
+- Added mount-specific blockstate variants + model JSONs for wall/ceiling lamp and lantern geometry.
+- `./gradlew --no-daemon processResources compileJava` passes after mounted-light wiring.
+- Mount-state breadth expansion pass completed for additional legacy blocks:
+- Added `FloorWallFacingEntityBlock` for old floor/wall placement logic (no ceiling state) and used it for `case`.
+- Updated `MountedFacingEntityBlock` to rotate floor/ceiling shapes by `facing` (not only wall shapes).
+- Switched `fancy_sign` to mounted wood placeholder and split model visibility by mount face:
+- wall: sign/front only
+- floor: sign/front + `feetBottom`
+- ceiling: sign/front + `feetTop`
+- Switched `map_frame` to mounted wood placeholder with floor/wall/ceiling shape parity baseline.
+- Rewrote `case`, `fancy_sign`, and `map_frame` blockstate JSON files to `face + facing` variant grids.
+- `./gradlew --no-daemon processResources compileJava` passes after mount-state expansion.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -112,7 +127,8 @@
 - [ ] Preserve variant strategy placeholders:
 - [ ] Wood variants (7-state concept including framed)
 - [ ] Color variants (16 colors)
-- [ ] Lamp/Lantern metal variants (gold/iron)
+- [x] Lamp/Lantern metal variants (gold/iron)
+- [x] Mount-state placeholder coverage for legacy mounted blocks (lamp/lantern/case/fancy_sign/map_frame)
 - [ ] Typewriter/Sword pedestal color variants
 - [ ] Recreate creative tab exposure in new tab system.
 

@@ -87,6 +87,21 @@
 - Registered `RecipeSerializer` + `RecipeType` for `enchantedatlas`.
 - Updated mod bootstrap to register network + recipe surfaces.
 - Build validation after network/recipe pass: `./gradlew --no-daemon compileJava` succeeded.
+- Added mounted-light parity baseline:
+- Added `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java`.
+- `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` now use `face + facing` state (`floor/wall/ceiling`).
+- Added wall/ceiling model JSON variants for all four lamp/lantern blocks.
+- Build validation after mounted-light pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added mounted-state expansion for additional blocks:
+- Added `src/main/java/art/arcane/bibliocraft/block/FloorWallFacingEntityBlock.java` (legacy floor/wall placement parity).
+- `case` now uses floor/wall mount state + per-face/per-facing blockstate variants.
+- `fancy_sign` now uses mounted state; block models split by mount face:
+- wall uses sign/front only
+- floor uses sign/front + `feetBottom`
+- ceiling uses sign/front + `feetTop`
+- `map_frame` now uses mounted state with floor/wall/ceiling shape baseline.
+- Updated `MountedFacingEntityBlock` internals so floor and ceiling shapes also rotate by `facing`.
+- Build validation after mount-state expansion: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -107,6 +122,11 @@
 - First-pass shape constants now live in `ModBlocks` (`SHAPE_*` fields) and should be kept in sync with `PORTING_MANIFEST.md` shape notes.
 - Rotation/state reminder:
 - Blockstates are no longer single empty variants; they now depend on `facing`. Any new block class without a `facing` property must not reuse the current generic blockstate template.
+- Mounted-state reminder:
+- Mount-style blocks now use either:
+- `MountedFacingEntityBlock` (`face=floor|wall|ceiling`, all faces rotated by facing),
+- or `FloorWallFacingEntityBlock` (`face=floor|wall`, no ceiling placement).
+- Their blockstate JSON must include `face` + `facing` keys, not `facing` alone.
 - Item-model reminder:
 - Block items now source 3D geometry directly from OBJ in their item model JSONs; avoid reverting to parent-linked block item JSONs unless a specific regression requires it.
 - OBJ item-part reminder:

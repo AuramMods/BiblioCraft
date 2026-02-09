@@ -1,0 +1,16 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/lamp.obj",
+  "flip_v": true,
+  "visibility": {
+    "baseFloor": false,
+    "lampTopFloor": false,
+    "lampTopWall": false,
+    "lampTopCeiling": true,
+    "wallPlate": false,
+    "ceilingPlate": true
+  },
+  "textures": {
+    "particle": "bibliocraft:block/lamp"
+  }
+}

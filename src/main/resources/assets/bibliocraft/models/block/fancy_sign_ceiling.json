@@ -6,7 +6,7 @@
     "sign": true,
     "front": true,
     "feetBottom": false,
-    "feetTop": false
+    "feetTop": true
   },
   "textures": {
     "particle": "minecraft:block/oak_planks"
