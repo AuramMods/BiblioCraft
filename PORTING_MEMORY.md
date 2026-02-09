@@ -69,6 +69,14 @@
 - Updated `ModBlocks` helper constructors to use `HorizontalFacingEntityBlock` for all current placeholder block registrations.
 - Rewrote all Bibliocraft blockstate JSONs to `facing=north/east/south/west` variants with `y` rotations.
 - Build validation after facing/state pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added item-visibility parity pass for OBJ block-items:
+- Updated item models that have separate `*_item` mesh groups in source OBJ to render legacy-equivalent item parts.
+- Updated files:
+- `src/main/resources/assets/bibliocraft/models/item/case.json`
+- `src/main/resources/assets/bibliocraft/models/item/framed_chest.json`
+- `src/main/resources/assets/bibliocraft/models/item/painting_press.json`
+- `src/main/resources/assets/bibliocraft/models/item/printing_press.json`
+- Build validation after item-visibility pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -91,6 +99,8 @@
 - Blockstates are no longer single empty variants; they now depend on `facing`. Any new block class without a `facing` property must not reuse the current generic blockstate template.
 - Item-model reminder:
 - Block items now source 3D geometry directly from OBJ in their item model JSONs; avoid reverting to parent-linked block item JSONs unless a specific regression requires it.
+- OBJ item-part reminder:
+- Some OBJ files include both block and item meshes (`*_item`). For item models, prefer item groups (`*_item`) over block/open groups when both exist.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

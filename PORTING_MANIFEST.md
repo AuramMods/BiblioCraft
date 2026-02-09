@@ -64,6 +64,11 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `seatback3`: `backWood2`, `backCloth2`, `backWood2Top`
 - `seatback4`: `backCloth003`, `backsupport2`
 - `seatback5`: `backCloth2`, `backWood2`, `fancyBackWood`
+- Item visibility-group parity updates (legacy-equivalent item parts):
+- `models/item/case.json` now uses `case_lid_*_item` groups.
+- `models/item/framed_chest.json` now uses `small_lid_item` + `latch_item`.
+- `models/item/painting_press.json` now enables `painting` + `lid_item`.
+- `models/item/printing_press.json` now enables `arm_item` + `bed_item` + default books (`book1`, `book2`, `bookBlue`).
 - Known parity gap:
 - Legacy 1.12 rendering used `ExtendedBlockState` + `OBJModel.OBJState` dynamic transforms and part selection.
 - Current 1.20 smoke baseline is static OBJ JSON, so some models may still appear offset or incomplete until dynamic behavior is ported.

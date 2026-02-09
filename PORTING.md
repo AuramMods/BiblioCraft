@@ -64,6 +64,11 @@
 - Updated `ModBlocks` placeholder helpers to use `HorizontalFacingEntityBlock` for all registered blocks.
 - Rewrote all 37 blockstate JSON files to explicit `facing=north/east/south/west` variants with Y-rotation transforms.
 - `./gradlew --no-daemon processResources compileJava` passes after state/rotation wiring.
+- Block-item OBJ parity pass (item visibility groups) completed:
+- Updated OBJ-backed item models that have dedicated `*_item` mesh groups to use legacy-equivalent item parts instead of block parts.
+- Updated files: `models/item/case.json`, `models/item/framed_chest.json`, `models/item/painting_press.json`, `models/item/printing_press.json`.
+- This aligns item render baselines with old `ModelCase`/`ModelFramedChest`/`ModelPaintingPress`/`ModelPrintingPress` default part sets.
+- `./gradlew --no-daemon processResources compileJava` passes after visibility updates.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.

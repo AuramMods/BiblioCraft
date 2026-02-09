@@ -5,9 +5,9 @@
   "visibility": {
     "base": true,
     "canvas": true,
-    "painting": false,
+    "painting": true,
     "lid": false,
-    "lid_item": false
+    "lid_item": true
   },
   "textures": {
     "particle": "bibliocraft:block/canvas"

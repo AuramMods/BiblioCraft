@@ -5,16 +5,16 @@
   "visibility": {
     "press": true,
     "plate": false,
-    "book1": false,
-    "book2": false,
+    "book1": true,
+    "book2": true,
     "book3": false,
     "book4": false,
-    "bookBlue": false,
+    "bookBlue": true,
     "bookEnchant": false,
     "arm": false,
-    "arm_item": false,
+    "arm_item": true,
     "bed": false,
-    "bed_item": false
+    "bed_item": true
   },
   "textures": {
     "particle": "bibliocraft:block/inkplate0"

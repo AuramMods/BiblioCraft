@@ -5,15 +5,15 @@
   "visibility": {
     "case_inside": true,
     "case_bottom": true,
-    "case_lid_glass": true,
-    "case_lid_latch": true,
-    "case_lid_wood": true,
+    "case_lid_glass": false,
+    "case_lid_latch": false,
+    "case_lid_wood": false,
     "case_lid_glass_open": false,
     "case_lid_latch_open": false,
     "case_lid_wood_open": false,
-    "case_lid_glass_item": false,
-    "case_lid_latch_item": false,
-    "case_lid_wood_item": false
+    "case_lid_glass_item": true,
+    "case_lid_latch_item": true,
+    "case_lid_wood_item": true
   },
   "textures": {
     "particle": "minecraft:block/oak_planks"
