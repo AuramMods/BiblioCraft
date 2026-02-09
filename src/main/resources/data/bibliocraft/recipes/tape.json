@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bibliocraft",
+  "pattern": [
+    "XXX",
+    "XDX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:string"
+    },
+    "D": {
+      "tag": "forge:dyes/yellow"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:tape"
+  }
+}

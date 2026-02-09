@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bibliocraft",
+  "pattern": [
+    "D F",
+    "RRR",
+    " X "
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "D": {
+      "tag": "forge:dyes/black"
+    },
+    "R": {
+      "item": "minecraft:paper"
+    },
+    "X": {
+      "item": "minecraft:oak_pressure_plate"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:biblio_clipboard"
+  }
+}

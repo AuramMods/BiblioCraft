@@ -141,6 +141,14 @@
 - `ModMenus.getMenuForBlock(...)` now returns `null` for disabled blocks.
 - `CommonGameplayEvents.onItemToss(...)` now ignores disabled-item surfaces.
 - `./gradlew --no-daemon processResources compileJava` passes after recipe/data/gating pass.
+- Utility-item recipe migration breadth pass completed:
+- Added second migrated 1.20 datapack recipe batch under `data/bibliocraft/recipes`:
+- `hand_drill`, `tape`, `tape_measure`, `framing_saw`, `framing_sheet`, `framing_board`, `plumb_line`, `biblio_clipboard`, `big_book`, `biblio_red_book`, `stockroom_catalog`, `biblio_glasses`.
+- Recipe conversions normalized old 1.12 ids and metadata to 1.20 naming/tag semantics:
+- old `minecraft:dye` metadata replaced by `forge:dyes/*` tags where needed.
+- old `minecraft:planks` metadata lists replaced by `minecraft:planks` tag ingredients.
+- old legacy item ids (`handdrill`, `tapemeasure`, `framingsaw`, etc.) mapped to current 1.20 ids (`hand_drill`, `tape_measure`, `framing_saw`, etc.).
+- `./gradlew --no-daemon processResources compileJava` passes after utility recipe batch.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -205,6 +213,7 @@
 - [ ] Recreate legacy dynamic transform/state behavior (old `ExtendedBlockState` + custom baked model logic) for off-axis/shifted models
 - [x] Migrate sounds (`sounds.json` + `SoundEvent` registry).
 - [x] Migrate representative atlas recipe family to 1.20 datapack format (`maptool`, `compass`, `slotted_book`, `atlas_book`, `enchantedatlas`).
+- [x] Migrate representative utility-item recipe family to 1.20 datapack format (`hand_drill`, `tape`, `tape_measure`, `framing_*`, `plumb_line`, `biblio_clipboard`, `big_book`, `biblio_red_book`, `stockroom_catalog`, `biblio_glasses`).
 - [ ] Move legacy recipes into data pack format where needed.
 
 ## Phase 6 - Feature Depth Passes (Iterative)

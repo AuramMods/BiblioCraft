@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "bibliocraft",
+  "ingredients": [
+    {
+      "tag": "minecraft:planks"
+    },
+    {
+      "item": "bibliocraft:framing_saw"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:framing_sheet",
+    "count": 2
+  }
+}

@@ -165,6 +165,14 @@
 - `src/main/java/art/arcane/bibliocraft/registry/ModMenus.java` now gate-checks block menu lookup.
 - `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java` item toss gate check now respects enabled items.
 - Build validation after recipe/data/gating pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added utility-item datapack recipe migration baseline:
+- New recipes in `src/main/resources/data/bibliocraft/recipes`:
+- `hand_drill.json`, `tape.json`, `tape_measure.json`, `framing_saw.json`, `framing_sheet.json`, `framing_board.json`, `plumb_line.json`, `biblio_clipboard.json`, `big_book.json`, `biblio_red_book.json`, `stockroom_catalog.json`, `biblio_glasses.json`.
+- Conversion notes:
+- old 1.12 dye metadata converted to `forge:dyes/*` tags.
+- old 1.12 plank metadata lists converted to `minecraft:planks` tag ingredients.
+- old compact item ids (`handdrill`, `tapemeasure`, `framingsaw`, etc.) mapped to current underscore ids (`hand_drill`, `tape_measure`, `framing_saw`, etc.).
+- Build validation after utility recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -211,6 +219,8 @@
 - `BiblioFeatureToggles` is now the source of truth for legacy `enable*` parity checks in runtime behavior; keep mappings aligned with `old-1.12.2` `BlockLoader`/`ItemLoader`.
 - Recipe reminder:
 - Representative 1.20 datapack recipes now live under `src/main/resources/data/bibliocraft/recipes`; future recipe migration should prefer this path over legacy `assets/.../recipes`.
+- Recipe gap reminder:
+- Metadata-variant-only glasses recipes (`monocle`, `tinted_glasses`) are not migrated yet because current placeholder item surface has a single `biblio_glasses` item without subtype/state parity.
 - Atlas-enchant reminder:
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
@@ -269,6 +279,7 @@
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
 - Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
 - Next data target: continue datapack migration beyond atlas family (book/label/table/seat subsets first), then retire equivalent legacy-style recipe assumptions.
+- Next data target: migrate block recipe families in batches (bookcase/shelf/table/seat first), then lamp/lantern/typewriter/sword-pedestal color variants.
 - Next breadth target: extend config-gate consumption to remaining runtime systems (packet/event paths, drops/placement restrictions, and recipe visibility) where old 1.12 registration toggles implied absence.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.

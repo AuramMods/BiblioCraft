@@ -217,6 +217,22 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/slotted_book.json`
 - `src/main/resources/data/bibliocraft/recipes/atlas_book.json`
 - `src/main/resources/data/bibliocraft/recipes/enchantedatlas.json`
+- Extended migrated datapack subset:
+- `src/main/resources/data/bibliocraft/recipes/hand_drill.json`
+- `src/main/resources/data/bibliocraft/recipes/tape.json`
+- `src/main/resources/data/bibliocraft/recipes/tape_measure.json`
+- `src/main/resources/data/bibliocraft/recipes/framing_saw.json`
+- `src/main/resources/data/bibliocraft/recipes/framing_sheet.json`
+- `src/main/resources/data/bibliocraft/recipes/framing_board.json`
+- `src/main/resources/data/bibliocraft/recipes/plumb_line.json`
+- `src/main/resources/data/bibliocraft/recipes/biblio_clipboard.json`
+- `src/main/resources/data/bibliocraft/recipes/big_book.json`
+- `src/main/resources/data/bibliocraft/recipes/biblio_red_book.json`
+- `src/main/resources/data/bibliocraft/recipes/stockroom_catalog.json`
+- `src/main/resources/data/bibliocraft/recipes/biblio_glasses.json`
+- Current migrated datapack recipe count: 17
+- Deferred metadata-variant recipe set:
+- `monocle`, `tinted_glasses` (depends on future `biblio_glasses` subtype/state parity).
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.
 - Output atlas currently includes placeholder marker NBT (`bibliocraft:death_compass_enabled=true`) until full enchantment parity is ported.

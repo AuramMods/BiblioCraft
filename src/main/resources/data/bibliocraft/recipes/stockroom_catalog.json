@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bibliocraft",
+  "pattern": [
+    "RDR",
+    "RBR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:paper"
+    },
+    "D": {
+      "tag": "forge:dyes/green"
+    },
+    "B": {
+      "item": "minecraft:writable_book"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:stockroom_catalog"
+  }
+}
