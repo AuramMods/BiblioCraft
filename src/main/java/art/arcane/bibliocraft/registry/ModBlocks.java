@@ -33,20 +33,25 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_HALF_RACK_EAST = box(0.5, 0.0, 0.0, 1.0, 1.0, 1.0);
     private static final VoxelShape SHAPE_MARKER_POLE = box(0.25, 0.0, 0.25, 0.75, 0.9, 0.75);
     private static final VoxelShape SHAPE_CLIPBOARD = box(0.0, 0.08, 0.15, 0.08, 0.92, 0.85);
-    private static final VoxelShape SHAPE_LANTERN = box(0.3, 0.0, 0.3, 0.7, 0.7, 0.7);
-    private static final VoxelShape SHAPE_LAMP = box(0.18, 0.0, 0.18, 0.82, 1.0, 0.82);
-    private static final VoxelShape SHAPE_LAMP_WALL = box(0.1, 0.05, 0.1, 0.9, 0.55, 0.9);
-    private static final VoxelShape SHAPE_LAMP_CEILING = box(0.1, 0.0, 0.1, 0.9, 1.0, 0.9);
+    private static final VoxelShape SHAPE_LANTERN = box(0.2133, 0.0, 0.2517, 0.7867, 0.7007, 0.7483);
+    private static final VoxelShape SHAPE_LANTERN_WALL = box(0.2133, 0.0, 0.2517, 1.0, 0.9789, 0.7483);
+    private static final VoxelShape SHAPE_LANTERN_CEILING = box(0.15, 0.0, 0.1971, 0.85, 1.0, 0.8033);
+    private static final VoxelShape SHAPE_LAMP = box(0.0485, 0.0, 0.1, 0.85, 1.0, 0.9);
+    private static final VoxelShape SHAPE_LAMP_WALL = box(0.0485, 0.0, 0.1, 1.0, 0.5403, 0.9);
+    private static final VoxelShape SHAPE_LAMP_CEILING = box(0.0485, 0.0, 0.1, 0.9515, 1.0, 0.9);
     private static final VoxelShape SHAPE_FURNITURE_PANELER = box(0.0, 0.0, 0.0, 1.0, 0.63, 1.0);
     private static final VoxelShape SHAPE_FRAMED_CHEST = box(0.054, 0.0, 0.054, 0.946, 0.866, 0.946);
     private static final VoxelShape SHAPE_SIGN_PLANE = box(0.0, 0.2, 0.0, 0.06, 0.8, 1.0);
     private static final VoxelShape SHAPE_LABEL = box(0.0, 0.12, 0.28, 0.06, 0.38, 0.72);
     private static final VoxelShape SHAPE_TABLE = combine(
             box(0.0, 0.88, 0.0, 1.0, 1.0, 1.0),
-            box(0.375, 0.0, 0.375, 0.625, 0.88, 0.625)
+            box(0.2586, 0.7283, 0.2586, 0.7414, 0.8804, 0.7414),
+            box(0.4, 0.0667, 0.4, 0.6, 0.7283, 0.6),
+            box(0.12, 0.0, 0.4, 0.88, 0.0667, 0.6),
+            box(0.4, 0.0, 0.12, 0.6, 0.0667, 0.88)
     );
-    private static final VoxelShape SHAPE_SEAT = box(0.16, 0.0, 0.16, 0.84, 0.74, 0.84);
-    private static final VoxelShape SHAPE_CLOCK = box(0.3, 0.0, 0.3, 0.7, 1.0, 0.7);
+    private static final VoxelShape SHAPE_SEAT = box(0.15, 0.0, 0.15, 0.85, 0.7509, 0.85);
+    private static final VoxelShape SHAPE_CLOCK = box(0.0, 0.0, 0.2549, 0.165, 0.9976, 0.7451);
     private static final VoxelShape SHAPE_CASE_FLOOR = box(0.06, 0.0, 0.0, 0.94, 0.5, 1.0);
     private static final VoxelShape SHAPE_CASE_WALL = box(0.0, 0.0, 0.06, 0.5, 1.0, 0.94);
     private static final VoxelShape SHAPE_MAP_FRAME_WALL = box(0.0, 0.0, 0.0, 0.05, 1.0, 1.0);
@@ -54,13 +59,13 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_MAP_FRAME_CEILING = box(0.0, 0.95, 0.0, 1.0, 1.0, 1.0);
     private static final VoxelShape SHAPE_PAINTING_FRAME = box(0.0, 0.0, 0.0, 0.08, 1.0, 1.0);
     private static final VoxelShape SHAPE_PAINTING_PRESS = box(0.0, 0.0, 0.0, 1.0, 0.98, 1.0);
-    private static final VoxelShape SHAPE_TYPEWRITER = box(0.1384, 0.0, 0.2073, 0.7053, 0.4835, 0.7927);
+    private static final VoxelShape SHAPE_TYPEWRITER = box(0.1384, 0.0, 0.2466, 0.6452, 0.1966, 0.7534);
     private static final VoxelShape SHAPE_SWORD_PEDESTAL = box(0.2758, 0.0, 0.0712, 0.7242, 0.2340, 0.9288);
     private static final VoxelShape SHAPE_ARMOR_STAND = box(0.3, 0.0, 0.3, 0.7, 1.0, 0.7);
     private static final VoxelShape SHAPE_BELL = box(0.4, 0.0, 0.4, 0.6, 0.2, 0.6);
     private static final VoxelShape SHAPE_TYPESETTING_TABLE = box(0.0, 0.0, 0.0, 1.0, 0.92, 1.0);
     private static final VoxelShape SHAPE_COOKIE_JAR = box(0.18, 0.0, 0.18, 0.82, 0.75, 0.82);
-    private static final VoxelShape SHAPE_DINNER_PLATE = box(0.15, 0.0, 0.15, 0.85, 0.1, 0.85);
+    private static final VoxelShape SHAPE_DINNER_PLATE = box(0.1536, 0.0, 0.11, 0.8464, 0.0767, 0.91);
     private static final VoxelShape SHAPE_DISC_RACK = box(0.0, 0.0, 0.25, 1.0, 0.35, 0.75);
 
     public static final RegistryObject<Block> BOOKCASE =
@@ -74,9 +79,9 @@ public final class ModBlocks {
     public static final RegistryObject<Block> CLIPBOARD =
             register("clipboard", () -> shapedWoodEntity(SHAPE_CLIPBOARD, "clipboard"));
     public static final RegistryObject<Block> LANTERN_GOLD =
-            register("lantern_gold", () -> mountedLightEntity(SHAPE_LANTERN, SHAPE_LANTERN, SHAPE_LANTERN, "bibliolight"));
+            register("lantern_gold", () -> mountedLightEntity(SHAPE_LANTERN, SHAPE_LANTERN_WALL, SHAPE_LANTERN_CEILING, "bibliolight"));
     public static final RegistryObject<Block> LANTERN_IRON =
-            register("lantern_iron", () -> mountedLightEntity(SHAPE_LANTERN, SHAPE_LANTERN, SHAPE_LANTERN, "bibliolight"));
+            register("lantern_iron", () -> mountedLightEntity(SHAPE_LANTERN, SHAPE_LANTERN_WALL, SHAPE_LANTERN_CEILING, "bibliolight"));
     public static final RegistryObject<Block> LAMP_GOLD =
             register("lamp_gold", () -> mountedLightEntity(SHAPE_LAMP, SHAPE_LAMP_WALL, SHAPE_LAMP_CEILING, "bibliolight"));
     public static final RegistryObject<Block> LAMP_IRON =

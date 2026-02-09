@@ -226,6 +226,11 @@
 - Added non-white color model/MTL variant assets for mounted lights (gold/iron, floor/wall/ceiling) and rewrote all four light blockstates to `face + facing + color`.
 - Added loot-table `minecraft:copy_state` for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal` so color survives break/re-place via `BlockStateTag`.
 - Build validation after mounted-light color/persistence pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added targeted voxel-shape correction pass from in-game bbox feedback:
+- `table` now uses a multi-box monoleg profile (top slab + upper flare + stem + crossed foot bars) instead of a narrow center-post approximation.
+- `lamp_*` and `lantern_*` now use updated floor/wall/ceiling shape constants aligned to current OBJ visibility extents.
+- `typewriter`, `seat`, `clock`, and `dinner_plate` shape constants were tightened to match currently visible geometry.
+- Build validation after bbox correction pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.

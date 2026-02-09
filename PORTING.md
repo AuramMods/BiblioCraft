@@ -193,6 +193,11 @@
 - Rewrote `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` blockstate files to `face + facing + color` variant grids.
 - Added loot-table `minecraft:copy_state` for colorized blocks (`lamp_*`, `lantern_*`, `typewriter`, `sword_pedestal`) so break/re-place preserves color via `BlockStateTag`.
 - `./gradlew --no-daemon processResources compileJava` passes after light color-state + persistence pass.
+- Bounding-box correction pass completed for reported shape mismatches:
+- Updated `table` to a multi-box monoleg profile (top slab + flare + stem + foot crossbars) instead of a single center post.
+- Recalibrated `lamp_*` and `lantern_*` floor/wall/ceiling voxel shapes to match active OBJ extents, including dedicated wall/ceiling lantern shapes.
+- Tightened additional high-traffic shapes to current visible-model extents (`typewriter`, `seat`, `clock`, `dinner_plate`).
+- `./gradlew --no-daemon compileJava` passes after shape corrections.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.

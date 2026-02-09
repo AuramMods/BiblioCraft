@@ -130,26 +130,26 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `potion_shelf` | `x:0.5-1.0 y:0.0-1.0 z:0.0-1.0` | OBJ extent (`potionshelf.obj`) |
 | `marker_pole` | `x:0.25-0.75 y:0.0-0.9 z:0.25-0.75` | OBJ extent (`markerpole.obj`) |
 | `clipboard` | `x:0.0-0.08 y:0.08-0.92 z:0.15-0.85` | old wall board bbox |
-| `lantern_gold`, `lantern_iron` | `x/z:0.3-0.7 y:0.0-0.7` | old `BlockLantern*` bbox |
-| `lamp_gold`, `lamp_iron` | `x/z:0.18-0.82 y:0.0-1.0` | old floor lamp bbox |
+| `lantern_gold`, `lantern_iron` | floor: `x:0.2133-0.7867 y:0.0-0.7007 z:0.2517-0.7483`; wall: `x:0.2133-1.0 y:0.0-0.9789 z:0.2517-0.7483`; ceiling: `x:0.15-0.85 y:0.0-1.0 z:0.1971-0.8033` | OBJ visibility extents (`lantern.obj`) with mount-state variants |
+| `lamp_gold`, `lamp_iron` | floor: `x:0.0485-0.85 y:0.0-1.0 z:0.1-0.9`; wall: `x:0.0485-1.0 y:0.0-0.5403 z:0.1-0.9`; ceiling: `x:0.0485-0.9515 y:0.0-1.0 z:0.1-0.9` | OBJ visibility extents (`lamp.obj`) with mount-state variants |
 | `furniture_paneler` | `x/z:0.0-1.0 y:0.0-0.63` | old `BlockFurniturePaneler` bbox |
 | `framed_chest` | `x/z:0.054-0.946 y:0.0-0.866` | old single chest bbox |
 | `fancy_sign` | mounted shape baseline: thin sign plane (`x:0.0-0.06 y:0.2-0.8 z:0.0-1.0`) rotated by `facing` for floor/wall/ceiling placements | old sign bbox + legacy mount states |
 | `label` | `x:0.0-0.06 y:0.12-0.38 z:0.28-0.72` | old wall label bbox |
-| `table` | union of top slab `y:0.88-1.0` + center leg | old table top logic + current visible variant |
-| `seat` | `x/z:0.16-0.84 y:0.0-0.74` | old `BlockSeat` bbox |
-| `clock` | `x/z:0.3-0.7 y:0.0-1.0` | conservative non-full placeholder |
+| `table` | union of top slab (`x/z:0.0-1.0 y:0.88-1.0`) + upper flare (`x/z:0.2586-0.7414 y:0.7283-0.8804`) + stem (`x/z:0.4-0.6 y:0.0667-0.7283`) + crossed foot bars (`x:0.12-0.88 y:0.0-0.0667 z:0.4-0.6` and `x:0.4-0.6 y:0.0-0.0667 z:0.12-0.88`) | active OBJ visible parts (`monoleg` + `tableBevel*`) |
+| `seat` | `x/z:0.15-0.85 y:0.0-0.7509` | OBJ visibility extents (`seat.obj`) |
+| `clock` | `x:0.0-0.165 y:0.0-0.9976 z:0.2549-0.7451` | OBJ visibility extents (`clock.obj`) |
 | `case` | floor/wall mount baseline: floor (`x:0.06-0.94 y:0.0-0.5 z:0.0-1.0`), wall (`x:0.0-0.5 y:0.0-1.0 z:0.06-0.94`), both rotated by `facing` | old floor/wall case bbox |
 | `map_frame` | mounted baseline: wall (`x:0.0-0.05 y:0.0-1.0 z:0.0-1.0`), floor (`y:0.0-0.05` full XZ), ceiling (`y:0.95-1.0` full XZ) | old map-frame floor/wall/ceiling bbox |
 | `painting_frame_*` | `x:0.0-0.08 y:0.0-1.0 z:0.0-1.0` | old painting-frame wall bbox |
 | `painting_press` | `x/z:0.0-1.0 y:0.0-0.98` | OBJ/legacy near-full profile |
-| `typewriter` | `x:0.1384-0.7053 y:0.0-0.4835 z:0.2073-0.7927` | OBJ extent (`typewriter.obj`) |
+| `typewriter` | `x:0.1384-0.6452 y:0.0-0.1966 z:0.2466-0.7534` | active OBJ visible parts (`typewriter.obj`, current `base` visibility only) |
 | `sword_pedestal` | `x:0.2758-0.7242 y:0.0-0.234 z:0.0712-0.9288` | OBJ extent + old bbox |
 | `armor_stand` | `x/z:0.3-0.7 y:0.0-1.0` | old orientation bbox collapsed to static |
 | `bell` | `x/z:0.4-0.6 y:0.0-0.2` | old `BlockBell` bbox |
 | `typesetting_table` | `x/z:0.0-1.0 y:0.0-0.92` | old `BlockTypesettingTable` bbox |
 | `cookie_jar` | `x/z:0.18-0.82 y:0.0-0.75` | old `BlockCookieJar` bbox |
-| `dinner_plate` | `x/z:0.15-0.85 y:0.0-0.1` | old `BlockDinnerPlate` bbox |
+| `dinner_plate` | `x:0.1536-0.8464 y:0.0-0.0767 z:0.11-0.91` | OBJ extents (`dinnerplate.obj`) |
 | `disc_rack` | `x:0.0-1.0 y:0.0-0.35 z:0.25-0.75` | old floor disc-rack bbox |
 | `fancy_workbench`, `desk`, `printing_press` | full shape placeholder (BE-backed) | pending deeper shape/state pass |
 
