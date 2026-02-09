@@ -6,7 +6,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bibliocraft:lamp_gold"
+          "name": "bibliocraft:lamp_gold",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "bibliocraft:lamp_gold",
+              "properties": [
+                "color"
+              ]
+            }
+          ]
         }
       ],
       "conditions": [

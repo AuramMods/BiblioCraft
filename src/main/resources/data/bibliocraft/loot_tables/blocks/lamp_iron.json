@@ -6,7 +6,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bibliocraft:lamp_iron"
+          "name": "bibliocraft:lamp_iron",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "bibliocraft:lamp_iron",
+              "properties": [
+                "color"
+              ]
+            }
+          ]
         }
       ],
       "conditions": [

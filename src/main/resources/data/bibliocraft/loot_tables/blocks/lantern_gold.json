@@ -6,7 +6,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bibliocraft:lantern_gold"
+          "name": "bibliocraft:lantern_gold",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "bibliocraft:lantern_gold",
+              "properties": [
+                "color"
+              ]
+            }
+          ]
         }
       ],
       "conditions": [

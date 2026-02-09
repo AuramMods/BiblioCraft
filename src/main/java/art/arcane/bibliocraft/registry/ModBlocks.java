@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.ColorFacingEntityBlock;
+import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
@@ -164,7 +165,7 @@ public final class ModBlocks {
             VoxelShape ceilingShape,
             String blockEntityPath
     ) {
-        return new MountedFacingEntityBlock(lightProps(), floorShape, wallShape, ceilingShape, blockEntityPath);
+        return new ColorMountedFacingEntityBlock(lightProps(), floorShape, wallShape, ceilingShape, blockEntityPath);
     }
 
     private static Block mountedWoodEntity(

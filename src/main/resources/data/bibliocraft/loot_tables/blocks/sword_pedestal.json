@@ -6,7 +6,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bibliocraft:sword_pedestal"
+          "name": "bibliocraft:sword_pedestal",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "bibliocraft:sword_pedestal",
+              "properties": [
+                "color"
+              ]
+            }
+          ]
         }
       ],
       "conditions": [

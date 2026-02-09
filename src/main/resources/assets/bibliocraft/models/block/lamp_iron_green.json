@@ -1,0 +1,17 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/lamp.obj",
+  "flip_v": true,
+  "mtl_override": "bibliocraft:models/block/lamp_iron_green.mtl",
+  "visibility": {
+    "baseFloor": true,
+    "lampTopFloor": true,
+    "lampTopWall": false,
+    "lampTopCeiling": false,
+    "wallPlate": false,
+    "ceilingPlate": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/lamp_iron"
+  }
+}

@@ -107,6 +107,11 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Added 16 color-specific block model JSON + MTL overrides per block:
 - `models/block/typewriter_<color>.json` + `typewriter_<color>.mtl` (`typewriter0..15` texture mapping).
 - `models/block/sword_pedestal_<color>.json` + `sword_pedestal_<color>.mtl` (`minecraft:block/<color>_wool` color material mapping).
+- Mounted-light color-state parity updates now in baseline:
+- `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` now use `face + facing + color` blockstates.
+- Added non-white color-specific mounted light model/MTL overrides:
+- lamp families: `models/block/lamp_<metal>_<color>.json` + `_wall.json` + `_ceiling.json` + `.mtl` (15 colors per metal).
+- lantern families: `models/block/lantern_<metal>_<color>.json` + `_wall.json` + `_ceiling.json` + `.mtl` (15 colors per metal).
 
 ## Current 1.20 Voxel Shape Snapshot (Pass 1)
 - Source of truth: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` (`SHAPE_*` constants + registrations).
@@ -114,6 +119,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/block/StaticShapeBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java` (adds facing-based shape rotation)
 - `src/main/java/art/arcane/bibliocraft/block/ColorFacingEntityBlock.java` (adds `facing + color` state for colorized placeholders)
+- `src/main/java/art/arcane/bibliocraft/block/ColorMountedFacingEntityBlock.java` (adds `face + facing + color` state for mounted colorized placeholders)
 - `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java` (adds `face + facing` mount-state shape rotation)
 - `src/main/java/art/arcane/bibliocraft/block/FloorWallFacingEntityBlock.java` (adds floor/wall mount-state shape rotation)
 - Intent: remove full-cube placeholder behavior so model hitboxes are closer to legacy.
@@ -173,6 +179,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Placeholder runtime classes:
 - `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/ColorFacingEntityBlock.java`
+- `src/main/java/art/arcane/bibliocraft/block/ColorMountedFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/FloorWallFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java`
@@ -308,12 +315,14 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Path: `src/main/resources/data/bibliocraft/loot_tables/blocks/*.json`
 - Count: 37 files (one per registered block id).
 - Current loot strategy: self-drop + `minecraft:survives_explosion` placeholder condition.
+- Colorized block persistence override:
+- `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal` loot tables now also apply `minecraft:copy_state` for `color` so dropped items preserve state via `BlockStateTag`.
 - Deferred metadata-variant recipe split:
 - `monocle`, `tinted_glasses` currently output base `biblio_glasses`; split to true subtype/state outputs when glasses variant support exists.
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
-- color-variant recolor recipes are still placeholder datapack outputs; runtime color-state now exists for `typewriter` + `sword_pedestal`, while `lamp_*` + `lantern_*` are still pending color-state depth support.
+- color-variant recolor recipes are still placeholder datapack outputs; runtime color-state now exists for `typewriter`, `sword_pedestal`, `lamp_*`, and `lantern_*`, but recipe outputs still need state-aware conversion logic.
 - block loot-table files are currently generic self-drop placeholders; block-entity/state-specific drop parity remains deferred.
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.

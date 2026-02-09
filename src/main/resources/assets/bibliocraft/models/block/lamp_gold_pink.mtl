@@ -1,0 +1,7 @@
+newmtl lamp
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:block/lamp
+
+newmtl lamplight
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:block/lamplight6

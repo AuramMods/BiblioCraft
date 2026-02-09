@@ -220,6 +220,12 @@
 - Added in-world dye application in `PlaceholderEntityBlock#use` for blocks exposing color state.
 - Added 16 color-specific OBJ model/MTL variants per block and rewrote blockstates to `facing + color` variant maps.
 - Build validation after color-state pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added mounted-light color-state + drop-persistence baseline:
+- Added `src/main/java/art/arcane/bibliocraft/block/ColorMountedFacingEntityBlock.java` (`face + facing + color` state).
+- Switched `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` to mounted color-capable placeholders.
+- Added non-white color model/MTL variant assets for mounted lights (gold/iron, floor/wall/ceiling) and rewrote all four light blockstates to `face + facing + color`.
+- Added loot-table `minecraft:copy_state` for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal` so color survives break/re-place via `BlockStateTag`.
+- Build validation after mounted-light color/persistence pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -247,7 +253,8 @@
 - Their blockstate JSON must include `face` + `facing` keys, not `facing` alone.
 - Color-state reminder:
 - Color-capable placeholders now use `ColorFacingEntityBlock` (`facing + color`) and require blockstate JSON keys that include both properties.
-- Current color-state coverage is intentionally limited to `typewriter` and `sword_pedestal` until lamp/lantern color-state depth pass lands.
+- Mounted color-capable placeholders use `ColorMountedFacingEntityBlock` (`face + facing + color`) and require blockstate JSON keys with all three properties.
+- Current runtime color-state coverage includes `typewriter`, `sword_pedestal`, `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron`.
 - Event-hook reminder:
 - Legacy FORGE event surface now has placeholders in `event/CommonGameplayEvents` and `event/ClientRenderEvents`; extend these classes instead of scattering ad-hoc subscribers.
 - Seat-behavior reminder:
@@ -276,7 +283,7 @@
 - Block recipe consolidation reminder:
 - Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
 - Color-variant recipe reminder:
-- Recolor recipes are still placeholder no-op conversions in datapack outputs; `typewriter` and `sword_pedestal` now have runtime color-state + dye interaction, while lamp/lantern remain collapsed until their color-state pass.
+- Recolor recipes are still placeholder no-op conversions in datapack outputs even though runtime color-state now exists for `typewriter`, `sword_pedestal`, `lamp_*`, and `lantern_*`; recipe outputs should be converted to true state-aware recolor behavior in a follow-up pass.
 - Obtainability reminder:
 - Three registered ids are intentionally still non-craftable in datapack outputs for now: `bookcase_creative` (creative variant), `biblio_creative_lock` (creative/admin surface), and `tester_item` (debug surface).
 - Loot-table reminder:
@@ -285,9 +292,9 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Extend `ColorFacingEntityBlock` coverage to `lamp_*` and `lantern_*` so existing 16-color texture sets are state-driven instead of static texture-0.
-- Add color persistence on break/re-place (item/block-entity handoff) for colorized blocks.
-- Replace placeholder recolor recipe outputs with state-aware recolor behavior once item-state strategy is finalized.
+- Replace placeholder recolor recipe outputs with true state-aware recolor behavior for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal`.
+- Add pick-block (creative clone) color carry so non-white color state is preserved on middle-click duplication.
+- Begin wood/framed variant-state scaffolding (next major open variant-strategy surface).
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

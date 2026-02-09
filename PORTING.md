@@ -187,6 +187,12 @@
 - Added in-world dye application in `PlaceholderEntityBlock#use` for color-capable placeholders.
 - Added 16-color OBJ material/model variants for both blocks plus `facing + color` blockstate variant maps.
 - `./gradlew --no-daemon processResources compileJava` passes after color-state/model pass.
+- Lamp/Lantern color-state + drop-persistence parity pass completed:
+- Added `ColorMountedFacingEntityBlock` (`face + facing + color`) and switched `lamp_*` + `lantern_*` registrations to this block class.
+- Expanded model/state coverage for mounted lights to 16 colors (gold/iron floor/wall/ceiling variants with color-specific MTL overrides).
+- Rewrote `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` blockstate files to `face + facing + color` variant grids.
+- Added loot-table `minecraft:copy_state` for colorized blocks (`lamp_*`, `lantern_*`, `typewriter`, `sword_pedestal`) so break/re-place preserves color via `BlockStateTag`.
+- `./gradlew --no-daemon processResources compileJava` passes after light color-state + persistence pass.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -276,9 +282,9 @@
 - [ ] Add integration tests for optional-mod behavior.
 
 ## Near-Term Lookahead
-- Implement lamp/lantern 16-color state strategy (matching existing candle/light texture families) and wire dye application through the same `ColorFacingEntityBlock` path.
-- Add item/block-entity persistence for colorized blocks (drop/pick/place parity) so recolor state survives break/re-place.
-- Convert placeholder recolor datapack recipes (`*_recolor`) into true state-aware outputs once item-state strategy for color variants is finalized.
+- Convert placeholder recolor datapack recipes (`*_recolor`) into true state-aware recolor flows for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal`.
+- Add explicit pick-block color carry (creative clone path) for colorized placeholders so middle-click preserves non-white state.
+- Start wood/framed variant-state scaffolding (next open variant-strategy milestone after color-state expansion).
 
 ## Definition of Done (Port Breadth Milestone)
 - [ ] Every legacy registry ID has a 1.20.1 registered counterpart.
