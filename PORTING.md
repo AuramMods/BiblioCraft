@@ -53,6 +53,17 @@
 - Added new placeholder runtime classes: `PlaceholderBlockEntity`, `PlaceholderMenu`, `SeatEntity`, `PlaceholderEnchantment`.
 - Wired new registers into mod bootstrap (`BiblioCraft` constructor).
 - `./gradlew compileJava` passes with the new registry surfaces.
+- Block-to-block-entity hookup pass completed:
+- Added `PlaceholderEntityBlock` (`EntityBlock` implementation) to resolve BE type by registry id at runtime.
+- Switched all 37 block registrations in `ModBlocks` to BE-backed placeholders with explicit BE id mapping.
+- Shared legacy mappings preserved: `bookcase` (`bookcase` + `bookcase_creative`) and `bibliolight` (all lamp/lantern variants).
+- `desk`, `fancy_workbench`, and `printing_press` now stay full-voxel placeholders but are BE-backed.
+- `./gradlew --no-daemon compileJava` passes after wiring.
+- Horizontal-facing placement/state breadth pass completed:
+- Added `HorizontalFacingEntityBlock` with `facing` blockstate, placement rotation, and per-facing rotated voxel/collision shapes.
+- Updated `ModBlocks` placeholder helpers to use `HorizontalFacingEntityBlock` for all registered blocks.
+- Rewrote all 37 blockstate JSON files to explicit `facing=north/east/south/west` variants with Y-rotation transforms.
+- `./gradlew --no-daemon processResources compileJava` passes after state/rotation wiring.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -81,7 +92,9 @@
 ## Phase 2 - Block + Item Breadth Port
 - [x] Port all block classes as compile-safe stubs with registry IDs preserved.
 - [x] Port all item classes as compile-safe stubs with registry IDs preserved.
+- [x] Wire placeholder blocks to spawn placeholder block entities for all legacy BE-backed block IDs.
 - [x] Replace full-cube placeholder shapes with first-pass non-full voxel shapes for smoke testing.
+- [x] Add horizontal-facing placeholder state + model rotation variants for broad orientation parity.
 - [ ] Preserve variant strategy placeholders:
 - [ ] Wood variants (7-state concept including framed)
 - [ ] Color variants (16 colors)

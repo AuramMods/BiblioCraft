@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "bibliocraft:block/furniture_paneler"
+    },
+    "facing=east": {
+      "model": "bibliocraft:block/furniture_paneler",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "bibliocraft:block/furniture_paneler",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bibliocraft:block/furniture_paneler",
+      "y": 270
     }
   }
 }

@@ -56,6 +56,19 @@
 - Registered 34 legacy block entity IDs (including shared `bibliolight`), menu placeholders for legacy GUI surfaces, seat entity placeholder, two enchantments, and legacy sound keys.
 - Updated `BiblioCraft` bootstrap to register all new deferred registers.
 - Build validation after registry pass: `./gradlew --no-daemon compileJava` succeeded.
+- Added BE-backed placeholder block wiring:
+- Added `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java` (`EntityBlock` + runtime BE type lookup by id).
+- Updated all block registrations in `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` to use `PlaceholderEntityBlock`.
+- Preserved shared BE id mapping:
+- `bookcase` is used by `bookcase` and `bookcase_creative`.
+- `bibliolight` is used by `lamp_gold`, `lamp_iron`, `lantern_gold`, `lantern_iron`.
+- Kept `desk`, `fancy_workbench`, and `printing_press` as full-shape placeholders while BE-backed.
+- Build validation after BE wiring: `./gradlew --no-daemon compileJava` succeeded.
+- Added horizontal-facing block/state parity baseline:
+- Added `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java` (horizontal `facing` property, rotate/mirror placement logic, rotated shape/collision caches).
+- Updated `ModBlocks` helper constructors to use `HorizontalFacingEntityBlock` for all current placeholder block registrations.
+- Rewrote all Bibliocraft blockstate JSONs to `facing=north/east/south/west` variants with `y` rotations.
+- Build validation after facing/state pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -74,6 +87,8 @@
 - Do not run `runClient` automatically; ask user when a visual smoke test is needed.
 - Shape/source reminder:
 - First-pass shape constants now live in `ModBlocks` (`SHAPE_*` fields) and should be kept in sync with `PORTING_MANIFEST.md` shape notes.
+- Rotation/state reminder:
+- Blockstates are no longer single empty variants; they now depend on `facing`. Any new block class without a `facing` property must not reuse the current generic blockstate template.
 - Item-model reminder:
 - Block items now source 3D geometry directly from OBJ in their item model JSONs; avoid reverting to parent-linked block item JSONs unless a specific regression requires it.
 
@@ -94,6 +109,7 @@
 - Placeholder block-items registered: 37
 - Placeholder standalone items registered: 31
 - Total registered placeholder items currently visible in creative tab: 68
+- Placeholder blocks are now BE-backed through `PlaceholderEntityBlock` (all 37 block IDs mapped to BE ids).
 - Baseline visual asset pass completed:
 - 37 block models now OBJ-backed (legacy meshes + textures)
 - 68 item models now mapped (37 block-item parents + 31 standalone texture-backed models)
@@ -122,7 +138,7 @@
 
 ## Immediate Next Steps (When Continuing)
 - Continue registry breadth where still missing (`RecipeSerializer`/`RecipeType` surface and packet channel skeleton parity).
-- Start minimal block class upgrades for block-entity-backed blocks (swap from plain `Block` to placeholder `EntityBlock` where needed).
+- Continue minimal block class upgrades beyond placeholder BE hookup (state properties, interaction hooks, and menu open paths).
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.

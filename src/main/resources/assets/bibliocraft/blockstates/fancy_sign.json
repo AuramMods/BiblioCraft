@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "bibliocraft:block/fancy_sign"
+    },
+    "facing=east": {
+      "model": "bibliocraft:block/fancy_sign",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "bibliocraft:block/fancy_sign",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bibliocraft:block/fancy_sign",
+      "y": 270
     }
   }
 }

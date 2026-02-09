@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "bibliocraft:block/printing_press"
+    },
+    "facing=east": {
+      "model": "bibliocraft:block/printing_press",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "bibliocraft:block/printing_press",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bibliocraft:block/printing_press",
+      "y": 270
     }
   }
 }

@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "bibliocraft:block/painting_frame_flat"
+    },
+    "facing=east": {
+      "model": "bibliocraft:block/painting_frame_flat",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "bibliocraft:block/painting_frame_flat",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bibliocraft:block/painting_frame_flat",
+      "y": 270
     }
   }
 }

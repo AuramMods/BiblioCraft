@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "bibliocraft:block/marker_pole"
+    },
+    "facing=east": {
+      "model": "bibliocraft:block/marker_pole",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "bibliocraft:block/marker_pole",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bibliocraft:block/marker_pole",
+      "y": 270
     }
   }
 }

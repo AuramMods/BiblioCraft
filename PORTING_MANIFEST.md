@@ -25,6 +25,11 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Path pattern:
 - `src/main/resources/assets/bibliocraft/models/block/<block_id>.json`
 - -> `bibliocraft:models/block/<legacy_obj_name>.obj`
+- Blockstate strategy (current baseline):
+- All 37 blockstate JSON files now use `facing` variants (`north/east/south/west`) with Y rotations.
+- Path pattern:
+- `src/main/resources/assets/bibliocraft/blockstates/<block_id>.json`
+- -> model `bibliocraft:block/<block_id>` with optional `y` transform.
 - Key model filename exceptions (1.20 id -> legacy OBJ):
 - `marker_pole` -> `markerpole`
 - `furniture_paneler` -> `paneler`
@@ -78,7 +83,9 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 
 ## Current 1.20 Voxel Shape Snapshot (Pass 1)
 - Source of truth: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` (`SHAPE_*` constants + registrations).
-- Shape block class: `src/main/java/art/arcane/bibliocraft/block/StaticShapeBlock.java`.
+- Shape block classes:
+- `src/main/java/art/arcane/bibliocraft/block/StaticShapeBlock.java`
+- `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java` (adds facing-based shape rotation)
 - Intent: remove full-cube placeholder behavior so model hitboxes are closer to legacy.
 
 | Block ID | Current Shape (normalized 0-1) | Basis |
@@ -107,7 +114,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `cookie_jar` | `x/z:0.18-0.82 y:0.0-0.75` | old `BlockCookieJar` bbox |
 | `dinner_plate` | `x/z:0.15-0.85 y:0.0-0.1` | old `BlockDinnerPlate` bbox |
 | `disc_rack` | `x:0.0-1.0 y:0.0-0.35 z:0.25-0.75` | old floor disc-rack bbox |
-| `fancy_workbench`, `desk`, `printing_press` | currently full cube placeholder | pending deeper shape pass |
+| `fancy_workbench`, `desk`, `printing_press` | full shape placeholder (BE-backed) | pending deeper shape/state pass |
 
 ## Current 1.20 Registry Skeleton Snapshot
 - Mod bootstrap wiring in: `src/main/java/art/arcane/bibliocraft/BiblioCraft.java`
@@ -120,10 +127,24 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/registry/ModEnchantments.java`
 - `src/main/java/art/arcane/bibliocraft/registry/ModSounds.java`
 - Placeholder runtime classes:
+- `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java`
+- `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/blockentity/PlaceholderBlockEntity.java`
 - `src/main/java/art/arcane/bibliocraft/menu/PlaceholderMenu.java`
 - `src/main/java/art/arcane/bibliocraft/entity/SeatEntity.java`
 - `src/main/java/art/arcane/bibliocraft/enchantment/PlaceholderEnchantment.java`
+
+### Current 1.20 Block -> BlockEntity ID Mapping (Placeholder Runtime)
+- Source: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` + `src/main/java/art/arcane/bibliocraft/registry/ModBlockEntities.java`.
+- Mapping strategy:
+- Most blocks map 1:1 (`<block_id>` -> `<block_entity_id>`).
+- Shared mappings:
+- `bookcase`, `bookcase_creative` -> `bookcase`
+- `lamp_gold`, `lamp_iron`, `lantern_gold`, `lantern_iron` -> `bibliolight`
+- Full-shape BE-backed placeholders (pending custom shape/state port):
+- `desk` -> `desk`
+- `fancy_workbench` -> `fancy_workbench`
+- `printing_press` -> `printing_press`
 
 ### Placeholder Registry Counts (Current 1.20.1)
 - Blocks: 37

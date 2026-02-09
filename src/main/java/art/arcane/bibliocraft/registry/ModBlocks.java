@@ -1,7 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
-import art.arcane.bibliocraft.block.StaticShapeBlock;
+import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -54,43 +54,80 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_DINNER_PLATE = box(0.15, 0.0, 0.15, 0.85, 0.1, 0.85);
     private static final VoxelShape SHAPE_DISC_RACK = box(0.0, 0.0, 0.25, 1.0, 0.35, 0.75);
 
-    public static final RegistryObject<Block> BOOKCASE = register("bookcase", () -> shapedWood(SHAPE_BOOKCASE));
-    public static final RegistryObject<Block> BOOKCASE_CREATIVE = register("bookcase_creative", () -> shapedWood(SHAPE_BOOKCASE));
-    public static final RegistryObject<Block> SHELF = register("shelf", () -> shapedWood(SHAPE_HALF_RACK));
-    public static final RegistryObject<Block> MARKER_POLE = register("marker_pole", () -> shapedWood(SHAPE_MARKER_POLE));
-    public static final RegistryObject<Block> CLIPBOARD = register("clipboard", () -> shapedWood(SHAPE_CLIPBOARD));
-    public static final RegistryObject<Block> LANTERN_GOLD = register("lantern_gold", () -> shapedLight(SHAPE_LANTERN));
-    public static final RegistryObject<Block> LANTERN_IRON = register("lantern_iron", () -> shapedLight(SHAPE_LANTERN));
-    public static final RegistryObject<Block> LAMP_GOLD = register("lamp_gold", () -> shapedLight(SHAPE_LAMP));
-    public static final RegistryObject<Block> LAMP_IRON = register("lamp_iron", () -> shapedLight(SHAPE_LAMP));
-    public static final RegistryObject<Block> FURNITURE_PANELER = register("furniture_paneler", () -> shapedWood(SHAPE_FURNITURE_PANELER));
-    public static final RegistryObject<Block> FRAMED_CHEST = register("framed_chest", () -> shapedWood(SHAPE_FRAMED_CHEST));
-    public static final RegistryObject<Block> FANCY_SIGN = register("fancy_sign", () -> shapedWood(SHAPE_FANCY_SIGN));
-    public static final RegistryObject<Block> FANCY_WORKBENCH = register("fancy_workbench", () -> new Block(woodProps()));
-    public static final RegistryObject<Block> POTION_SHELF = register("potion_shelf", () -> shapedWood(SHAPE_HALF_RACK_EAST));
-    public static final RegistryObject<Block> TOOL_RACK = register("tool_rack", () -> shapedWood(SHAPE_HALF_RACK));
-    public static final RegistryObject<Block> LABEL = register("label", () -> shapedWood(SHAPE_LABEL));
-    public static final RegistryObject<Block> DESK = register("desk", () -> new Block(woodProps()));
-    public static final RegistryObject<Block> TABLE = register("table", () -> shapedWood(SHAPE_TABLE));
-    public static final RegistryObject<Block> SEAT = register("seat", () -> shapedWood(SHAPE_SEAT));
-    public static final RegistryObject<Block> CLOCK = register("clock", () -> shapedWood(SHAPE_CLOCK));
-    public static final RegistryObject<Block> CASE = register("case", () -> shapedWood(SHAPE_CASE));
-    public static final RegistryObject<Block> MAP_FRAME = register("map_frame", () -> shapedWood(SHAPE_MAP_FRAME));
-    public static final RegistryObject<Block> PAINTING_FRAME_FLAT = register("painting_frame_flat", () -> shapedWood(SHAPE_PAINTING_FRAME));
-    public static final RegistryObject<Block> PAINTING_FRAME_SIMPLE = register("painting_frame_simple", () -> shapedWood(SHAPE_PAINTING_FRAME));
-    public static final RegistryObject<Block> PAINTING_FRAME_MIDDLE = register("painting_frame_middle", () -> shapedWood(SHAPE_PAINTING_FRAME));
-    public static final RegistryObject<Block> PAINTING_FRAME_FANCY = register("painting_frame_fancy", () -> shapedWood(SHAPE_PAINTING_FRAME));
-    public static final RegistryObject<Block> PAINTING_FRAME_BORDERLESS = register("painting_frame_borderless", () -> shapedWood(SHAPE_PAINTING_FRAME));
-    public static final RegistryObject<Block> PAINTING_PRESS = register("painting_press", () -> shapedWood(SHAPE_PAINTING_PRESS));
-    public static final RegistryObject<Block> TYPEWRITER = register("typewriter", () -> shapedWood(SHAPE_TYPEWRITER));
-    public static final RegistryObject<Block> SWORD_PEDESTAL = register("sword_pedestal", () -> shapedWood(SHAPE_SWORD_PEDESTAL));
-    public static final RegistryObject<Block> ARMOR_STAND = register("armor_stand", () -> shapedWood(SHAPE_ARMOR_STAND));
-    public static final RegistryObject<Block> BELL = register("bell", () -> shapedWood(SHAPE_BELL));
-    public static final RegistryObject<Block> TYPESETTING_TABLE = register("typesetting_table", () -> shapedWood(SHAPE_TYPESETTING_TABLE));
-    public static final RegistryObject<Block> PRINTING_PRESS = register("printing_press", () -> new Block(woodProps()));
-    public static final RegistryObject<Block> COOKIE_JAR = register("cookie_jar", () -> shapedWood(SHAPE_COOKIE_JAR));
-    public static final RegistryObject<Block> DINNER_PLATE = register("dinner_plate", () -> shapedWood(SHAPE_DINNER_PLATE));
-    public static final RegistryObject<Block> DISC_RACK = register("disc_rack", () -> shapedWood(SHAPE_DISC_RACK));
+    public static final RegistryObject<Block> BOOKCASE =
+            register("bookcase", () -> shapedWoodEntity(SHAPE_BOOKCASE, "bookcase"));
+    public static final RegistryObject<Block> BOOKCASE_CREATIVE =
+            register("bookcase_creative", () -> shapedWoodEntity(SHAPE_BOOKCASE, "bookcase"));
+    public static final RegistryObject<Block> SHELF =
+            register("shelf", () -> shapedWoodEntity(SHAPE_HALF_RACK, "shelf"));
+    public static final RegistryObject<Block> MARKER_POLE =
+            register("marker_pole", () -> shapedWoodEntity(SHAPE_MARKER_POLE, "marker_pole"));
+    public static final RegistryObject<Block> CLIPBOARD =
+            register("clipboard", () -> shapedWoodEntity(SHAPE_CLIPBOARD, "clipboard"));
+    public static final RegistryObject<Block> LANTERN_GOLD =
+            register("lantern_gold", () -> shapedLightEntity(SHAPE_LANTERN, "bibliolight"));
+    public static final RegistryObject<Block> LANTERN_IRON =
+            register("lantern_iron", () -> shapedLightEntity(SHAPE_LANTERN, "bibliolight"));
+    public static final RegistryObject<Block> LAMP_GOLD =
+            register("lamp_gold", () -> shapedLightEntity(SHAPE_LAMP, "bibliolight"));
+    public static final RegistryObject<Block> LAMP_IRON =
+            register("lamp_iron", () -> shapedLightEntity(SHAPE_LAMP, "bibliolight"));
+    public static final RegistryObject<Block> FURNITURE_PANELER =
+            register("furniture_paneler", () -> shapedWoodEntity(SHAPE_FURNITURE_PANELER, "furniture_paneler"));
+    public static final RegistryObject<Block> FRAMED_CHEST =
+            register("framed_chest", () -> shapedWoodEntity(SHAPE_FRAMED_CHEST, "framed_chest"));
+    public static final RegistryObject<Block> FANCY_SIGN =
+            register("fancy_sign", () -> shapedWoodEntity(SHAPE_FANCY_SIGN, "fancy_sign"));
+    public static final RegistryObject<Block> FANCY_WORKBENCH =
+            register("fancy_workbench", () -> fullWoodEntity("fancy_workbench"));
+    public static final RegistryObject<Block> POTION_SHELF =
+            register("potion_shelf", () -> shapedWoodEntity(SHAPE_HALF_RACK_EAST, "potion_shelf"));
+    public static final RegistryObject<Block> TOOL_RACK =
+            register("tool_rack", () -> shapedWoodEntity(SHAPE_HALF_RACK, "tool_rack"));
+    public static final RegistryObject<Block> LABEL =
+            register("label", () -> shapedWoodEntity(SHAPE_LABEL, "label"));
+    public static final RegistryObject<Block> DESK =
+            register("desk", () -> fullWoodEntity("desk"));
+    public static final RegistryObject<Block> TABLE =
+            register("table", () -> shapedWoodEntity(SHAPE_TABLE, "table"));
+    public static final RegistryObject<Block> SEAT =
+            register("seat", () -> shapedWoodEntity(SHAPE_SEAT, "seat"));
+    public static final RegistryObject<Block> CLOCK =
+            register("clock", () -> shapedWoodEntity(SHAPE_CLOCK, "clock"));
+    public static final RegistryObject<Block> CASE =
+            register("case", () -> shapedWoodEntity(SHAPE_CASE, "case"));
+    public static final RegistryObject<Block> MAP_FRAME =
+            register("map_frame", () -> shapedWoodEntity(SHAPE_MAP_FRAME, "map_frame"));
+    public static final RegistryObject<Block> PAINTING_FRAME_FLAT =
+            register("painting_frame_flat", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_flat"));
+    public static final RegistryObject<Block> PAINTING_FRAME_SIMPLE =
+            register("painting_frame_simple", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_simple"));
+    public static final RegistryObject<Block> PAINTING_FRAME_MIDDLE =
+            register("painting_frame_middle", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_middle"));
+    public static final RegistryObject<Block> PAINTING_FRAME_FANCY =
+            register("painting_frame_fancy", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_fancy"));
+    public static final RegistryObject<Block> PAINTING_FRAME_BORDERLESS =
+            register("painting_frame_borderless", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_borderless"));
+    public static final RegistryObject<Block> PAINTING_PRESS =
+            register("painting_press", () -> shapedWoodEntity(SHAPE_PAINTING_PRESS, "painting_press"));
+    public static final RegistryObject<Block> TYPEWRITER =
+            register("typewriter", () -> shapedWoodEntity(SHAPE_TYPEWRITER, "typewriter"));
+    public static final RegistryObject<Block> SWORD_PEDESTAL =
+            register("sword_pedestal", () -> shapedWoodEntity(SHAPE_SWORD_PEDESTAL, "sword_pedestal"));
+    public static final RegistryObject<Block> ARMOR_STAND =
+            register("armor_stand", () -> shapedWoodEntity(SHAPE_ARMOR_STAND, "armor_stand"));
+    public static final RegistryObject<Block> BELL =
+            register("bell", () -> shapedWoodEntity(SHAPE_BELL, "bell"));
+    public static final RegistryObject<Block> TYPESETTING_TABLE =
+            register("typesetting_table", () -> shapedWoodEntity(SHAPE_TYPESETTING_TABLE, "typesetting_table"));
+    public static final RegistryObject<Block> PRINTING_PRESS =
+            register("printing_press", () -> fullWoodEntity("printing_press"));
+    public static final RegistryObject<Block> COOKIE_JAR =
+            register("cookie_jar", () -> shapedWoodEntity(SHAPE_COOKIE_JAR, "cookie_jar"));
+    public static final RegistryObject<Block> DINNER_PLATE =
+            register("dinner_plate", () -> shapedWoodEntity(SHAPE_DINNER_PLATE, "dinner_plate"));
+    public static final RegistryObject<Block> DISC_RACK =
+            register("disc_rack", () -> shapedWoodEntity(SHAPE_DISC_RACK, "disc_rack"));
 
     private ModBlocks() {}
 
@@ -105,12 +142,16 @@ public final class ModBlocks {
         return block;
     }
 
-    private static Block shapedWood(VoxelShape shape) {
-        return new StaticShapeBlock(woodProps(), shape);
+    private static Block shapedWoodEntity(VoxelShape shape, String blockEntityPath) {
+        return new HorizontalFacingEntityBlock(woodProps(), shape, blockEntityPath);
     }
 
-    private static Block shapedLight(VoxelShape shape) {
-        return new StaticShapeBlock(lightProps(), shape);
+    private static Block shapedLightEntity(VoxelShape shape, String blockEntityPath) {
+        return new HorizontalFacingEntityBlock(lightProps(), shape, blockEntityPath);
+    }
+
+    private static Block fullWoodEntity(String blockEntityPath) {
+        return new HorizontalFacingEntityBlock(woodProps(), Shapes.block(), blockEntityPath);
     }
 
     private static BlockBehaviour.Properties woodProps() {

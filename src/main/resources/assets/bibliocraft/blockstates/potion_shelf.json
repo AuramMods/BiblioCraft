@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "bibliocraft:block/potion_shelf"
+    },
+    "facing=east": {
+      "model": "bibliocraft:block/potion_shelf",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "bibliocraft:block/potion_shelf",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bibliocraft:block/potion_shelf",
+      "y": 270
     }
   }
 }
