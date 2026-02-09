@@ -1,5 +1,6 @@
 package art.arcane.bibliocraft;
 
+import art.arcane.bibliocraft.config.BiblioConfig;
 import art.arcane.bibliocraft.network.ModNetwork;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
@@ -17,6 +18,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
@@ -44,6 +47,7 @@ public class BiblioCraft {
 
     public BiblioCraft(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BiblioConfig.SPEC);
         ModNetwork.register();
         ModBlocks.BLOCKS.register(modEventBus);
         ModBlocks.ITEMS.register(modEventBus);

@@ -117,6 +117,11 @@
 - Copied legacy `sounds.json` and 39 `.ogg` files into active resources under `assets/bibliocraft/`.
 - Verified all 17 `ModSounds` `SoundEvent` ids match `sounds.json` keys one-to-one.
 - `./gradlew --no-daemon processResources compileJava` passes after sound asset import.
+- Config migration scaffold breadth pass completed:
+- Added `BiblioConfig` (`ForgeConfigSpec`) with legacy-parity toggle surface (block/item enable flags, recipe toggles, render toggles, and gameplay keyword settings).
+- Registered common config in mod bootstrap (`ModLoadingContext.registerConfig`).
+- This is a breadth scaffold only; feature-level registry gating/behavior checks are still pending.
+- `./gradlew --no-daemon compileJava` passes after config wiring.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -188,7 +193,7 @@
 - [ ] Printing/typesetting systems.
 - [ ] Atlas/compass systems.
 - [ ] Rendering parity and performance.
-- [ ] Config migration strategy (legacy config booleans -> 1.20 config).
+- [x] Config migration strategy scaffold (legacy config booleans -> 1.20 config).
 
 ## Phase 7 - Add-on and Compatibility Modules
 - [ ] Decide scope for BiblioWoods add-ons in 1.20.1.

@@ -140,6 +140,12 @@
 - Copied all legacy `sounds/*.ogg` files into `src/main/resources/assets/bibliocraft/sounds/` (39 files).
 - Verified `ModSounds` registry keys match all 17 `sounds.json` entries one-to-one.
 - Build validation after sound pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added config migration scaffold baseline:
+- Added `src/main/java/art/arcane/bibliocraft/config/BiblioConfig.java` with legacy-parity `ForgeConfigSpec` groups:
+- `blocks_enabled`, `recipes`, `rendering`, `gameplay`, `keywords`.
+- Includes breadth placeholders for legacy `enable*` booleans and key numeric/string settings.
+- Registered common config from mod bootstrap in `BiblioCraft` via `ModLoadingContext.registerConfig`.
+- Build validation after config pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -180,6 +186,8 @@
 - Some OBJ files include both block and item meshes (`*_item`). For item models, prefer item groups (`*_item`) over block/open groups when both exist.
 - Sound reminder:
 - Active sounds are now migrated in `src/main/resources/assets/bibliocraft/sounds.json` + `src/main/resources/assets/bibliocraft/sounds/*.ogg`; keep `ModSounds` ids in sync when adding or renaming events.
+- Config reminder:
+- Current 1.20 config scaffold is in `src/main/java/art/arcane/bibliocraft/config/BiblioConfig.java`; wire future feature gating to this class instead of adding ad-hoc static booleans.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37
@@ -206,6 +214,8 @@
 - 68 item models now mapped (37 block-item OBJ-backed + 31 standalone texture-backed models)
 - Sound asset baseline completed:
 - 1 `sounds.json` + 39 `.ogg` files migrated to active resources
+- Config scaffold baseline completed:
+- Legacy-parity config surface registered (`ModConfig.Type.COMMON`) and ready for feature-level use
 
 ## Important Architecture Notes
 - Many blocks inherit custom base classes (`BiblioBlock`, `BiblioWoodBlock`, `BiblioColorBlock`, `BiblioLightBlock`) and depend on:
@@ -233,8 +243,8 @@
 - Continue minimal block class upgrades beyond placeholder BE hookup (state properties, interaction hooks, and menu open paths).
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
 - Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
-- Next breadth target: start 1.20 config scaffold (`ForgeConfigSpec`) for legacy enable flags and key behavior toggles.
 - Next data target: begin representative recipe datapack migration (at least one machine/atlas recipe family) to reduce custom serializer dependence.
+- Next breadth target: start consuming config toggles in registry/feature wiring (first pass: map `enable*` toggles to registration visibility decisions or runtime behavior flags).
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
 
