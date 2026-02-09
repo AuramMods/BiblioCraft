@@ -160,6 +160,19 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Entity types: 1 (`seat_entity`)
 - Enchantments: 2 (`deathcompassench`, `readingench`)
 - Sound events: 17 (from legacy `sounds.json` keys)
+- Packet registrations (placeholder): 33 (23 serverbound + 10 clientbound)
+- Recipe placeholders: 1 serializer + 1 type (`enchantedatlas`)
+
+### Current 1.20 Network + Recipe Skeleton Snapshot
+- Network channel placeholder:
+- `src/main/java/art/arcane/bibliocraft/network/ModNetwork.java`
+- Legacy packet parity represented via no-payload placeholders:
+- Serverbound placeholders: `atlas_wpt`, `type`, `type_flag`, `type_delete`, `type_update`, `mcb_edit`, `mcb_page`, `paneler`, `recipe_craft`, `stock_title`, `stock_compass`, `clipboard`, `update_inv`, `atlas`, `measure`, `map_pin`, `rbook`, `rbook_load`, `sign`, `clock`, `paint_press`, `painting`, `painting_clear`.
+- Clientbound placeholders: `drill_text`, `atlas_client`, `paneler_client`, `recipe_text`, `stock_log`, `open_book`, `desk_open_gui`, `atlas_swp_client`, `atlas_tgui`, `sound_player`.
+- Recipe placeholder:
+- `src/main/java/art/arcane/bibliocraft/registry/ModRecipes.java`
+- `src/main/java/art/arcane/bibliocraft/recipe/EnchantedAtlasRecipe.java`
+- Registered key: `bibliocraft:enchantedatlas` (serializer + recipe type placeholder).
 
 ## Registry Entry Points (Legacy)
 - Main mod class and event subscriber: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`

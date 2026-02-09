@@ -69,6 +69,15 @@
 - Updated files: `models/item/case.json`, `models/item/framed_chest.json`, `models/item/painting_press.json`, `models/item/printing_press.json`.
 - This aligns item render baselines with old `ModelCase`/`ModelFramedChest`/`ModelPaintingPress`/`ModelPrintingPress` default part sets.
 - `./gradlew --no-daemon processResources compileJava` passes after visibility updates.
+- Network + recipe skeleton breadth pass completed:
+- Added `ModNetwork` (`SimpleChannel`) and placeholder registration of legacy packet surface:
+- 23 serverbound packet placeholders.
+- 10 clientbound packet placeholders.
+- Added recipe infrastructure placeholders:
+- `ModRecipes` with `DeferredRegister` for `RecipeSerializer` and `RecipeType`.
+- `EnchantedAtlasRecipe` + `enchantedatlas` serializer/type registration as a placeholder for legacy atlas-enchant recipe flow.
+- Registered network/recipe surfaces from mod bootstrap.
+- `./gradlew --no-daemon compileJava` passes after wiring.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -89,7 +98,7 @@
 - [x] `Enchantment`
 - [x] `SoundEvent`
 - [x] `CreativeModeTab`
-- [ ] `RecipeSerializer`/`RecipeType` (only where needed)
+- [x] `RecipeSerializer`/`RecipeType` (only where needed)
 - [x] Create one central registry bootstrap package (no feature logic yet).
 - [x] Add placeholder registrations for every legacy block/item/entity/enchantment by ID (can be stub behavior).
 - [ ] Ensure game starts with full registry surface present (even if mostly placeholder blocks/items).
@@ -114,8 +123,8 @@
 - [x] Create placeholder menu classes so open paths compile.
 
 ## Phase 4 - Interaction + Network Breadth
-- [ ] Create packet channel and message registration equivalent to legacy packet list.
-- [ ] Stub packet handlers to no-op/log first.
+- [x] Create packet channel and message registration equivalent to legacy packet list.
+- [x] Stub packet handlers to no-op/log first.
 - [ ] Recreate core event bus hooks (death drop, toss, spawn, overlays, highlights) as placeholders.
 - [ ] Port entity seat registration and minimal behavior.
 

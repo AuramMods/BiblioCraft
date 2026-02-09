@@ -77,6 +77,16 @@
 - `src/main/resources/assets/bibliocraft/models/item/painting_press.json`
 - `src/main/resources/assets/bibliocraft/models/item/printing_press.json`
 - Build validation after item-visibility pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added network + recipe registry skeleton:
+- Added `src/main/java/art/arcane/bibliocraft/network/ModNetwork.java` with placeholder `SimpleChannel` packet registrations matching legacy counts:
+- 23 serverbound packet placeholders.
+- 10 clientbound packet placeholders.
+- Added recipe placeholder surfaces:
+- `src/main/java/art/arcane/bibliocraft/registry/ModRecipes.java`
+- `src/main/java/art/arcane/bibliocraft/recipe/EnchantedAtlasRecipe.java`
+- Registered `RecipeSerializer` + `RecipeType` for `enchantedatlas`.
+- Updated mod bootstrap to register network + recipe surfaces.
+- Build validation after network/recipe pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -120,6 +130,8 @@
 - Placeholder standalone items registered: 31
 - Total registered placeholder items currently visible in creative tab: 68
 - Placeholder blocks are now BE-backed through `PlaceholderEntityBlock` (all 37 block IDs mapped to BE ids).
+- Placeholder packet registrations (network channel): 33 total (23 serverbound + 10 clientbound).
+- Placeholder recipe registrations: 1 serializer + 1 recipe type (`enchantedatlas`).
 - Baseline visual asset pass completed:
 - 37 block models now OBJ-backed (legacy meshes + textures)
 - 68 item models now mapped (37 block-item parents + 31 standalone texture-backed models)
