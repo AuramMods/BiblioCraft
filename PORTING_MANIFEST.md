@@ -109,6 +109,32 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `disc_rack` | `x:0.0-1.0 y:0.0-0.35 z:0.25-0.75` | old floor disc-rack bbox |
 | `fancy_workbench`, `desk`, `printing_press` | currently full cube placeholder | pending deeper shape pass |
 
+## Current 1.20 Registry Skeleton Snapshot
+- Mod bootstrap wiring in: `src/main/java/art/arcane/bibliocraft/BiblioCraft.java`
+- Active registry classes:
+- `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java`
+- `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`
+- `src/main/java/art/arcane/bibliocraft/registry/ModBlockEntities.java`
+- `src/main/java/art/arcane/bibliocraft/registry/ModMenus.java`
+- `src/main/java/art/arcane/bibliocraft/registry/ModEntities.java`
+- `src/main/java/art/arcane/bibliocraft/registry/ModEnchantments.java`
+- `src/main/java/art/arcane/bibliocraft/registry/ModSounds.java`
+- Placeholder runtime classes:
+- `src/main/java/art/arcane/bibliocraft/blockentity/PlaceholderBlockEntity.java`
+- `src/main/java/art/arcane/bibliocraft/menu/PlaceholderMenu.java`
+- `src/main/java/art/arcane/bibliocraft/entity/SeatEntity.java`
+- `src/main/java/art/arcane/bibliocraft/enchantment/PlaceholderEnchantment.java`
+
+### Placeholder Registry Counts (Current 1.20.1)
+- Blocks: 37
+- Block items: 37
+- Standalone items: 31
+- Block entity types: 34
+- Menu types: 26
+- Entity types: 1 (`seat_entity`)
+- Enchantments: 2 (`deathcompassench`, `readingench`)
+- Sound events: 17 (from legacy `sounds.json` keys)
+
 ## Registry Entry Points (Legacy)
 - Main mod class and event subscriber: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`
 - Block registration: `old-1.12.2/src/main/java/jds/bibliocraft/BlockLoader.java` (`initBlocks`)

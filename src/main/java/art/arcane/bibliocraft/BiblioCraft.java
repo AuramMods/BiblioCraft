@@ -1,7 +1,12 @@
 package art.arcane.bibliocraft;
 
 import art.arcane.bibliocraft.registry.ModBlocks;
+import art.arcane.bibliocraft.registry.ModBlockEntities;
+import art.arcane.bibliocraft.registry.ModEnchantments;
+import art.arcane.bibliocraft.registry.ModEntities;
 import art.arcane.bibliocraft.registry.ModItems;
+import art.arcane.bibliocraft.registry.ModMenus;
+import art.arcane.bibliocraft.registry.ModSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -40,6 +45,11 @@ public class BiblioCraft {
         ModBlocks.BLOCKS.register(modEventBus);
         ModBlocks.ITEMS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        ModMenus.MENUS.register(modEventBus);
+        ModEntities.ENTITY_TYPES.register(modEventBus);
+        ModEnchantments.ENCHANTMENTS.register(modEventBus);
+        ModSounds.SOUND_EVENTS.register(modEventBus);
         CREATIVE_TABS.register(modEventBus);
     }
 }

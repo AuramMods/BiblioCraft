@@ -50,6 +50,12 @@
 - Added explicit shared `display` transforms and `automatic_culling=false` across OBJ-backed item models to improve in-hand and GUI behavior.
 - Converted `seatback1..seatback5` to 3D OBJ item models using `models/block/seat.obj` with per-item visibility part sets.
 - Build validation after item pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added registry skeleton breadth pass beyond blocks/items:
+- Added `ModBlockEntities`, `ModMenus`, `ModEntities`, `ModEnchantments`, and `ModSounds`.
+- Added placeholder runtime classes: `PlaceholderBlockEntity`, `PlaceholderMenu`, `SeatEntity`, `PlaceholderEnchantment`.
+- Registered 34 legacy block entity IDs (including shared `bibliolight`), menu placeholders for legacy GUI surfaces, seat entity placeholder, two enchantments, and legacy sound keys.
+- Updated `BiblioCraft` bootstrap to register all new deferred registers.
+- Build validation after registry pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -115,10 +121,10 @@
 - Legacy block render alignment relied on 1.12 `ExtendedBlockState` + `OBJModel.OBJState` transforms (angle/shift/vertical variants); static 1.20 OBJ JSONs can still appear offset until those transforms are ported.
 
 ## Immediate Next Steps (When Continuing)
-- Ask user to run a visual smoke test focused on block hitbox alignment after the new shape pass.
-- Triage remaining misaligned models by block id and adjust either OBJ translation, visibility group selection, or shape constants.
-- Ask user to verify upgraded OBJ items (`atlas_book`, `compass`, `death_compass`, `maptool`, `painting_canvas`) render as 3D and use expected textures.
-- Fix any model/texture issues surfaced in client log (especially lighting and dynamic-state models).
+- Continue registry breadth where still missing (`RecipeSerializer`/`RecipeType` surface and packet channel skeleton parity).
+- Start minimal block class upgrades for block-entity-backed blocks (swap from plain `Block` to placeholder `EntityBlock` where needed).
+- Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
+- Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
 
 ## Workspace Reminder

@@ -48,6 +48,11 @@
 - Added explicit `display` transforms and `automatic_culling=false` to all OBJ-backed item models for more consistent first/third-person and GUI rendering.
 - Converted `seatback1..seatback5` from flat generated sprites to OBJ-based item models using `seat.obj` part visibility maps.
 - `./gradlew processResources compileJava` passes after item-model rewiring.
+- Registry breadth expansion pass completed for major missing surfaces:
+- Added placeholder `DeferredRegister` + entries for block entities, menu types, entity types, enchantments, and sound events.
+- Added new placeholder runtime classes: `PlaceholderBlockEntity`, `PlaceholderMenu`, `SeatEntity`, `PlaceholderEnchantment`.
+- Wired new registers into mod bootstrap (`BiblioCraft` constructor).
+- `./gradlew compileJava` passes with the new registry surfaces.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -62,15 +67,15 @@
 - [ ] Create `DeferredRegister` sets for:
 - [x] `Block`
 - [x] `Item`
-- [ ] `BlockEntityType`
-- [ ] `MenuType`
-- [ ] `EntityType`
-- [ ] `Enchantment`
-- [ ] `SoundEvent`
+- [x] `BlockEntityType`
+- [x] `MenuType`
+- [x] `EntityType`
+- [x] `Enchantment`
+- [x] `SoundEvent`
 - [x] `CreativeModeTab`
 - [ ] `RecipeSerializer`/`RecipeType` (only where needed)
 - [x] Create one central registry bootstrap package (no feature logic yet).
-- [ ] Add placeholder registrations for every legacy block/item/entity/enchantment by ID (can be stub behavior).
+- [x] Add placeholder registrations for every legacy block/item/entity/enchantment by ID (can be stub behavior).
 - [ ] Ensure game starts with full registry surface present (even if mostly placeholder blocks/items).
 
 ## Phase 2 - Block + Item Breadth Port
@@ -85,10 +90,10 @@
 - [ ] Recreate creative tab exposure in new tab system.
 
 ## Phase 3 - Block Entities + Menus Breadth
-- [ ] Register all legacy block entities in 1.20.1.
-- [ ] Add minimal block entity classes per legacy type.
-- [ ] Register all menu types used by legacy GUI/container flow.
-- [ ] Create placeholder menu classes so open paths compile.
+- [x] Register all legacy block entities in 1.20.1.
+- [x] Add minimal block entity classes per legacy type.
+- [x] Register all menu types used by legacy GUI/container flow.
+- [x] Create placeholder menu classes so open paths compile.
 
 ## Phase 4 - Interaction + Network Breadth
 - [ ] Create packet channel and message registration equivalent to legacy packet list.
