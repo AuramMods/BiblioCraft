@@ -22,6 +22,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `models/item/*.obj` + `models/item/*.mtl`
 - `sounds.json`
 - `sounds/*.ogg`
+- `data/bibliocraft/recipes/*.json` (representative migrated subset)
 - Sound baseline migration (2026-02-09):
 - `src/main/resources/assets/bibliocraft/sounds.json` copied from legacy.
 - `src/main/resources/assets/bibliocraft/sounds/*.ogg` copied from legacy (39 files).
@@ -160,6 +161,8 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java` (block menu open toggle checks)
 - `src/main/java/art/arcane/bibliocraft/item/MenuOpeningItem.java` (item menu open toggle checks)
 - `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java` (seat interaction toggle check)
+- `src/main/java/art/arcane/bibliocraft/registry/ModMenus.java` (menu lookup toggle checks)
+- `src/main/java/art/arcane/bibliocraft/recipe/EnchantedAtlasRecipe.java` (recipe availability toggle checks)
 - Placeholder runtime classes:
 - `src/main/java/art/arcane/bibliocraft/block/HorizontalFacingEntityBlock.java`
 - `src/main/java/art/arcane/bibliocraft/block/MountedFacingEntityBlock.java`
@@ -208,6 +211,15 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/registry/ModRecipes.java`
 - `src/main/java/art/arcane/bibliocraft/recipe/EnchantedAtlasRecipe.java`
 - Registered key: `bibliocraft:enchantedatlas` (serializer + recipe type placeholder).
+- Current migrated datapack subset:
+- `src/main/resources/data/bibliocraft/recipes/maptool.json`
+- `src/main/resources/data/bibliocraft/recipes/compass.json`
+- `src/main/resources/data/bibliocraft/recipes/slotted_book.json`
+- `src/main/resources/data/bibliocraft/recipes/atlas_book.json`
+- `src/main/resources/data/bibliocraft/recipes/enchantedatlas.json`
+- `EnchantedAtlasRecipe` behavior baseline:
+- 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.
+- Output atlas currently includes placeholder marker NBT (`bibliocraft:death_compass_enabled=true`) until full enchantment parity is ported.
 
 ### Current 1.20 Event Hook + Seat Snapshot
 - Common Forge event subscriber:

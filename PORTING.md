@@ -130,6 +130,17 @@
 - Item-held menu opens (`MenuOpeningItem#use`) now respect item feature toggles.
 - Seat interaction hook (`CommonGameplayEvents#onSeatInteract`) now respects seat toggle parity.
 - `./gradlew --no-daemon compileJava` passes after config-consumption wiring.
+- Recipe data migration + runtime-gating pass completed:
+- Added first representative migrated 1.20 datapack recipe family under `data/bibliocraft/recipes`:
+- `maptool`, `compass`, `slotted_book`, `atlas_book`, and `enchantedatlas`.
+- Upgraded `EnchantedAtlasRecipe` from no-op placeholder to a real 3x3 matcher/assembler:
+- Requires atlas + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.
+- Adds placeholder marker NBT (`bibliocraft:death_compass_enabled=true`) to crafted atlas output.
+- Gated `EnchantedAtlasRecipe.matches(...)` behind legacy parity config (`enableAtlas && enableDeathCompass && enableWaypointCompass`).
+- Extended toggle checks to remaining placeholder runtime surfaces:
+- `ModMenus.getMenuForBlock(...)` now returns `null` for disabled blocks.
+- `CommonGameplayEvents.onItemToss(...)` now ignores disabled-item surfaces.
+- `./gradlew --no-daemon processResources compileJava` passes after recipe/data/gating pass.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -193,6 +204,7 @@
 - [ ] Convert or replace OBJ-driven dynamic model system incrementally
 - [ ] Recreate legacy dynamic transform/state behavior (old `ExtendedBlockState` + custom baked model logic) for off-axis/shifted models
 - [x] Migrate sounds (`sounds.json` + `SoundEvent` registry).
+- [x] Migrate representative atlas recipe family to 1.20 datapack format (`maptool`, `compass`, `slotted_book`, `atlas_book`, `enchantedatlas`).
 - [ ] Move legacy recipes into data pack format where needed.
 
 ## Phase 6 - Feature Depth Passes (Iterative)

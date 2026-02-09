@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bibliocraft",
+  "pattern": [
+    " I ",
+    "I I",
+    "K K"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "K": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:maptool"
+  }
+}

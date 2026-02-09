@@ -78,7 +78,9 @@ public final class CommonGameplayEvents {
 
         ItemStack tossed = event.getEntity().getItem();
         ResourceLocation key = ForgeRegistries.ITEMS.getKey(tossed.getItem());
-        if (key != null && CONTAINER_SENSITIVE_ITEMS.contains(key.toString())) {
+        if (key != null
+                && BiblioFeatureToggles.isItemEnabled(key)
+                && CONTAINER_SENSITIVE_ITEMS.contains(key.toString())) {
             // Placeholder for legacy packet/container validation before toss.
             player.closeContainer();
         }

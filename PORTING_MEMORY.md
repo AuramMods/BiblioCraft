@@ -154,6 +154,17 @@
 - `src/main/java/art/arcane/bibliocraft/item/MenuOpeningItem.java` item menu-open path.
 - `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java` seat interaction hook.
 - Build validation after config-consumption pass: `./gradlew --no-daemon compileJava` succeeded.
+- Added representative recipe data migration baseline:
+- New datapack recipes in `src/main/resources/data/bibliocraft/recipes`:
+- `maptool.json`, `compass.json`, `slotted_book.json`, `atlas_book.json`, `enchantedatlas.json`.
+- Upgraded `src/main/java/art/arcane/bibliocraft/recipe/EnchantedAtlasRecipe.java`:
+- now matches/assembles a real 3x3 atlas-upgrade pattern (atlas + pearls + waypoint compasses + enchanted books).
+- now emits placeholder NBT marker `bibliocraft:death_compass_enabled=true` on output atlas.
+- now config-gated through `BiblioFeatureToggles.isEnchantedAtlasRecipeEnabled()`.
+- Extended config gates to additional runtime surfaces:
+- `src/main/java/art/arcane/bibliocraft/registry/ModMenus.java` now gate-checks block menu lookup.
+- `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java` item toss gate check now respects enabled items.
+- Build validation after recipe/data/gating pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -198,6 +209,10 @@
 - Current 1.20 config scaffold is in `src/main/java/art/arcane/bibliocraft/config/BiblioConfig.java`; wire future feature gating to this class instead of adding ad-hoc static booleans.
 - Toggle mapping reminder:
 - `BiblioFeatureToggles` is now the source of truth for legacy `enable*` parity checks in runtime behavior; keep mappings aligned with `old-1.12.2` `BlockLoader`/`ItemLoader`.
+- Recipe reminder:
+- Representative 1.20 datapack recipes now live under `src/main/resources/data/bibliocraft/recipes`; future recipe migration should prefer this path over legacy `assets/.../recipes`.
+- Atlas-enchant reminder:
+- `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37
@@ -253,7 +268,7 @@
 - Continue minimal block class upgrades beyond placeholder BE hookup (state properties, interaction hooks, and menu open paths).
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
 - Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
-- Next data target: begin representative recipe datapack migration (at least one machine/atlas recipe family) to reduce custom serializer dependence.
+- Next data target: continue datapack migration beyond atlas family (book/label/table/seat subsets first), then retire equivalent legacy-style recipe assumptions.
 - Next breadth target: extend config-gate consumption to remaining runtime systems (packet/event paths, drops/placement restrictions, and recipe visibility) where old 1.12 registration toggles implied absence.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.

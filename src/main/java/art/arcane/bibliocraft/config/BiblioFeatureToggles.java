@@ -98,6 +98,12 @@ public final class BiblioFeatureToggles {
         return evaluate(BLOCK_GATES, blockItemId);
     }
 
+    public static boolean isEnchantedAtlasRecipeEnabled() {
+        return BiblioConfig.COMMON.enableAtlas.get()
+                && BiblioConfig.COMMON.enableDeathCompass.get()
+                && BiblioConfig.COMMON.enableWaypointCompass.get();
+    }
+
     private static boolean evaluate(Map<ResourceLocation, BooleanSupplier> gates, @Nullable ResourceLocation id) {
         if (id == null) {
             return true;

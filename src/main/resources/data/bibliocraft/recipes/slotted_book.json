@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "bibliocraft",
+  "ingredients": [
+    {
+      "item": "minecraft:writable_book"
+    },
+    {
+      "item": "bibliocraft:label"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:slotted_book"
+  }
+}

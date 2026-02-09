@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bibliocraft",
+  "pattern": [
+    "RTR",
+    "RBR",
+    "RMR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:paper"
+    },
+    "T": {
+      "item": "bibliocraft:maptool"
+    },
+    "M": {
+      "item": "minecraft:map"
+    },
+    "B": {
+      "item": "bibliocraft:slotted_book"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:atlas_book"
+  }
+}

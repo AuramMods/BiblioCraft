@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
@@ -91,6 +92,9 @@ public final class ModMenus {
 
     @Nullable
     public static MenuType<PlaceholderMenu> getMenuForBlock(ResourceLocation blockId) {
+        if (!BiblioFeatureToggles.isBlockEnabled(blockId)) {
+            return null;
+        }
         RegistryObject<MenuType<PlaceholderMenu>> entry = BLOCK_MENU_MAP.get(blockId);
         return entry == null ? null : entry.get();
     }

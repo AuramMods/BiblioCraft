@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bibliocraft",
+  "pattern": [
+    " I ",
+    "ICI",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "item": "minecraft:compass"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:compass"
+  }
+}
