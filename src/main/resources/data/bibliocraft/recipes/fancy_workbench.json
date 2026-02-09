@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "FWD",
+    "SBS",
+    "SSS"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "W": {
+      "item": "minecraft:crafting_table"
+    },
+    "D": {
+      "tag": "forge:dyes/black"
+    },
+    "S": [
+      {
+        "tag": "minecraft:wooden_slabs"
+      },
+      {
+        "item": "bibliocraft:framing_board"
+      }
+    ],
+    "B": {
+      "item": "bibliocraft:bookcase"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:fancy_workbench"
+  }
+}

@@ -182,6 +182,13 @@
 - framed variant matching uses `bibliocraft:framing_sheet` and `bibliocraft:framing_board`.
 - seat recipes normalized `wooden_pressure_plate` to `minecraft:wooden_pressure_plates` and wool color to `minecraft:white_wool`.
 - Build validation after furniture recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added supporting block recipe migration baseline:
+- New recipes in `src/main/resources/data/bibliocraft/recipes`:
+- `case.json`, `map_frame.json`, `fancy_sign.json`, `fancy_workbench.json`, `potion_shelf.json`, `tool_rack.json`, `armor_stand.json`, `framed_chest.json`.
+- Conversion notes:
+- consolidated old per-wood + framed variants into single recipes via ingredient alternatives (same strategy as furniture batch).
+- normalized old sign and dye usages to modern tags (`minecraft:signs`, `forge:dyes/black`).
+- Build validation after supporting block recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -232,6 +239,8 @@
 - Metadata-variant-only glasses recipes (`monocle`, `tinted_glasses`) are not migrated yet because current placeholder item surface has a single `biblio_glasses` item without subtype/state parity.
 - Recipe consolidation reminder:
 - Wood/framed furniture recipes are currently merged into generic recipes due missing wood metadata/state strategy in placeholder runtime; split them back into variant-specific outputs once block/item variant depth pass is implemented.
+- Block recipe consolidation reminder:
+- Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
 - Atlas-enchant reminder:
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
@@ -291,6 +300,7 @@
 - Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
 - Next data target: continue datapack migration beyond atlas family (book/label/table/seat subsets first), then retire equivalent legacy-style recipe assumptions.
 - Next data target: migrate next block recipe batches (case/map_frame/fancy_sign/fancy_workbench/potion_shelf/tool_rack/armor_stand/framed_chest) before lamp/lantern/typewriter/sword-pedestal color variants.
+- Next data target: migrate remaining high-volume color families (`lamp_*`, `lantern_*`, `typewriter`, `sword_pedestal`) and remaining workstation/display block recipes.
 - Next breadth target: extend config-gate consumption to remaining runtime systems (packet/event paths, drops/placement restrictions, and recipe visibility) where old 1.12 registration toggles implied absence.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.

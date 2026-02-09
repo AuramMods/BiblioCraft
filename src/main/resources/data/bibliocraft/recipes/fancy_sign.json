@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "bibliocraft",
+  "ingredients": [
+    {
+      "item": "bibliocraft:label"
+    },
+    {
+      "tag": "minecraft:signs"
+    },
+    {
+      "item": "minecraft:paper"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:fancy_sign"
+  }
+}

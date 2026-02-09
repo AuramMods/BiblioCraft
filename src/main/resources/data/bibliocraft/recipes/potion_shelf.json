@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    "SSS",
+    "PBP",
+    "SSS"
+  ],
+  "key": {
+    "P": [
+      {
+        "tag": "minecraft:planks"
+      },
+      {
+        "item": "bibliocraft:framing_sheet"
+      }
+    ],
+    "S": [
+      {
+        "tag": "minecraft:wooden_slabs"
+      },
+      {
+        "item": "bibliocraft:framing_board"
+      }
+    ],
+    "B": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:potion_shelf"
+  }
+}

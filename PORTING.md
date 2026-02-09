@@ -156,6 +156,12 @@
 - merged old per-wood + framed recipe families into single recipes using ingredient alternatives (`minecraft:planks`/`minecraft:wooden_slabs` and `framing_sheet`/`framing_board`).
 - normalized old `wooden_pressure_plate` to `minecraft:wooden_pressure_plates` tag and old wool metadata to `minecraft:white_wool`.
 - `./gradlew --no-daemon processResources compileJava` passes after furniture recipe batch.
+- Supporting block recipe migration breadth pass completed:
+- Added consolidated 1.20 datapack recipes for additional block families:
+- `case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`.
+- Conversion strategy reused consolidated wood/framed alternatives for current placeholder runtime:
+- `minecraft:wooden_slabs` + `framing_board`, `minecraft:planks` + `framing_sheet`, plus normalized tag usage (`minecraft:signs`, `forge:dyes/black`).
+- `./gradlew --no-daemon processResources compileJava` passes after supporting block recipe batch.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -222,6 +228,7 @@
 - [x] Migrate representative atlas recipe family to 1.20 datapack format (`maptool`, `compass`, `slotted_book`, `atlas_book`, `enchantedatlas`).
 - [x] Migrate representative utility-item recipe family to 1.20 datapack format (`hand_drill`, `tape`, `tape_measure`, `framing_*`, `plumb_line`, `biblio_clipboard`, `big_book`, `biblio_red_book`, `stockroom_catalog`, `biblio_glasses`).
 - [x] Migrate representative core furniture recipe family to 1.20 datapack format (`bookcase`, `shelf`, `table`, `seat`, `seatback1..5`).
+- [x] Migrate representative supporting block recipe family to 1.20 datapack format (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`).
 - [ ] Move legacy recipes into data pack format where needed.
 
 ## Phase 6 - Feature Depth Passes (Iterative)

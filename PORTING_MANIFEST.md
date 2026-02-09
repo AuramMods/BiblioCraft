@@ -240,11 +240,21 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/seatback3.json`
 - `src/main/resources/data/bibliocraft/recipes/seatback4.json`
 - `src/main/resources/data/bibliocraft/recipes/seatback5.json`
-- Current migrated datapack recipe count: 26
+- Supporting block migrated subset:
+- `src/main/resources/data/bibliocraft/recipes/case.json`
+- `src/main/resources/data/bibliocraft/recipes/map_frame.json`
+- `src/main/resources/data/bibliocraft/recipes/fancy_sign.json`
+- `src/main/resources/data/bibliocraft/recipes/fancy_workbench.json`
+- `src/main/resources/data/bibliocraft/recipes/potion_shelf.json`
+- `src/main/resources/data/bibliocraft/recipes/tool_rack.json`
+- `src/main/resources/data/bibliocraft/recipes/armor_stand.json`
+- `src/main/resources/data/bibliocraft/recipes/framed_chest.json`
+- Current migrated datapack recipe count: 34
 - Deferred metadata-variant recipe set:
 - `monocle`, `tinted_glasses` (depends on future `biblio_glasses` subtype/state parity).
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
+- supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.
 - Output atlas currently includes placeholder marker NBT (`bibliocraft:death_compass_enabled=true`) until full enchantment parity is ported.
