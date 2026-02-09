@@ -102,6 +102,12 @@
 - Implemented seat mounting baseline:
 - Right-clicking `seat` block server-side spawns/reuses `SeatEntity` and mounts player.
 - `./gradlew --no-daemon compileJava` passes after event/seat pass.
+- Menu-open interaction breadth pass completed:
+- `PlaceholderMenu` now uses real registered `MenuType` instead of `null`.
+- Added block-id -> menu mapping in `ModMenus` for interactive legacy blocks.
+- Added server-side placeholder menu open flow in `PlaceholderEntityBlock#use` via `NetworkHooks.openScreen`.
+- This establishes compile-safe/open-safe interaction paths for placeholder menus while deeper container logic remains TODO.
+- `./gradlew --no-daemon compileJava` passes after menu-open wiring.
 
 ## Phase 0 - Recon and Inventory (Complete)
 - [x] Locate all block and item registration entry points.
@@ -146,6 +152,7 @@
 - [x] Add minimal block entity classes per legacy type.
 - [x] Register all menu types used by legacy GUI/container flow.
 - [x] Create placeholder menu classes so open paths compile.
+- [x] Wire placeholder block interaction paths to open registered placeholder menus.
 
 ## Phase 4 - Interaction + Network Breadth
 - [x] Create packet channel and message registration equivalent to legacy packet list.

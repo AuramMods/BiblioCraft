@@ -117,6 +117,15 @@
 - discards when target block is no longer a seat.
 - auto-despawns shortly after losing rider.
 - Build validation after event/seat pass: `./gradlew --no-daemon compileJava` succeeded.
+- Added menu-open interaction breadth pass:
+- Updated `src/main/java/art/arcane/bibliocraft/menu/PlaceholderMenu.java` to use a non-null registered `MenuType`.
+- Updated `src/main/java/art/arcane/bibliocraft/registry/ModMenus.java`:
+- menu registration now creates typed `PlaceholderMenu` instances using holder-backed `MenuType`.
+- added block-id -> menu mapping surface (`getMenuForBlock`).
+- Updated `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java`:
+- added `use(...)` override that opens mapped placeholder menus server-side (`NetworkHooks.openScreen`).
+- returns `PASS` for unmapped blocks, so non-menu blocks keep default behavior.
+- Build validation after menu-open pass: `./gradlew --no-daemon compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -146,6 +155,9 @@
 - Legacy FORGE event surface now has placeholders in `event/CommonGameplayEvents` and `event/ClientRenderEvents`; extend these classes instead of scattering ad-hoc subscribers.
 - Seat-behavior reminder:
 - Seat mounting baseline currently lives in `CommonGameplayEvents.onSeatInteract` + `SeatEntity`; when seat tile behavior is ported, migrate/add occupancy checks there rather than removing this hook outright.
+- Menu-open reminder:
+- Placeholder menu open paths currently route through `PlaceholderEntityBlock#use` + `ModMenus.getMenuForBlock`.
+- Add/remove mappings in one place (`ModMenus`) to keep interactive-surface coverage coherent.
 - Item-model reminder:
 - Block items now source 3D geometry directly from OBJ in their item model JSONs; avoid reverting to parent-linked block item JSONs unless a specific regression requires it.
 - OBJ item-part reminder:
@@ -200,7 +212,7 @@
 ## Immediate Next Steps (When Continuing)
 - Continue minimal block class upgrades beyond placeholder BE hookup (state properties, interaction hooks, and menu open paths).
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
-- Start wiring menu-open hooks for key interactive blocks now that placeholder menu/event surfaces exist.
+- Next interaction target: add item-held menu open parity for atlas/slotted-book style flows, then convert selected high-traffic blocks from generic placeholder menu to block-specific placeholder menus with slot scaffolding.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
 
