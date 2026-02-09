@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft",
+  "pattern": [
+    " W ",
+    " S ",
+    "IXI"
+  ],
+  "key": {
+    "S": [
+      {
+        "tag": "minecraft:wooden_slabs"
+      },
+      {
+        "item": "bibliocraft:framing_board"
+      }
+    ],
+    "W": {
+      "item": "minecraft:white_wool"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "tag": "minecraft:wooden_pressure_plates"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:seat"
+  }
+}

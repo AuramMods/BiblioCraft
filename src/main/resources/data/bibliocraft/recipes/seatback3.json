@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "bibliocraft",
+  "ingredients": [
+    {
+      "item": "bibliocraft:seatback2"
+    },
+    [
+      {
+        "tag": "minecraft:wooden_slabs"
+      },
+      {
+        "item": "bibliocraft:framing_board"
+      }
+    ]
+  ],
+  "result": {
+    "item": "bibliocraft:seatback3"
+  }
+}

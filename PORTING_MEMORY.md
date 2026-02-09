@@ -173,6 +173,15 @@
 - old 1.12 plank metadata lists converted to `minecraft:planks` tag ingredients.
 - old compact item ids (`handdrill`, `tapemeasure`, `framingsaw`, etc.) mapped to current underscore ids (`hand_drill`, `tape_measure`, `framing_saw`, etc.).
 - Build validation after utility recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
+- Added core furniture recipe migration baseline:
+- New recipes in `src/main/resources/data/bibliocraft/recipes`:
+- `bookcase.json`, `shelf.json`, `table.json`, `seat.json`, `seatback1.json`, `seatback2.json`, `seatback3.json`, `seatback4.json`, `seatback5.json`.
+- Conversion strategy:
+- old per-wood (`oak/spruce/birch/jungle/acacia/darkoak`) and framed recipe variants merged into single consolidated recipes using ingredient alternatives.
+- wooden material matching now uses `minecraft:planks` and `minecraft:wooden_slabs` tags.
+- framed variant matching uses `bibliocraft:framing_sheet` and `bibliocraft:framing_board`.
+- seat recipes normalized `wooden_pressure_plate` to `minecraft:wooden_pressure_plates` and wool color to `minecraft:white_wool`.
+- Build validation after furniture recipe pass: `./gradlew --no-daemon processResources compileJava` succeeded.
 
 ## Critical Facts To Remember
 - Legacy main mod entry: `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java`.
@@ -221,6 +230,8 @@
 - Representative 1.20 datapack recipes now live under `src/main/resources/data/bibliocraft/recipes`; future recipe migration should prefer this path over legacy `assets/.../recipes`.
 - Recipe gap reminder:
 - Metadata-variant-only glasses recipes (`monocle`, `tinted_glasses`) are not migrated yet because current placeholder item surface has a single `biblio_glasses` item without subtype/state parity.
+- Recipe consolidation reminder:
+- Wood/framed furniture recipes are currently merged into generic recipes due missing wood metadata/state strategy in placeholder runtime; split them back into variant-specific outputs once block/item variant depth pass is implemented.
 - Atlas-enchant reminder:
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
@@ -279,7 +290,7 @@
 - Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
 - Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
 - Next data target: continue datapack migration beyond atlas family (book/label/table/seat subsets first), then retire equivalent legacy-style recipe assumptions.
-- Next data target: migrate block recipe families in batches (bookcase/shelf/table/seat first), then lamp/lantern/typewriter/sword-pedestal color variants.
+- Next data target: migrate next block recipe batches (case/map_frame/fancy_sign/fancy_workbench/potion_shelf/tool_rack/armor_stand/framed_chest) before lamp/lantern/typewriter/sword-pedestal color variants.
 - Next breadth target: extend config-gate consumption to remaining runtime systems (packet/event paths, drops/placement restrictions, and recipe visibility) where old 1.12 registration toggles implied absence.
 - Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
 - Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
