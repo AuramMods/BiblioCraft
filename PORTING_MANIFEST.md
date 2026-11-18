@@ -47,6 +47,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The disc rack's `mount` state selects floor, upright wall, horizontal wall, or ceiling geometry. A rack saved by the earlier port has its original facing and defaults to floor geometry. The OBJ mounts, collision bounds, insertion and removal, and item poses agree on the nine grooves.
 - The hand drill and powered drill retain their separate IDs and sounds. Sneak-use changes the facing on both blocks. Normal use on a wall rack switches between upright and horizontal layouts.
 
+## Furniture Lock Port
+
+- The legacy Lock and Key retains the `bibliocraft:biblio_creative_lock` item ID. The bundled 1.12.2 version supplies it through the creative inventory. The legacy recipe option has no associated recipe in that source tree.
+- Ported furniture stores the owner UUID as `LockOwner` in the block entity. Existing 1.20.1 furniture without this field remains unlocked. Legacy 1.12.2 stored a display-name string. Ordinary pick-block and loot preserve furniture materials.
+- Both the direct interaction and server menu validation check the current owner. Server drill actions honor the same rule. Locked furniture retains the legacy survival mining protection and creative break behavior.
+- Vanilla hoppers and Forge item handlers resume their normal transfers after unlocking. Cached handlers check the current lock on each transfer. A disabled Lock and Key setting prevents creating new locks and lets existing owners remove their locks.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`

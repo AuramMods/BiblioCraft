@@ -33,6 +33,11 @@ public class DisplayCaseBlockEntity extends FurnitureInventoryBlockEntity {
         return slot == DISPLAY_SLOT || (getItem(LINING_SLOT).isEmpty() && isLining(stack));
     }
 
+    @Override
+    protected int getSlotLimit(int slot) {
+        return slot == LINING_SLOT ? 1 : super.getSlotLimit(slot);
+    }
+
     public DyeColor getLiningColor() {
         ItemStack lining = getItem(LINING_SLOT);
         return lining.getItem() instanceof BlockItem item && item.getBlock() instanceof WoolCarpetBlock carpet

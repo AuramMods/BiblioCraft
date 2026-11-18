@@ -80,6 +80,11 @@
   "item.bibliocraft.biblio_red_book": "Biblio Red Book",
   "item.bibliocraft.biblio_glasses": "Biblio Glasses",
   "item.bibliocraft.biblio_drill": "Biblio Drill",
-  "item.bibliocraft.biblio_creative_lock": "Biblio Creative Lock",
+  "item.bibliocraft.biblio_creative_lock": "Lock and Key",
+  "item.bibliocraft.biblio_creative_lock.tooltip": "Right-click furniture to lock or unlock it.",
+  "message.bibliocraft.lock.locked": "This block has been locked.",
+  "message.bibliocraft.lock.unlocked": "This block has been unlocked.",
+  "message.bibliocraft.lock.not_owner": "You are not the owner of this block.",
+  "message.bibliocraft.lock.break": "Unlock this block before breaking it.",
   "item.bibliocraft.biblio_clipboard": "Biblio Clipboard"
 }

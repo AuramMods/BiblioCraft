@@ -23,8 +23,8 @@ public final class DinnerPlateBlock extends InventoryFurnitureBlock implements D
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
+    protected InteractionResult useFurniture(BlockState state, Level level, BlockPos pos, Player player,
+                                             InteractionHand hand, BlockHitResult hit) {
         if (hand != InteractionHand.MAIN_HAND || !BiblioConfig.COMMON.enableDinnerPlate.get()
                 || !(level.getBlockEntity(pos) instanceof DinnerPlateBlockEntity plate)) {
             return InteractionResult.PASS;

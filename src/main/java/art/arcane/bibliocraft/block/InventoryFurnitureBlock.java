@@ -1,15 +1,20 @@
 package art.arcane.bibliocraft.block;
 
+import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurnitureInventoryBlockEntity;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -17,6 +22,27 @@ import org.jetbrains.annotations.Nullable;
 abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
     protected InventoryFurnitureBlock(Properties properties, VoxelShape shape, String blockEntityPath) {
         super(properties, shape, blockEntityPath);
+    }
+
+    @Override
+    public final InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
+                                       InteractionHand hand, BlockHitResult hit) {
+        if (level.getBlockEntity(pos) instanceof FurnitureBlockEntity furniture && !furniture.canAccess(player)) {
+            return FurnitureBlockEntity.denyAccess(player);
+        }
+        return useFurniture(state, level, pos, player, hand, hit);
+    }
+
+    protected abstract InteractionResult useFurniture(BlockState state, Level level, BlockPos pos, Player player,
+                                                       InteractionHand hand, BlockHitResult hit);
+
+    @Override
+    public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+        if (!player.isCreative() && level.getBlockEntity(pos) instanceof FurnitureBlockEntity furniture
+                && furniture.isLocked()) {
+            return 0;
+        }
+        return super.getDestroyProgress(state, player, level, pos);
     }
 
     protected static boolean insertStack(FurnitureInventoryBlockEntity furniture, int slot, ItemStack held) {

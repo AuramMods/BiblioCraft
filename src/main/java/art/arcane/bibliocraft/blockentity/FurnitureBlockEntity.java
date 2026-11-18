@@ -3,7 +3,10 @@ package art.arcane.bibliocraft.blockentity;
 import art.arcane.bibliocraft.block.FurnitureMaterial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -11,9 +14,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 
+import java.util.UUID;
+
 public class FurnitureBlockEntity extends BlockEntity {
     public static final ModelProperty<FurnitureMaterial> MATERIAL = new ModelProperty<>();
     private FurnitureMaterial material = FurnitureMaterial.OAK;
+    private UUID lockOwner;
 
     public FurnitureBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -21,6 +27,30 @@ public class FurnitureBlockEntity extends BlockEntity {
 
     public FurnitureMaterial getMaterial() {
         return material;
+    }
+
+    public boolean isLocked() {
+        return lockOwner != null;
+    }
+
+    public boolean canAccess(Player player) {
+        return lockOwner == null || lockOwner.equals(player.getUUID());
+    }
+
+    public boolean toggleLock(Player player) {
+        if (!canAccess(player)) {
+            return false;
+        }
+        lockOwner = lockOwner == null ? player.getUUID() : null;
+        setChanged();
+        return true;
+    }
+
+    public static InteractionResult denyAccess(Player player) {
+        if (!player.level().isClientSide()) {
+            player.displayClientMessage(Component.translatable("message.bibliocraft.lock.not_owner"), true);
+        }
+        return InteractionResult.sidedSuccess(player.level().isClientSide());
     }
 
     @Override
@@ -31,6 +61,7 @@ public class FurnitureBlockEntity extends BlockEntity {
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
+        lockOwner = tag.hasUUID("LockOwner") ? tag.getUUID("LockOwner") : null;
         FurnitureMaterial previous = material;
         material = FurnitureMaterial.fromTag(tag);
         if (!material.equals(previous)) {
@@ -50,6 +81,9 @@ public class FurnitureBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         material.save(tag);
+        if (lockOwner != null) {
+            tag.putUUID("LockOwner", lockOwner);
+        }
     }
 
     @Override

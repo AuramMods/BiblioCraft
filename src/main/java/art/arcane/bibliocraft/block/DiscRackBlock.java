@@ -104,8 +104,8 @@ public final class DiscRackBlock extends InventoryFurnitureBlock implements Dril
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
+    protected InteractionResult useFurniture(BlockState state, Level level, BlockPos pos, Player player,
+                                             InteractionHand hand, BlockHitResult hit) {
         if (hand != InteractionHand.MAIN_HAND || !BiblioConfig.COMMON.enableDiscRack.get()
                 || !(level.getBlockEntity(pos) instanceof DiscRackBlockEntity rack)) {
             return InteractionResult.PASS;

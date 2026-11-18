@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Map;
 
-public class FloorWallFacingEntityBlock extends InventoryFurnitureBlock {
+public abstract class FloorWallFacingEntityBlock extends InventoryFurnitureBlock {
     public static final EnumProperty<AttachFace> FACE =
             EnumProperty.create("face", AttachFace.class, AttachFace.FLOOR, AttachFace.WALL);
 

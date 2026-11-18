@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.registry;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.item.FramingSawItem;
 import art.arcane.bibliocraft.item.FurnitureDrillItem;
+import art.arcane.bibliocraft.item.FurnitureLockItem;
 import art.arcane.bibliocraft.item.MenuOpeningItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -58,7 +59,8 @@ public final class ModItems {
     public static final RegistryObject<Item> BIBLIO_GLASSES = register("biblio_glasses");
     public static final RegistryObject<Item> BIBLIO_DRILL =
             register("biblio_drill", () -> new FurnitureDrillItem(new Item.Properties().stacksTo(1), false));
-    public static final RegistryObject<Item> BIBLIO_CREATIVE_LOCK = register("biblio_creative_lock");
+    public static final RegistryObject<Item> BIBLIO_CREATIVE_LOCK =
+            register("biblio_creative_lock", FurnitureLockItem::new);
     public static final RegistryObject<Item> BIBLIO_CLIPBOARD = register("biblio_clipboard");
 
     private ModItems() {}

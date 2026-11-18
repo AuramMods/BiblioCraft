@@ -21,7 +21,8 @@
 - The cookie jar now keeps eight slots, retains the legacy menu, and powers redstone for 20 ticks when opened. Its original cookie meshes build the visible stack one piece per occupied slot. All twenty-seven Forge GameTests passed. The muted client showed the empty, partially stocked, and full jars through cutout glass, then showed a second cookie mesh appear after a shift-click. The same model filter still showed only the occupied slots on the nearby bookcase.
 - The dinner plate now serves food through the legacy four-click interaction. Progress belongs to each player and plate. The restored three-slot menu and one-pile or three-pile render layouts use the saved contents. The muted client restored its hunger from 6 to 20 and returned a bowl after eating.
 - The disc rack shares the original nine grooves across floor, ceiling, upright wall, and horizontal wall models. Both drills change the wall layout or rotate the rack on sneak-use, and they also rotate dinner plates. The muted client verified the four mounts, live drilling, and insertion into the selected groove. All thirty-three Forge GameTests passed.
-- Remaining shelf parity includes shared drill/shift and lock interactions and the legacy optional light emitted by stored blocks.
+- The Lock and Key works on the ported inventory furniture. It saves the owner UUID and protects direct access, menus, drills, survival mining, and automation, including cached Forge item handlers. All thirty-seven Forge GameTests passed. Two muted clients on a clean dedicated server verified that locking closes a guest's open menu and leaves it accessible to the owner. Both ownership and contents survived a dedicated server restart.
+- Remaining shelf parity includes shared drill and shift interactions and the legacy optional light emitted by stored blocks.
 
 ## Initial Breadth Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).

@@ -9,11 +9,13 @@ import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.block.RackBlock;
 import art.arcane.bibliocraft.block.ShelfBlock;
+import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.entity.SeatEntity;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModEntities;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,6 +28,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -57,6 +60,16 @@ public final class CommonGameplayEvents {
     }
 
     private CommonGameplayEvents() {}
+
+    @SubscribeEvent
+    public static void onLockedFurnitureBreak(BlockEvent.BreakEvent event) {
+        if (!event.getPlayer().isCreative()
+                && event.getLevel().getBlockEntity(event.getPos()) instanceof FurnitureBlockEntity furniture
+                && furniture.isLocked()) {
+            event.setCanceled(true);
+            event.getPlayer().displayClientMessage(Component.translatable("message.bibliocraft.lock.break"), true);
+        }
+    }
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {

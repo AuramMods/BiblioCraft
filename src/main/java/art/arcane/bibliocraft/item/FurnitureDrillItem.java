@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.item;
 
 import art.arcane.bibliocraft.block.DrillAdjustable;
+import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.registry.ModSounds;
 import net.minecraft.sounds.SoundSource;
@@ -29,6 +30,9 @@ public final class FurnitureDrillItem extends Item {
                 || !(state.getBlock() instanceof DrillAdjustable adjustable)
                 || !BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(state.getBlock()))) {
             return InteractionResult.PASS;
+        }
+        if (level.getBlockEntity(pos) instanceof FurnitureBlockEntity furniture && !furniture.canAccess(player)) {
+            return FurnitureBlockEntity.denyAccess(player);
         }
         var adjusted = adjustable.adjustWithDrill(state, player.isShiftKeyDown());
         if (adjusted == state) {

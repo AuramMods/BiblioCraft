@@ -40,8 +40,8 @@ public class RackBlock extends InventoryFurnitureBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
+    protected InteractionResult useFurniture(BlockState state, Level level, BlockPos pos, Player player,
+                                             InteractionHand hand, BlockHitResult hit) {
         if (hand != InteractionHand.MAIN_HAND
                 || !BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(this))
                 || !(level.getBlockEntity(pos) instanceof RackBlockEntity rack)) {

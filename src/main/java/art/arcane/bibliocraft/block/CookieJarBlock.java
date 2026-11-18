@@ -37,8 +37,8 @@ public final class CookieJarBlock extends InventoryFurnitureBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
+    protected InteractionResult useFurniture(BlockState state, Level level, BlockPos pos, Player player,
+                                             InteractionHand hand, BlockHitResult hit) {
         if (hand != InteractionHand.MAIN_HAND || !BiblioConfig.COMMON.enableCookieJar.get()
                 || !(level.getBlockEntity(pos) instanceof CookieJarBlockEntity jar)) {
             return InteractionResult.PASS;
