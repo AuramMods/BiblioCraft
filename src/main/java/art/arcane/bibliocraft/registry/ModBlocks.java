@@ -101,13 +101,13 @@ public final class ModBlocks {
     public static final RegistryObject<Block> CLIPBOARD =
             register("clipboard", () -> shapedWoodEntity(SHAPE_CLIPBOARD, "clipboard"));
     public static final RegistryObject<Block> LANTERN_GOLD =
-            register("lantern_gold", () -> mountedLightEntity(SHAPE_LANTERN, SHAPE_LANTERN_WALL, SHAPE_LANTERN_CEILING, "bibliolight"));
+            registerMountedLight("lantern_gold", SHAPE_LANTERN, SHAPE_LANTERN_WALL, SHAPE_LANTERN_CEILING, true);
     public static final RegistryObject<Block> LANTERN_IRON =
-            register("lantern_iron", () -> mountedLightEntity(SHAPE_LANTERN, SHAPE_LANTERN_WALL, SHAPE_LANTERN_CEILING, "bibliolight"));
+            registerMountedLight("lantern_iron", SHAPE_LANTERN, SHAPE_LANTERN_WALL, SHAPE_LANTERN_CEILING, true);
     public static final RegistryObject<Block> LAMP_GOLD =
-            register("lamp_gold", () -> mountedLightEntity(SHAPE_LAMP, SHAPE_LAMP_WALL, SHAPE_LAMP_CEILING, "bibliolight"));
+            registerMountedLight("lamp_gold", SHAPE_LAMP, SHAPE_LAMP_WALL, SHAPE_LAMP_CEILING, false);
     public static final RegistryObject<Block> LAMP_IRON =
-            register("lamp_iron", () -> mountedLightEntity(SHAPE_LAMP, SHAPE_LAMP_WALL, SHAPE_LAMP_CEILING, "bibliolight"));
+            registerMountedLight("lamp_iron", SHAPE_LAMP, SHAPE_LAMP_WALL, SHAPE_LAMP_CEILING, false);
     public static final RegistryObject<Block> FURNITURE_PANELER =
             register("furniture_paneler", () -> new FurniturePanelerBlock(woodProps(), SHAPE_FURNITURE_PANELER),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));
@@ -197,13 +197,10 @@ public final class ModBlocks {
         return new ColorFacingEntityBlock(woodProps(), shape, blockEntityPath);
     }
 
-    private static Block mountedLightEntity(
-            VoxelShape floorShape,
-            VoxelShape wallShape,
-            VoxelShape ceilingShape,
-            String blockEntityPath
-    ) {
-        return new ColorMountedFacingEntityBlock(lightProps(), floorShape, wallShape, ceilingShape, blockEntityPath);
+    private static RegistryObject<Block> registerMountedLight(String name, VoxelShape floorShape,
+                                                              VoxelShape wallShape, VoxelShape ceilingShape, boolean candle) {
+        return register(name, () -> new ColorMountedFacingEntityBlock(lightProps(), floorShape, wallShape, ceilingShape, candle),
+                block -> new ColoredBlockItem(block, new Item.Properties()));
     }
 
     private static Block mountedWoodEntity(
@@ -232,7 +229,7 @@ public final class ModBlocks {
     }
 
     private static BlockBehaviour.Properties lightProps() {
-        return woodProps().lightLevel(state -> 15);
+        return woodProps().mapColor(MapColor.METAL).sound(SoundType.METAL).lightLevel(state -> 15);
     }
 
     private static VoxelShape box(double x1, double y1, double z1, double x2, double y2, double z2) {

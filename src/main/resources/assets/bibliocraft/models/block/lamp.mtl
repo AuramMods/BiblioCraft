@@ -1,7 +1,7 @@
 newmtl lamp
 Kd 1.00 1.00 1.00
-map_Kd bibliocraft:block/lamp
+map_Kd #body
 
 newmtl lamplight
 Kd 1.00 1.00 1.00
-map_Kd bibliocraft:block/lamplight0
+map_Kd #shade

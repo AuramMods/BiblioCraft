@@ -1,16 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "bibliocraft:colored_block_recolor",
   "category": "building",
-  "group": "bibliocraft",
-  "ingredients": [
-    {
-      "item": "bibliocraft:lantern_gold"
-    },
-    {
-      "tag": "forge:dyes"
-    }
-  ],
-  "result": {
-    "item": "bibliocraft:lantern_gold"
-  }
+  "item": "bibliocraft:lantern_gold"
 }

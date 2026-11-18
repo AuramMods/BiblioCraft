@@ -67,6 +67,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The server samples the analog strength every three ticks. `LastPower` persists the prior sample across chunk reloads. Earlier placeholder saves start from zero. Lock ownership affects manual use and survival mining while leaving redstone behavior available.
 - The original OBJ and texture render in both placements and inventory. The outline reaches the rim of the authored mesh, and the inventory transform centers the miniature bell.
 
+## Mounted Light Port
+
+- `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` keep their block and item IDs and share `bibliocraft:bibliolight`. Existing `face`, `facing`, and `color` states keep the same names. The block ID selects the metal.
+- One MTL per OBJ resolves the inherited `body` and `shade` textures. Mounts select the original lamp arms and plates or lantern hangers and plates. The model keeps the original faces, UVs, and textures with the earlier port's block-local coordinate translation. Cutout rendering preserves the original glass openings.
+- The sprite indices follow `ModelLamp` and `ModelLantern` in 1.12.2. For example, legacy `lamplight4` is red and `lamplight14` is pink. Modern dye IDs select the item override only. The named color persists as `BlockStateTag.color`.
+- The four recolor recipe IDs retain their inputs and now return the matching colored light. The hand drill and powered drill cycle floor, wall, and ceiling. Sneak-use rotates the facing. The shared Lock and Key protects both actions and in-world dyeing. Lanterns use the modern small-flame particle at the legacy wick position.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -163,9 +170,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `models/block/sword_pedestal_<color>.json` inherits the shared pedestal OBJ and resolves `trim` to `minecraft:block/<color>_wool`.
 - Mounted-light color-state parity updates now in baseline:
 - `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` now use `face + facing + color` blockstates.
-- Added non-white color-specific mounted light model/MTL overrides:
-- lamp families: `models/block/lamp_<metal>_<color>.json` + `_wall.json` + `_ceiling.json` + `.mtl` (15 colors per metal).
-- lantern families: `models/block/lantern_<metal>_<color>.json` + `_wall.json` + `_ceiling.json` + `.mtl` (15 colors per metal).
+- Mounted light variants inherit their mount geometry and textures from the base model. `lamp.mtl` and `lantern.mtl` share the body and shade slots across both metals and all colors.
 
 ## Current 1.20 Voxel Shape Snapshot (Pass 1)
 - Source of truth: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` (`SHAPE_*` constants + registrations).
@@ -350,11 +355,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/biblio_drill.json`
 - Added mapped legacy-output completion recipe:
 - `src/main/resources/data/bibliocraft/recipes/painting_canvas.json`
-- Color-surface placeholder recolor subset:
-- `src/main/resources/data/bibliocraft/recipes/lamp_gold_recolor.json`
-- `src/main/resources/data/bibliocraft/recipes/lamp_iron_recolor.json`
-- `src/main/resources/data/bibliocraft/recipes/lantern_gold_recolor.json`
-- `src/main/resources/data/bibliocraft/recipes/lantern_iron_recolor.json`
+- Remaining color-surface placeholder recipe:
 - `src/main/resources/data/bibliocraft/recipes/typewriter_recolor.json`
 - Procedural/variant obtainability subset:
 - `src/main/resources/data/bibliocraft/recipes/atlas_plate.json`
@@ -380,7 +381,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
-- Color-variant recolor recipes for `typewriter`, `lamp_*`, and `lantern_*` still need state-aware outputs.
+- The typewriter recolor recipe still needs state-aware output.
 - block loot-table files are currently generic self-drop placeholders; block-entity/state-specific drop parity remains deferred.
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.

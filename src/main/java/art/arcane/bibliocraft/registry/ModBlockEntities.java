@@ -8,12 +8,15 @@ import art.arcane.bibliocraft.blockentity.DinnerPlateBlockEntity;
 import art.arcane.bibliocraft.blockentity.DiscRackBlockEntity;
 import art.arcane.bibliocraft.blockentity.SwordPedestalBlockEntity;
 import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
+import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.RackBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -34,8 +37,10 @@ public final class ModBlockEntities {
             register("marker_pole", ModBlocks.MARKER_POLE);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> CLIPBOARD =
             register("clipboard", ModBlocks.CLIPBOARD);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> BIBLIOLIGHT =
-            register("bibliolight", ModBlocks.LAMP_GOLD, ModBlocks.LAMP_IRON, ModBlocks.LANTERN_GOLD, ModBlocks.LANTERN_IRON);
+    public static final RegistryObject<BlockEntityType<FurnitureBlockEntity>> BIBLIOLIGHT =
+            BLOCK_ENTITIES.register("bibliolight", () -> BlockEntityType.Builder.of(ModBlockEntities::createLight,
+                    ModBlocks.LAMP_GOLD.get(), ModBlocks.LAMP_IRON.get(), ModBlocks.LANTERN_GOLD.get(),
+                    ModBlocks.LANTERN_IRON.get()).build(null));
     public static final RegistryObject<BlockEntityType<FurniturePanelerBlockEntity>> FURNITURE_PANELER =
             BLOCK_ENTITIES.register("furniture_paneler", () ->
                     BlockEntityType.Builder.of(FurniturePanelerBlockEntity::new, ModBlocks.FURNITURE_PANELER.get()).build(null));
@@ -103,6 +108,10 @@ public final class ModBlockEntities {
             register("typewriter", ModBlocks.TYPEWRITER);
 
     private ModBlockEntities() {}
+
+    private static FurnitureBlockEntity createLight(BlockPos pos, BlockState state) {
+        return new FurnitureBlockEntity(BIBLIOLIGHT.get(), pos, state);
+    }
 
     @SafeVarargs
     private static RegistryObject<BlockEntityType<PlaceholderBlockEntity>> register(

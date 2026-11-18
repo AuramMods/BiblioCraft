@@ -1,17 +1,6 @@
 {
-  "loader": "forge:obj",
-  "model": "bibliocraft:models/block/lamp.obj",
-  "flip_v": true,
-  "mtl_override": "bibliocraft:models/block/lamp_gold_yellow.mtl",
-  "visibility": {
-    "baseFloor": false,
-    "lampTopFloor": false,
-    "lampTopWall": true,
-    "lampTopCeiling": false,
-    "wallPlate": true,
-    "ceilingPlate": false
-  },
+  "parent": "bibliocraft:block/lamp_gold_wall",
   "textures": {
-    "particle": "bibliocraft:block/lamp"
+    "shade": "bibliocraft:block/lamplight6"
   }
 }

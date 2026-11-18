@@ -48,9 +48,13 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.DINNER_PLATE.get(), DinnerPlateScreen::new);
             MenuScreens.register(ModMenus.DISC_RACK.get(), DiscRackScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
-            ItemProperties.register(ModBlocks.SWORD_PEDESTAL.get().asItem(),
-                    ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color"),
-                    (stack, level, entity, seed) -> ColoredBlockItem.getColor(stack).getId());
+            var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
+            ModBlocks.getTabItems().forEach(entry -> {
+                if (entry.get() instanceof ColoredBlockItem colored) {
+                    ItemProperties.register(colored, colorProperty,
+                            (stack, level, entity, seed) -> ColoredBlockItem.getColor(stack).getId());
+                }
+            });
         });
     }
 

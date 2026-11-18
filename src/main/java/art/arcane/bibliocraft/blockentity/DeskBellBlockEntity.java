@@ -6,9 +6,7 @@ import art.arcane.bibliocraft.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 public final class DeskBellBlockEntity extends FurnitureBlockEntity {
@@ -32,18 +30,6 @@ public final class DeskBellBlockEntity extends FurnitureBlockEntity {
             lastPower = power;
             setChanged();
         }
-    }
-
-    @Override
-    public boolean toggleLock(Player player) {
-        if (!super.toggleLock(player)) {
-            return false;
-        }
-        if (level != null && !level.isClientSide) {
-            BlockState state = getBlockState();
-            level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
-        }
-        return true;
     }
 
     @Override

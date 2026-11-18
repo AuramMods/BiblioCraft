@@ -1,17 +1,6 @@
 {
-  "loader": "forge:obj",
-  "model": "bibliocraft:models/block/lantern.obj",
-  "flip_v": true,
-  "mtl_override": "bibliocraft:models/block/lantern_gold_lime.mtl",
-  "visibility": {
-    "lamp": true,
-    "candle": true,
-    "glass": true,
-    "lampHanger": true,
-    "wallPlate": false,
-    "topPlate": true
-  },
+  "parent": "bibliocraft:block/lantern_gold_ceiling",
   "textures": {
-    "particle": "bibliocraft:block/lantern"
+    "shade": "bibliocraft:block/lanterncandle7"
   }
 }

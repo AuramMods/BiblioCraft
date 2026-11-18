@@ -24,6 +24,7 @@
 - The Lock and Key works on the ported inventory furniture. It saves the owner UUID and protects direct access, menus, drills, survival mining, and automation, including cached Forge item handlers. All thirty-seven Forge GameTests passed. Two muted clients on a clean dedicated server verified that locking closes a guest's open menu and leaves it accessible to the owner. Both ownership and contents survived a dedicated server restart.
 - The sword pedestal keeps the original OBJ and its wool trim through one shared MTL. Crafting, dyeing, picking, and breaking preserve all sixteen trim colors. The original blade pose uses the synced item, and an occupied pedestal gives full redstone power. All forty Forge GameTests passed. The muted client displayed the colors in the world and hotbar and verified insertion, redstone, dyeing, drilling, ejection, and reload.
 - The desk bell rings on right-click and on every sampled increase in redstone strength, including through stone. It saves the last signal to prevent a false ring on reload. All forty-two Forge GameTests passed. The muted client's sound engine resolved the original ding event after a manual click and a lever click. The original bell model rendered in the world and hotbar.
+- Gold and iron lamps and lanterns share one MTL per OBJ. Their 192 mount and palette models use the original sprite table. A pink lamp had used the yellow texture in the previous port because the legacy indices differ from modern dye IDs. The muted client verified the corrected colors, cutout glass, wick flames, all mounts, and the hotbar. It also dyed and drilled lights, reopened the world, and placed a picked lime lantern. All forty-four Forge GameTests passed, including all 64 light recolor outputs. The shared recolor serializer retains the pedestal serializer ID.
 - Remaining shelf parity includes shared drill and shift interactions and the legacy optional light emitted by stored blocks.
 
 ## Initial Breadth Snapshot (2026-02-09)
@@ -312,7 +313,7 @@
 - Block recipe consolidation reminder:
 - Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
 - Color-variant recipe reminder:
-- Recolor recipes for `typewriter`, `lamp_*`, and `lantern_*` still need state-aware outputs.
+- The typewriter recolor recipe still needs state-aware output.
 - Obtainability reminder:
 - Three registered ids are intentionally still non-craftable in datapack outputs for now: `bookcase_creative` (creative variant), `biblio_creative_lock` (creative/admin surface), and `tester_item` (debug surface).
 - Loot-table reminder:
@@ -321,7 +322,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Replace placeholder recolor recipes with state-aware recipes for `lamp_*`, `lantern_*`, and `typewriter`.
+- Restore the typewriter's state-aware recolor recipe. Check the old sprite mapping separately from modern dye IDs.
 - Add pick-block (creative clone) color carry so non-white color state is preserved on middle-click duplication.
 - Begin wood/framed variant-state scaffolding (next major open variant-strategy surface).
 

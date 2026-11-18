@@ -42,7 +42,11 @@ public class FurnitureBlockEntity extends BlockEntity {
             return false;
         }
         lockOwner = lockOwner == null ? player.getUUID() : null;
-        setChanged();
+        super.setChanged();
+        if (level != null && !level.isClientSide) {
+            BlockState state = getBlockState();
+            level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
+        }
         return true;
     }
 

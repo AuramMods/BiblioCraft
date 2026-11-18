@@ -1,7 +1,7 @@
 newmtl lantern
 Kd 1.00 1.00 1.00
-map_Kd bibliocraft:block/lantern
+map_Kd #body
 
 newmtl candle
 Kd 1.00 1.00 1.00
-map_Kd bibliocraft:block/lanterncandle0
+map_Kd #shade
