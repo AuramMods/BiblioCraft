@@ -5,6 +5,7 @@ import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.ColorFacingEntityBlock;
 import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.CookieJarBlock;
+import art.arcane.bibliocraft.block.DeskBellBlock;
 import art.arcane.bibliocraft.block.DinnerPlateBlock;
 import art.arcane.bibliocraft.block.DiscRackBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
@@ -80,7 +81,7 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_TYPEWRITER = box(0.1384, 0.0, 0.2466, 0.6452, 0.1966, 0.7534);
     private static final VoxelShape SHAPE_SWORD_PEDESTAL = box(0.2758, 0.0, 0.0712, 0.7242, 0.2340, 0.9288);
     private static final VoxelShape SHAPE_ARMOR_STAND = box(0.3, 0.0, 0.3, 0.7, 1.0, 0.7);
-    private static final VoxelShape SHAPE_BELL = box(0.4, 0.0, 0.4, 0.6, 0.2, 0.6);
+    private static final VoxelShape SHAPE_BELL = box(0.36518, 0, 0.36518, 0.63482, 0.2, 0.63482);
     private static final VoxelShape SHAPE_TYPESETTING_TABLE = box(0.0, 0.0, 0.0, 1.0, 0.92, 1.0);
     private static final VoxelShape SHAPE_COOKIE_JAR = box(0.18, 0.0, 0.18, 0.82, 0.75, 0.82);
     private static final VoxelShape SHAPE_DINNER_PLATE = box(0.1536, 0.0, 0.11, 0.8464, 0.0767, 0.91);
@@ -158,7 +159,7 @@ public final class ModBlocks {
     public static final RegistryObject<Block> ARMOR_STAND =
             register("armor_stand", () -> shapedWoodEntity(SHAPE_ARMOR_STAND, "armor_stand"));
     public static final RegistryObject<Block> BELL =
-            register("bell", () -> shapedWoodEntity(SHAPE_BELL, "bell"));
+            register("bell", () -> new DeskBellBlock(woodProps().mapColor(MapColor.METAL).sound(SoundType.METAL), SHAPE_BELL));
     public static final RegistryObject<Block> TYPESETTING_TABLE =
             register("typesetting_table", () -> shapedWoodEntity(SHAPE_TYPESETTING_TABLE, "typesetting_table"));
     public static final RegistryObject<Block> PRINTING_PRESS =

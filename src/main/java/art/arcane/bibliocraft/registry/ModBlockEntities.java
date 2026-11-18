@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.registry;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
+import art.arcane.bibliocraft.blockentity.DeskBellBlockEntity;
 import art.arcane.bibliocraft.blockentity.DinnerPlateBlockEntity;
 import art.arcane.bibliocraft.blockentity.DiscRackBlockEntity;
 import art.arcane.bibliocraft.blockentity.SwordPedestalBlockEntity;
@@ -95,8 +96,9 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<SwordPedestalBlockEntity>> SWORD_PEDESTAL =
             BLOCK_ENTITIES.register("sword_pedestal", () ->
                     BlockEntityType.Builder.of(SwordPedestalBlockEntity::new, ModBlocks.SWORD_PEDESTAL.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> BELL =
-            register("bell", ModBlocks.BELL);
+    public static final RegistryObject<BlockEntityType<DeskBellBlockEntity>> BELL =
+            BLOCK_ENTITIES.register("bell", () ->
+                    BlockEntityType.Builder.of(DeskBellBlockEntity::new, ModBlocks.BELL.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> TYPEWRITER =
             register("typewriter", ModBlocks.TYPEWRITER);
 

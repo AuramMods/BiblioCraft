@@ -61,6 +61,12 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Sixteen shaped recipes carry the wool color through `BlockStateTag.color`. The dye recipe carries the new trim and preserves the item's existing tags. In-world dyeing, pick-block, and ordinary loot preserve the trim. Breaking the pedestal returns the stored sword separately.
 - A displayed sword powers all sides, and updates reach neighbors through solid blocks. The same slot accepts swords from players, vanilla hoppers, and Forge item handlers. The shared furniture lock protects user interactions and automation.
 
+## Desk Bell Port
+
+- The block, item, and block entity retain `bibliocraft:bell`. The vanilla sound event `bibliocraft:ding` uses the four original bell recordings. A manual press or a redstone increase broadcasts a position-based sound in the blocks category.
+- The server samples the analog strength every three ticks. `LastPower` persists the prior sample across chunk reloads. Earlier placeholder saves start from zero. Lock ownership affects manual use and survival mining while leaving redstone behavior available.
+- The original OBJ and texture render in both placements and inventory. The outline reaches the rim of the authored mesh, and the inventory transform centers the miniature bell.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -194,7 +200,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `typewriter` | `x:0.1384-0.6452 y:0.0-0.1966 z:0.2466-0.7534` | active OBJ visible parts (`typewriter.obj`, current `base` visibility only) |
 | `sword_pedestal` | `x:0.2758-0.7242 y:0.0-0.234 z:0.0712-0.9288` | OBJ extent + old bbox |
 | `armor_stand` | `x/z:0.3-0.7 y:0.0-1.0` | old orientation bbox collapsed to static |
-| `bell` | `x/z:0.4-0.6 y:0.0-0.2` | old `BlockBell` bbox |
+| `bell` | `x/z:0.36518–0.63482 y:0.0–0.2` | OBJ rim and legacy height |
 | `typesetting_table` | `x/z:0.0-1.0 y:0.0-0.92` | old `BlockTypesettingTable` bbox |
 | `cookie_jar` | `x/z:0.18-0.82 y:0.0-0.75` | old `BlockCookieJar` bbox |
 | `dinner_plate` | `x:0.1536-0.8464 y:0.0-0.0767 z:0.11-0.91` | OBJ extents (`dinnerplate.obj`) |

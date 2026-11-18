@@ -45,6 +45,7 @@
     "ding":
     {
     "category": "block",
+    "subtitle": "subtitles.bibliocraft.ding",
     "sounds":
         [
             "bibliocraft:bell1",
