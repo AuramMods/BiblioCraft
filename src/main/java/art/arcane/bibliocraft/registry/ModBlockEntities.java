@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
+import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.RackBlockEntity;
@@ -55,8 +56,9 @@ public final class ModBlockEntities {
             register("framed_chest", ModBlocks.FRAMED_CHEST);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> MAP_FRAME =
             register("map_frame", ModBlocks.MAP_FRAME);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> CASE =
-            register("case", ModBlocks.CASE);
+    public static final RegistryObject<BlockEntityType<DisplayCaseBlockEntity>> CASE =
+            BLOCK_ENTITIES.register("case", () ->
+                    BlockEntityType.Builder.of(DisplayCaseBlockEntity::new, ModBlocks.CASE.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> CLOCK =
             register("clock", ModBlocks.CLOCK);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PAINTING_FRAME_BORDERLESS =

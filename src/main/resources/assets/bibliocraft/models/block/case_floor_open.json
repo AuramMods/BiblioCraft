@@ -1,0 +1,8 @@
+{
+  "parent": "bibliocraft:block/case_open",
+  "transform": {
+    "origin": "corner",
+    "left_rotation": { "y": -90 },
+    "right_rotation": { "z": 90 }
+  }
+}

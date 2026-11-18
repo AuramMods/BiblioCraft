@@ -1,21 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:case",
   "pattern": [
     "SGS",
     "SWS",
     "SSS"
   ],
   "key": {
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ],
+    "S": {
+      "item": "minecraft:oak_slab"
+    },
     "W": {
       "item": "minecraft:white_wool"
     },

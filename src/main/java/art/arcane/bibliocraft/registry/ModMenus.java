@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.BookcaseMenu;
+import art.arcane.bibliocraft.menu.DisplayCaseMenu;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.RackMenu;
 import art.arcane.bibliocraft.menu.ShelfMenu;
@@ -36,7 +37,8 @@ public final class ModMenus {
             () -> new MenuType<>((id, inventory) -> new RackMenu(id, inventory, RackType.POTIONS), FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<RackMenu>> TOOL_RACK = MENUS.register("tool_rack",
             () -> new MenuType<>((id, inventory) -> new RackMenu(id, inventory, RackType.TOOLS), FeatureFlags.DEFAULT_FLAGS));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> CASE = register("case");
+    public static final RegistryObject<MenuType<DisplayCaseMenu>> CASE =
+            MENUS.register("case", () -> new MenuType<>(DisplayCaseMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PlaceholderMenu>> LABEL = register("label");
     public static final RegistryObject<MenuType<PlaceholderMenu>> DESK = register("desk");
     public static final RegistryObject<MenuType<PlaceholderMenu>> TABLE = register("table");
@@ -60,7 +62,6 @@ public final class ModMenus {
 
     static {
         mapBlock("armor_stand", ARMOR_STAND);
-        mapBlock("case", CASE);
         mapBlock("label", LABEL);
         mapBlock("desk", DESK);
         mapBlock("table", TABLE);

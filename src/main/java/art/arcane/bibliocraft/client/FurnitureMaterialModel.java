@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.FurnitureMaterial;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
+import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import com.google.common.cache.CacheBuilder;
@@ -21,6 +22,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,6 +40,7 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/typewriter_paper_blank");
     private static final ResourceLocation BOOKCASE_BOOKS_SPRITE =
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/bookcase_books");
+    private static final ResourceLocation CASE_LINING_SPRITE = ResourceLocation.withDefaultNamespace("block/white_wool");
     private final LoadingCache<QuadTexture, BakedQuad> quads = CacheBuilder.newBuilder()
             .maximumSize(4096)
             .build(CacheLoader.from(FurnitureMaterialModel::replaceSprite));
@@ -67,7 +70,12 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         FurnitureMaterial material = data.get(FurnitureBlockEntity.MATERIAL);
         TextureAtlasSprite wood = isDefault(material) ? null : sprite(material);
         TextureAtlasSprite panel = panelSprite(data.get(FurniturePanelerBlockEntity.PANEL_SOURCE));
-        return wood == null && panel == null ? original : retexture(original, wood, panel);
+        DyeColor lining = data.get(DisplayCaseBlockEntity.LINING_COLOR);
+        TextureAtlasSprite liningSprite = lining == null || lining == DyeColor.WHITE ? null
+                : Minecraft.getInstance().getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS)
+                        .getSprite(ResourceLocation.withDefaultNamespace("block/" + lining.getName() + "_wool"));
+        return wood == null && panel == null && liningSprite == null
+                ? original : retexture(original, wood, panel, liningSprite);
     }
 
     @Override
@@ -97,13 +105,13 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         return new BakedModelWrapper<>(pass.model()) {
             @Override
             public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource random) {
-                return retexture(super.getQuads(state, side, random), pass.sprite(), null);
+                return retexture(super.getQuads(state, side, random), pass.sprite(), null, null);
             }
         };
     }
 
     private List<BakedQuad> retexture(List<BakedQuad> original, @Nullable TextureAtlasSprite wood,
-                                       @Nullable TextureAtlasSprite panel) {
+                                       @Nullable TextureAtlasSprite panel, @Nullable TextureAtlasSprite lining) {
         if (original.isEmpty()) {
             return original;
         }
@@ -111,7 +119,8 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
                 .map(quad -> {
                     ResourceLocation source = quad.getSprite().contents().name();
                     TextureAtlasSprite texture = source.equals(WOOD_SPRITE) ? wood
-                            : source.equals(PANEL_SPRITE) ? panel : null;
+                            : source.equals(PANEL_SPRITE) ? panel
+                            : source.equals(CASE_LINING_SPRITE) ? lining : null;
                     return texture == null ? quad : quads.getUnchecked(new QuadTexture(quad, texture));
                 })
                 .toList();

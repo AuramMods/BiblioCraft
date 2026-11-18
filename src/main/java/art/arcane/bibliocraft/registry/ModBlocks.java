@@ -4,7 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.ColorFacingEntityBlock;
 import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
-import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
+import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
@@ -127,7 +127,8 @@ public final class ModBlocks {
     public static final RegistryObject<Block> CLOCK =
             register("clock", () -> shapedWoodEntity(SHAPE_CLOCK, "clock"));
     public static final RegistryObject<Block> CASE =
-            register("case", () -> floorWallWoodEntity(SHAPE_CASE_FLOOR, SHAPE_CASE_WALL, "case"));
+            register("case", () -> new DisplayCaseBlock(woodProps(), SHAPE_CASE_FLOOR, SHAPE_CASE_WALL),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> MAP_FRAME =
             register("map_frame", () -> mountedWoodEntity(SHAPE_MAP_FRAME_FLOOR, SHAPE_MAP_FRAME_WALL, SHAPE_MAP_FRAME_CEILING, "map_frame"));
     public static final RegistryObject<Block> PAINTING_FRAME_FLAT =
@@ -205,9 +206,6 @@ public final class ModBlocks {
         return new MountedFacingEntityBlock(woodProps(), floorShape, wallShape, ceilingShape, blockEntityPath);
     }
 
-    private static Block floorWallWoodEntity(VoxelShape floorShape, VoxelShape wallShape, String blockEntityPath) {
-        return new FloorWallFacingEntityBlock(woodProps(), floorShape, wallShape, blockEntityPath);
-    }
 
     private static Block fullWoodEntity(String blockEntityPath) {
         return new HorizontalFacingEntityBlock(woodProps(), Shapes.block(), blockEntityPath);

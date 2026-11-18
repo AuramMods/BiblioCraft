@@ -124,13 +124,7 @@ public class BookcaseBlock extends InventoryFurnitureBlock {
     }
 
     public static void updateSignalNeighbors(Level level, BlockPos pos, BlockState state) {
-        level.updateNeighborsAt(pos, state.getBlock());
-        for (Direction direction : Direction.values()) {
-            BlockPos neighbor = pos.relative(direction);
-            if (direction != opening(state) && level.getBlockState(neighbor).isRedstoneConductor(level, neighbor)) {
-                level.updateNeighborsAtExceptFromFacing(neighbor, state.getBlock(), direction.getOpposite());
-            }
-        }
+        updatePowerNeighbors(level, pos, state, opening(state));
     }
 
     @Override
