@@ -1,9 +1,11 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.BookcaseMenu;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
+import art.arcane.bibliocraft.menu.RackMenu;
 import art.arcane.bibliocraft.menu.ShelfMenu;
 import art.arcane.bibliocraft.menu.FurniturePanelerMenu;
 import net.minecraft.resources.ResourceLocation;
@@ -30,8 +32,10 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<ShelfMenu>> SHELF =
             MENUS.register("shelf", () -> new MenuType<>(ShelfMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PlaceholderMenu>> ARMOR_STAND = register("armor_stand");
-    public static final RegistryObject<MenuType<PlaceholderMenu>> POTION_SHELF = register("potion_shelf");
-    public static final RegistryObject<MenuType<PlaceholderMenu>> TOOL_RACK = register("tool_rack");
+    public static final RegistryObject<MenuType<RackMenu>> POTION_SHELF = MENUS.register("potion_shelf",
+            () -> new MenuType<>((id, inventory) -> new RackMenu(id, inventory, RackType.POTIONS), FeatureFlags.DEFAULT_FLAGS));
+    public static final RegistryObject<MenuType<RackMenu>> TOOL_RACK = MENUS.register("tool_rack",
+            () -> new MenuType<>((id, inventory) -> new RackMenu(id, inventory, RackType.TOOLS), FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PlaceholderMenu>> CASE = register("case");
     public static final RegistryObject<MenuType<PlaceholderMenu>> LABEL = register("label");
     public static final RegistryObject<MenuType<PlaceholderMenu>> DESK = register("desk");
@@ -56,8 +60,6 @@ public final class ModMenus {
 
     static {
         mapBlock("armor_stand", ARMOR_STAND);
-        mapBlock("potion_shelf", POTION_SHELF);
-        mapBlock("tool_rack", TOOL_RACK);
         mapBlock("case", CASE);
         mapBlock("label", LABEL);
         mapBlock("desk", DESK);

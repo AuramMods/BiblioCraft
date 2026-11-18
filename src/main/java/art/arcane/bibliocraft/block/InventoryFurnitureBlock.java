@@ -17,6 +17,21 @@ abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
         super(properties, shape, blockEntityPath);
     }
 
+    protected static boolean insertStack(FurnitureInventoryBlockEntity furniture, int slot, ItemStack held) {
+        ItemStack stored = furniture.getItem(slot);
+        if (held.isEmpty() || (!stored.isEmpty() && !ItemStack.isSameItemSameTags(stored, held))) {
+            return false;
+        }
+        int limit = Math.min(held.getMaxStackSize(), furniture.getMaxStackSize());
+        int amount = Math.min(held.getCount(), limit - stored.getCount());
+        if (amount <= 0) {
+            return false;
+        }
+        furniture.setItem(slot, held.copyWithCount(stored.getCount() + amount));
+        held.shrink(amount);
+        return true;
+    }
+
     protected static boolean ejectStack(Level level, BlockPos pos, Direction opening,
                                         FurnitureInventoryBlockEntity furniture, int slot) {
         ItemStack stored = furniture.getItem(slot);

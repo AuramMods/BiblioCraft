@@ -8,6 +8,8 @@ import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
+import art.arcane.bibliocraft.block.RackBlock;
+import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.block.ShelfBlock;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import net.minecraft.world.item.BlockItem;
@@ -109,9 +111,11 @@ public final class ModBlocks {
     public static final RegistryObject<Block> FANCY_WORKBENCH =
             register("fancy_workbench", () -> fullWoodEntity("fancy_workbench"));
     public static final RegistryObject<Block> POTION_SHELF =
-            register("potion_shelf", () -> shapedWoodEntity(SHAPE_HALF_RACK_EAST, "potion_shelf"));
+            register("potion_shelf", () -> new RackBlock(woodProps(), SHAPE_HALF_RACK_EAST, "potion_shelf", RackType.POTIONS),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> TOOL_RACK =
-            register("tool_rack", () -> shapedWoodEntity(SHAPE_HALF_RACK, "tool_rack"));
+            register("tool_rack", () -> new RackBlock(woodProps(), SHAPE_HALF_RACK, "tool_rack", RackType.TOOLS),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> LABEL =
             register("label", () -> shapedWoodEntity(SHAPE_LABEL, "label"));
     public static final RegistryObject<Block> DESK =

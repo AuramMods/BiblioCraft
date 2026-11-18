@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
+import art.arcane.bibliocraft.blockentity.RackBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,10 +33,12 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<FurniturePanelerBlockEntity>> FURNITURE_PANELER =
             BLOCK_ENTITIES.register("furniture_paneler", () ->
                     BlockEntityType.Builder.of(FurniturePanelerBlockEntity::new, ModBlocks.FURNITURE_PANELER.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> POTION_SHELF =
-            register("potion_shelf", ModBlocks.POTION_SHELF);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> TOOL_RACK =
-            register("tool_rack", ModBlocks.TOOL_RACK);
+    public static final RegistryObject<BlockEntityType<RackBlockEntity>> POTION_SHELF =
+            BLOCK_ENTITIES.register("potion_shelf", () ->
+                    BlockEntityType.Builder.of(RackBlockEntity::potionShelf, ModBlocks.POTION_SHELF.get()).build(null));
+    public static final RegistryObject<BlockEntityType<RackBlockEntity>> TOOL_RACK =
+            BLOCK_ENTITIES.register("tool_rack", () ->
+                    BlockEntityType.Builder.of(RackBlockEntity::toolRack, ModBlocks.TOOL_RACK.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> LABEL =
             register("label", ModBlocks.LABEL);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> DESK =

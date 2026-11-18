@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
+import art.arcane.bibliocraft.block.RackBlock;
 import art.arcane.bibliocraft.block.ShelfBlock;
 import art.arcane.bibliocraft.entity.SeatEntity;
 import art.arcane.bibliocraft.registry.ModBlocks;
@@ -95,7 +96,8 @@ public final class CommonGameplayEvents {
         var block = event.getLevel().getBlockState(event.getPos()).getBlock();
         if (event.getHand() == InteractionHand.MAIN_HAND && event.getEntity().isShiftKeyDown()
                 && event.getUseBlock() == Event.Result.DEFAULT
-                && (block instanceof ShelfBlock || block instanceof BookcaseBlock || block instanceof FurniturePanelerBlock)
+                && (block instanceof ShelfBlock || block instanceof BookcaseBlock
+                        || block instanceof RackBlock || block instanceof FurniturePanelerBlock)
                 && BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(block))) {
             event.setUseBlock(Event.Result.ALLOW);
         }

@@ -10,7 +10,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -84,17 +83,6 @@ public class ShelfBlock extends InventoryFurnitureBlock {
 
     private static boolean transferStack(Level level, BlockPos pos, Direction opening,
                                          ShelfBlockEntity shelf, int slot, Player player) {
-        ItemStack stored = shelf.getItem(slot);
-        ItemStack held = player.getMainHandItem();
-        if (!held.isEmpty() && (stored.isEmpty() || ItemStack.isSameItemSameTags(stored, held))) {
-            int limit = Math.min(held.getMaxStackSize(), shelf.getMaxStackSize());
-            int amount = Math.min(held.getCount(), limit - stored.getCount());
-            if (amount > 0) {
-                shelf.setItem(slot, held.copyWithCount(stored.getCount() + amount));
-                held.shrink(amount);
-                return true;
-            }
-        }
-        return ejectStack(level, pos, opening, shelf, slot);
+        return insertStack(shelf, slot, player.getMainHandItem()) || ejectStack(level, pos, opening, shelf, slot);
     }
 }
