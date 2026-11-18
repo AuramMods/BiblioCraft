@@ -14,10 +14,13 @@ import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.RackBlock;
 import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.block.ShelfBlock;
+import art.arcane.bibliocraft.block.SwordPedestalBlock;
+import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -149,7 +152,9 @@ public final class ModBlocks {
     public static final RegistryObject<Block> TYPEWRITER =
             register("typewriter", () -> colorShapedWoodEntity(SHAPE_TYPEWRITER, "typewriter"));
     public static final RegistryObject<Block> SWORD_PEDESTAL =
-            register("sword_pedestal", () -> colorShapedWoodEntity(SHAPE_SWORD_PEDESTAL, "sword_pedestal"));
+            register("sword_pedestal", () -> new SwordPedestalBlock(
+                            woodProps().mapColor(MapColor.STONE).sound(SoundType.STONE), SHAPE_SWORD_PEDESTAL),
+                    block -> new ColoredBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> ARMOR_STAND =
             register("armor_stand", () -> shapedWoodEntity(SHAPE_ARMOR_STAND, "armor_stand"));
     public static final RegistryObject<Block> BELL =

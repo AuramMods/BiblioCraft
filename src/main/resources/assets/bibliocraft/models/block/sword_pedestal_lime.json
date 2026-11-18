@@ -1,9 +1,7 @@
 {
-  "loader": "forge:obj",
-  "model": "bibliocraft:models/block/swordpedestal.obj",
-  "flip_v": true,
-  "mtl_override": "bibliocraft:models/block/sword_pedestal_lime.mtl",
+  "parent": "bibliocraft:block/sword_pedestal",
   "textures": {
+    "trim": "minecraft:block/lime_wool",
     "particle": "minecraft:block/lime_wool"
   }
 }

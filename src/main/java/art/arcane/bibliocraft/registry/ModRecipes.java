@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.recipe.EnchantedAtlasRecipe;
+import art.arcane.bibliocraft.recipe.SwordPedestalRecolorRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
@@ -18,6 +19,9 @@ public final class ModRecipes {
 
     public static final RegistryObject<RecipeSerializer<EnchantedAtlasRecipe>> ENCHANTED_ATLAS_SERIALIZER =
             RECIPE_SERIALIZERS.register("enchantedatlas", () -> new SimpleCraftingRecipeSerializer<>(EnchantedAtlasRecipe::new));
+    public static final RegistryObject<RecipeSerializer<SwordPedestalRecolorRecipe>> SWORD_PEDESTAL_RECOLOR =
+            RECIPE_SERIALIZERS.register("sword_pedestal_recolor",
+                    () -> new SimpleCraftingRecipeSerializer<>(SwordPedestalRecolorRecipe::new));
 
     public static final RegistryObject<RecipeType<EnchantedAtlasRecipe>> ENCHANTED_ATLAS_RECIPE_TYPE =
             RECIPE_TYPES.register("enchantedatlas", () -> new RecipeType<>() {

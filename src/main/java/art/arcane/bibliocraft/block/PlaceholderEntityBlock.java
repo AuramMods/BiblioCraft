@@ -95,7 +95,7 @@ public class PlaceholderEntityBlock extends StaticShapeBlock implements EntityBl
         return InteractionResult.CONSUME;
     }
 
-    private InteractionResult tryApplyDye(
+    protected final InteractionResult tryApplyDye(
             BlockState state,
             Level level,
             BlockPos pos,

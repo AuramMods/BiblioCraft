@@ -15,6 +15,11 @@
     }
   },
   "result": {
-    "item": "bibliocraft:sword_pedestal"
+    "item": "bibliocraft:sword_pedestal",
+    "nbt": {
+      "BlockStateTag": {
+        "color": "white"
+      }
+    }
   }
 }

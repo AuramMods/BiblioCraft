@@ -54,6 +54,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Both the direct interaction and server menu validation check the current owner. Server drill actions honor the same rule. Locked furniture retains the legacy survival mining protection and creative break behavior.
 - Vanilla hoppers and Forge item handlers resume their normal transfers after unlocking. Cached handlers check the current lock on each transfer. A disabled Lock and Key setting prevents creating new locks and lets existing owners remove their locks.
 
+## Sword Pedestal Port
+
+- The block, item, and inventory retain `bibliocraft:sword_pedestal`. Existing 1.20.1 worlds keep their `facing` and `color`. A pedestal without `Items` loads with an empty display slot.
+- The original `swordpedestal.obj` has a stone body and a separate wool trim material. One MTL resolves the trim from the child model's `trim` sprite. Placed blocks and inventory models inherit the same OBJ. The block entity renderer uses the legacy center, rotation, and scale for the displayed blade.
+- Sixteen shaped recipes carry the wool color through `BlockStateTag.color`. The dye recipe carries the new trim and preserves the item's existing tags. In-world dyeing, pick-block, and ordinary loot preserve the trim. Breaking the pedestal returns the stored sword separately.
+- A displayed sword powers all sides, and updates reach neighbors through solid blocks. The same slot accepts swords from players, vanilla hoppers, and Forge item handlers. The shared furniture lock protects user interactions and automation.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -145,9 +152,9 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `map_frame` now uses `face + facing` blockstate variants and mount-specific shapes.
 - Typewriter/sword color-state parity updates now in baseline:
 - `typewriter` and `sword_pedestal` now use `facing + color` blockstates (`color=white..black`).
-- Added 16 color-specific block model JSON + MTL overrides per block:
+- Added sixteen color-specific block models per block:
 - `models/block/typewriter_<color>.json` + `typewriter_<color>.mtl` (`typewriter0..15` texture mapping).
-- `models/block/sword_pedestal_<color>.json` + `sword_pedestal_<color>.mtl` (`minecraft:block/<color>_wool` color material mapping).
+- `models/block/sword_pedestal_<color>.json` inherits the shared pedestal OBJ and resolves `trim` to `minecraft:block/<color>_wool`.
 - Mounted-light color-state parity updates now in baseline:
 - `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` now use `face + facing + color` blockstates.
 - Added non-white color-specific mounted light model/MTL overrides:
@@ -342,7 +349,6 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/lamp_iron_recolor.json`
 - `src/main/resources/data/bibliocraft/recipes/lantern_gold_recolor.json`
 - `src/main/resources/data/bibliocraft/recipes/lantern_iron_recolor.json`
-- `src/main/resources/data/bibliocraft/recipes/sword_pedestal_recolor.json`
 - `src/main/resources/data/bibliocraft/recipes/typewriter_recolor.json`
 - Procedural/variant obtainability subset:
 - `src/main/resources/data/bibliocraft/recipes/atlas_plate.json`
@@ -368,7 +374,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
-- color-variant recolor recipes are still placeholder datapack outputs; runtime color-state now exists for `typewriter`, `sword_pedestal`, `lamp_*`, and `lantern_*`, but recipe outputs still need state-aware conversion logic.
+- Color-variant recolor recipes for `typewriter`, `lamp_*`, and `lantern_*` still need state-aware outputs.
 - block loot-table files are currently generic self-drop placeholders; block-entity/state-specific drop parity remains deferred.
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.

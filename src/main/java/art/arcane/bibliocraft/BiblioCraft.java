@@ -2,6 +2,7 @@ package art.arcane.bibliocraft;
 
 import art.arcane.bibliocraft.config.BiblioConfig;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
+import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import art.arcane.bibliocraft.network.ModNetwork;
 import art.arcane.bibliocraft.registry.ModBlocks;
@@ -45,6 +46,8 @@ public class BiblioCraft {
                             if (BiblioFeatureToggles.isBlockItemEnabled(item.getId())) {
                                 if (item.get() instanceof FurnitureBlockItem furniture) {
                                     furniture.addVariants(output);
+                                } else if (item.get() instanceof ColoredBlockItem colored) {
+                                    colored.addVariants(output);
                                 } else {
                                     output.accept(item.get());
                                 }

@@ -22,6 +22,7 @@
 - The dinner plate now serves food through the legacy four-click interaction. Progress belongs to each player and plate. The restored three-slot menu and one-pile or three-pile render layouts use the saved contents. The muted client restored its hunger from 6 to 20 and returned a bowl after eating.
 - The disc rack shares the original nine grooves across floor, ceiling, upright wall, and horizontal wall models. Both drills change the wall layout or rotate the rack on sneak-use, and they also rotate dinner plates. The muted client verified the four mounts, live drilling, and insertion into the selected groove. All thirty-three Forge GameTests passed.
 - The Lock and Key works on the ported inventory furniture. It saves the owner UUID and protects direct access, menus, drills, survival mining, and automation, including cached Forge item handlers. All thirty-seven Forge GameTests passed. Two muted clients on a clean dedicated server verified that locking closes a guest's open menu and leaves it accessible to the owner. Both ownership and contents survived a dedicated server restart.
+- The sword pedestal keeps the original OBJ and its wool trim through one shared MTL. Crafting, dyeing, picking, and breaking preserve all sixteen trim colors. The original blade pose uses the synced item, and an occupied pedestal gives full redstone power. All forty Forge GameTests passed. The muted client displayed the colors in the world and hotbar and verified insertion, redstone, dyeing, drilling, ejection, and reload.
 - Remaining shelf parity includes shared drill and shift interactions and the legacy optional light emitted by stored blocks.
 
 ## Initial Breadth Snapshot (2026-02-09)
@@ -310,7 +311,7 @@
 - Block recipe consolidation reminder:
 - Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
 - Color-variant recipe reminder:
-- Recolor recipes are still placeholder no-op conversions in datapack outputs even though runtime color-state now exists for `typewriter`, `sword_pedestal`, `lamp_*`, and `lantern_*`; recipe outputs should be converted to true state-aware recolor behavior in a follow-up pass.
+- Recolor recipes for `typewriter`, `lamp_*`, and `lantern_*` still need state-aware outputs.
 - Obtainability reminder:
 - Three registered ids are intentionally still non-craftable in datapack outputs for now: `bookcase_creative` (creative variant), `biblio_creative_lock` (creative/admin surface), and `tester_item` (debug surface).
 - Loot-table reminder:
@@ -319,7 +320,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Replace placeholder recolor recipe outputs with true state-aware recolor behavior for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal`.
+- Replace placeholder recolor recipes with state-aware recipes for `lamp_*`, `lantern_*`, and `typewriter`.
 - Add pick-block (creative clone) color carry so non-white color state is preserved on middle-click duplication.
 - Begin wood/framed variant-state scaffolding (next major open variant-strategy surface).
 

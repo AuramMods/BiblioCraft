@@ -3,10 +3,12 @@ package art.arcane.bibliocraft.client;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
+import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModMenus;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -31,10 +33,11 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.CASE.get(), DisplayCaseRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.DINNER_PLATE.get(), DinnerPlateRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.DISC_RACK.get(), DiscRackRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SWORD_PEDESTAL.get(), SwordPedestalRenderer::new);
     }
 
     @SubscribeEvent
-    public static void registerScreens(FMLClientSetupEvent event) {
+    public static void setupClient(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenus.SHELF.get(), ShelfScreen::new);
             MenuScreens.register(ModMenus.BOOKCASE.get(), BookcaseScreen::new);
@@ -45,6 +48,9 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.DINNER_PLATE.get(), DinnerPlateScreen::new);
             MenuScreens.register(ModMenus.DISC_RACK.get(), DiscRackScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
+            ItemProperties.register(ModBlocks.SWORD_PEDESTAL.get().asItem(),
+                    ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color"),
+                    (stack, level, entity, seed) -> ColoredBlockItem.getColor(stack).getId());
         });
     }
 
