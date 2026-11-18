@@ -2,19 +2,8 @@
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/cookiejar.obj",
   "flip_v": true,
-  "visibility": {
-    "jar": true,
-    "lid": true,
-    "cookie001": false,
-    "cookie002": false,
-    "cookie003": false,
-    "cookie004": false,
-    "cookie005": false,
-    "cookie006": false,
-    "cookie007": false,
-    "cookie008": false
-  },
   "textures": {
     "particle": "minecraft:block/iron_block"
-  }
+  },
+  "render_type": "minecraft:cutout"
 }

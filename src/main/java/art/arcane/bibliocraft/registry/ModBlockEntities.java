@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
+import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
@@ -79,8 +80,9 @@ public final class ModBlockEntities {
             register("typesetting_table", ModBlocks.TYPESETTING_TABLE);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PRINTING_PRESS =
             register("printing_press", ModBlocks.PRINTING_PRESS);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> COOKIE_JAR =
-            register("cookie_jar", ModBlocks.COOKIE_JAR);
+    public static final RegistryObject<BlockEntityType<CookieJarBlockEntity>> COOKIE_JAR =
+            BLOCK_ENTITIES.register("cookie_jar", () ->
+                    BlockEntityType.Builder.of(CookieJarBlockEntity::new, ModBlocks.COOKIE_JAR.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> DINNER_PLATE =
             register("dinner_plate", ModBlocks.DINNER_PLATE);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> DISC_RACK =

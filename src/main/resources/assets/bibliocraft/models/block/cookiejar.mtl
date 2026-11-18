@@ -6,6 +6,42 @@ newmtl glass
 Kd 1.00 1.00 1.00
 map_Kd minecraft:block/glass
 
-newmtl cookies
+newmtl cookie001
 Kd 1.00 1.00 1.00
+forge_TintIndex 0
+map_Kd minecraft:item/cookie
+
+newmtl cookie002
+Kd 1.00 1.00 1.00
+forge_TintIndex 1
+map_Kd minecraft:item/cookie
+
+newmtl cookie003
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd minecraft:item/cookie
+
+newmtl cookie004
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd minecraft:item/cookie
+
+newmtl cookie005
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd minecraft:item/cookie
+
+newmtl cookie006
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd minecraft:item/cookie
+
+newmtl cookie007
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd minecraft:item/cookie
+
+newmtl cookie008
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
 map_Kd minecraft:item/cookie

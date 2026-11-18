@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.block;
 
 import art.arcane.bibliocraft.blockentity.FurnitureInventoryBlockEntity;
+import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
@@ -63,7 +64,8 @@ abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
     @Override
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
-        if (level.getBlockEntity(pos) instanceof FurnitureInventoryBlockEntity furniture) {
+        if (stack.getItem() instanceof FurnitureBlockItem
+                && level.getBlockEntity(pos) instanceof FurnitureInventoryBlockEntity furniture) {
             return furniture.getMaterial().applyTo(stack);
         }
         return stack;

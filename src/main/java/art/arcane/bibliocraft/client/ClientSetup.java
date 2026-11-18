@@ -1,11 +1,14 @@
 package art.arcane.bibliocraft.client;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
+import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModMenus;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
@@ -36,6 +39,7 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.POTION_SHELF.get(), RackScreen::new);
             MenuScreens.register(ModMenus.TOOL_RACK.get(), RackScreen::new);
             MenuScreens.register(ModMenus.CASE.get(), DisplayCaseScreen::new);
+            MenuScreens.register(ModMenus.COOKIE_JAR.get(), CookieJarScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
         });
     }
@@ -46,8 +50,27 @@ public final class ClientSetup {
                 ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath(),
                 ModBlocks.TOOL_RACK.getId().getPath(), ModBlocks.POTION_SHELF.getId().getPath(),
                 ModBlocks.CASE.getId().getPath());
-        event.getModels().replaceAll((id, model) -> id instanceof ModelResourceLocation
-                && id.getNamespace().equals(BiblioCraft.MODID) && furniture.contains(id.getPath())
-                ? new FurnitureMaterialModel(model) : model);
+        var bookcases = Set.of(ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath());
+        var books = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/bookcase_books");
+        var cookies = ResourceLocation.withDefaultNamespace("item/cookie");
+        event.getModels().replaceAll((id, model) -> {
+            if (!(id instanceof ModelResourceLocation location) || !id.getNamespace().equals(BiblioCraft.MODID)) {
+                return model;
+            }
+            String path = id.getPath();
+            if (furniture.contains(path)) {
+                model = new FurnitureMaterialModel(model);
+            }
+            if ("inventory".equals(location.getVariant())) {
+                return model;
+            }
+            if (bookcases.contains(path)) {
+                return new SlotVisibilityModel(model, books, BookcaseBlockEntity.OCCUPIED_SLOTS);
+            }
+            if (path.equals(ModBlocks.COOKIE_JAR.getId().getPath())) {
+                return new SlotVisibilityModel(model, cookies, CookieJarBlockEntity.VISIBLE_COOKIES);
+            }
+            return model;
+        });
     }
 }

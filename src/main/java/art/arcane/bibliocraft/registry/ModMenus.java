@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.BookcaseMenu;
+import art.arcane.bibliocraft.menu.CookieJarMenu;
 import art.arcane.bibliocraft.menu.DisplayCaseMenu;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.RackMenu;
@@ -42,7 +43,8 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<PlaceholderMenu>> LABEL = register("label");
     public static final RegistryObject<MenuType<PlaceholderMenu>> DESK = register("desk");
     public static final RegistryObject<MenuType<PlaceholderMenu>> TABLE = register("table");
-    public static final RegistryObject<MenuType<PlaceholderMenu>> COOKIE_JAR = register("cookie_jar");
+    public static final RegistryObject<MenuType<CookieJarMenu>> COOKIE_JAR =
+            MENUS.register("cookie_jar", () -> new MenuType<>(CookieJarMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PlaceholderMenu>> DINNER_PLATE = register("dinner_plate");
     public static final RegistryObject<MenuType<PlaceholderMenu>> DISC_RACK = register("disc_rack");
     public static final RegistryObject<MenuType<PlaceholderMenu>> FANCY_SIGN = register("fancy_sign");
@@ -65,7 +67,6 @@ public final class ModMenus {
         mapBlock("label", LABEL);
         mapBlock("desk", DESK);
         mapBlock("table", TABLE);
-        mapBlock("cookie_jar", COOKIE_JAR);
         mapBlock("dinner_plate", DINNER_PLATE);
         mapBlock("disc_rack", DISC_RACK);
         mapBlock("fancy_sign", FANCY_SIGN);

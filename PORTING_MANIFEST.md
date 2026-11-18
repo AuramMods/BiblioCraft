@@ -34,6 +34,12 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Slot 0 stores the exhibit and slot 1 stores the carpet. The lining selects the matching wool sprite independently of the wood or custom panel. Replacing a carpet returns the old carpet as an item. Breakage drops both stacks separately and preserves the case's furniture material.
 - The legacy menu exposes the exhibit slot and closes when the case lid closes. A stored redstone block powers all sides whether the lid is open or closed.
 
+## Cookie Jar Port
+
+- The block, item, block entity, and menu retain `bibliocraft:cookie_jar`. Eight slots accept any item, and vanilla NBT persists actual contents.
+- The glass uses cutout rendering. The eight legacy cookie OBJ meshes are linked to their original order, and the number of occupied slots determines how many appear. Bookcases share the same visibility filter and continue to show the exact occupied slots.
+- Opening the menu emits the legacy 20-tick redstone pulse on all sides. The block state and scheduled tick preserve the pulse across reload. The block entity stores the deadline so a replacement jar receives its own full pulse. The menu remains usable after the pulse.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -389,7 +395,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `armor_stand`, `label`, `desk`, `table`, `cookie_jar`, `dinner_plate`, `disc_rack`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- `armor_stand`, `label`, `desk`, `table`, `dinner_plate`, `disc_rack`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`

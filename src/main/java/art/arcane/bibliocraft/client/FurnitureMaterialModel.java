@@ -1,9 +1,7 @@
 package art.arcane.bibliocraft.client;
 
 import art.arcane.bibliocraft.BiblioCraft;
-import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.FurnitureMaterial;
-import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
@@ -38,8 +36,6 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
     private static final ResourceLocation WOOD_SPRITE = FurnitureMaterial.Wood.OAK.texture();
     private static final ResourceLocation PANEL_SPRITE =
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/typewriter_paper_blank");
-    private static final ResourceLocation BOOKCASE_BOOKS_SPRITE =
-            ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/bookcase_books");
     private static final ResourceLocation CASE_LINING_SPRITE = ResourceLocation.withDefaultNamespace("block/white_wool");
     private final LoadingCache<QuadTexture, BakedQuad> quads = CacheBuilder.newBuilder()
             .maximumSize(4096)
@@ -59,13 +55,6 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         List<BakedQuad> original = super.getQuads(state, side, random, data, renderType);
         if (original.isEmpty()) {
             return original;
-        }
-        if (state != null && state.getBlock() instanceof BookcaseBlock) {
-            Integer occupied = data.get(BookcaseBlockEntity.OCCUPIED_SLOTS);
-            int slots = occupied == null ? 0 : occupied;
-            // Each book material carries its authored slot as the Forge OBJ tint index.
-            original = original.stream().filter(quad -> !BOOKCASE_BOOKS_SPRITE.equals(quad.getSprite().contents().name())
-                    || (slots & (1 << quad.getTintIndex())) != 0).toList();
         }
         FurnitureMaterial material = data.get(FurnitureBlockEntity.MATERIAL);
         TextureAtlasSprite wood = isDefault(material) ? null : sprite(material);

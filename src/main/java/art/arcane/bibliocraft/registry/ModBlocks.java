@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.ColorFacingEntityBlock;
 import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
+import art.arcane.bibliocraft.block.CookieJarBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
@@ -156,7 +157,7 @@ public final class ModBlocks {
     public static final RegistryObject<Block> PRINTING_PRESS =
             register("printing_press", () -> fullWoodEntity("printing_press"));
     public static final RegistryObject<Block> COOKIE_JAR =
-            register("cookie_jar", () -> shapedWoodEntity(SHAPE_COOKIE_JAR, "cookie_jar"));
+            register("cookie_jar", () -> new CookieJarBlock(woodProps(), SHAPE_COOKIE_JAR));
     public static final RegistryObject<Block> DINNER_PLATE =
             register("dinner_plate", () -> shapedWoodEntity(SHAPE_DINNER_PLATE, "dinner_plate"));
     public static final RegistryObject<Block> DISC_RACK =
