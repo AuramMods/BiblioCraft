@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
+import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,8 +17,9 @@ public final class ModBlockEntities {
 
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> BOOKCASE =
             register("bookcase", ModBlocks.BOOKCASE, ModBlocks.BOOKCASE_CREATIVE);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> SHELF =
-            register("shelf", ModBlocks.SHELF);
+    public static final RegistryObject<BlockEntityType<ShelfBlockEntity>> SHELF =
+            BLOCK_ENTITIES.register("shelf", () ->
+                    BlockEntityType.Builder.of(ShelfBlockEntity::new, ModBlocks.SHELF.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> MARKER_POLE =
             register("marker_pole", ModBlocks.MARKER_POLE);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> CLIPBOARD =

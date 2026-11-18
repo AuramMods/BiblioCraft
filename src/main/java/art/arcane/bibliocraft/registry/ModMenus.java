@@ -3,8 +3,10 @@ package art.arcane.bibliocraft.registry;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
+import art.arcane.bibliocraft.menu.ShelfMenu;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,7 +24,8 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<PlaceholderMenu>> SLOTTED_BOOK = register("slotted_book");
     public static final RegistryObject<MenuType<PlaceholderMenu>> TESTER = register("tester");
     public static final RegistryObject<MenuType<PlaceholderMenu>> BOOKCASE = register("bookcase");
-    public static final RegistryObject<MenuType<PlaceholderMenu>> SHELF = register("shelf");
+    public static final RegistryObject<MenuType<ShelfMenu>> SHELF =
+            MENUS.register("shelf", () -> new MenuType<>(ShelfMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PlaceholderMenu>> ARMOR_STAND = register("armor_stand");
     public static final RegistryObject<MenuType<PlaceholderMenu>> POTION_SHELF = register("potion_shelf");
     public static final RegistryObject<MenuType<PlaceholderMenu>> TOOL_RACK = register("tool_rack");
@@ -50,7 +53,6 @@ public final class ModMenus {
     static {
         mapBlock("bookcase", BOOKCASE);
         mapBlock("bookcase_creative", BOOKCASE);
-        mapBlock("shelf", SHELF);
         mapBlock("armor_stand", ARMOR_STAND);
         mapBlock("potion_shelf", POTION_SHELF);
         mapBlock("tool_rack", TOOL_RACK);

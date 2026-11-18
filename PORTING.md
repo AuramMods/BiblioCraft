@@ -1,12 +1,29 @@
 # BiblioCraft 1.20.1 Port Plan
 
 ## Working Rules
-- Breadth-first first, depth later.
+- Finish and verify one feature family at a time against the bundled 1.12.2 code and assets.
 - Always read `PORTING_MEMORY.md` before coding.
 - Use `PORTING_MANIFEST.md` as the source index for old 1.12.2 locations.
 - Keep this file updated whenever phase scope changes.
 
-## Current Snapshot (2026-02-09)
+## Active Forge 1.20.1 Parity Checklist
+
+| Legacy feature family | Implementation | Current verification |
+|---|---|---|
+| Shelf interaction, four visible slots, menu, and drops | Shelf stores and syncs real stacks, restores the legacy screen, responds to neighbor changes, and renders stored items. | Four Forge GameTests cover click transfer, matching hitboxes in all facings, stack limits, save/load, client update tags, drops, and menu shift-click. The isolated production client has opened the screen and shift-clicked a displayed stack. |
+| Furniture model pipeline and variants | Forge OBJ/MTL baseline with per-state rotations and some visibility overrides. Shelf divider now selects the actual legacy OBJ part. | Dedicated-server startup and asset inventory checked. Wood/framed materials, dynamic transforms, and a rendered gallery across feature families are pending. |
+| Bookcases, racks, cases, display stands, food containers, desks, and tables | Registry, models, and recipes exist. | Inventory and player behavior parity pending. |
+| Lights, labels, bells, clocks, signs, and seating | Mounted lights emit light and have dye state. Seats have basic mounting. | Electrical, sound, text, clock, and full seat behavior pending. |
+| Framing tools, paneler, custom textures, and framed chest | Registry, static assets, and provisional recipes exist. | Per-item material, persistence, and dynamic texture replacement pending. |
+| Tools, glasses, reading, books, clipboard, catalog, and recipe book | Registry and baseline assets exist. | Tool actions, item state, text screens, and overlays pending. |
+| Painting frames and press, typesetting and printing, typewriter, and workbench | Registry, static assets, and provisional recipes exist. | Production and editing workflows, animation, and sound pending. |
+| Atlas, map frame, waypoints, death compass, and enchantments | Registry and recipe scaffolding exist. | Working maps, server-side waypoint data, and a vanilla-crafting-compatible upgrade pending. |
+| Config, locks, recipes, and loot | Config scaffold and datapack breadth pass exist. | Feature policy, owner rules, state-aware crafting, and feature-specific loot parity pending. |
+| BiblioWoods and save compatibility | Legacy source and identifiers are mapped. | Supported 1.20.1 integrations and fixture upgrades for existing 1.20.1 worlds pending. Direct 1.12.2 world migration is separate. |
+
+For model parity, compare the original OBJ parts, materials, UVs, and authored axis with the legacy state mapper and renderer. Verify world and item models on an isolated muted client. For the shelf, the OBJ opens toward positive X in its base orientation. The existing `facing=north` state still uses that transform. Placement now picks the saved state from the intended opening, and the slots use the same orientation as the rendered geometry. Horizontal, mounted, and floor/wall geometry share corrected shape rotations in block coordinates.
+
+## Initial Breadth Snapshot (2026-02-09)
 - Old codebase scan completed across `old-1.12.2`.
 - All primary registries mapped: blocks, items, block-items, tile entities, enchantments, entity, networking, GUI containers, sounds, recipes, and add-on modules.
 - No fluid registry found in old source.
@@ -42,7 +59,7 @@
 - New `StaticShapeBlock` class with fixed `getShape`/`getCollisionShape`.
 - Replaced full-cube placeholder registration for most display blocks with explicit voxel shapes derived from old 1.12 bounding boxes and current OBJ extents.
 - `./gradlew compileJava` passes after shape wiring.
-- `runClient` is still manual only (user-run visual checks), no automatic launch.
+- The initial pass relied on manually reported client visual checks.
 - Block/custom-item in-hand + inventory 3D pass:
 - All 37 block item model JSONs now use direct Forge OBJ loader definitions (copied from block OBJ model config), not `parent` links to block models.
 - Added explicit `display` transforms and `automatic_culling=false` to all OBJ-backed item models for more consistent first/third-person and GUI rendering.
@@ -209,7 +226,7 @@
 - [x] Build initial manifest and memory files.
 
 ## Phase 1 - 1.20.1 Registry Skeleton
-- [ ] Create `DeferredRegister` sets for:
+- [x] Create `DeferredRegister` sets for:
 - [x] `Block`
 - [x] `Item`
 - [x] `BlockEntityType`
@@ -221,7 +238,7 @@
 - [x] `RecipeSerializer`/`RecipeType` (only where needed)
 - [x] Create one central registry bootstrap package (no feature logic yet).
 - [x] Add placeholder registrations for every legacy block/item/entity/enchantment by ID (can be stub behavior).
-- [ ] Ensure game starts with full registry surface present (even if mostly placeholder blocks/items).
+- [x] Boot a dedicated server with the current registry surface.
 
 ## Phase 2 - Block + Item Breadth Port
 - [x] Port all block classes as compile-safe stubs with registry IDs preserved.
@@ -240,7 +257,7 @@
 
 ## Phase 3 - Block Entities + Menus Breadth
 - [x] Register all legacy block entities in 1.20.1.
-- [x] Add minimal block entity classes per legacy type.
+- [x] Provide a working factory for each registered block-entity type.
 - [x] Register all menu types used by legacy GUI/container flow.
 - [x] Create placeholder menu classes so open paths compile.
 - [x] Wire placeholder block interaction paths to open registered placeholder menus.
@@ -287,6 +304,7 @@
 - [ ] Add integration tests for optional-mod behavior.
 
 ## Near-Term Lookahead
+- Validate wood and framed material substitution on the shelf using the same legacy mesh for world and item variants. Use rendered comparisons for both multipart visibility and facing before applying the approach to more blocks.
 - Convert placeholder recolor datapack recipes (`*_recolor`) into true state-aware recolor flows for `lamp_*`, `lantern_*`, `typewriter`, and `sword_pedestal`.
 - Add explicit pick-block color carry (creative clone path) for colorized placeholders so middle-click preserves non-white state.
 - Start wood/framed variant-state scaffolding (next open variant-strategy milestone after color-state expansion).

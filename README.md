@@ -56,9 +56,9 @@ Use these checks regularly:
 ./gradlew --no-daemon runData
 ```
 
-4. Runtime visual smoke test
-- `runClient` is intentionally manual/user-driven in this workflow.
-- Do not assume immediate visual testing; coordinate before requesting it.
+4. Runtime checks
+- Run Forge GameTests with `./gradlew runGameTestServer -PbibliocraftGameTestDir=/path/to/disposable/run`.
+- For visual checks, set Minecraft's master volume to zero before launching the client inside an isolated graphical session or virtual display.
 
 ## Daily Workflow
 1. Read `PORTING_MEMORY.md` -> `PORTING.md` -> `PORTING_MANIFEST.md`.

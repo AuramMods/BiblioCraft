@@ -21,6 +21,13 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+sourceSets {
+    gameTest {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
     copyIdeResources = true
@@ -48,7 +55,13 @@ minecraft {
         }
 
         gameTestServer {
+            workingDirectory project.file(providers.gradleProperty('bibliocraftGameTestDir').getOrElse('run'))
             property 'forge.enabledGameTestNamespaces', mod_id
+            mods {
+                "${mod_id}" {
+                    source sourceSets.gameTest
+                }
+            }
         }
 
         data {

@@ -6,6 +6,7 @@ import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
+import art.arcane.bibliocraft.block.ShelfBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -73,7 +74,7 @@ public final class ModBlocks {
     public static final RegistryObject<Block> BOOKCASE_CREATIVE =
             register("bookcase_creative", () -> shapedWoodEntity(SHAPE_BOOKCASE, "bookcase"));
     public static final RegistryObject<Block> SHELF =
-            register("shelf", () -> shapedWoodEntity(SHAPE_HALF_RACK, "shelf"));
+            register("shelf", () -> new ShelfBlock(woodProps(), SHAPE_HALF_RACK));
     public static final RegistryObject<Block> MARKER_POLE =
             register("marker_pole", () -> shapedWoodEntity(SHAPE_MARKER_POLE, "marker_pole"));
     public static final RegistryObject<Block> CLIPBOARD =

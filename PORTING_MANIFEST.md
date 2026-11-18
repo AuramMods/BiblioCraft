@@ -154,6 +154,8 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `fancy_workbench`, `desk`, `printing_press` | full shape placeholder (BE-backed) | pending deeper shape/state pass |
 
 ## Current 1.20 Registry Skeleton Snapshot
+- The shelf preserves the `bibliocraft:shelf` block, item, block-entity, and menu IDs. Its feature implementation is in `ShelfBlock`, `ShelfBlockEntity`, `ShelfMenu`, `ShelfScreen`, and `ShelfRenderer`.
+- The shelf blockstate selects the full OBJ or hides the `shelf_top` group. The blockstate rotates the original east-opening mesh around the block center. Slot hit testing and rendering use the same rotation.
 - Mod bootstrap wiring in: `src/main/java/art/arcane/bibliocraft/BiblioCraft.java`
 - Active registry classes:
 - `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java`
@@ -207,7 +209,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Blocks: 37
 - Block items: 37
 - Standalone items: 31
-- Block entity types: 34
+- Block entity types: 33
 - Menu types: 26
 - Entity types: 1 (`seat_entity`)
 - Enchantments: 2 (`deathcompassench`, `readingench`)
@@ -517,7 +519,7 @@ Registration source: `old-1.12.2/src/main/java/jds/bibliocraft/BlockLoader.java`
 |---|---|---|
 | `EntitySeat` | `bibliocraft:BiblioSeat` (`SeatEntity`, numeric ID 0 in callsite) | `old-1.12.2/src/main/java/jds/bibliocraft/BiblioCraft.java` |
 
-## Block Entity Registrations (34 active registrations)
+## Block Entity Registrations (33 active registrations)
 | Block Entity Class | Registry Key Source | Config Gate | Source |
 |---|---|---|---|
 | `TileEntityBookcase` | `BlockBookcase.name` | `enableBookcase` | `old-1.12.2/src/main/java/jds/bibliocraft/CommonProxy.java` |

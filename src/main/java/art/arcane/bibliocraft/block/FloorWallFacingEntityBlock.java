@@ -17,10 +17,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.EnumMap;
 import java.util.Map;
 
 public class FloorWallFacingEntityBlock extends PlaceholderEntityBlock {
@@ -50,10 +48,10 @@ public class FloorWallFacingEntityBlock extends PlaceholderEntityBlock {
             String blockEntityPath
     ) {
         super(properties, floorShape, floorCollisionShape, blockEntityPath);
-        this.floorShapesByFacing = createRotations(floorShape);
-        this.wallShapesByFacing = createRotations(wallShape);
-        this.floorCollisionByFacing = createRotations(floorCollisionShape);
-        this.wallCollisionByFacing = createRotations(wallCollisionShape);
+        this.floorShapesByFacing = horizontalShapes(floorShape);
+        this.wallShapesByFacing = horizontalShapes(wallShape);
+        this.floorCollisionByFacing = horizontalShapes(floorCollisionShape);
+        this.wallCollisionByFacing = horizontalShapes(wallCollisionShape);
         registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.FLOOR));
     }
 
@@ -108,30 +106,5 @@ public class FloorWallFacingEntityBlock extends PlaceholderEntityBlock {
         }
 
         return context.getClickedFace() == Direction.UP ? AttachFace.FLOOR : AttachFace.WALL;
-    }
-
-    private static Map<Direction, VoxelShape> createRotations(VoxelShape northShape) {
-        EnumMap<Direction, VoxelShape> map = new EnumMap<>(Direction.class);
-        map.put(Direction.NORTH, northShape);
-        map.put(Direction.EAST, rotateShape(northShape, 1));
-        map.put(Direction.SOUTH, rotateShape(northShape, 2));
-        map.put(Direction.WEST, rotateShape(northShape, 3));
-        return map;
-    }
-
-    private static VoxelShape rotateShape(VoxelShape shape, int quarterTurnsClockwise) {
-        VoxelShape output = shape;
-        for (int i = 0; i < quarterTurnsClockwise; i++) {
-            output = rotateShapeClockwise(output);
-        }
-        return output;
-    }
-
-    private static VoxelShape rotateShapeClockwise(VoxelShape shape) {
-        VoxelShape[] buffer = new VoxelShape[] { Shapes.empty() };
-        shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) ->
-                buffer[0] = Shapes.or(buffer[0], Block.box(16.0 - maxZ, minY, minX, 16.0 - minZ, maxY, maxX))
-        );
-        return buffer[0];
     }
 }

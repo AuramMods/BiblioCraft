@@ -19,6 +19,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -83,6 +84,16 @@ public final class CommonGameplayEvents {
                 && CONTAINER_SENSITIVE_ITEMS.contains(key.toString())) {
             // Placeholder for legacy packet/container validation before toss.
             player.closeContainer();
+        }
+    }
+
+    @SubscribeEvent
+    public static void onShelfMenuInteract(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getHand() == InteractionHand.MAIN_HAND && event.getEntity().isShiftKeyDown()
+                && event.getUseBlock() == Event.Result.DEFAULT
+                && event.getLevel().getBlockState(event.getPos()).is(ModBlocks.SHELF.get())
+                && BiblioFeatureToggles.isBlockEnabled(ModBlocks.SHELF.getId())) {
+            event.setUseBlock(Event.Result.ALLOW);
         }
     }
 

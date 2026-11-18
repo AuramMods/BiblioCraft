@@ -2,7 +2,16 @@
 
 **FIRST STEP EVERY SESSION: read this file first, then `PORTING.md`, then `PORTING_MANIFEST.md` before touching code.**
 
-## Session Snapshot (2026-02-09)
+## Session Snapshot (2026-11-18)
+
+- The shelf now uses a real four-slot block entity, menu, screen, and block-entity renderer. The old tile allocated 16 slots, but the legacy menu, click handling, and renderer only used slots 0–3. The Forge port keeps `bibliocraft:shelf` for the block, item, block entity, and menu.
+- The base shelf mesh occupies the west half and opens east. Existing saved facing values keep their original geometry. New placement compensates for the asset's authored axis. The `top` state shows the upper divider when a block is directly above. Existing shelf states that lack this property retain their original full mesh until the upper neighbor updates.
+- Four shelf GameTests passed under Forge 47.4.10. The four-facing intersection test exposed a shared bug where the shape rotation treated normalized coordinates as sixteenths of a block. Horizontal, mounted, and floor/wall shape caches now share a rotation helper that preserves the bounds.
+- The tests run from `src/gameTest` and are excluded from the production JAR. Use `runGameTestServer` with `-PbibliocraftGameTestDir` pointing to a disposable directory. The production JAR was also tested in an isolated Forge client using Docker and Xvfb, with master volume at zero and OpenAL's null driver.
+- Model parity is a primary workstream. Verify real Forge client baking and rendered frames for geometry, texture, rotations, visible groups, world/inventory transforms, and displayed contents. Run the client muted on a virtual display. Continue from the parity checklist in `PORTING.md`.
+- Remaining shelf parity includes wood and framed materials, the shared drill/shift and lock interactions, and the legacy optional light emitted by stored blocks.
+
+## Initial Breadth Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).
 - Core registry flow located and mapped.
 - Initial port planning and manifest docs created.
@@ -53,7 +62,7 @@
 - Added registry skeleton breadth pass beyond blocks/items:
 - Added `ModBlockEntities`, `ModMenus`, `ModEntities`, `ModEnchantments`, and `ModSounds`.
 - Added placeholder runtime classes: `PlaceholderBlockEntity`, `PlaceholderMenu`, `SeatEntity`, `PlaceholderEnchantment`.
-- Registered 34 legacy block entity IDs (including shared `bibliolight`), menu placeholders for legacy GUI surfaces, seat entity placeholder, two enchantments, and legacy sound keys.
+- Registered 33 legacy block entity types (including shared `bibliolight`), menu placeholders for legacy GUI surfaces, seat entity placeholder, two enchantments, and legacy sound keys.
 - Updated `BiblioCraft` bootstrap to register all new deferred registers.
 - Build validation after registry pass: `./gradlew --no-daemon compileJava` succeeded.
 - Added BE-backed placeholder block wiring:
@@ -246,7 +255,7 @@
 - For 1.20.1 static model JSONs, use:
 - `{"loader":"forge:obj","model":"bibliocraft:models/block/<file>.obj","flip_v":true}`
 - User workflow constraint:
-- Do not run `runClient` automatically; ask user when a visual smoke test is needed.
+- Test silently and outside the user's desktop. Set master volume to zero before launching a graphical client on an isolated virtual display. Use disposable, headless run directories for server verification.
 - Shape/source reminder:
 - First-pass shape constants now live in `ModBlocks` (`SHAPE_*` fields) and should be kept in sync with `PORTING_MANIFEST.md` shape notes.
 - Rotation/state reminder:
@@ -305,7 +314,7 @@
 - Registered blocks: 37
 - Registered standalone items: 31
 - Registered block-item classes: 26 + 9 direct `ItemBlock` wrappers
-- Registered block entities: 33 explicit + shared `BiblioLightTileEntity` (total 34 classes in use)
+- Registered block entities: 33 including the shared `BiblioLightTileEntity`.
 - Enchantments: 2
 - Mod entity types: 1 (`EntitySeat`)
 - Packets: 23 serverbound + 10 clientbound
@@ -352,15 +361,10 @@
 - Legacy block render alignment relied on 1.12 `ExtendedBlockState` + `OBJModel.OBJState` transforms (angle/shift/vertical variants); static 1.20 OBJ JSONs can still appear offset until those transforms are ported.
 
 ## Immediate Next Steps (When Continuing)
-- Continue minimal block class upgrades beyond placeholder BE hookup (state properties, interaction hooks, and menu open paths).
-- Keep iterating visual parity: triage remaining misaligned models by block id and adjust OBJ translation/visibility/shape constants.
-- Next interaction target: convert selected high-traffic blocks/items from generic placeholder menu to block/item-specific placeholder menus with slot scaffolding and stable menu constructors.
-- Next data target: continue datapack migration beyond atlas family (book/label/table/seat subsets first), then retire equivalent legacy-style recipe assumptions.
-- Next data target: migrate next block recipe batches (case/map_frame/fancy_sign/fancy_workbench/potion_shelf/tool_rack/armor_stand/framed_chest) before lamp/lantern/typewriter/sword-pedestal color variants.
-- Next data target: migrate remaining high-volume color families (`lamp_*`, `lantern_*`, `typewriter`, `sword_pedestal`) and remaining workstation/display block recipes.
-- Next breadth target: extend config-gate consumption to remaining runtime systems (packet/event paths, drops/placement restrictions, and recipe visibility) where old 1.12 registration toggles implied absence.
-- Ask user for focused visual smoke feedback batches (5-10 blocks/items at a time) and fix in priority order.
-- Keep mapping parity against `PORTING_MANIFEST.md` as ground truth.
+- Use the shelf to prove a material model that can use the same geometry for different vanilla woods and framed textures. Carry material state through the item, block entity, drop, and pick-block paths.
+- Build rendered comparisons for high-risk parts and rotations before scaling to more furniture. Check the source geometry, transformed shape, item position, and visible materials together.
+- Port bookcases, potion shelves, and racks from the tested furniture pattern. Preserve their separate slot rules and interaction paths.
+- Track each remaining family and its verification in `PORTING.md`, and use `PORTING_MANIFEST.md` to locate the legacy implementation.
 
 ## Workspace Reminder
 - Active 1.20.1 registry code now in:
