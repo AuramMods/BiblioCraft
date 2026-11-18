@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
@@ -16,8 +17,9 @@ public final class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BiblioCraft.MODID);
 
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> BOOKCASE =
-            register("bookcase", ModBlocks.BOOKCASE, ModBlocks.BOOKCASE_CREATIVE);
+    public static final RegistryObject<BlockEntityType<BookcaseBlockEntity>> BOOKCASE =
+            BLOCK_ENTITIES.register("bookcase", () -> BlockEntityType.Builder.of(
+                    BookcaseBlockEntity::new, ModBlocks.BOOKCASE.get(), ModBlocks.BOOKCASE_CREATIVE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ShelfBlockEntity>> SHELF =
             BLOCK_ENTITIES.register("shelf", () ->
                     BlockEntityType.Builder.of(ShelfBlockEntity::new, ModBlocks.SHELF.get()).build(null));

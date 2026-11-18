@@ -29,13 +29,15 @@ public final class ClientSetup {
     public static void registerScreens(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenus.SHELF.get(), ShelfScreen::new);
+            MenuScreens.register(ModMenus.BOOKCASE.get(), BookcaseScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
         });
     }
 
     @SubscribeEvent
     public static void wrapFurnitureModels(ModelEvent.ModifyBakingResult event) {
-        var furniture = Set.of(ModBlocks.SHELF.getId().getPath(), ModBlocks.FURNITURE_PANELER.getId().getPath());
+        var furniture = Set.of(ModBlocks.SHELF.getId().getPath(), ModBlocks.FURNITURE_PANELER.getId().getPath(),
+                ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath());
         event.getModels().replaceAll((id, model) -> id instanceof ModelResourceLocation
                 && id.getNamespace().equals(BiblioCraft.MODID) && furniture.contains(id.getPath())
                 ? new FurnitureMaterialModel(model) : model);

@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.ColorFacingEntityBlock;
 import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
@@ -32,7 +33,6 @@ public final class ModBlocks {
 
     private static final List<RegistryObject<Item>> TAB_ITEMS = new ArrayList<>();
 
-    private static final VoxelShape SHAPE_BOOKCASE = box(0.0, 0.0, 0.0, 0.5, 1.0, 1.0);
     private static final VoxelShape SHAPE_HALF_RACK = box(0.0, 0.0, 0.0, 0.5, 1.0, 1.0);
     private static final VoxelShape SHAPE_HALF_RACK_EAST = box(0.5, 0.0, 0.0, 1.0, 1.0, 1.0);
     private static final VoxelShape SHAPE_MARKER_POLE = box(0.25, 0.0, 0.25, 0.75, 0.9, 0.75);
@@ -79,9 +79,11 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_DISC_RACK = box(0.0, 0.0, 0.25, 1.0, 0.35, 0.75);
 
     public static final RegistryObject<Block> BOOKCASE =
-            register("bookcase", () -> shapedWoodEntity(SHAPE_BOOKCASE, "bookcase"));
+            register("bookcase", () -> new BookcaseBlock(woodProps(), SHAPE_HALF_RACK, false),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> BOOKCASE_CREATIVE =
-            register("bookcase_creative", () -> shapedWoodEntity(SHAPE_BOOKCASE, "bookcase"));
+            register("bookcase_creative", () -> new BookcaseBlock(woodProps(), SHAPE_HALF_RACK, true),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> SHELF =
             register("shelf", () -> new ShelfBlock(woodProps(), SHAPE_HALF_RACK),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));

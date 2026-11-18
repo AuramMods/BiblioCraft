@@ -9,7 +9,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -96,17 +95,6 @@ public class ShelfBlock extends InventoryFurnitureBlock {
                 return true;
             }
         }
-        if (stored.isEmpty()) {
-            return false;
-        }
-
-        Vec3 drop = Vec3.atCenterOf(pos).relative(opening, 0.25);
-        ItemEntity entity = new ItemEntity(level, drop.x, drop.y, drop.z, stored.copy());
-        entity.setDefaultPickUpDelay();
-        if (level.addFreshEntity(entity)) {
-            shelf.setItem(slot, ItemStack.EMPTY);
-            return true;
-        }
-        return false;
+        return ejectStack(level, pos, opening, shelf, slot);
     }
 }

@@ -13,6 +13,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Core package Java files (`jds/bibliocraft`): 421
 - Add-on package Java files (`jds/bibliowoods`): 4
 
+## Bookcase Port
+
+- `bookcase` and `bookcase_creative` keep both block and item IDs and share the `bibliocraft:bookcase` block entity and menu. The block entity stores inventory in `Items` and reuses `FurnitureMaterial` from the shelf.
+- The shared OBJ contains `book1` through `book16`. The MTL records the zero-based slot index for each group with `forge_TintIndex`. The world model filters quads using the books sprite and reads the sixteen occupied slots from Forge model data.
+- Empty placeholder bookcases already in 1.20.1 saves load as oak unless they specify a material. Existing creative bookcases show their real contents. Their item model keeps the full legacy display, and normal placement generates authored stories.
+- Bookcase crafting uses the original three-row plank and slab pattern for each wood. A framed bookcase uses framing sheets and boards and can be paneled in the furniture paneler.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -368,7 +375,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `bookcase`, `bookcase_creative`, `shelf`, `armor_stand`, `potion_shelf`, `tool_rack`, `case`, `label`, `desk`, `table`, `cookie_jar`, `dinner_plate`, `disc_rack`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `furniture_paneler`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- `armor_stand`, `potion_shelf`, `tool_rack`, `case`, `label`, `desk`, `table`, `cookie_jar`, `dinner_plate`, `disc_rack`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`

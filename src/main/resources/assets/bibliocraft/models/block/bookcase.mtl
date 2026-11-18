@@ -2,6 +2,82 @@ newmtl wood
 Kd 1.00 1.00 1.00
 map_Kd minecraft:block/oak_planks
 
-newmtl books
+newmtl book1
 Kd 1.00 1.00 1.00
+forge_TintIndex 0
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book2
+Kd 1.00 1.00 1.00
+forge_TintIndex 1
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book3
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book4
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book5
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book6
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book7
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book8
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book9
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book10
+Kd 1.00 1.00 1.00
+forge_TintIndex 9
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book11
+Kd 1.00 1.00 1.00
+forge_TintIndex 10
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book12
+Kd 1.00 1.00 1.00
+forge_TintIndex 11
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book13
+Kd 1.00 1.00 1.00
+forge_TintIndex 12
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book14
+Kd 1.00 1.00 1.00
+forge_TintIndex 13
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book15
+Kd 1.00 1.00 1.00
+forge_TintIndex 14
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book16
+Kd 1.00 1.00 1.00
+forge_TintIndex 15
 map_Kd bibliocraft:block/bookcase_books
