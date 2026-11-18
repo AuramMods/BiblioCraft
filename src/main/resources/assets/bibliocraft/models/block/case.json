@@ -2,6 +2,7 @@
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/case.obj",
   "flip_v": true,
+  "render_type": "minecraft:cutout",
   "visibility": {
     "case_inside": true,
     "case_bottom": true,

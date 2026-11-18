@@ -9,6 +9,7 @@
 - Four shelf GameTests passed under Forge 47.4.10. The four-facing intersection test exposed a shared bug where the shape rotation treated normalized coordinates as sixteenths of a block. Horizontal, mounted, and floor/wall shape caches now share a rotation helper that preserves the bounds.
 - The tests run from `src/gameTest` and are excluded from the production JAR. Use `runGameTestServer` with `-PbibliocraftGameTestDir` pointing to a disposable directory. The production JAR was also tested in an isolated Forge client using Docker and Xvfb, with master volume at zero and OpenAL's null driver.
 - Model parity is a primary workstream. Verify real Forge client baking and rendered frames for geometry, texture, rotations, visible groups, world/inventory transforms, and displayed contents. Run the client muted on a virtual display. Continue from the parity checklist in `PORTING.md`.
+- The client found model-baking warnings for the display case's unused ceiling states. Its state property now matches the legacy floor and wall placements. The floor model inherits the original closed OBJ and rotates it around the block center. The resulting wooden body, glass, and latch agree with the separate mounting shapes. Both orientations rendered with transparent glass in the isolated client, and the placement regression test passed with the four shelf tests.
 - Remaining shelf parity includes wood and framed materials, the shared drill/shift and lock interactions, and the legacy optional light emitted by stored blocks.
 
 ## Initial Breadth Snapshot (2026-02-09)

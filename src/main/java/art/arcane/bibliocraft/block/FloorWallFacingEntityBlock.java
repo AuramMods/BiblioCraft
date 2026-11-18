@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -23,7 +22,8 @@ import java.util.Map;
 
 public class FloorWallFacingEntityBlock extends PlaceholderEntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
+    public static final EnumProperty<AttachFace> FACE =
+            EnumProperty.create("face", AttachFace.class, AttachFace.FLOOR, AttachFace.WALL);
 
     private final Map<Direction, VoxelShape> floorShapesByFacing;
     private final Map<Direction, VoxelShape> wallShapesByFacing;

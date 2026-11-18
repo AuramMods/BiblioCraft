@@ -53,8 +53,14 @@ public final class ModBlocks {
     );
     private static final VoxelShape SHAPE_SEAT = box(0.15, 0.0, 0.15, 0.85, 0.7509, 0.85);
     private static final VoxelShape SHAPE_CLOCK = box(0.0, 0.0, 0.2549, 0.165, 0.9976, 0.7451);
-    private static final VoxelShape SHAPE_CASE_FLOOR = box(0.06, 0.0, 0.0, 0.94, 0.5, 1.0);
-    private static final VoxelShape SHAPE_CASE_WALL = box(0.0, 0.0, 0.06, 0.5, 1.0, 0.94);
+    private static final VoxelShape SHAPE_CASE_FLOOR = combine(
+            box(0.0625, 0, 0, 0.9375, 0.5, 1),
+            box(0.9375, 0.3125, 0.4375, 1, 0.4375, 0.5625)
+    );
+    private static final VoxelShape SHAPE_CASE_WALL = combine(
+            box(0, 0, 0.0625, 0.5, 1, 0.9375),
+            box(0.3125, 0.4375, 0, 0.4375, 0.5625, 0.0625)
+    );
     private static final VoxelShape SHAPE_MAP_FRAME_WALL = box(0.0, 0.0, 0.0, 0.05, 1.0, 1.0);
     private static final VoxelShape SHAPE_MAP_FRAME_FLOOR = box(0.0, 0.0, 0.0, 1.0, 0.05, 1.0);
     private static final VoxelShape SHAPE_MAP_FRAME_CEILING = box(0.0, 0.95, 0.0, 1.0, 1.0, 1.0);
