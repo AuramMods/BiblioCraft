@@ -1,0 +1,12 @@
+{
+  "parent": "bibliocraft:block/disc_rack",
+  "transform": {
+    "origin": "corner",
+    "left_rotation": {
+      "x": -90
+    },
+    "right_rotation": {
+      "z": -90
+    }
+  }
+}

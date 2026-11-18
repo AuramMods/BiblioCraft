@@ -1,18 +1,63 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,mount=floor": {
       "model": "bibliocraft:block/disc_rack"
     },
-    "facing=east": {
+    "facing=east,mount=floor": {
       "model": "bibliocraft:block/disc_rack",
       "y": 90
     },
-    "facing=south": {
+    "facing=south,mount=floor": {
       "model": "bibliocraft:block/disc_rack",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,mount=floor": {
       "model": "bibliocraft:block/disc_rack",
+      "y": 270
+    },
+    "facing=north,mount=wall": {
+      "model": "bibliocraft:block/disc_rack_wall"
+    },
+    "facing=east,mount=wall": {
+      "model": "bibliocraft:block/disc_rack_wall",
+      "y": 90
+    },
+    "facing=south,mount=wall": {
+      "model": "bibliocraft:block/disc_rack_wall",
+      "y": 180
+    },
+    "facing=west,mount=wall": {
+      "model": "bibliocraft:block/disc_rack_wall",
+      "y": 270
+    },
+    "facing=north,mount=wall_horizontal": {
+      "model": "bibliocraft:block/disc_rack_wall_horizontal"
+    },
+    "facing=east,mount=wall_horizontal": {
+      "model": "bibliocraft:block/disc_rack_wall_horizontal",
+      "y": 90
+    },
+    "facing=south,mount=wall_horizontal": {
+      "model": "bibliocraft:block/disc_rack_wall_horizontal",
+      "y": 180
+    },
+    "facing=west,mount=wall_horizontal": {
+      "model": "bibliocraft:block/disc_rack_wall_horizontal",
+      "y": 270
+    },
+    "facing=north,mount=ceiling": {
+      "model": "bibliocraft:block/disc_rack_ceiling"
+    },
+    "facing=east,mount=ceiling": {
+      "model": "bibliocraft:block/disc_rack_ceiling",
+      "y": 90
+    },
+    "facing=south,mount=ceiling": {
+      "model": "bibliocraft:block/disc_rack_ceiling",
+      "y": 180
+    },
+    "facing=west,mount=ceiling": {
+      "model": "bibliocraft:block/disc_rack_ceiling",
       "y": 270
     }
   }

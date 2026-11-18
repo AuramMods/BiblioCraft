@@ -3,6 +3,8 @@ package art.arcane.bibliocraft.registry;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
+import art.arcane.bibliocraft.blockentity.DinnerPlateBlockEntity;
+import art.arcane.bibliocraft.blockentity.DiscRackBlockEntity;
 import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
@@ -83,10 +85,12 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<CookieJarBlockEntity>> COOKIE_JAR =
             BLOCK_ENTITIES.register("cookie_jar", () ->
                     BlockEntityType.Builder.of(CookieJarBlockEntity::new, ModBlocks.COOKIE_JAR.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> DINNER_PLATE =
-            register("dinner_plate", ModBlocks.DINNER_PLATE);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> DISC_RACK =
-            register("disc_rack", ModBlocks.DISC_RACK);
+    public static final RegistryObject<BlockEntityType<DinnerPlateBlockEntity>> DINNER_PLATE =
+            BLOCK_ENTITIES.register("dinner_plate", () ->
+                    BlockEntityType.Builder.of(DinnerPlateBlockEntity::new, ModBlocks.DINNER_PLATE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<DiscRackBlockEntity>> DISC_RACK =
+            BLOCK_ENTITIES.register("disc_rack", () ->
+                    BlockEntityType.Builder.of(DiscRackBlockEntity::new, ModBlocks.DISC_RACK.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> SWORD_PEDESTAL =
             register("sword_pedestal", ModBlocks.SWORD_PEDESTAL);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> BELL =

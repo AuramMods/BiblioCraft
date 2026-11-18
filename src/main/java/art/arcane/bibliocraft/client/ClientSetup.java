@@ -29,6 +29,8 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.POTION_SHELF.get(), RackRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TOOL_RACK.get(), RackRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.CASE.get(), DisplayCaseRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.DINNER_PLATE.get(), DinnerPlateRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.DISC_RACK.get(), DiscRackRenderer::new);
     }
 
     @SubscribeEvent
@@ -40,6 +42,8 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.TOOL_RACK.get(), RackScreen::new);
             MenuScreens.register(ModMenus.CASE.get(), DisplayCaseScreen::new);
             MenuScreens.register(ModMenus.COOKIE_JAR.get(), CookieJarScreen::new);
+            MenuScreens.register(ModMenus.DINNER_PLATE.get(), DinnerPlateScreen::new);
+            MenuScreens.register(ModMenus.DISC_RACK.get(), DiscRackScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
         });
     }

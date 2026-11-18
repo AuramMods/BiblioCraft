@@ -40,6 +40,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The glass uses cutout rendering. The eight legacy cookie OBJ meshes are linked to their original order, and the number of occupied slots determines how many appear. Bookcases share the same visibility filter and continue to show the exact occupied slots.
 - Opening the menu emits the legacy 20-tick redstone pulse on all sides. The block state and scheduled tick preserve the pulse across reload. The block entity stores the deadline so a replacement jar receives its own full pulse. The menu remains usable after the pulse.
 
+## Dinner Plate and Disc Rack Port
+
+- `dinner_plate` and `disc_rack` retain their block, item, block entity, and menu IDs. Both use vanilla inventory NBT. The dinner plate stores three stacks of food with their tags intact. The disc rack stores nine stacks and accepts vanilla records, dinner plates, configured keywords, and the `bibliocraft:disc_rack_contents` item tag.
+- The dinner plate shows one large central pile or up to three smaller piles, with heights based on stack size. A hungry player's fourth bite takes one item from each occupied food slot while hunger remains and uses vanilla finishing behavior to apply effects and return bowls.
+- The disc rack's `mount` state selects floor, upright wall, horizontal wall, or ceiling geometry. A rack saved by the earlier port has its original facing and defaults to floor geometry. The OBJ mounts, collision bounds, insertion and removal, and item poses agree on the nine grooves.
+- The hand drill and powered drill retain their separate IDs and sounds. Sneak-use changes the facing on both blocks. Normal use on a wall rack switches between upright and horizontal layouts.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -395,7 +402,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `armor_stand`, `label`, `desk`, `table`, `dinner_plate`, `disc_rack`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- `armor_stand`, `label`, `desk`, `table`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`

@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.item.FramingSawItem;
+import art.arcane.bibliocraft.item.FurnitureDrillItem;
 import art.arcane.bibliocraft.item.MenuOpeningItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -46,7 +47,8 @@ public final class ModItems {
             "slotted_book",
             () -> new MenuOpeningItem(new Item.Properties().stacksTo(1), ModMenus.SLOTTED_BOOK::get, "slotted_book")
     );
-    public static final RegistryObject<Item> HAND_DRILL = register("hand_drill");
+    public static final RegistryObject<Item> HAND_DRILL =
+            register("hand_drill", () -> new FurnitureDrillItem(new Item.Properties().stacksTo(1), true));
     public static final RegistryObject<Item> TAPE_MEASURE = register("tape_measure");
     public static final RegistryObject<Item> TAPE = register("tape");
     public static final RegistryObject<Item> BIBLIO_CHASE = register("biblio_chase");
@@ -54,7 +56,8 @@ public final class ModItems {
     public static final RegistryObject<Item> ENCHANTED_PLATE = register("enchanted_plate");
     public static final RegistryObject<Item> BIBLIO_RED_BOOK = register("biblio_red_book");
     public static final RegistryObject<Item> BIBLIO_GLASSES = register("biblio_glasses");
-    public static final RegistryObject<Item> BIBLIO_DRILL = register("biblio_drill");
+    public static final RegistryObject<Item> BIBLIO_DRILL =
+            register("biblio_drill", () -> new FurnitureDrillItem(new Item.Properties().stacksTo(1), false));
     public static final RegistryObject<Item> BIBLIO_CREATIVE_LOCK = register("biblio_creative_lock");
     public static final RegistryObject<Item> BIBLIO_CLIPBOARD = register("biblio_clipboard");
 

@@ -3,6 +3,8 @@ package art.arcane.bibliocraft.event;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.block.BookcaseBlock;
+import art.arcane.bibliocraft.block.DinnerPlateBlock;
+import art.arcane.bibliocraft.block.DiscRackBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.block.RackBlock;
@@ -98,7 +100,8 @@ public final class CommonGameplayEvents {
         if (event.getHand() == InteractionHand.MAIN_HAND && event.getEntity().isShiftKeyDown()
                 && event.getUseBlock() == Event.Result.DEFAULT
                 && (block instanceof ShelfBlock || block instanceof BookcaseBlock || block instanceof DisplayCaseBlock
-                        || block instanceof RackBlock || block instanceof FurniturePanelerBlock)
+                        || block instanceof RackBlock || block instanceof FurniturePanelerBlock
+                        || block instanceof DinnerPlateBlock || block instanceof DiscRackBlock)
                 && BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(block))) {
             event.setUseBlock(Event.Result.ALLOW);
         }

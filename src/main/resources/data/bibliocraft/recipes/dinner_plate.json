@@ -6,9 +6,14 @@
     "QQQ"
   ],
   "key": {
-    "Q": {
-      "item": "minecraft:smooth_quartz_slab"
-    }
+    "Q": [
+      {
+        "item": "minecraft:quartz_slab"
+      },
+      {
+        "item": "minecraft:smooth_quartz_slab"
+      }
+    ]
   },
   "result": {
     "item": "bibliocraft:dinner_plate"

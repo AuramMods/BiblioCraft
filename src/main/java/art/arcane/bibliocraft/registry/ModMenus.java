@@ -5,6 +5,8 @@ import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.BookcaseMenu;
 import art.arcane.bibliocraft.menu.CookieJarMenu;
+import art.arcane.bibliocraft.menu.DinnerPlateMenu;
+import art.arcane.bibliocraft.menu.DiscRackMenu;
 import art.arcane.bibliocraft.menu.DisplayCaseMenu;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.RackMenu;
@@ -45,8 +47,10 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<PlaceholderMenu>> TABLE = register("table");
     public static final RegistryObject<MenuType<CookieJarMenu>> COOKIE_JAR =
             MENUS.register("cookie_jar", () -> new MenuType<>(CookieJarMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> DINNER_PLATE = register("dinner_plate");
-    public static final RegistryObject<MenuType<PlaceholderMenu>> DISC_RACK = register("disc_rack");
+    public static final RegistryObject<MenuType<DinnerPlateMenu>> DINNER_PLATE =
+            MENUS.register("dinner_plate", () -> new MenuType<>(DinnerPlateMenu::new, FeatureFlags.DEFAULT_FLAGS));
+    public static final RegistryObject<MenuType<DiscRackMenu>> DISC_RACK =
+            MENUS.register("disc_rack", () -> new MenuType<>(DiscRackMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PlaceholderMenu>> FANCY_SIGN = register("fancy_sign");
     public static final RegistryObject<MenuType<PlaceholderMenu>> FANCY_WORKBENCH = register("fancy_workbench");
     public static final RegistryObject<MenuType<PlaceholderMenu>> PAINTING_PRESS = register("painting_press");
@@ -67,8 +71,6 @@ public final class ModMenus {
         mapBlock("label", LABEL);
         mapBlock("desk", DESK);
         mapBlock("table", TABLE);
-        mapBlock("dinner_plate", DINNER_PLATE);
-        mapBlock("disc_rack", DISC_RACK);
         mapBlock("fancy_sign", FANCY_SIGN);
         mapBlock("fancy_workbench", FANCY_WORKBENCH);
         mapBlock("painting_press", PAINTING_PRESS);
