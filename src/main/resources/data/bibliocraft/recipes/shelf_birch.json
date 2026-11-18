@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft:shelf",
+  "pattern": [
+    "SSS",
+    " P ",
+    "SSS"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:birch_planks"
+    },
+    "S": {
+      "item": "minecraft:birch_slab"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:shelf",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "birch"
+        }
+      }
+    }
+  }
+}

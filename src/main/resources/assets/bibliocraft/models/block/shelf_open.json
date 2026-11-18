@@ -1,11 +1,6 @@
 {
-  "loader": "forge:obj",
-  "model": "bibliocraft:models/block/shelf.obj",
-  "flip_v": true,
+  "parent": "bibliocraft:block/shelf",
   "visibility": {
     "shelf_top": false
-  },
-  "textures": {
-    "particle": "minecraft:block/oak_planks"
   }
 }

@@ -2,6 +2,7 @@
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/shelf.obj",
   "flip_v": true,
+  "render_type": "minecraft:cutout",
   "textures": {
     "particle": "minecraft:block/oak_planks"
   }

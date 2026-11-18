@@ -156,6 +156,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 ## Current 1.20 Registry Skeleton Snapshot
 - The shelf preserves the `bibliocraft:shelf` block, item, block-entity, and menu IDs. Its feature implementation is in `ShelfBlock`, `ShelfBlockEntity`, `ShelfMenu`, `ShelfScreen`, and `ShelfRenderer`.
 - The shelf blockstate selects the full OBJ or hides the `shelf_top` group. The blockstate rotates the original east-opening mesh around the block center. Slot hit testing and rendering use the same rotation.
+- `FurnitureMaterial`, `FurnitureBlockEntity`, and `FurnitureMaterialModel` carry shelf materials through item NBT, world NBT, block-entity updates, and baked quads. The shelf keeps its existing registry IDs across all materials. The oak recipe keeps `bibliocraft:shelf`. The other shaped recipes use `bibliocraft:shelf_<material>`.
 - The closed case wall model is `models/block/case.json`. The floor version inherits its OBJ, visibility, and cutout layer through `models/block/case_floor.json`. Its centered rotation maps raw OBJ coordinates `(x, y, z)` to `(1 - z, x, 1 - y)` before the blockstate yaw. Existing floor/wall state names are preserved.
 - Mod bootstrap wiring in: `src/main/java/art/arcane/bibliocraft/BiblioCraft.java`
 - Active registry classes:

@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.item.FramingSawItem;
 import art.arcane.bibliocraft.item.MenuOpeningItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,7 +26,7 @@ public final class ModItems {
     public static final RegistryObject<Item> SEAT_BACK_5 = register("seatback5");
     public static final RegistryObject<Item> STOCKROOM_CATALOG = register("stockroom_catalog");
     public static final RegistryObject<Item> PLUMB_LINE = register("plumb_line");
-    public static final RegistryObject<Item> FRAMING_SAW = register("framing_saw");
+    public static final RegistryObject<Item> FRAMING_SAW = register("framing_saw", FramingSawItem::new);
     public static final RegistryObject<Item> FRAMING_BOARD = register("framing_board");
     public static final RegistryObject<Item> FRAMING_SHEET = register("framing_sheet");
     public static final RegistryObject<Item> TESTER_ITEM = register(

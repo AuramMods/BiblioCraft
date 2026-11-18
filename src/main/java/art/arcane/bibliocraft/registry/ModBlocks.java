@@ -7,6 +7,7 @@ import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.ShelfBlock;
+import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -21,6 +22,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class ModBlocks {
@@ -80,7 +82,8 @@ public final class ModBlocks {
     public static final RegistryObject<Block> BOOKCASE_CREATIVE =
             register("bookcase_creative", () -> shapedWoodEntity(SHAPE_BOOKCASE, "bookcase"));
     public static final RegistryObject<Block> SHELF =
-            register("shelf", () -> new ShelfBlock(woodProps(), SHAPE_HALF_RACK));
+            register("shelf", () -> new ShelfBlock(woodProps(), SHAPE_HALF_RACK),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> MARKER_POLE =
             register("marker_pole", () -> shapedWoodEntity(SHAPE_MARKER_POLE, "marker_pole"));
     public static final RegistryObject<Block> CLIPBOARD =
@@ -157,8 +160,13 @@ public final class ModBlocks {
     }
 
     private static RegistryObject<Block> register(String name, Supplier<Block> blockSupplier) {
+        return register(name, blockSupplier, block -> new BlockItem(block, new Item.Properties()));
+    }
+
+    private static RegistryObject<Block> register(String name, Supplier<Block> blockSupplier,
+                                                  Function<Block, Item> itemFactory) {
         RegistryObject<Block> block = BLOCKS.register(name, blockSupplier);
-        RegistryObject<Item> blockItem = ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        RegistryObject<Item> blockItem = ITEMS.register(name, () -> itemFactory.apply(block.get()));
         TAB_ITEMS.add(blockItem);
         return block;
     }

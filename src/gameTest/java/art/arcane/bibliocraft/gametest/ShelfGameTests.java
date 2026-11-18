@@ -53,8 +53,7 @@ public final class ShelfGameTests {
 
         click(helper, player, 0.75, 0.75);
         helper.assertTrue(shelf.getItem(0).isEmpty(), "Picking up the paper should clear its compartment");
-        helper.assertItemEntityCountIs(Items.PAPER, SHELF, 2, 64);
-        helper.succeed();
+        helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.PAPER, SHELF, 2, 64));
     }
 
     @GameTest(template = "empty")
