@@ -63,11 +63,14 @@ abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
 
     protected static boolean ejectStack(Level level, BlockPos pos, Direction opening,
                                         FurnitureInventoryBlockEntity furniture, int slot) {
+        return ejectStack(level, Vec3.atCenterOf(pos).relative(opening, 0.25), furniture, slot);
+    }
+
+    protected static boolean ejectStack(Level level, Vec3 drop, FurnitureInventoryBlockEntity furniture, int slot) {
         ItemStack stored = furniture.getItem(slot);
         if (stored.isEmpty()) {
             return false;
         }
-        Vec3 drop = Vec3.atCenterOf(pos).relative(opening, 0.25);
         ItemEntity entity = new ItemEntity(level, drop.x, drop.y, drop.z, stored.copy());
         entity.setDefaultPickUpDelay();
         if (!level.addFreshEntity(entity)) {

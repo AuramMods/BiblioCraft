@@ -6,13 +6,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MapItem;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.block.WoolCarpetBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
@@ -40,7 +36,7 @@ public final class DeskBlockEntity extends FurnitureInventoryBlockEntity {
     }
 
     public static boolean isCarpet(ItemStack stack) {
-        return stack.getItem() instanceof BlockItem item && item.getBlock() instanceof WoolCarpetBlock;
+        return carpetColor(stack) != null;
     }
 
     public int firstEmptyInStack(int start) {
@@ -109,25 +105,7 @@ public final class DeskBlockEntity extends FurnitureInventoryBlockEntity {
     }
 
     public void tickMaps(ServerLevel level) {
-        ItemStack map = getItem(OPEN_BOOK);
-        if (!map.is(Items.FILLED_MAP) || level.getGameTime() % BiblioConfig.COMMON.mapUpdateRate.get() != 0) {
-            return;
-        }
-        var data = MapItem.getSavedData(map, level);
-        Integer id = MapItem.getMapId(map);
-        if (data == null || id == null) {
-            return;
-        }
-        for (var player : level.getChunkSource().chunkMap.getPlayers(new ChunkPos(worldPosition), false)) {
-            data.getHoldingPlayer(player);
-            if (!data.locked) {
-                ((MapItem) Items.FILLED_MAP).update(level, player, data);
-            }
-            var packet = data.getUpdatePacket(id, player);
-            if (packet != null) {
-                player.connection.send(packet);
-            }
-        }
+        DisplayedMap.tick(level, worldPosition, getItem(OPEN_BOOK));
     }
 
     public int visibleParts() {
@@ -150,8 +128,8 @@ public final class DeskBlockEntity extends FurnitureInventoryBlockEntity {
     }
 
     private DyeColor carpetColor() {
-        return getItem(CARPET).getItem() instanceof BlockItem item && item.getBlock() instanceof WoolCarpetBlock carpet
-                ? carpet.getColor() : DyeColor.WHITE;
+        DyeColor color = carpetColor(getItem(CARPET));
+        return color == null ? DyeColor.WHITE : color;
     }
 
     @Override

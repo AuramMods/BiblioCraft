@@ -14,12 +14,25 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.ToIntBiFunction;
 
 final class SlotVisibilityModel extends BakedModelWrapper<BakedModel> {
-    private final ResourceLocation sprite;
-    private final ModelProperty<Integer> visibleParts;
+    private final @Nullable ResourceLocation sprite;
+    private final ToIntBiFunction<BlockState, ModelData> visibleParts;
 
     SlotVisibilityModel(BakedModel original, ResourceLocation sprite, ModelProperty<Integer> visibleParts) {
+        this(original, sprite, (state, data) -> {
+            Integer parts = data.get(visibleParts);
+            return parts == null ? 0 : parts;
+        });
+    }
+
+    SlotVisibilityModel(BakedModel original, ToIntBiFunction<BlockState, ModelData> visibleParts) {
+        this(original, null, visibleParts);
+    }
+
+    private SlotVisibilityModel(BakedModel original, @Nullable ResourceLocation sprite,
+                                ToIntBiFunction<BlockState, ModelData> visibleParts) {
         super(original);
         this.sprite = sprite;
         this.visibleParts = visibleParts;
@@ -33,10 +46,10 @@ final class SlotVisibilityModel extends BakedModelWrapper<BakedModel> {
         if (quads.isEmpty() || state == null) {
             return quads;
         }
-        Integer parts = data.get(visibleParts);
-        int mask = parts == null ? 0 : parts;
+        int mask = visibleParts.applyAsInt(state, data);
         // Each authored mesh has a Forge OBJ material whose tint index identifies the part.
-        return quads.stream().filter(quad -> quad.getTintIndex() < 0 || !sprite.equals(quad.getSprite().contents().name())
+        return quads.stream().filter(quad -> quad.getTintIndex() < 0
+                || (sprite != null && !sprite.equals(quad.getSprite().contents().name()))
                 || (mask & (1 << quad.getTintIndex())) != 0).toList();
     }
 }

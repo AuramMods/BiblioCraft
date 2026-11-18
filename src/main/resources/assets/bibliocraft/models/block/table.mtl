@@ -1,9 +1,149 @@
-newmtl Default
+newmtl monoleg
 Kd 1.00 1.00 1.00
+forge_TintIndex 0
 map_Kd minecraft:block/oak_planks
-newmtl cloth
+
+newmtl leg01
 Kd 1.00 1.00 1.00
+forge_TintIndex 1
+map_Kd minecraft:block/oak_planks
+
+newmtl leg02
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd minecraft:block/oak_planks
+
+newmtl leg03
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd minecraft:block/oak_planks
+
+newmtl leg04
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd minecraft:block/oak_planks
+
+newmtl tableBevel01
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd minecraft:block/oak_planks
+
+newmtl tableBevel02
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd minecraft:block/oak_planks
+
+newmtl tableBevel03
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd minecraft:block/oak_planks
+
+newmtl tableBevel04
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd minecraft:block/oak_planks
+
+newmtl tableSquare01
+Kd 1.00 1.00 1.00
+forge_TintIndex 9
+map_Kd minecraft:block/oak_planks
+
+newmtl tableSquare02
+Kd 1.00 1.00 1.00
+forge_TintIndex 10
+map_Kd minecraft:block/oak_planks
+
+newmtl tableSquare03
+Kd 1.00 1.00 1.00
+forge_TintIndex 11
+map_Kd minecraft:block/oak_planks
+
+newmtl tableSquare04
+Kd 1.00 1.00 1.00
+forge_TintIndex 12
+map_Kd minecraft:block/oak_planks
+
+newmtl bevCloth001
+Kd 1.00 1.00 1.00
+forge_TintIndex 13
 map_Kd minecraft:block/red_wool
+
+newmtl bevCloth004
+Kd 1.00 1.00 1.00
+forge_TintIndex 14
+map_Kd minecraft:block/red_wool
+
+newmtl bevCloth003
+Kd 1.00 1.00 1.00
+forge_TintIndex 15
+map_Kd minecraft:block/red_wool
+
+newmtl bevCloth002
+Kd 1.00 1.00 1.00
+forge_TintIndex 16
+map_Kd minecraft:block/red_wool
+
+newmtl squareCloth01
+Kd 1.00 1.00 1.00
+forge_TintIndex 17
+map_Kd minecraft:block/red_wool
+
+newmtl squareCloth004
+Kd 1.00 1.00 1.00
+forge_TintIndex 18
+map_Kd minecraft:block/red_wool
+
+newmtl squareCloth003
+Kd 1.00 1.00 1.00
+forge_TintIndex 19
+map_Kd minecraft:block/red_wool
+
+newmtl squareCloth002
+Kd 1.00 1.00 1.00
+forge_TintIndex 20
+map_Kd minecraft:block/red_wool
+
+newmtl squareClothSide001a
+Kd 1.00 1.00 1.00
+forge_TintIndex 21
+map_Kd minecraft:block/red_wool
+
+newmtl squareClothSide001b
+Kd 1.00 1.00 1.00
+forge_TintIndex 22
+map_Kd minecraft:block/red_wool
+
+newmtl squareClothSide004a
+Kd 1.00 1.00 1.00
+forge_TintIndex 23
+map_Kd minecraft:block/red_wool
+
+newmtl squareClothSide004b
+Kd 1.00 1.00 1.00
+forge_TintIndex 24
+map_Kd minecraft:block/red_wool
+
+newmtl squareClothSide003a
+Kd 1.00 1.00 1.00
+forge_TintIndex 25
+map_Kd minecraft:block/red_wool
+
+newmtl squareClothSide003b
+Kd 1.00 1.00 1.00
+forge_TintIndex 26
+map_Kd minecraft:block/red_wool
+
+newmtl squareClothSide002a
+Kd 1.00 1.00 1.00
+forge_TintIndex 27
+map_Kd minecraft:block/red_wool
+
+newmtl squareClothSide002b
+Kd 1.00 1.00 1.00
+forge_TintIndex 28
+map_Kd minecraft:block/red_wool
+
 newmtl carpet
 Kd 1.00 1.00 1.00
+forge_TintIndex 29
 map_Kd minecraft:block/white_wool

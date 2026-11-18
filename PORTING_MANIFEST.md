@@ -98,6 +98,14 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - New placement takes two clear cells. A pre-existing single-block 1.20.1 placeholder keeps its facing and becomes a lower half. An upper half is added when the cell above is clear. Other blocks in old worlds are preserved.
 - Both drills rotate the two halves together. The stand uses the legacy wooden block sounds and mines at axe speed. Survival removal of either half drops one stand with its saved material and returns its armor separately. The original stick and slab recipe is available for eleven woods and the framed variant.
 
+## Table Port
+
+- The block, item, block entity, and menu retain `bibliocraft:table` and its existing facing. Four directional blockstate properties track all neighboring tables at the same height, including different materials. Old tables recompute connections when their chunks load. Adding or removing a neighbor refreshes the adjoining edge.
+- The model retains all 30 original OBJ groups, 1,389 texture coordinates, and 487 faces. All 612 vertices keep the earlier port's one-block X and Z translation into modern block coordinates. Material indexes select the center pedestal, outer corner legs, square or beveled quarters, and cloth along exposed sides. The selection shape follows the surviving supports.
+- The lower floor carpet and tabletop cloth each apply an independent wool texture from one carpet item. A regular top click adds or returns a display stack or adds a cloth. A side click with carpet adds the floor carpet. Sneak-clicking the top opens the original one-slot screen.
+- Both drills remove the cloth from the top and remove the floor carpet on sneak-use. Side clicks with either drill or a tool in `bibliocraft:table_rotation_tools` rotate the display in 90-degree steps around the clicked axes. The tag includes the tape measure and accepts optional Forge wrench, screwdriver, and crowbar tags.
+- The display, cloth, and carpet occupy `Items` slots 0–2. The display angles retain the legacy `slotxangle` and `slotyangle` names. A vanilla filled map keeps its ID and displays its live terrain on the tabletop. Material, lock ownership, and contents use the shared furniture storage. Breaking returns a table with its material and drops the display and fabrics separately.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -219,7 +227,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `framed_chest` | `x/z:0.054-0.946 y:0.0-0.866` | old single chest bbox |
 | `fancy_sign` | mounted shape baseline: thin sign plane (`x:0.0-0.06 y:0.2-0.8 z:0.0-1.0`) rotated by `facing` for floor/wall/ceiling placements | old sign bbox + legacy mount states |
 | `label` | `x:0.0-0.06 y:0.12-0.38 z:0.28-0.72` | old wall label bbox |
-| `table` | union of top slab (`x/z:0.0-1.0 y:0.88-1.0`) + upper flare (`x/z:0.2586-0.7414 y:0.7283-0.8804`) + stem (`x/z:0.4-0.6 y:0.0667-0.7283`) + crossed foot bars (`x:0.12-0.88 y:0.0-0.0667 z:0.4-0.6` and `x:0.4-0.6 y:0.0-0.0667 z:0.12-0.88`) | active OBJ visible parts (`monoleg` + `tableBevel*`) |
+| `table` | Full tabletop slab with either the original center post or exposed corner supports, plus the optional floor carpet | Neighbor connections pick the same legs for the shape and the rendered mesh |
 | `seat` | `x/z:0.15-0.85 y:0.0-0.7509` | OBJ visibility extents (`seat.obj`) |
 | `clock` | `x:0.0-0.165 y:0.0-0.9976 z:0.2549-0.7451` | OBJ visibility extents (`clock.obj`) |
 | `case` | floor/wall mount baseline: floor (`x:0.06-0.94 y:0.0-0.5 z:0.0-1.0`), wall (`x:0.0-0.5 y:0.0-1.0 z:0.06-0.94`), both rotated by `facing` | old floor/wall case bbox |
@@ -444,7 +452,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `label`, `table`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- `label`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`

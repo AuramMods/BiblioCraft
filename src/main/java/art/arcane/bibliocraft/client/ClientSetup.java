@@ -1,9 +1,11 @@
 package art.arcane.bibliocraft.client;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
+import art.arcane.bibliocraft.blockentity.TableBlockEntity;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModBlocks;
@@ -38,6 +40,7 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.TYPEWRITER.get(), TypewriterRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.DESK.get(), DeskRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.ARMOR_STAND.get(), ArmorStandRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.TABLE.get(), TableRenderer::new);
     }
 
     @SubscribeEvent
@@ -59,6 +62,7 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.DESK.get(), DeskScreen::new);
             MenuScreens.register(ModMenus.DESK_BOOK.get(), DeskBookScreen::new);
             MenuScreens.register(ModMenus.ARMOR_STAND.get(), ArmorStandScreen::new);
+            MenuScreens.register(ModMenus.TABLE.get(), TableScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
@@ -75,7 +79,8 @@ public final class ClientSetup {
         var furniture = Set.of(ModBlocks.SHELF.getId().getPath(), ModBlocks.FURNITURE_PANELER.getId().getPath(),
                 ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath(),
                 ModBlocks.TOOL_RACK.getId().getPath(), ModBlocks.POTION_SHELF.getId().getPath(),
-                ModBlocks.CASE.getId().getPath(), ModBlocks.DESK.getId().getPath(), ModBlocks.ARMOR_STAND.getId().getPath());
+                ModBlocks.CASE.getId().getPath(), ModBlocks.DESK.getId().getPath(), ModBlocks.ARMOR_STAND.getId().getPath(),
+                ModBlocks.TABLE.getId().getPath());
         var bookcases = Set.of(ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath());
         var books = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/bookcase_books");
         var cookies = ResourceLocation.withDefaultNamespace("item/cookie");
@@ -89,6 +94,10 @@ public final class ClientSetup {
             if (path.equals(ModBlocks.DESK.getId().getPath()) && !"inventory".equals(location.getVariant())) {
                 model = new SlotVisibilityModel(model, deskBooks, DeskBlockEntity.VISIBLE_PARTS);
                 model = new SlotVisibilityModel(model, deskCarpet, DeskBlockEntity.VISIBLE_PARTS);
+            }
+            if (path.equals(ModBlocks.TABLE.getId().getPath()) && !"inventory".equals(location.getVariant())) {
+                model = new SlotVisibilityModel(model, (state, data) -> TableBlock.visibleParts(state,
+                        data.has(TableBlockEntity.CLOTH_COLOR), data.has(TableBlockEntity.CARPET_COLOR)));
             }
             if (furniture.contains(path)) {
                 model = new FurnitureMaterialModel(model);

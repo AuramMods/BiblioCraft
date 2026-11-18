@@ -28,6 +28,7 @@
 - The typewriter now runs by hand or from a named mob at the keyboard. It uses eight sheets per eight-page signed book and retains the legacy mob vocabularies. Its original OBJ carriage, paper stages, and shell palette render through the Forge model pipeline. All forty-eight Forge GameTests passed. The muted client registered the original sound events, typed a story, reopened the world, and collected and read its finished book.
 - The writing desk now keeps both book stacks, the open book or map, and carpet. Its legacy meshes render the joined sections and contents, and its original inventory screen shows the nine book slots. The book menu saves text and signed pages in place. The typewriter delivers to the first open book-stack slot. All fifty-three Forge GameTests passed. The muted client checked the connected meshes, inventory, live map, typewriter delivery, and editing and signing in place. The open page, signed book, map, and delivered typewriter book survived a world reopen. Specialized desk readers and the reading-glasses overlay remain pending.
 - Armor stands now render both original OBJ groups with the saved material. One lower block entity stores the gear. Either half resolves to that inventory, lock, drill orientation, and material. A powered sneak-click swaps the full set. All fifty-eight Forge GameTests passed. The muted client verified the wood and framed meshes, armor and head layers, original menu, live gear swaps, wooden placement sound, and reload. A survival break on the upper half dropped one cherry stand and the dyed helmet. Old unpaired blocks add an upper half when the cell above is clear.
+- Tables now use the original 30 model groups for pedestals, corner legs, tabletop quarters, and both fabrics. Existing tables retain their facing and calculate neighboring seams on load. All sixty-three Forge GameTests passed. The muted client verified the joined shapes, independent cloth and carpet colors, original menu, display rotation, and a newly filled map rendered flat. Reload kept the map ID, display angle, and fabrics. An existing desk map also rendered with the shared renderer. The client also confirmed that placing and mining a framed table updated both sides of the seam and that drilling returned each fabric once. The reading-glasses overlay remains pending.
 - Remaining shelf parity includes shared drill and shift interactions and the legacy optional light emitted by stored blocks.
 
 ## Initial Breadth Snapshot (2026-02-09)
@@ -323,7 +324,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Continue the model-first feature passes with tables. Reuse the desk material and state-driven meshes where they match the legacy table mapper.
+- Continue with seats and benches. Check the old bench ordering, model groups, cushions, and each authored seat-back before extending the currently mounted seat.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

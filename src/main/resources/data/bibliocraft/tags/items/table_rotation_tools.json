@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "bibliocraft:tape_measure",
+    {
+      "id": "#forge:wrenches",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/wrenches",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/screwdrivers",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/crowbars",
+      "required": false
+    }
+  ]
+}

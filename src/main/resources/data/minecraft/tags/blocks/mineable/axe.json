@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "bibliocraft:armor_stand"
+    "bibliocraft:armor_stand",
+    "bibliocraft:table"
   ]
 }

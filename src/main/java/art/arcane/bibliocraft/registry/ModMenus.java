@@ -14,6 +14,7 @@ import art.arcane.bibliocraft.menu.DisplayCaseMenu;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.RackMenu;
 import art.arcane.bibliocraft.menu.ShelfMenu;
+import art.arcane.bibliocraft.menu.TableMenu;
 import art.arcane.bibliocraft.menu.FurniturePanelerMenu;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
@@ -51,7 +52,8 @@ public final class ModMenus {
             MENUS.register("desk", () -> new MenuType<>(DeskMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<DeskBookMenu>> DESK_BOOK =
             MENUS.register("desk_book", () -> IForgeMenuType.create(DeskBookMenu::new));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> TABLE = register("table");
+    public static final RegistryObject<MenuType<TableMenu>> TABLE =
+            MENUS.register("table", () -> new MenuType<>(TableMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<CookieJarMenu>> COOKIE_JAR =
             MENUS.register("cookie_jar", () -> new MenuType<>(CookieJarMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<DinnerPlateMenu>> DINNER_PLATE =
@@ -75,7 +77,6 @@ public final class ModMenus {
 
     static {
         mapBlock("label", LABEL);
-        mapBlock("table", TABLE);
         mapBlock("fancy_sign", FANCY_SIGN);
         mapBlock("fancy_workbench", FANCY_WORKBENCH);
         mapBlock("painting_press", PAINTING_PRESS);

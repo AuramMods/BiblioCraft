@@ -8,8 +8,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.WoolCarpetBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -31,6 +34,11 @@ public abstract class FurnitureInventoryBlockEntity extends FurnitureBlockEntity
         super(type, pos, state);
         items = NonNullList.withSize(slots, ItemStack.EMPTY);
         inventorySlots = IntStream.range(0, slots).toArray();
+    }
+
+    public static @Nullable DyeColor carpetColor(ItemStack stack) {
+        return stack.getItem() instanceof BlockItem item && item.getBlock() instanceof WoolCarpetBlock carpet
+                ? carpet.getColor() : null;
     }
 
     @Override

@@ -1,31 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:table",
   "pattern": [
     "SSS",
     " P ",
     " P "
   ],
   "key": {
-    "P": [
-      {
-        "tag": "minecraft:planks"
-      },
-      {
-        "item": "bibliocraft:framing_sheet"
-      }
-    ],
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ]
+    "S": {
+      "item": "minecraft:oak_slab"
+    },
+    "P": {
+      "item": "minecraft:oak_planks"
+    }
   },
   "result": {
-    "item": "bibliocraft:table"
+    "item": "bibliocraft:table",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "oak"
+        }
+      }
+    }
   }
 }

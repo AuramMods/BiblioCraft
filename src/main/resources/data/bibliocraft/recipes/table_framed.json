@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft:table",
+  "pattern": [
+    "SSS",
+    " P ",
+    " P "
+  ],
+  "key": {
+    "S": {
+      "item": "bibliocraft:framing_board"
+    },
+    "P": {
+      "item": "bibliocraft:framing_sheet"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:table",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "framed"
+        }
+      }
+    }
+  }
+}

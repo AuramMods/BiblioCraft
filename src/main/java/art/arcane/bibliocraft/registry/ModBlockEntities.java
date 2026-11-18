@@ -16,6 +16,7 @@ import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.RackBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
+import art.arcane.bibliocraft.blockentity.TableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -58,8 +59,9 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<DeskBlockEntity>> DESK =
             BLOCK_ENTITIES.register("desk", () ->
                     BlockEntityType.Builder.of(DeskBlockEntity::new, ModBlocks.DESK.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> TABLE =
-            register("table", ModBlocks.TABLE);
+    public static final RegistryObject<BlockEntityType<TableBlockEntity>> TABLE =
+            BLOCK_ENTITIES.register("table", () -> BlockEntityType.Builder.of(
+                    TableBlockEntity::new, ModBlocks.TABLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> SEAT =
             register("seat", ModBlocks.SEAT);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> FANCY_SIGN =

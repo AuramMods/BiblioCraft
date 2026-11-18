@@ -6,6 +6,7 @@ import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
+import art.arcane.bibliocraft.blockentity.TableBlockEntity;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -38,6 +39,7 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
     private static final ResourceLocation PANEL_SPRITE =
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/typewriter_paper_blank");
     private static final ResourceLocation CASE_LINING_SPRITE = ResourceLocation.withDefaultNamespace("block/white_wool");
+    private static final ResourceLocation TABLE_CLOTH_SPRITE = ResourceLocation.withDefaultNamespace("block/red_wool");
     private final LoadingCache<QuadTexture, BakedQuad> quads = CacheBuilder.newBuilder()
             .maximumSize(4096)
             .build(CacheLoader.from(FurnitureMaterialModel::replaceSprite));
@@ -64,11 +66,13 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         if (lining == null) {
             lining = data.get(DeskBlockEntity.CARPET_COLOR);
         }
-        TextureAtlasSprite liningSprite = lining == null || lining == DyeColor.WHITE ? null
-                : Minecraft.getInstance().getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS)
-                        .getSprite(ResourceLocation.withDefaultNamespace("block/" + lining.getName() + "_wool"));
-        return wood == null && panel == null && liningSprite == null
-                ? original : retexture(original, wood, panel, liningSprite);
+        if (lining == null) {
+            lining = data.get(TableBlockEntity.CARPET_COLOR);
+        }
+        TextureAtlasSprite liningSprite = woolSprite(lining, DyeColor.WHITE);
+        TextureAtlasSprite clothSprite = woolSprite(data.get(TableBlockEntity.CLOTH_COLOR), DyeColor.RED);
+        return wood == null && panel == null && liningSprite == null && clothSprite == null
+                ? original : retexture(original, wood, panel, liningSprite, clothSprite);
     }
 
     @Override
@@ -98,13 +102,14 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         return new BakedModelWrapper<>(pass.model()) {
             @Override
             public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource random) {
-                return retexture(super.getQuads(state, side, random), pass.sprite(), null, null);
+                return retexture(super.getQuads(state, side, random), pass.sprite(), null, null, null);
             }
         };
     }
 
     private List<BakedQuad> retexture(List<BakedQuad> original, @Nullable TextureAtlasSprite wood,
-                                       @Nullable TextureAtlasSprite panel, @Nullable TextureAtlasSprite lining) {
+                                       @Nullable TextureAtlasSprite panel, @Nullable TextureAtlasSprite lining,
+                                       @Nullable TextureAtlasSprite cloth) {
         if (original.isEmpty()) {
             return original;
         }
@@ -113,10 +118,17 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
                     ResourceLocation source = quad.getSprite().contents().name();
                     TextureAtlasSprite texture = source.equals(WOOD_SPRITE) ? wood
                             : source.equals(PANEL_SPRITE) ? panel
-                            : source.equals(CASE_LINING_SPRITE) ? lining : null;
+                            : source.equals(CASE_LINING_SPRITE) ? lining
+                            : source.equals(TABLE_CLOTH_SPRITE) ? cloth : null;
                     return texture == null ? quad : quads.getUnchecked(new QuadTexture(quad, texture));
                 })
                 .toList();
+    }
+
+    private static @Nullable TextureAtlasSprite woolSprite(@Nullable DyeColor color, DyeColor authored) {
+        return color == null || color == authored ? null
+                : Minecraft.getInstance().getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS)
+                        .getSprite(ResourceLocation.withDefaultNamespace("block/" + color.getName() + "_wool"));
     }
 
     private static boolean isDefault(@Nullable FurnitureMaterial material) {
