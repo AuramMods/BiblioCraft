@@ -1,141 +1,95 @@
 {
-  "loader": "forge:obj",
-  "model": "bibliocraft:models/block/typewriter.obj",
-  "flip_v": true,
-  "visibility": {
-    "base": true,
-    "slide": false,
-    "paperLine1": false,
-    "paperLine2": false,
-    "paperLine3": false,
-    "paperLine4": false,
-    "paperLine5": false,
-    "paperLine6": false,
-    "paperLine7": false
-  },
-  "textures": {
-    "particle": "bibliocraft:block/typewriter0"
-  },
-  "automatic_culling": false,
-  "display": {
-    "thirdperson_righthand": {
-      "rotation": [
-        75,
-        45,
-        0
-      ],
-      "translation": [
-        0,
-        2.5,
-        0
-      ],
-      "scale": [
-        0.375,
-        0.375,
-        0.375
-      ]
+  "parent": "bibliocraft:item/typewriter_display",
+  "overrides": [
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 1
+      },
+      "model": "bibliocraft:item/typewriter_orange"
     },
-    "thirdperson_lefthand": {
-      "rotation": [
-        75,
-        45,
-        0
-      ],
-      "translation": [
-        0,
-        2.5,
-        0
-      ],
-      "scale": [
-        0.375,
-        0.375,
-        0.375
-      ]
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 2
+      },
+      "model": "bibliocraft:item/typewriter_magenta"
     },
-    "firstperson_righthand": {
-      "rotation": [
-        0,
-        45,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        0.4,
-        0.4,
-        0.4
-      ]
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 3
+      },
+      "model": "bibliocraft:item/typewriter_light_blue"
     },
-    "firstperson_lefthand": {
-      "rotation": [
-        0,
-        45,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        0.4,
-        0.4,
-        0.4
-      ]
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 4
+      },
+      "model": "bibliocraft:item/typewriter_yellow"
     },
-    "gui": {
-      "rotation": [
-        30,
-        225,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        0.625,
-        0.625,
-        0.625
-      ]
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 5
+      },
+      "model": "bibliocraft:item/typewriter_lime"
     },
-    "ground": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "translation": [
-        0,
-        3,
-        0
-      ],
-      "scale": [
-        0.25,
-        0.25,
-        0.25
-      ]
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 6
+      },
+      "model": "bibliocraft:item/typewriter_pink"
     },
-    "fixed": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        0.5,
-        0.5,
-        0.5
-      ]
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 7
+      },
+      "model": "bibliocraft:item/typewriter_gray"
+    },
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 8
+      },
+      "model": "bibliocraft:item/typewriter_light_gray"
+    },
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 9
+      },
+      "model": "bibliocraft:item/typewriter_cyan"
+    },
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 10
+      },
+      "model": "bibliocraft:item/typewriter_purple"
+    },
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 11
+      },
+      "model": "bibliocraft:item/typewriter_blue"
+    },
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 12
+      },
+      "model": "bibliocraft:item/typewriter_brown"
+    },
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 13
+      },
+      "model": "bibliocraft:item/typewriter_green"
+    },
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 14
+      },
+      "model": "bibliocraft:item/typewriter_red"
+    },
+    {
+      "predicate": {
+        "bibliocraft:furniture_color": 15
+      },
+      "model": "bibliocraft:item/typewriter_black"
     }
-  }
+  ]
 }

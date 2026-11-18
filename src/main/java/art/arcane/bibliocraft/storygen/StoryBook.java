@@ -42,7 +42,11 @@ public final class StoryBook {
     private StoryBook() {}
 
     public static ItemStack create(RandomSource random) {
-        StoryPlot story = new StoryPlot(random, name(random), name(random), random.nextInt(2), random.nextInt(2),
+        return create(random, "", StoryVoice.STANDARD);
+    }
+
+    public static ItemStack create(RandomSource random, String author, StoryVoice voice) {
+        StoryPlot story = new StoryPlot(random, voice, name(random), name(random), random.nextInt(2), random.nextInt(2),
                 choose(random, PROFESSIONS), name(random), choose(random, LOCATIONS), choose(random, LOCATIONS));
         ListTag pages = new ListTag();
         for (String page : List.of(story.getStasis(), story.getTrigger(), story.getQuest(), story.getSurprise(),
@@ -52,7 +56,7 @@ public final class StoryBook {
         ItemStack book = new ItemStack(Items.WRITTEN_BOOK);
         CompoundTag tag = book.getOrCreateTag();
         tag.putString("title", choose(random, TITLE_PREFIXES) + " " + choose(random, TITLE_SUFFIXES));
-        tag.putString("author", name(random));
+        tag.putString("author", author.isEmpty() ? name(random) : author);
         tag.putBoolean("resolved", true);
         tag.put("pages", pages);
         return book;

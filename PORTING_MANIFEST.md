@@ -74,6 +74,14 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The sprite indices follow `ModelLamp` and `ModelLantern` in 1.12.2. For example, legacy `lamplight4` is red and `lamplight14` is pink. Modern dye IDs select the item override only. The named color persists as `BlockStateTag.color`.
 - The four recolor recipe IDs retain their inputs and now return the matching colored light. The hand drill and powered drill cycle floor, wall, and ceiling. Sneak-use rotates the facing. The shared Lock and Key protects both actions and in-world dyeing. Lanterns use the modern small-flame particle at the legacy wick position.
 
+## Typewriter Port
+
+- `bibliocraft:typewriter` retains its block, item, and block entity IDs and its `facing` and `color` states. The block renders the original body OBJ, and its renderer moves the original carriage and paper together. The sixteen progress textures select the legacy seven paper meshes as the sheet advances. Shell textures follow the old sprite table, independently of modern dye IDs.
+- An existing north-facing writer keeps its geometry and takes input at its west-facing keyboard. Newly placed writers point their keyboard toward the player. The top of the visible keyboard also takes manual input. The original blank page is visible on the inventory model.
+- Saved `Items` slots 0 and 1 store up to 64 paper and one finished book. The legacy `bookWriteCount` field and modern `Author` and `Voice` fields preserve progress. Placeholder block entities without these fields start empty. A writing session uses eight sheets and creates a valid eight-page book. Named mobs can type from the adjacent cell in front and use their original species vocabulary.
+- All sixteen crafting recipes use matching terracotta and ink sac. The white recipe also accepts the white dye from the earlier 1.20.1 port. The same `typewriter_recolor` recipe ID changes `BlockStateTag.color`, which also carries through ordinary pick-block and loot. The finished book and excess paper are separate drops.
+- The original paper, typing, completion, and removal sounds use positional sound events. Shared locks apply to clicks, drills, and automation. The desk output route depends on the writing desk's legacy book slots.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -166,7 +174,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Typewriter/sword color-state parity updates now in baseline:
 - `typewriter` and `sword_pedestal` now use `facing + color` blockstates (`color=white..black`).
 - Added sixteen color-specific block models per block:
-- `models/block/typewriter_<color>.json` + `typewriter_<color>.mtl` (`typewriter0..15` texture mapping).
+- `models/block/typewriter_<color>.json` inherits the shared typewriter OBJ and selects the legacy shell sprite. The carriage and paper models use separate groups from the same OBJ.
 - `models/block/sword_pedestal_<color>.json` inherits the shared pedestal OBJ and resolves `trim` to `minecraft:block/<color>_wool`.
 - Mounted-light color-state parity updates now in baseline:
 - `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` now use `face + facing + color` blockstates.
@@ -202,7 +210,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `map_frame` | mounted baseline: wall (`x:0.0-0.05 y:0.0-1.0 z:0.0-1.0`), floor (`y:0.0-0.05` full XZ), ceiling (`y:0.95-1.0` full XZ) | old map-frame floor/wall/ceiling bbox |
 | `painting_frame_*` | `x:0.0-0.08 y:0.0-1.0 z:0.0-1.0` | old painting-frame wall bbox |
 | `painting_press` | `x/z:0.0-1.0 y:0.0-0.98` | OBJ/legacy near-full profile |
-| `typewriter` | `x:0.1384-0.6452 y:0.0-0.1966 z:0.2466-0.7534` | active OBJ visible parts (`typewriter.obj`, current `base` visibility only) |
+| `typewriter` | Body collision `x:0.1384–0.6452 y:0.0–0.1966 z:0.2466–0.7534` in the base orientation | Selection also includes the carriage and loaded paper across their full travel |
 | `sword_pedestal` | `x:0.2758-0.7242 y:0.0-0.234 z:0.0712-0.9288` | OBJ extent + old bbox |
 | `armor_stand` | `x/z:0.3-0.7 y:0.0-1.0` | old orientation bbox collapsed to static |
 | `bell` | `x/z:0.36518–0.63482 y:0.0–0.2` | OBJ rim and legacy height |
@@ -355,8 +363,6 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/resources/data/bibliocraft/recipes/biblio_drill.json`
 - Added mapped legacy-output completion recipe:
 - `src/main/resources/data/bibliocraft/recipes/painting_canvas.json`
-- Remaining color-surface placeholder recipe:
-- `src/main/resources/data/bibliocraft/recipes/typewriter_recolor.json`
 - Procedural/variant obtainability subset:
 - `src/main/resources/data/bibliocraft/recipes/atlas_plate.json`
 - `src/main/resources/data/bibliocraft/recipes/clipboard_block.json`
@@ -381,7 +387,6 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Deferred variant-splitting follow-up:
 - wood/framed furniture recipe families are currently merged into consolidated recipes until block/item wood-variant depth support is implemented.
 - supporting block recipe families are also merged into consolidated recipes until block/item wood-variant depth support is implemented.
-- The typewriter recolor recipe still needs state-aware output.
 - block loot-table files are currently generic self-drop placeholders; block-entity/state-specific drop parity remains deferred.
 - `EnchantedAtlasRecipe` behavior baseline:
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.

@@ -17,14 +17,24 @@
     "B": {
       "item": "minecraft:iron_block"
     },
-    "D": {
-      "tag": "forge:dyes/white"
-    },
+    "D": [
+      {
+        "item": "minecraft:ink_sac"
+      },
+      {
+        "tag": "forge:dyes/white"
+      }
+    ],
     "W": {
       "item": "minecraft:white_terracotta"
     }
   },
   "result": {
-    "item": "bibliocraft:typewriter"
+    "item": "bibliocraft:typewriter",
+    "nbt": {
+      "BlockStateTag": {
+        "color": "white"
+      }
+    }
   }
 }

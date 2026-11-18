@@ -34,6 +34,12 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.DINNER_PLATE.get(), DinnerPlateRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.DISC_RACK.get(), DiscRackRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SWORD_PEDESTAL.get(), SwordPedestalRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.TYPEWRITER.get(), TypewriterRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {
+        TypewriterRenderer.registerModels(event);
     }
 
     @SubscribeEvent

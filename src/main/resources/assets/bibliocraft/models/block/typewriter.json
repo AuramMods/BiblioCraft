@@ -14,6 +14,10 @@
     "paperLine7": false
   },
   "textures": {
-    "particle": "bibliocraft:block/typewriter0"
-  }
+    "shell": "bibliocraft:block/typewriter0",
+    "paper": "bibliocraft:block/typewriter_paper_blank",
+    "particle": "#shell"
+  },
+  "render_type": "minecraft:cutout",
+  "automatic_culling": false
 }

@@ -2,7 +2,6 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.BookcaseBlock;
-import art.arcane.bibliocraft.block.ColorFacingEntityBlock;
 import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.CookieJarBlock;
 import art.arcane.bibliocraft.block.DeskBellBlock;
@@ -16,6 +15,7 @@ import art.arcane.bibliocraft.block.RackBlock;
 import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.block.ShelfBlock;
 import art.arcane.bibliocraft.block.SwordPedestalBlock;
+import art.arcane.bibliocraft.block.TypewriterBlock;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import net.minecraft.world.item.BlockItem;
@@ -151,7 +151,9 @@ public final class ModBlocks {
     public static final RegistryObject<Block> PAINTING_PRESS =
             register("painting_press", () -> shapedWoodEntity(SHAPE_PAINTING_PRESS, "painting_press"));
     public static final RegistryObject<Block> TYPEWRITER =
-            register("typewriter", () -> colorShapedWoodEntity(SHAPE_TYPEWRITER, "typewriter"));
+            register("typewriter", () -> new TypewriterBlock(woodProps().mapColor(MapColor.METAL)
+                            .sound(SoundType.METAL), SHAPE_TYPEWRITER),
+                    block -> new ColoredBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> SWORD_PEDESTAL =
             register("sword_pedestal", () -> new SwordPedestalBlock(
                             woodProps().mapColor(MapColor.STONE).sound(SoundType.STONE), SHAPE_SWORD_PEDESTAL),
@@ -191,10 +193,6 @@ public final class ModBlocks {
 
     private static Block shapedWoodEntity(VoxelShape shape, String blockEntityPath) {
         return new HorizontalFacingEntityBlock(woodProps(), shape, blockEntityPath);
-    }
-
-    private static Block colorShapedWoodEntity(VoxelShape shape, String blockEntityPath) {
-        return new ColorFacingEntityBlock(woodProps(), shape, blockEntityPath);
     }
 
     private static RegistryObject<Block> registerMountedLight(String name, VoxelShape floorShape,

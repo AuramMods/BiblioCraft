@@ -4,6 +4,7 @@ import net.minecraft.util.RandomSource;
 
 final class StoryPlot {
     private final RandomSource random;
+    private final StoryVoice voice;
     private final String character1;
     private final String character2;
     private final int character1Gender;
@@ -15,9 +16,10 @@ final class StoryPlot {
     private final String nounBeasty;
     private final String nounBeastyName;
 
-    StoryPlot(RandomSource randomm, String character1, String character2, int character1Gender, int character2Gender,
+    StoryPlot(RandomSource random, StoryVoice voice, String character1, String character2, int character1Gender, int character2Gender,
               String character1Job, String locationHome, String locationHomeType, String locationTraveledType) {
-        this.random = randomm;
+        this.random = random;
+        this.voice = voice;
         this.character1 = character1;
         this.character2 = character2;
         this.character1Gender = character1Gender;
@@ -30,7 +32,8 @@ final class StoryPlot {
         nounBeastyName = word(StoryWords.nounBeast);
     }
 
-    private String word(String[] choices) {
+    private String word(String[] defaults) {
+        String[] choices = voice.words(defaults);
         return choices[random.nextInt(choices.length)];
     }
 

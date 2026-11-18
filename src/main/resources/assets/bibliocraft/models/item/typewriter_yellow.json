@@ -1,0 +1,6 @@
+{
+  "parent": "bibliocraft:item/typewriter_display",
+  "textures": {
+    "shell": "bibliocraft:block/typewriter6"
+  }
+}

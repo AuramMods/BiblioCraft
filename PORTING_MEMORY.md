@@ -25,6 +25,7 @@
 - The sword pedestal keeps the original OBJ and its wool trim through one shared MTL. Crafting, dyeing, picking, and breaking preserve all sixteen trim colors. The original blade pose uses the synced item, and an occupied pedestal gives full redstone power. All forty Forge GameTests passed. The muted client displayed the colors in the world and hotbar and verified insertion, redstone, dyeing, drilling, ejection, and reload.
 - The desk bell rings on right-click and on every sampled increase in redstone strength, including through stone. It saves the last signal to prevent a false ring on reload. All forty-two Forge GameTests passed. The muted client's sound engine resolved the original ding event after a manual click and a lever click. The original bell model rendered in the world and hotbar.
 - Gold and iron lamps and lanterns share one MTL per OBJ. Their 192 mount and palette models use the original sprite table. A pink lamp had used the yellow texture in the previous port because the legacy indices differ from modern dye IDs. The muted client verified the corrected colors, cutout glass, wick flames, all mounts, and the hotbar. It also dyed and drilled lights, reopened the world, and placed a picked lime lantern. All forty-four Forge GameTests passed, including all 64 light recolor outputs. The shared recolor serializer retains the pedestal serializer ID.
+- The typewriter now runs by hand or from a named mob at the keyboard. It uses eight sheets per eight-page signed book and retains the legacy mob vocabularies. Its original OBJ carriage, paper stages, and shell palette render through the Forge model pipeline. All forty-eight Forge GameTests passed. The muted client registered the original sound events, typed a story, reopened the world, and collected and read its finished book. The desk transfer is still part of the writing desk cycle.
 - Remaining shelf parity includes shared drill and shift interactions and the legacy optional light emitted by stored blocks.
 
 ## Initial Breadth Snapshot (2026-02-09)
@@ -312,8 +313,6 @@
 - Wood/framed furniture recipes are currently merged into generic recipes due missing wood metadata/state strategy in placeholder runtime; split them back into variant-specific outputs once block/item variant depth pass is implemented.
 - Block recipe consolidation reminder:
 - Supporting block recipes (`case`, `map_frame`, `fancy_sign`, `fancy_workbench`, `potion_shelf`, `tool_rack`, `armor_stand`, `framed_chest`) are also merged for placeholder runtime; revisit when wood/framed variant depth pass lands.
-- Color-variant recipe reminder:
-- The typewriter recolor recipe still needs state-aware output.
 - Obtainability reminder:
 - Three registered ids are intentionally still non-craftable in datapack outputs for now: `bookcase_creative` (creative variant), `biblio_creative_lock` (creative/admin surface), and `tester_item` (debug surface).
 - Loot-table reminder:
@@ -322,7 +321,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Restore the typewriter's state-aware recolor recipe. Check the old sprite mapping separately from modern dye IDs.
+- Restore the writing desk's book slots and route finished typewriter books to the first available slot in the left stack, then the right stack.
 - Add pick-block (creative clone) color carry so non-white color state is preserved on middle-click duplication.
 - Begin wood/framed variant-state scaffolding (next major open variant-strategy surface).
 

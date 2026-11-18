@@ -1,0 +1,10 @@
+{
+  "parent": "bibliocraft:block/typewriter",
+  "visibility": {
+    "base": false,
+    "slide": true
+  },
+  "textures": {
+    "shell": "bibliocraft:block/typewriter6"
+  }
+}
