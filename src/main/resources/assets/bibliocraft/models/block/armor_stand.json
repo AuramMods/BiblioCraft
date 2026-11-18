@@ -2,6 +2,11 @@
   "loader": "forge:obj",
   "model": "bibliocraft:models/block/armorstand.obj",
   "flip_v": true,
+  "automatic_culling": false,
+  "visibility": {
+    "bottomStand": true,
+    "topStand": true
+  },
   "textures": {
     "particle": "minecraft:block/oak_planks"
   }

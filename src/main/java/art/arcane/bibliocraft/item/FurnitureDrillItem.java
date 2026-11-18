@@ -1,7 +1,8 @@
 package art.arcane.bibliocraft.item;
 
-import art.arcane.bibliocraft.block.DrillAdjustable;
+import art.arcane.bibliocraft.block.ArmorStandBlock;
 import art.arcane.bibliocraft.block.DeskBlock;
+import art.arcane.bibliocraft.block.DrillAdjustable;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.registry.ModSounds;
@@ -31,20 +32,31 @@ public final class FurnitureDrillItem extends Item {
                 || !BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(state.getBlock()))) {
             return InteractionResult.PASS;
         }
-        if (!(state.getBlock() instanceof DrillAdjustable) && !(state.getBlock() instanceof DeskBlock && player.isShiftKeyDown())) {
+        var block = state.getBlock();
+        boolean sneaking = player.isShiftKeyDown();
+        boolean paired = sneaking && (block instanceof DeskBlock || block instanceof ArmorStandBlock);
+        if (!(block instanceof DrillAdjustable) && !paired) {
             return InteractionResult.PASS;
         }
-        if (level.getBlockEntity(pos) instanceof FurnitureBlockEntity furniture && !furniture.canAccess(player)) {
+        var furniture = FurnitureBlockEntity.findAt(level, pos);
+        if (furniture != null && !furniture.canAccess(player)) {
             return FurnitureBlockEntity.denyAccess(player);
         }
-        if (state.getBlock() instanceof DeskBlock desk) {
+        if (block instanceof DeskBlock desk) {
             var result = desk.connectWithDrill(context);
             if (!level.isClientSide && result.consumesAction()) {
                 playSound(context);
             }
             return result;
         }
-        var adjusted = ((DrillAdjustable) state.getBlock()).adjustWithDrill(state, player.isShiftKeyDown());
+        if (block instanceof ArmorStandBlock stand) {
+            if (!level.isClientSide) {
+                stand.rotateStand(level, pos, state);
+                playSound(context);
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+        var adjusted = ((DrillAdjustable) block).adjustWithDrill(state, sneaking);
         if (adjusted == state) {
             return InteractionResult.PASS;
         }

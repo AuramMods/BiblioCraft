@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.blockentity.ArmorStandBlockEntity;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBellBlockEntity;
@@ -86,8 +87,9 @@ public final class ModBlockEntities {
             register("painting_frame_simple", ModBlocks.PAINTING_FRAME_SIMPLE);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PAINTING_PRESS =
             register("painting_press", ModBlocks.PAINTING_PRESS);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> ARMOR_STAND =
-            register("armor_stand", ModBlocks.ARMOR_STAND);
+    public static final RegistryObject<BlockEntityType<ArmorStandBlockEntity>> ARMOR_STAND =
+            BLOCK_ENTITIES.register("armor_stand", () -> BlockEntityType.Builder.of(
+                    ArmorStandBlockEntity::new, ModBlocks.ARMOR_STAND.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> TYPESETTING_TABLE =
             register("typesetting_table", ModBlocks.TYPESETTING_TABLE);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PRINTING_PRESS =

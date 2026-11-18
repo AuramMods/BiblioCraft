@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:armor_stand",
   "pattern": [
     " I ",
     " I ",
@@ -11,16 +11,18 @@
     "I": {
       "item": "minecraft:stick"
     },
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ]
+    "S": {
+      "item": "minecraft:oak_slab"
+    }
   },
   "result": {
-    "item": "bibliocraft:armor_stand"
+    "item": "bibliocraft:armor_stand",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "oak"
+        }
+      }
+    }
   }
 }

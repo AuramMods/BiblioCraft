@@ -23,7 +23,8 @@ public final class FurnitureLockItem extends Item {
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
         var player = context.getPlayer();
         var level = context.getLevel();
-        if (player == null || !(level.getBlockEntity(context.getClickedPos()) instanceof FurnitureBlockEntity furniture)
+        var furniture = FurnitureBlockEntity.findAt(level, context.getClickedPos());
+        if (player == null || furniture == null
                 || (!furniture.isLocked() && !BiblioConfig.COMMON.enableLock.get())) {
             return InteractionResult.PASS;
         }

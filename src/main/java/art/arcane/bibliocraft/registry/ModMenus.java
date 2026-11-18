@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.registry;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
+import art.arcane.bibliocraft.menu.ArmorStandMenu;
 import art.arcane.bibliocraft.menu.BookcaseMenu;
 import art.arcane.bibliocraft.menu.CookieJarMenu;
 import art.arcane.bibliocraft.menu.DeskBookMenu;
@@ -37,7 +38,8 @@ public final class ModMenus {
             MENUS.register("bookcase", () -> new MenuType<>(BookcaseMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<ShelfMenu>> SHELF =
             MENUS.register("shelf", () -> new MenuType<>(ShelfMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> ARMOR_STAND = register("armor_stand");
+    public static final RegistryObject<MenuType<ArmorStandMenu>> ARMOR_STAND =
+            MENUS.register("armor_stand", () -> new MenuType<>(ArmorStandMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<RackMenu>> POTION_SHELF = MENUS.register("potion_shelf",
             () -> new MenuType<>((id, inventory) -> new RackMenu(id, inventory, RackType.POTIONS), FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<RackMenu>> TOOL_RACK = MENUS.register("tool_rack",
@@ -72,7 +74,6 @@ public final class ModMenus {
     private static final Map<ResourceLocation, RegistryObject<MenuType<PlaceholderMenu>>> BLOCK_MENU_MAP = new HashMap<>();
 
     static {
-        mapBlock("armor_stand", ARMOR_STAND);
         mapBlock("label", LABEL);
         mapBlock("table", TABLE);
         mapBlock("fancy_sign", FANCY_SIGN);

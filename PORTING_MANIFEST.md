@@ -90,6 +90,14 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The original nine-slot desk inventory screen opens through the ordinary menu. A separate book menu edits or signs a writable book in place, or reads a written book and remembers the page. The server ties edits to the live menu and the same book in the same desk. The client uses the book texture and confines typing to the page editor.
 - The typewriter fills the desk's left stack, then the right. A full or locked desk leaves the output in the writer. The original shaped pattern crafts all twelve furniture materials. Pick-block and loot preserve the saved material, and the desk returns its books and carpet separately.
 
+## Armor Stand Port
+
+- The block, item, block entity, and menu keep `bibliocraft:armor_stand`. The lower half owns `Items` in legacy head, chest, legs, and feet order. The synchronized upper half resolves direct use, locks, rotations, pick-block, and removal to the same lower inventory.
+- The original `armorstand.obj` stays byte-identical. The lower block renders both `bottomStand` and `topStand` with the saved wood or framed texture, as in the legacy mapper. The upper block supplies collision and hit targets. The block entity renders the four worn stacks with vanilla humanoid armor and head layers at the legacy pose.
+- A matching piece goes directly into the clicked quarter. Sneak-use swaps that quarter with the player's equipment. Power at either half enables the full swap. The original menu shows the stand and worn equipment side by side, with vanilla slot filters for armor, elytra, carved pumpkins, and mob heads.
+- New placement takes two clear cells. A pre-existing single-block 1.20.1 placeholder keeps its facing and becomes a lower half. An upper half is added when the cell above is clear. Other blocks in old worlds are preserved.
+- Both drills rotate the two halves together. The stand uses the legacy wooden block sounds and mines at axe speed. Survival removal of either half drops one stand with its saved material and returns its armor separately. The original stick and slab recipe is available for eleven woods and the framed variant.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -220,7 +228,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `painting_press` | `x/z:0.0-1.0 y:0.0-0.98` | OBJ/legacy near-full profile |
 | `typewriter` | Body collision `x:0.1384–0.6452 y:0.0–0.1966 z:0.2466–0.7534` in the base orientation | Selection also includes the carriage and loaded paper across their full travel |
 | `sword_pedestal` | `x:0.2758-0.7242 y:0.0-0.234 z:0.0712-0.9288` | OBJ extent + old bbox |
-| `armor_stand` | `x/z:0.3-0.7 y:0.0-1.0` | old orientation bbox collapsed to static |
+| `armor_stand` | Rotated 0.4-block-wide upright in both halves and a thin lower base | Old upright hit regions split by equipment height |
 | `bell` | `x/z:0.36518–0.63482 y:0.0–0.2` | OBJ rim and legacy height |
 | `typesetting_table` | `x/z:0.0-1.0 y:0.0-0.92` | old `BlockTypesettingTable` bbox |
 | `cookie_jar` | `x/z:0.18-0.82 y:0.0-0.75` | old `BlockCookieJar` bbox |
@@ -436,7 +444,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `armor_stand`, `label`, `table`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- `label`, `table`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`

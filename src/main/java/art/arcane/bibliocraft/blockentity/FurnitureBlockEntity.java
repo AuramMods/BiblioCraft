@@ -1,5 +1,6 @@
 package art.arcane.bibliocraft.blockentity;
 
+import art.arcane.bibliocraft.block.ArmorStandBlock;
 import art.arcane.bibliocraft.block.FurnitureMaterial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -7,12 +8,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -23,6 +26,15 @@ public class FurnitureBlockEntity extends BlockEntity {
 
     public FurnitureBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+    }
+
+    public static @Nullable FurnitureBlockEntity findAt(BlockGetter level, BlockPos pos) {
+        BlockPos base = ArmorStandBlock.basePos(level.getBlockState(pos), pos);
+        if (level.getBlockEntity(base) instanceof FurnitureBlockEntity furniture
+                && (base.equals(pos) || furniture instanceof ArmorStandBlockEntity)) {
+            return furniture;
+        }
+        return null;
     }
 
     public FurnitureMaterial getMaterial() {

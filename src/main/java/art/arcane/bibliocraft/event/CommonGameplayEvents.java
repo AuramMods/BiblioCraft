@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.event;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.block.ArmorStandBlock;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.DinnerPlateBlock;
@@ -65,9 +66,8 @@ public final class CommonGameplayEvents {
 
     @SubscribeEvent
     public static void onLockedFurnitureBreak(BlockEvent.BreakEvent event) {
-        if (!event.getPlayer().isCreative()
-                && event.getLevel().getBlockEntity(event.getPos()) instanceof FurnitureBlockEntity furniture
-                && furniture.isLocked()) {
+        var furniture = FurnitureBlockEntity.findAt(event.getLevel(), event.getPos());
+        if (!event.getPlayer().isCreative() && furniture != null && furniture.isLocked()) {
             event.setCanceled(true);
             event.getPlayer().displayClientMessage(Component.translatable("message.bibliocraft.lock.break"), true);
         }
@@ -117,7 +117,7 @@ public final class CommonGameplayEvents {
                 && (block instanceof ShelfBlock || block instanceof BookcaseBlock || block instanceof DisplayCaseBlock
                         || block instanceof RackBlock || block instanceof FurniturePanelerBlock
                         || block instanceof DinnerPlateBlock || block instanceof DiscRackBlock || block instanceof TypewriterBlock
-                        || block instanceof DeskBlock)
+                        || block instanceof DeskBlock || block instanceof ArmorStandBlock)
                 && BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(block))) {
             event.setUseBlock(Event.Result.ALLOW);
         }

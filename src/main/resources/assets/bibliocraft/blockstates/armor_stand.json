@@ -1,19 +1,22 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,half=lower": {
       "model": "bibliocraft:block/armor_stand"
     },
-    "facing=east": {
+    "facing=east,half=lower": {
       "model": "bibliocraft:block/armor_stand",
       "y": 90
     },
-    "facing=south": {
+    "facing=south,half=lower": {
       "model": "bibliocraft:block/armor_stand",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,half=lower": {
       "model": "bibliocraft:block/armor_stand",
       "y": 270
+    },
+    "half=upper": {
+      "model": "bibliocraft:block/armor_stand_upper"
     }
   }
 }

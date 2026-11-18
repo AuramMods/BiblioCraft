@@ -6,12 +6,32 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bibliocraft:armor_stand"
+          "name": "bibliocraft:armor_stand",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "source": "block_entity",
+              "ops": [
+                {
+                  "source": "FurnitureMaterial",
+                  "target": "BlockEntityTag.FurnitureMaterial",
+                  "op": "replace"
+                }
+              ]
+            }
+          ]
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "bibliocraft:armor_stand",
+          "properties": {
+            "half": "lower"
+          }
         }
       ]
     }

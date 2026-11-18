@@ -27,7 +27,8 @@ abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
     @Override
     public final InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                        InteractionHand hand, BlockHitResult hit) {
-        if (level.getBlockEntity(pos) instanceof FurnitureBlockEntity furniture && !furniture.canAccess(player)) {
+        var furniture = FurnitureBlockEntity.findAt(level, pos);
+        if (furniture != null && !furniture.canAccess(player)) {
             return FurnitureBlockEntity.denyAccess(player);
         }
         return useFurniture(state, level, pos, player, hand, hit);
@@ -38,8 +39,8 @@ abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
 
     @Override
     public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
-        if (!player.isCreative() && level.getBlockEntity(pos) instanceof FurnitureBlockEntity furniture
-                && furniture.isLocked()) {
+        var furniture = FurnitureBlockEntity.findAt(level, pos);
+        if (!player.isCreative() && furniture != null && furniture.isLocked()) {
             return 0;
         }
         return super.getDestroyProgress(state, player, level, pos);
@@ -91,7 +92,7 @@ abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
         if (stack.getItem() instanceof FurnitureBlockItem
-                && level.getBlockEntity(pos) instanceof FurnitureInventoryBlockEntity furniture) {
+                && FurnitureBlockEntity.findAt(level, pos) instanceof FurnitureInventoryBlockEntity furniture) {
             return furniture.getMaterial().applyTo(stack);
         }
         return stack;

@@ -37,6 +37,7 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.SWORD_PEDESTAL.get(), SwordPedestalRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TYPEWRITER.get(), TypewriterRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.DESK.get(), DeskRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.ARMOR_STAND.get(), ArmorStandRenderer::new);
     }
 
     @SubscribeEvent
@@ -57,6 +58,7 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.DISC_RACK.get(), DiscRackScreen::new);
             MenuScreens.register(ModMenus.DESK.get(), DeskScreen::new);
             MenuScreens.register(ModMenus.DESK_BOOK.get(), DeskBookScreen::new);
+            MenuScreens.register(ModMenus.ARMOR_STAND.get(), ArmorStandScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
@@ -73,7 +75,7 @@ public final class ClientSetup {
         var furniture = Set.of(ModBlocks.SHELF.getId().getPath(), ModBlocks.FURNITURE_PANELER.getId().getPath(),
                 ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath(),
                 ModBlocks.TOOL_RACK.getId().getPath(), ModBlocks.POTION_SHELF.getId().getPath(),
-                ModBlocks.CASE.getId().getPath(), ModBlocks.DESK.getId().getPath());
+                ModBlocks.CASE.getId().getPath(), ModBlocks.DESK.getId().getPath(), ModBlocks.ARMOR_STAND.getId().getPath());
         var bookcases = Set.of(ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath());
         var books = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/bookcase_books");
         var cookies = ResourceLocation.withDefaultNamespace("item/cookie");
