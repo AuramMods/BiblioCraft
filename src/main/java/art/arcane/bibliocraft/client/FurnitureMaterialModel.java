@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.client;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.FurnitureMaterial;
 import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
+import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import com.google.common.cache.CacheBuilder;
@@ -60,6 +61,9 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         TextureAtlasSprite wood = isDefault(material) ? null : sprite(material);
         TextureAtlasSprite panel = panelSprite(data.get(FurniturePanelerBlockEntity.PANEL_SOURCE));
         DyeColor lining = data.get(DisplayCaseBlockEntity.LINING_COLOR);
+        if (lining == null) {
+            lining = data.get(DeskBlockEntity.CARPET_COLOR);
+        }
         TextureAtlasSprite liningSprite = lining == null || lining == DyeColor.WHITE ? null
                 : Minecraft.getInstance().getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS)
                         .getSprite(ResourceLocation.withDefaultNamespace("block/" + lining.getName() + "_wool"));

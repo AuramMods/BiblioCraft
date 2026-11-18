@@ -36,7 +36,7 @@ final class SlotVisibilityModel extends BakedModelWrapper<BakedModel> {
         Integer parts = data.get(visibleParts);
         int mask = parts == null ? 0 : parts;
         // Each authored mesh has a Forge OBJ material whose tint index identifies the part.
-        return quads.stream().filter(quad -> !sprite.equals(quad.getSprite().contents().name())
+        return quads.stream().filter(quad -> quad.getTintIndex() < 0 || !sprite.equals(quad.getSprite().contents().name())
                 || (mask & (1 << quad.getTintIndex())) != 0).toList();
     }
 }

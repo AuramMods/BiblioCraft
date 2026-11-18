@@ -5,6 +5,7 @@ import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.CookieJarBlock;
 import art.arcane.bibliocraft.block.DeskBellBlock;
+import art.arcane.bibliocraft.block.DeskBlock;
 import art.arcane.bibliocraft.block.DinnerPlateBlock;
 import art.arcane.bibliocraft.block.DiscRackBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
@@ -126,7 +127,7 @@ public final class ModBlocks {
     public static final RegistryObject<Block> LABEL =
             register("label", () -> shapedWoodEntity(SHAPE_LABEL, "label"));
     public static final RegistryObject<Block> DESK =
-            register("desk", () -> fullWoodEntity("desk"));
+            register("desk", () -> new DeskBlock(woodProps()), block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> TABLE =
             register("table", () -> shapedWoodEntity(SHAPE_TABLE, "table"));
     public static final RegistryObject<Block> SEAT =

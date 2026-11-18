@@ -1,12 +1,15 @@
 package art.arcane.bibliocraft.network;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.menu.DeskBookMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -35,8 +38,24 @@ public final class ModNetwork {
         registerServerbound(TypeFlagPacket.class, TypeFlagPacket::new);
         registerServerbound(TypeDeletePacket.class, TypeDeletePacket::new);
         registerServerbound(TypeUpdatePacket.class, TypeUpdatePacket::new);
-        registerServerbound(McbEditPacket.class, McbEditPacket::new);
-        registerServerbound(McbPagePacket.class, McbPagePacket::new);
+        CHANNEL.messageBuilder(McbEditPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(McbEditPacket::encode).decoder(McbEditPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof DeskBookMenu menu && menu.containerId == message.menuId()) {
+                        menu.save(player, message.pages(), message.title(), message.page());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(McbPagePacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(McbPagePacket::encode).decoder(McbPagePacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof DeskBookMenu menu && menu.containerId == message.menuId()) {
+                        menu.turnPage(player, message.page());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         registerServerbound(PanelerPacket.class, PanelerPacket::new);
         registerServerbound(RecipeCraftPacket.class, RecipeCraftPacket::new);
         registerServerbound(StockTitlePacket.class, StockTitlePacket::new);
@@ -102,8 +121,33 @@ public final class ModNetwork {
     public static final class TypeFlagPacket extends EmptyPacket {}
     public static final class TypeDeletePacket extends EmptyPacket {}
     public static final class TypeUpdatePacket extends EmptyPacket {}
-    public static final class McbEditPacket extends EmptyPacket {}
-    public static final class McbPagePacket extends EmptyPacket {}
+    public record McbEditPacket(int menuId, int page, List<String> pages, Optional<String> title) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeVarInt(page);
+            buffer.writeCollection(pages, (buf, text) -> buf.writeUtf(text, DeskBookMenu.MAX_PAGE_LENGTH));
+            buffer.writeOptional(title, (buf, text) -> buf.writeUtf(text, DeskBookMenu.MAX_TITLE_LENGTH));
+        }
+
+        private static McbEditPacket decode(FriendlyByteBuf buffer) {
+            int menuId = buffer.readVarInt();
+            int page = buffer.readVarInt();
+            List<String> pages = buffer.readCollection(FriendlyByteBuf.limitValue(ArrayList::new, DeskBookMenu.MAX_PAGES),
+                    buf -> buf.readUtf(DeskBookMenu.MAX_PAGE_LENGTH));
+            return new McbEditPacket(menuId, page, pages, buffer.readOptional(buf -> buf.readUtf(DeskBookMenu.MAX_TITLE_LENGTH)));
+        }
+    }
+
+    public record McbPagePacket(int menuId, int page) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeVarInt(page);
+        }
+
+        private static McbPagePacket decode(FriendlyByteBuf buffer) {
+            return new McbPagePacket(buffer.readVarInt(), buffer.readVarInt());
+        }
+    }
     public static final class PanelerPacket extends EmptyPacket {}
     public static final class RecipeCraftPacket extends EmptyPacket {}
     public static final class StockTitlePacket extends EmptyPacket {}

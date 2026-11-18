@@ -80,7 +80,15 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - An existing north-facing writer keeps its geometry and takes input at its west-facing keyboard. Newly placed writers point their keyboard toward the player. The top of the visible keyboard also takes manual input. The original blank page is visible on the inventory model.
 - Saved `Items` slots 0 and 1 store up to 64 paper and one finished book. The legacy `bookWriteCount` field and modern `Author` and `Voice` fields preserve progress. Placeholder block entities without these fields start empty. A writing session uses eight sheets and creates a valid eight-page book. Named mobs can type from the adjacent cell in front and use their original species vocabulary.
 - All sixteen crafting recipes use matching terracotta and ink sac. The white recipe also accepts the white dye from the earlier 1.20.1 port. The same `typewriter_recolor` recipe ID changes `BlockStateTag.color`, which also carries through ordinary pick-block and loot. The finished book and excess paper are separate drops.
-- The original paper, typing, completion, and removal sounds use positional sound events. Shared locks apply to clicks, drills, and automation. The desk output route depends on the writing desk's legacy book slots.
+- The original paper, typing, completion, and removal sounds use positional sound events. Shared locks apply to clicks, drills, and automation. The typewriter offers finished books to the desk directly below on its automatic tick.
+
+## Writing Desk Port
+
+- The block, item, block entity, and inventory menu retain `bibliocraft:desk`. `Items` holds the open book or map in slot 0, the stacked books in slots 1–8, and the carpet in slot 9. `Page` remembers the open book's current page. Earlier placeholder saves default to a single oak desk with empty slots.
+- The original OBJ groups select the single, left, center, and right desk sections. All 24 group names, 484 vertices, 930 texture coordinates, 152 normals, and 672 faces match the 1.12.2 OBJ. Distinct material assignments let Forge filter the nine book meshes. Model data shows the proper number of books, the open book, and the carpet color. The leg, shelf, and writing surface bounds follow each section. The vanilla map renderer displays saved map pixels on the writing surface and receives periodic map updates through the configured map update rate.
+- Both drills use two sneak-clicks to join or separate aligned, adjacent desks. Selection belongs to the player and drill stack. Breaking a desk clears adjoining links. The desk's existing saved facing still selects the same authored geometry.
+- The original nine-slot desk inventory screen opens through the ordinary menu. A separate book menu edits or signs a writable book in place, or reads a written book and remembers the page. The server ties edits to the live menu and the same book in the same desk. The client uses the book texture and confines typing to the page editor.
+- The typewriter fills the desk's left stack, then the right. A full or locked desk leaves the output in the writer. The original shaped pattern crafts all twelve furniture materials. Pick-block and loot preserve the saved material, and the desk returns its books and carpet separately.
 
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
@@ -218,7 +226,8 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `cookie_jar` | `x/z:0.18-0.82 y:0.0-0.75` | old `BlockCookieJar` bbox |
 | `dinner_plate` | `x:0.1536-0.8464 y:0.0-0.0767 z:0.11-0.91` | OBJ extents (`dinnerplate.obj`) |
 | `disc_rack` | `x:0.0-1.0 y:0.0-0.35 z:0.25-0.75` | old floor disc-rack bbox |
-| `fancy_workbench`, `desk`, `printing_press` | full shape placeholder (BE-backed) | pending deeper shape/state pass |
+| `desk` | Rotated top, legs, shelf, and back panel | Separate shapes for the four legacy joined desk sections |
+| `fancy_workbench`, `printing_press` | full shape placeholder (BE-backed) | pending deeper shape/state pass |
 
 ## Current 1.20 Registry Skeleton Snapshot
 - The shelf preserves the `bibliocraft:shelf` block, item, block-entity, and menu IDs. Its feature implementation is in `ShelfBlock`, `ShelfBlockEntity`, `ShelfMenu`, `ShelfScreen`, and `ShelfRenderer`.
@@ -427,7 +436,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `armor_stand`, `label`, `desk`, `table`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- `armor_stand`, `label`, `table`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`

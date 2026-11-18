@@ -6,4 +6,50 @@ Kd 1.00 1.00 1.00
 map_Kd minecraft:block/oak_planks
 newmtl carpet
 Kd 1.00 1.00 1.00
+forge_TintIndex 9
 map_Kd minecraft:block/white_wool
+
+newmtl lbook1
+Kd 1.00 1.00 1.00
+forge_TintIndex 0
+map_Kd bibliocraft:block/desk_books
+
+newmtl lbook2
+Kd 1.00 1.00 1.00
+forge_TintIndex 1
+map_Kd bibliocraft:block/desk_books
+
+newmtl lbook3
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd bibliocraft:block/desk_books
+
+newmtl lbook4
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd bibliocraft:block/desk_books
+
+newmtl rbook1
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd bibliocraft:block/desk_books
+
+newmtl rbook2
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd bibliocraft:block/desk_books
+
+newmtl rbook3
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd bibliocraft:block/desk_books
+
+newmtl rbook4
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd bibliocraft:block/desk_books
+
+newmtl bookOpen
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd bibliocraft:block/desk_books

@@ -5,6 +5,8 @@ import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.BookcaseMenu;
 import art.arcane.bibliocraft.menu.CookieJarMenu;
+import art.arcane.bibliocraft.menu.DeskBookMenu;
+import art.arcane.bibliocraft.menu.DeskMenu;
 import art.arcane.bibliocraft.menu.DinnerPlateMenu;
 import art.arcane.bibliocraft.menu.DiscRackMenu;
 import art.arcane.bibliocraft.menu.DisplayCaseMenu;
@@ -43,7 +45,10 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<DisplayCaseMenu>> CASE =
             MENUS.register("case", () -> new MenuType<>(DisplayCaseMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PlaceholderMenu>> LABEL = register("label");
-    public static final RegistryObject<MenuType<PlaceholderMenu>> DESK = register("desk");
+    public static final RegistryObject<MenuType<DeskMenu>> DESK =
+            MENUS.register("desk", () -> new MenuType<>(DeskMenu::new, FeatureFlags.DEFAULT_FLAGS));
+    public static final RegistryObject<MenuType<DeskBookMenu>> DESK_BOOK =
+            MENUS.register("desk_book", () -> IForgeMenuType.create(DeskBookMenu::new));
     public static final RegistryObject<MenuType<PlaceholderMenu>> TABLE = register("table");
     public static final RegistryObject<MenuType<CookieJarMenu>> COOKIE_JAR =
             MENUS.register("cookie_jar", () -> new MenuType<>(CookieJarMenu::new, FeatureFlags.DEFAULT_FLAGS));
@@ -69,7 +74,6 @@ public final class ModMenus {
     static {
         mapBlock("armor_stand", ARMOR_STAND);
         mapBlock("label", LABEL);
-        mapBlock("desk", DESK);
         mapBlock("table", TABLE);
         mapBlock("fancy_sign", FANCY_SIGN);
         mapBlock("fancy_workbench", FANCY_WORKBENCH);

@@ -64,7 +64,18 @@ public final class TypewriterBlockEntity extends FurnitureInventoryBlockEntity {
             return;
         }
         ticks = 0;
-        if (!(level instanceof ServerLevel server) || !BiblioConfig.COMMON.enableTypewriter.get() || !readyToType()) {
+        if (!(level instanceof ServerLevel server) || !BiblioConfig.COMMON.enableTypewriter.get()) {
+            return;
+        }
+        if (hasBook) {
+            if (!isLocked() && server.getBlockEntity(worldPosition.below()) instanceof DeskBlockEntity desk
+                    && desk.receiveWrittenBook(getItem(BOOK))) {
+                setItem(BOOK, ItemStack.EMPTY);
+                playSound(ModSounds.REMOVEBOOK.get());
+            }
+            return;
+        }
+        if (!readyToType()) {
             return;
         }
         if (progress == LAST_LINE && !author.isEmpty()) {

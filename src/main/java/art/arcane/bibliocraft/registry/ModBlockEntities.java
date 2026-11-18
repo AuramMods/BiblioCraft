@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBellBlockEntity;
+import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.blockentity.DinnerPlateBlockEntity;
 import art.arcane.bibliocraft.blockentity.DiscRackBlockEntity;
 import art.arcane.bibliocraft.blockentity.SwordPedestalBlockEntity;
@@ -53,8 +54,9 @@ public final class ModBlockEntities {
                     BlockEntityType.Builder.of(RackBlockEntity::toolRack, ModBlocks.TOOL_RACK.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> LABEL =
             register("label", ModBlocks.LABEL);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> DESK =
-            register("desk", ModBlocks.DESK);
+    public static final RegistryObject<BlockEntityType<DeskBlockEntity>> DESK =
+            BLOCK_ENTITIES.register("desk", () ->
+                    BlockEntityType.Builder.of(DeskBlockEntity::new, ModBlocks.DESK.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> TABLE =
             register("table", ModBlocks.TABLE);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> SEAT =

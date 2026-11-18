@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:desk",
   "pattern": [
     "T F",
     "SSS",
@@ -14,22 +14,12 @@
     "F": {
       "item": "minecraft:feather"
     },
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ],
-    "P": [
-      {
-        "tag": "minecraft:planks"
-      },
-      {
-        "item": "bibliocraft:framing_sheet"
-      }
-    ]
+    "S": {
+      "item": "minecraft:oak_slab"
+    },
+    "P": {
+      "item": "minecraft:oak_planks"
+    }
   },
   "result": {
     "item": "bibliocraft:desk"

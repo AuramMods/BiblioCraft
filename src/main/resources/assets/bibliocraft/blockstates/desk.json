@@ -1,18 +1,63 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,section=single": {
       "model": "bibliocraft:block/desk"
     },
-    "facing=east": {
+    "facing=east,section=single": {
       "model": "bibliocraft:block/desk",
       "y": 90
     },
-    "facing=south": {
+    "facing=south,section=single": {
       "model": "bibliocraft:block/desk",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,section=single": {
       "model": "bibliocraft:block/desk",
+      "y": 270
+    },
+    "facing=north,section=left": {
+      "model": "bibliocraft:block/desk_left"
+    },
+    "facing=east,section=left": {
+      "model": "bibliocraft:block/desk_left",
+      "y": 90
+    },
+    "facing=south,section=left": {
+      "model": "bibliocraft:block/desk_left",
+      "y": 180
+    },
+    "facing=west,section=left": {
+      "model": "bibliocraft:block/desk_left",
+      "y": 270
+    },
+    "facing=north,section=right": {
+      "model": "bibliocraft:block/desk_right"
+    },
+    "facing=east,section=right": {
+      "model": "bibliocraft:block/desk_right",
+      "y": 90
+    },
+    "facing=south,section=right": {
+      "model": "bibliocraft:block/desk_right",
+      "y": 180
+    },
+    "facing=west,section=right": {
+      "model": "bibliocraft:block/desk_right",
+      "y": 270
+    },
+    "facing=north,section=center": {
+      "model": "bibliocraft:block/desk_center"
+    },
+    "facing=east,section=center": {
+      "model": "bibliocraft:block/desk_center",
+      "y": 90
+    },
+    "facing=south,section=center": {
+      "model": "bibliocraft:block/desk_center",
+      "y": 180
+    },
+    "facing=west,section=center": {
+      "model": "bibliocraft:block/desk_center",
       "y": 270
     }
   }

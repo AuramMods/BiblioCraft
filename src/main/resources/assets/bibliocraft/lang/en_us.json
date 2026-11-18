@@ -95,6 +95,8 @@
   "block.bibliocraft.tool_rack": "Tool Rack",
   "block.bibliocraft.label": "Label",
   "block.bibliocraft.desk": "Desk",
+  "message.bibliocraft.desk.selected": "Select a neighboring desk to join or separate it.",
+  "message.bibliocraft.desk.invalid": "Select an accessible desk beside this one that faces the same way.",
   "block.bibliocraft.table": "Table",
   "block.bibliocraft.seat": "Seat",
   "block.bibliocraft.clock": "Clock",

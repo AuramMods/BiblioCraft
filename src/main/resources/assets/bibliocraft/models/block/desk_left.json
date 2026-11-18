@@ -1,0 +1,19 @@
+{
+  "parent": "bibliocraft:block/desk",
+  "visibility": {
+    "candle": true,
+    "pen": false,
+    "deskTopEndRight": false,
+    "deskTopEndLeft": true,
+    "legLeft": true,
+    "legRight": false,
+    "shelfSingle": false,
+    "deskTopRight": true,
+    "deskTopLeft": false,
+    "shelfRight": false,
+    "shelfLeft": true,
+    "backRight": true,
+    "backLeft": false,
+    "backBoth": false
+  }
+}
