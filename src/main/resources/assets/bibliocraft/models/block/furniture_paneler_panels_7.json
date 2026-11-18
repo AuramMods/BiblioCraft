@@ -1,0 +1,12 @@
+{
+  "parent": "bibliocraft:block/furniture_paneler",
+  "visibility": {
+    "panel1": true,
+    "panel2": true,
+    "panel3": true,
+    "panel4": true,
+    "panel5": true,
+    "panel6": true,
+    "panel7": true
+  }
+}

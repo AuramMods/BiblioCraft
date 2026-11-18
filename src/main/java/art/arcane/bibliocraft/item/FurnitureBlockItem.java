@@ -1,11 +1,18 @@
 package art.arcane.bibliocraft.item;
 
 import art.arcane.bibliocraft.block.FurnitureMaterial;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class FurnitureBlockItem extends BlockItem {
     public FurnitureBlockItem(Block block, Properties properties) {
@@ -17,6 +24,17 @@ public class FurnitureBlockItem extends BlockItem {
         FurnitureMaterial.Wood wood = FurnitureMaterial.fromItem(stack).wood();
         return Component.translatable("item.bibliocraft.furniture_name",
                 Component.translatable("wood.bibliocraft." + wood.id()), super.getName(stack));
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
+        var panel = FurnitureMaterial.fromItem(stack).panel();
+        if (panel != null) {
+            Component name = BuiltInRegistries.BLOCK.getOptional(panel).map(Block::getName)
+                    .orElseGet(() -> Component.literal(panel.toString()));
+            tooltip.add(Component.translatable("item.bibliocraft.furniture_panel", name).withStyle(ChatFormatting.GRAY));
+        }
     }
 
     public void addVariants(CreativeModeTab.Output output) {

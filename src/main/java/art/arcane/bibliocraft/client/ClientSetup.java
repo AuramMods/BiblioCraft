@@ -13,6 +13,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.util.Set;
+
 @Mod.EventBusSubscriber(modid = BiblioCraft.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ClientSetup {
     private ClientSetup() {}
@@ -20,18 +22,22 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ModBlockEntities.SHELF.get(), ShelfRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.FURNITURE_PANELER.get(), FurniturePanelerRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerScreens(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(ModMenus.SHELF.get(), ShelfScreen::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(ModMenus.SHELF.get(), ShelfScreen::new);
+            MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
+        });
     }
 
     @SubscribeEvent
     public static void wrapFurnitureModels(ModelEvent.ModifyBakingResult event) {
-        var shelf = ModBlocks.SHELF.getId();
+        var furniture = Set.of(ModBlocks.SHELF.getId().getPath(), ModBlocks.FURNITURE_PANELER.getId().getPath());
         event.getModels().replaceAll((id, model) -> id instanceof ModelResourceLocation
-                && id.getNamespace().equals(shelf.getNamespace()) && id.getPath().equals(shelf.getPath())
+                && id.getNamespace().equals(BiblioCraft.MODID) && furniture.contains(id.getPath())
                 ? new FurnitureMaterialModel(model) : model);
     }
 }

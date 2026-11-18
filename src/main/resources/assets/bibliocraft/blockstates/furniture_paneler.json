@@ -1,18 +1,138 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,panels=0": {
       "model": "bibliocraft:block/furniture_paneler"
     },
-    "facing=east": {
+    "facing=east,panels=0": {
       "model": "bibliocraft:block/furniture_paneler",
       "y": 90
     },
-    "facing=south": {
+    "facing=south,panels=0": {
       "model": "bibliocraft:block/furniture_paneler",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,panels=0": {
       "model": "bibliocraft:block/furniture_paneler",
+      "y": 270
+    },
+    "facing=north,panels=1": {
+      "model": "bibliocraft:block/furniture_paneler_panels_1"
+    },
+    "facing=east,panels=1": {
+      "model": "bibliocraft:block/furniture_paneler_panels_1",
+      "y": 90
+    },
+    "facing=south,panels=1": {
+      "model": "bibliocraft:block/furniture_paneler_panels_1",
+      "y": 180
+    },
+    "facing=west,panels=1": {
+      "model": "bibliocraft:block/furniture_paneler_panels_1",
+      "y": 270
+    },
+    "facing=north,panels=2": {
+      "model": "bibliocraft:block/furniture_paneler_panels_2"
+    },
+    "facing=east,panels=2": {
+      "model": "bibliocraft:block/furniture_paneler_panels_2",
+      "y": 90
+    },
+    "facing=south,panels=2": {
+      "model": "bibliocraft:block/furniture_paneler_panels_2",
+      "y": 180
+    },
+    "facing=west,panels=2": {
+      "model": "bibliocraft:block/furniture_paneler_panels_2",
+      "y": 270
+    },
+    "facing=north,panels=3": {
+      "model": "bibliocraft:block/furniture_paneler_panels_3"
+    },
+    "facing=east,panels=3": {
+      "model": "bibliocraft:block/furniture_paneler_panels_3",
+      "y": 90
+    },
+    "facing=south,panels=3": {
+      "model": "bibliocraft:block/furniture_paneler_panels_3",
+      "y": 180
+    },
+    "facing=west,panels=3": {
+      "model": "bibliocraft:block/furniture_paneler_panels_3",
+      "y": 270
+    },
+    "facing=north,panels=4": {
+      "model": "bibliocraft:block/furniture_paneler_panels_4"
+    },
+    "facing=east,panels=4": {
+      "model": "bibliocraft:block/furniture_paneler_panels_4",
+      "y": 90
+    },
+    "facing=south,panels=4": {
+      "model": "bibliocraft:block/furniture_paneler_panels_4",
+      "y": 180
+    },
+    "facing=west,panels=4": {
+      "model": "bibliocraft:block/furniture_paneler_panels_4",
+      "y": 270
+    },
+    "facing=north,panels=5": {
+      "model": "bibliocraft:block/furniture_paneler_panels_5"
+    },
+    "facing=east,panels=5": {
+      "model": "bibliocraft:block/furniture_paneler_panels_5",
+      "y": 90
+    },
+    "facing=south,panels=5": {
+      "model": "bibliocraft:block/furniture_paneler_panels_5",
+      "y": 180
+    },
+    "facing=west,panels=5": {
+      "model": "bibliocraft:block/furniture_paneler_panels_5",
+      "y": 270
+    },
+    "facing=north,panels=6": {
+      "model": "bibliocraft:block/furniture_paneler_panels_6"
+    },
+    "facing=east,panels=6": {
+      "model": "bibliocraft:block/furniture_paneler_panels_6",
+      "y": 90
+    },
+    "facing=south,panels=6": {
+      "model": "bibliocraft:block/furniture_paneler_panels_6",
+      "y": 180
+    },
+    "facing=west,panels=6": {
+      "model": "bibliocraft:block/furniture_paneler_panels_6",
+      "y": 270
+    },
+    "facing=north,panels=7": {
+      "model": "bibliocraft:block/furniture_paneler_panels_7"
+    },
+    "facing=east,panels=7": {
+      "model": "bibliocraft:block/furniture_paneler_panels_7",
+      "y": 90
+    },
+    "facing=south,panels=7": {
+      "model": "bibliocraft:block/furniture_paneler_panels_7",
+      "y": 180
+    },
+    "facing=west,panels=7": {
+      "model": "bibliocraft:block/furniture_paneler_panels_7",
+      "y": 270
+    },
+    "facing=north,panels=8": {
+      "model": "bibliocraft:block/furniture_paneler_panels_8"
+    },
+    "facing=east,panels=8": {
+      "model": "bibliocraft:block/furniture_paneler_panels_8",
+      "y": 90
+    },
+    "facing=south,panels=8": {
+      "model": "bibliocraft:block/furniture_paneler_panels_8",
+      "y": 180
+    },
+    "facing=west,panels=8": {
+      "model": "bibliocraft:block/furniture_paneler_panels_8",
       "y": 270
     }
   }

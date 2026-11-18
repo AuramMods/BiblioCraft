@@ -63,6 +63,33 @@ public final class FurnitureMaterialGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void panelerRecipesPreserveMaterialsAndReturnTheSaw(GameTestHelper helper) {
+        Player player = helper.makeMockSurvivalPlayer();
+        var grid = new TransientCraftingContainer(new CraftingMenu(0, player.getInventory()), 3, 3);
+        grid.setItem(0, new ItemStack(Items.IRON_INGOT));
+        grid.setItem(1, new ItemStack(ModItems.FRAMING_SAW.get()));
+        grid.setItem(2, new ItemStack(Items.IRON_INGOT));
+        for (FurnitureMaterial.Wood wood : FurnitureMaterial.Wood.values()) {
+            boolean framed = wood == FurnitureMaterial.Wood.FRAMED;
+            Item plank = framed ? ModItems.FRAMING_SHEET.get() : vanillaItem(wood.id() + "_planks");
+            Item slab = framed ? ModItems.FRAMING_BOARD.get() : vanillaItem(wood.id() + "_slab");
+            for (int column = 0; column < 3; column++) {
+                grid.setItem(3 + column, new ItemStack(slab));
+                grid.setItem(6 + column, new ItemStack(plank));
+            }
+            CraftingRecipe recipe = helper.getLevel().getRecipeManager()
+                    .getRecipeFor(RecipeType.CRAFTING, grid, helper.getLevel()).orElseThrow();
+            ItemStack result = recipe.assemble(grid, helper.getLevel().registryAccess());
+            helper.assertTrue(result.is(ModBlocks.FURNITURE_PANELER.get().asItem())
+                            && FurnitureMaterial.fromItem(result).wood() == wood,
+                    "The paneler should match the crafted " + wood.id() + " material");
+            helper.assertTrue(recipe.getRemainingItems(grid).get(1).is(ModItems.FRAMING_SAW.get()),
+                    "Shaping a paneler should return the saw");
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void paneledShelfSurvivesPlacementSavingAndDrops(GameTestHelper helper) {
         BlockPos support = new BlockPos(2, 0, 2);
         helper.setBlock(support, Blocks.STONE);

@@ -2,6 +2,8 @@ package art.arcane.bibliocraft.event;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
+import art.arcane.bibliocraft.block.FurniturePanelerBlock;
+import art.arcane.bibliocraft.block.ShelfBlock;
 import art.arcane.bibliocraft.entity.SeatEntity;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModEntities;
@@ -88,11 +90,12 @@ public final class CommonGameplayEvents {
     }
 
     @SubscribeEvent
-    public static void onShelfMenuInteract(PlayerInteractEvent.RightClickBlock event) {
+    public static void onFurnitureSecondaryUse(PlayerInteractEvent.RightClickBlock event) {
+        var block = event.getLevel().getBlockState(event.getPos()).getBlock();
         if (event.getHand() == InteractionHand.MAIN_HAND && event.getEntity().isShiftKeyDown()
                 && event.getUseBlock() == Event.Result.DEFAULT
-                && event.getLevel().getBlockState(event.getPos()).is(ModBlocks.SHELF.get())
-                && BiblioFeatureToggles.isBlockEnabled(ModBlocks.SHELF.getId())) {
+                && (block instanceof ShelfBlock || block instanceof FurniturePanelerBlock)
+                && BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(block))) {
             event.setUseBlock(Event.Result.ALLOW);
         }
     }

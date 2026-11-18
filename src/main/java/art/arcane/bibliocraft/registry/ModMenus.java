@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.ShelfMenu;
+import art.arcane.bibliocraft.menu.FurniturePanelerMenu;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.flag.FeatureFlags;
@@ -40,7 +41,8 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<PlaceholderMenu>> FANCY_WORKBENCH = register("fancy_workbench");
     public static final RegistryObject<MenuType<PlaceholderMenu>> PAINTING_PRESS = register("painting_press");
     public static final RegistryObject<MenuType<PlaceholderMenu>> PAINTING = register("painting");
-    public static final RegistryObject<MenuType<PlaceholderMenu>> FURNITURE_PANELER = register("furniture_paneler");
+    public static final RegistryObject<MenuType<FurniturePanelerMenu>> FURNITURE_PANELER =
+            MENUS.register("furniture_paneler", () -> new MenuType<>(FurniturePanelerMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PlaceholderMenu>> FRAMED_CHEST = register("framed_chest");
     public static final RegistryObject<MenuType<PlaceholderMenu>> CLIPBOARD = register("clipboard");
     public static final RegistryObject<MenuType<PlaceholderMenu>> CLOCK = register("clock");
@@ -71,7 +73,6 @@ public final class ModMenus {
         mapBlock("painting_frame_simple", PAINTING);
         mapBlock("painting_frame_middle", PAINTING);
         mapBlock("painting_frame_fancy", PAINTING);
-        mapBlock("furniture_paneler", FURNITURE_PANELER);
         mapBlock("framed_chest", FRAMED_CHEST);
         mapBlock("clipboard", CLIPBOARD);
         mapBlock("clock", CLOCK);

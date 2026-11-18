@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.ColorFacingEntityBlock;
 import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.FloorWallFacingEntityBlock;
+import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.ShelfBlock;
@@ -97,7 +98,8 @@ public final class ModBlocks {
     public static final RegistryObject<Block> LAMP_IRON =
             register("lamp_iron", () -> mountedLightEntity(SHAPE_LAMP, SHAPE_LAMP_WALL, SHAPE_LAMP_CEILING, "bibliolight"));
     public static final RegistryObject<Block> FURNITURE_PANELER =
-            register("furniture_paneler", () -> shapedWoodEntity(SHAPE_FURNITURE_PANELER, "furniture_paneler"));
+            register("furniture_paneler", () -> new FurniturePanelerBlock(woodProps(), SHAPE_FURNITURE_PANELER),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> FRAMED_CHEST =
             register("framed_chest", () -> shapedWoodEntity(SHAPE_FRAMED_CHEST, "framed_chest"));
     public static final RegistryObject<Block> FANCY_SIGN =

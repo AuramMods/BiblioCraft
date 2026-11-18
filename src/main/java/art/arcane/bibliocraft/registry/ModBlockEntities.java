@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
+import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,8 +27,9 @@ public final class ModBlockEntities {
             register("clipboard", ModBlocks.CLIPBOARD);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> BIBLIOLIGHT =
             register("bibliolight", ModBlocks.LAMP_GOLD, ModBlocks.LAMP_IRON, ModBlocks.LANTERN_GOLD, ModBlocks.LANTERN_IRON);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> FURNITURE_PANELER =
-            register("furniture_paneler", ModBlocks.FURNITURE_PANELER);
+    public static final RegistryObject<BlockEntityType<FurniturePanelerBlockEntity>> FURNITURE_PANELER =
+            BLOCK_ENTITIES.register("furniture_paneler", () ->
+                    BlockEntityType.Builder.of(FurniturePanelerBlockEntity::new, ModBlocks.FURNITURE_PANELER.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> POTION_SHELF =
             register("potion_shelf", ModBlocks.POTION_SHELF);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> TOOL_RACK =

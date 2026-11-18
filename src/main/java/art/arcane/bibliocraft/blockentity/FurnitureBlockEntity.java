@@ -33,7 +33,13 @@ public class FurnitureBlockEntity extends BlockEntity {
         super.load(tag);
         FurnitureMaterial previous = material;
         material = FurnitureMaterial.fromTag(tag);
-        if (!material.equals(previous) && level != null && level.isClientSide) {
+        if (!material.equals(previous)) {
+            refreshModel();
+        }
+    }
+
+    protected void refreshModel() {
+        if (level != null && level.isClientSide) {
             requestModelDataUpdate();
             BlockState state = getBlockState();
             level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);

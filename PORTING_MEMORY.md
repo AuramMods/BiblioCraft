@@ -13,7 +13,8 @@
 - Shelves now have recipes for all eleven Forge 1.20.1 vanilla woods and blank framed furniture. A reusable baked model replaces only the wood sprite's UVs. Both the placed shelf and its item use the saved material with the same mesh, rotation, and visible parts.
 - The current material is stored under `FurnitureMaterial` on the block entity and under `BlockEntityTag.FurnitureMaterial` on the item. Untagged existing shelves keep the oak appearance. A custom frame retains the panel source block ID and uses its default model's particle sprite, with the blank frame as a fallback if the source is unavailable. Loot and normal pick-block copy material without copying contents.
 - All eight Forge GameTests passed, including all twelve real crafting recipes, the reusable framing saw, and material transfer through placement, save/load, update tags, pick-block, and drops. A muted virtual-display client rendered the shelf palette in-world and in its hotbar and refreshed both after a live panel change.
-- Remaining shelf parity includes the furniture paneler workflow for applying custom panels, shared drill/shift and lock interactions, and the legacy optional light emitted by stored blocks.
+- The furniture paneler accepts solid material blocks and framed furniture through its menu and top slots. Only a successful collection consumes the inputs. Its output is derived on the server for each viewer, and the same block ID drives the stock-stack texture and the finished furniture. The legacy OBJ groups show zero to eight panels based on the saved input count. Eleven Forge GameTests now pass, including all twelve paneler recipes. The muted client opened the legacy screen, shift-clicked out a brick-paneled shelf, and placed it with the correct texture.
+- Remaining shelf parity includes shared drill/shift and lock interactions and the legacy optional light emitted by stored blocks.
 
 ## Initial Breadth Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).
@@ -365,9 +366,8 @@
 - Legacy block render alignment relied on 1.12 `ExtendedBlockState` + `OBJModel.OBJState` transforms (angle/shift/vertical variants); static 1.20 OBJ JSONs can still appear offset until those transforms are ported.
 
 ## Immediate Next Steps (When Continuing)
-- Use the shelf to prove a material model that can use the same geometry for different vanilla woods and framed textures. Carry material state through the item, block entity, drop, and pick-block paths.
+- Apply the verified shelf and paneler material system to the bookcases, potion shelves, and racks as they gain their legacy behavior. Preserve their own material slots, display transforms, slot rules, and interaction paths.
 - Build rendered comparisons for high-risk parts and rotations before scaling to more furniture. Check the source geometry, transformed shape, item position, and visible materials together.
-- Port bookcases, potion shelves, and racks from the tested furniture pattern. Preserve their separate slot rules and interaction paths.
 - Track each remaining family and its verification in `PORTING.md`, and use `PORTING_MANIFEST.md` to locate the legacy implementation.
 
 ## Workspace Reminder

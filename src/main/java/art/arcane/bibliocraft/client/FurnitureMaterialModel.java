@@ -1,7 +1,9 @@
 package art.arcane.bibliocraft.client;
 
+import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.FurnitureMaterial;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
+import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -30,6 +32,8 @@ import java.util.List;
 
 final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
     private static final ResourceLocation WOOD_SPRITE = FurnitureMaterial.Wood.OAK.texture();
+    private static final ResourceLocation PANEL_SPRITE =
+            ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/typewriter_paper_blank");
     private final LoadingCache<QuadTexture, BakedQuad> quads = CacheBuilder.newBuilder()
             .maximumSize(4096)
             .build(CacheLoader.from(FurnitureMaterialModel::replaceSprite));
@@ -46,8 +50,13 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
                                              @NotNull RandomSource random, @NotNull ModelData data,
                                              @Nullable RenderType renderType) {
         List<BakedQuad> original = super.getQuads(state, side, random, data, renderType);
+        if (original.isEmpty()) {
+            return original;
+        }
         FurnitureMaterial material = data.get(FurnitureBlockEntity.MATERIAL);
-        return isDefault(material) || original.isEmpty() ? original : retexture(original, sprite(material));
+        TextureAtlasSprite wood = isDefault(material) ? null : sprite(material);
+        TextureAtlasSprite panel = panelSprite(data.get(FurniturePanelerBlockEntity.PANEL_SOURCE));
+        return wood == null && panel == null ? original : retexture(original, wood, panel);
     }
 
     @Override
@@ -77,18 +86,23 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         return new BakedModelWrapper<>(pass.model()) {
             @Override
             public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource random) {
-                return retexture(super.getQuads(state, side, random), pass.sprite());
+                return retexture(super.getQuads(state, side, random), pass.sprite(), null);
             }
         };
     }
 
-    private List<BakedQuad> retexture(List<BakedQuad> original, TextureAtlasSprite texture) {
+    private List<BakedQuad> retexture(List<BakedQuad> original, @Nullable TextureAtlasSprite wood,
+                                       @Nullable TextureAtlasSprite panel) {
         if (original.isEmpty()) {
             return original;
         }
         return original.stream()
-                .map(quad -> quad.getSprite().contents().name().equals(WOOD_SPRITE)
-                        ? quads.getUnchecked(new QuadTexture(quad, texture)) : quad)
+                .map(quad -> {
+                    ResourceLocation source = quad.getSprite().contents().name();
+                    TextureAtlasSprite texture = source.equals(WOOD_SPRITE) ? wood
+                            : source.equals(PANEL_SPRITE) ? panel : null;
+                    return texture == null ? quad : quads.getUnchecked(new QuadTexture(quad, texture));
+                })
                 .toList();
     }
 
@@ -96,21 +110,26 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         return material == null || FurnitureMaterial.OAK.equals(material);
     }
 
-    @SuppressWarnings("deprecation")
     private static TextureAtlasSprite sprite(FurnitureMaterial material) {
-        Minecraft client = Minecraft.getInstance();
-        if (material.panel() != null) {
-            var block = BuiltInRegistries.BLOCK.getOptional(material.panel());
-            if (block.isPresent()) {
-                TextureAtlasSprite panel = client.getBlockRenderer().getBlockModel(block.get().defaultBlockState())
-                        .getParticleIcon(ModelData.EMPTY);
-                if (panel.atlasLocation().equals(TextureAtlas.LOCATION_BLOCKS)
-                        && !MissingTextureAtlasSprite.getLocation().equals(panel.contents().name())) {
-                    return panel;
-                }
-            }
+        TextureAtlasSprite panel = panelSprite(material.panel());
+        return panel == null ? Minecraft.getInstance().getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS)
+                .getSprite(material.wood().texture()) : panel;
+    }
+
+    @Nullable
+    @SuppressWarnings("deprecation")
+    private static TextureAtlasSprite panelSprite(@Nullable ResourceLocation source) {
+        if (source == null) {
+            return null;
         }
-        return client.getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS).getSprite(material.wood().texture());
+        var block = BuiltInRegistries.BLOCK.getOptional(source);
+        if (block.isEmpty()) {
+            return null;
+        }
+        TextureAtlasSprite panel = Minecraft.getInstance().getBlockRenderer().getBlockModel(block.get().defaultBlockState())
+                .getParticleIcon(ModelData.EMPTY);
+        return panel.atlasLocation().equals(TextureAtlas.LOCATION_BLOCKS)
+                && !MissingTextureAtlasSprite.getLocation().equals(panel.contents().name()) ? panel : null;
     }
 
     private static BakedQuad replaceSprite(QuadTexture entry) {

@@ -6,7 +6,6 @@ import art.arcane.bibliocraft.menu.ShelfMenu;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -14,7 +13,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +23,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ShelfBlock extends HorizontalFacingEntityBlock {
+public class ShelfBlock extends InventoryFurnitureBlock {
     public static final BooleanProperty TOP = BooleanProperty.create("top");
 
     public ShelfBlock(Properties properties, VoxelShape shape) {
@@ -110,23 +108,5 @@ public class ShelfBlock extends HorizontalFacingEntityBlock {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
-        ItemStack stack = super.getCloneItemStack(level, pos, state);
-        if (level.getBlockEntity(pos) instanceof ShelfBlockEntity shelf) {
-            return shelf.getMaterial().applyTo(stack);
-        }
-        return stack;
-    }
-
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState replacement, boolean moving) {
-        if (!level.isClientSide && !state.is(replacement.getBlock())
-                && level.getBlockEntity(pos) instanceof ShelfBlockEntity shelf) {
-            Containers.dropContents(level, pos, shelf);
-        }
-        super.onRemove(state, level, pos, replacement, moving);
     }
 }
