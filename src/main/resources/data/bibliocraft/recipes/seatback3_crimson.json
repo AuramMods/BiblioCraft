@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "bibliocraft:seatback3",
+  "ingredients": [
+    {
+      "item": "bibliocraft:seatback2"
+    },
+    {
+      "item": "minecraft:crimson_slab"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:seatback3",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "crimson"
+        }
+      }
+    }
+  }
+}

@@ -1,12 +1,154 @@
-newmtl wood
+newmtl stool
 Kd 1.00 1.00 1.00
+forge_TintIndex 0
 map_Kd minecraft:block/oak_planks
-newmtl backwood
+
+newmtl seat
 Kd 1.00 1.00 1.00
-map_Kd minecraft:block/spruce_planks
-newmtl seatcolor
-Kd 1.00 1.00 1.00
+forge_TintIndex 1
 map_Kd minecraft:block/white_wool
+
+newmtl leg1
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd minecraft:block/spruce_planks
+
+newmtl leg2
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd minecraft:block/spruce_planks
+
+newmtl leg3
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd minecraft:block/spruce_planks
+
+newmtl leg4
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd minecraft:block/spruce_planks
+
+newmtl brace1
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd minecraft:block/spruce_planks
+
+newmtl brace2
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd minecraft:block/spruce_planks
+
+newmtl brace3
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd minecraft:block/spruce_planks
+
+newmtl brace4
+Kd 1.00 1.00 1.00
+forge_TintIndex 9
+map_Kd minecraft:block/spruce_planks
+
+newmtl bench1
+Kd 1.00 1.00 1.00
+forge_TintIndex 10
+map_Kd minecraft:block/oak_planks
+
+newmtl bench2
+Kd 1.00 1.00 1.00
+forge_TintIndex 11
+map_Kd minecraft:block/oak_planks
+
+newmtl bench3
+Kd 1.00 1.00 1.00
+forge_TintIndex 12
+map_Kd minecraft:block/oak_planks
+
+newmtl bench4
+Kd 1.00 1.00 1.00
+forge_TintIndex 13
+map_Kd minecraft:block/oak_planks
+
+newmtl benchSeat1
+Kd 1.00 1.00 1.00
+forge_TintIndex 14
+map_Kd minecraft:block/white_wool
+
+newmtl benchSeat2
+Kd 1.00 1.00 1.00
+forge_TintIndex 15
+map_Kd minecraft:block/white_wool
+
+newmtl benchSeat3
+Kd 1.00 1.00 1.00
+forge_TintIndex 16
+map_Kd minecraft:block/white_wool
+
+newmtl benchSeat4
+Kd 1.00 1.00 1.00
+forge_TintIndex 17
+map_Kd minecraft:block/white_wool
+
 newmtl carpet
 Kd 1.00 1.00 1.00
+forge_TintIndex 18
 map_Kd minecraft:block/red_wool
+
+newmtl backSupport
+Kd 1.00 1.00 1.00
+forge_TintIndex 19
+map_Kd minecraft:block/spruce_planks
+
+newmtl backCloth
+Kd 1.00 1.00 1.00
+forge_TintIndex 20
+map_Kd minecraft:block/white_wool
+
+newmtl backWood2
+Kd 1.00 1.00 1.00
+forge_TintIndex 21
+map_Kd minecraft:block/spruce_planks
+
+newmtl backCloth2
+Kd 1.00 1.00 1.00
+forge_TintIndex 22
+map_Kd minecraft:block/white_wool
+
+newmtl backWood2Top
+Kd 1.00 1.00 1.00
+forge_TintIndex 23
+map_Kd minecraft:block/spruce_planks
+
+newmtl backsupport2
+Kd 1.00 1.00 1.00
+forge_TintIndex 24
+map_Kd minecraft:block/spruce_planks
+
+newmtl backCloth003
+Kd 1.00 1.00 1.00
+forge_TintIndex 25
+map_Kd minecraft:block/white_wool
+
+newmtl fancyBackWood
+Kd 1.00 1.00 1.00
+forge_TintIndex 26
+map_Kd minecraft:block/spruce_planks
+
+newmtl backCloth1connect1
+Kd 1.00 1.00 1.00
+forge_TintIndex 27
+map_Kd minecraft:block/white_wool
+
+newmtl backCloth1connect3
+Kd 1.00 1.00 1.00
+forge_TintIndex 28
+map_Kd minecraft:block/white_wool
+
+newmtl backCloth2connect1
+Kd 1.00 1.00 1.00
+forge_TintIndex 29
+map_Kd minecraft:block/white_wool
+
+newmtl backCloth2connect3
+Kd 1.00 1.00 1.00
+forge_TintIndex 30
+map_Kd minecraft:block/white_wool

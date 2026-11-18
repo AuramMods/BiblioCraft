@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.blockentity;
 import art.arcane.bibliocraft.block.FurnitureMaterial;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
+import art.arcane.bibliocraft.item.SeatBackItem;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,7 +36,7 @@ public class FurniturePanelerBlockEntity extends FurnitureInventoryBlockEntity {
     }
 
     public static boolean acceptsFurniture(ItemStack stack) {
-        return stack.getItem() instanceof FurnitureBlockItem
+        return (stack.getItem() instanceof FurnitureBlockItem || stack.getItem() instanceof SeatBackItem)
                 && FurnitureMaterial.fromItem(stack).wood() == FurnitureMaterial.Wood.FRAMED;
     }
 

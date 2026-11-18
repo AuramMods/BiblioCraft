@@ -159,5 +159,13 @@
         0.5
       ]
     }
+  },
+  "transform": {
+    "origin": "corner",
+    "translation": [
+      -0.3851,
+      -0.5163,
+      -0.00055
+    ]
   }
 }

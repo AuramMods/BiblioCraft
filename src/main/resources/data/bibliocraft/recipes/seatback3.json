@@ -1,21 +1,23 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "bibliocraft",
+  "group": "bibliocraft:seatback3",
   "ingredients": [
     {
       "item": "bibliocraft:seatback2"
     },
-    [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ]
+    {
+      "item": "minecraft:oak_slab"
+    }
   ],
   "result": {
-    "item": "bibliocraft:seatback3"
+    "item": "bibliocraft:seatback3",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "oak"
+        }
+      }
+    }
   }
 }

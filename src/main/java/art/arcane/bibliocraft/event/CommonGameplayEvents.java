@@ -9,25 +9,20 @@ import art.arcane.bibliocraft.block.DiscRackBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.block.RackBlock;
+import art.arcane.bibliocraft.block.SeatBlock;
 import art.arcane.bibliocraft.block.ShelfBlock;
 import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.block.TypewriterBlock;
 import art.arcane.bibliocraft.block.DeskBlock;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
-import art.arcane.bibliocraft.entity.SeatEntity;
-import art.arcane.bibliocraft.registry.ModBlocks;
-import art.arcane.bibliocraft.registry.ModEntities;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -118,59 +113,11 @@ public final class CommonGameplayEvents {
                 && (block instanceof ShelfBlock || block instanceof BookcaseBlock || block instanceof DisplayCaseBlock
                         || block instanceof RackBlock || block instanceof FurniturePanelerBlock
                         || block instanceof DinnerPlateBlock || block instanceof DiscRackBlock || block instanceof TypewriterBlock
-                        || block instanceof DeskBlock || block instanceof ArmorStandBlock || block instanceof TableBlock)
+                        || block instanceof DeskBlock || block instanceof ArmorStandBlock || block instanceof TableBlock
+                        || block instanceof SeatBlock)
                 && BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(block))) {
             event.setUseBlock(Event.Result.ALLOW);
         }
     }
 
-    @SubscribeEvent
-    public static void onSeatInteract(PlayerInteractEvent.RightClickBlock event) {
-        if (!(event.getLevel() instanceof ServerLevel level)) {
-            return;
-        }
-        if (event.getHand() != InteractionHand.MAIN_HAND) {
-            return;
-        }
-
-        Player player = event.getEntity();
-        if (player.isSecondaryUseActive() || player.isPassenger()) {
-            return;
-        }
-        if (!level.getBlockState(event.getPos()).is(ModBlocks.SEAT.get())) {
-            return;
-        }
-        ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(level.getBlockState(event.getPos()).getBlock());
-        if (!BiblioFeatureToggles.isBlockEnabled(blockId)) {
-            return;
-        }
-
-        SeatEntity seat = findOrCreateSeat(level, event.getPos());
-        if (seat == null || !seat.getPassengers().isEmpty()) {
-            return;
-        }
-
-        if (player.startRiding(seat, true)) {
-            event.setCancellationResult(InteractionResult.SUCCESS);
-            event.setCanceled(true);
-        }
-    }
-
-    private static SeatEntity findOrCreateSeat(ServerLevel level, BlockPos seatPos) {
-        AABB searchBox = new AABB(seatPos).inflate(0.25D);
-        for (SeatEntity seat : level.getEntitiesOfClass(SeatEntity.class, searchBox)) {
-            if (!seat.isRemoved() && seat.isForSeat(seatPos)) {
-                return seat;
-            }
-        }
-
-        SeatEntity seat = ModEntities.SEAT_ENTITY.get().create(level);
-        if (seat == null) {
-            return null;
-        }
-
-        seat.setSeatPos(seatPos);
-        level.addFreshEntity(seat);
-        return seat;
-    }
 }

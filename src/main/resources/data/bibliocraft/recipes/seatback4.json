@@ -1,25 +1,27 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "group": "bibliocraft",
+  "category": "building",
+  "group": "bibliocraft:seatback4",
   "pattern": [
-    " W ",
-    " S "
+    "W",
+    "S"
   ],
   "key": {
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ],
     "W": {
       "item": "minecraft:white_wool"
+    },
+    "S": {
+      "item": "minecraft:oak_slab"
     }
   },
   "result": {
-    "item": "bibliocraft:seatback4"
+    "item": "bibliocraft:seatback4",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "oak"
+        }
+      }
+    }
   }
 }

@@ -6,6 +6,7 @@ import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
+import art.arcane.bibliocraft.blockentity.SeatBlockEntity;
 import art.arcane.bibliocraft.blockentity.TableBlockEntity;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -40,6 +41,8 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/typewriter_paper_blank");
     private static final ResourceLocation CASE_LINING_SPRITE = ResourceLocation.withDefaultNamespace("block/white_wool");
     private static final ResourceLocation TABLE_CLOTH_SPRITE = ResourceLocation.withDefaultNamespace("block/red_wool");
+    private static final ResourceLocation SEAT_BACK_SPRITE = FurnitureMaterial.Wood.SPRUCE.texture();
+    private final boolean seatMaterials;
     private final LoadingCache<QuadTexture, BakedQuad> quads = CacheBuilder.newBuilder()
             .maximumSize(4096)
             .build(CacheLoader.from(FurnitureMaterialModel::replaceSprite));
@@ -48,7 +51,12 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
             .build(CacheLoader.from(this::itemPass));
 
     FurnitureMaterialModel(BakedModel originalModel) {
+        this(originalModel, false);
+    }
+
+    FurnitureMaterialModel(BakedModel originalModel, boolean seatMaterials) {
         super(originalModel);
+        this.seatMaterials = seatMaterials;
     }
 
     @Override
@@ -69,10 +77,20 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         if (lining == null) {
             lining = data.get(TableBlockEntity.CARPET_COLOR);
         }
+        DyeColor cloth = data.get(TableBlockEntity.CLOTH_COLOR);
+        TextureAtlasSprite back = null;
+        if (seatMaterials) {
+            SeatBlockEntity.Appearance appearance = data.get(SeatBlockEntity.APPEARANCE);
+            back = sprite(appearance == null ? (material == null ? FurnitureMaterial.OAK : material) : appearance.backMaterial());
+            if (appearance != null) {
+                lining = appearance.cushion();
+                cloth = appearance.carpet();
+            }
+        }
         TextureAtlasSprite liningSprite = woolSprite(lining, DyeColor.WHITE);
-        TextureAtlasSprite clothSprite = woolSprite(data.get(TableBlockEntity.CLOTH_COLOR), DyeColor.RED);
-        return wood == null && panel == null && liningSprite == null && clothSprite == null
-                ? original : retexture(original, wood, panel, liningSprite, clothSprite);
+        TextureAtlasSprite clothSprite = woolSprite(cloth, DyeColor.RED);
+        return wood == null && panel == null && liningSprite == null && clothSprite == null && back == null
+                ? original : retexture(original, wood, panel, liningSprite, clothSprite, back);
     }
 
     @Override
@@ -84,14 +102,14 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
     @Override
     public BakedModel applyTransform(ItemDisplayContext context, PoseStack pose, boolean leftHand) {
         BakedModel transformed = super.applyTransform(context, pose, leftHand);
-        return transformed == originalModel ? this : new FurnitureMaterialModel(transformed);
+        return transformed == originalModel ? this : new FurnitureMaterialModel(transformed, seatMaterials);
     }
 
     @Override
     public List<BakedModel> getRenderPasses(ItemStack stack, boolean fabulous) {
         List<BakedModel> passes = super.getRenderPasses(stack, fabulous);
         FurnitureMaterial material = FurnitureMaterial.fromItem(stack);
-        if (isDefault(material)) {
+        if (isDefault(material) && !seatMaterials) {
             return passes;
         }
         TextureAtlasSprite sprite = sprite(material);
@@ -102,14 +120,15 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
         return new BakedModelWrapper<>(pass.model()) {
             @Override
             public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource random) {
-                return retexture(super.getQuads(state, side, random), pass.sprite(), null, null, null);
+                return retexture(super.getQuads(state, side, random), pass.sprite(), null, null, null,
+                        seatMaterials ? pass.sprite() : null);
             }
         };
     }
 
     private List<BakedQuad> retexture(List<BakedQuad> original, @Nullable TextureAtlasSprite wood,
                                        @Nullable TextureAtlasSprite panel, @Nullable TextureAtlasSprite lining,
-                                       @Nullable TextureAtlasSprite cloth) {
+                                       @Nullable TextureAtlasSprite cloth, @Nullable TextureAtlasSprite back) {
         if (original.isEmpty()) {
             return original;
         }
@@ -119,7 +138,8 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
                     TextureAtlasSprite texture = source.equals(WOOD_SPRITE) ? wood
                             : source.equals(PANEL_SPRITE) ? panel
                             : source.equals(CASE_LINING_SPRITE) ? lining
-                            : source.equals(TABLE_CLOTH_SPRITE) ? cloth : null;
+                            : source.equals(TABLE_CLOTH_SPRITE) ? cloth
+                            : source.equals(SEAT_BACK_SPRITE) ? back : null;
                     return texture == null ? quad : quads.getUnchecked(new QuadTexture(quad, texture));
                 })
                 .toList();

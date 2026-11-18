@@ -106,6 +106,15 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Both drills remove the cloth from the top and remove the floor carpet on sneak-use. Side clicks with either drill or a tool in `bibliocraft:table_rotation_tools` rotate the display in 90-degree steps around the clicked axes. The tag includes the tape measure and accepts optional Forge wrench, screwdriver, and crowbar tags.
 - The display, cloth, and carpet occupy `Items` slots 0–2. The display angles retain the legacy `slotxangle` and `slotyangle` names. A vanilla filled map keeps its ID and displays its live terrain on the tabletop. Material, lock ownership, and contents use the shared furniture storage. Breaking returns a table with its material and drops the display and fabrics separately.
 
+## Seating Port
+
+- The block, item, and block entity retain `bibliocraft:seat`. `bibliocraft:seat_entity` remains the invisible riding anchor and saves its position as `SeatPos`. Existing seat states default to separated and unoccupied. The server reconciles occupancy with the real rider on load.
+- All 31 original mesh groups, 866 UV coordinates, and 382 faces match 1.12.2. The 534 vertices retain the earlier port's one-block X and Z translation. The baked model picks legs and braces, bench extensions, the five kinds of back, and the original connected back cloth. The saved facing drives both rotations and the seat shape.
+- The `Items` slots retain the legacy order of cushion, back, and floor carpet. Right-click from above or below to apply a cushion and from the sides to place floor carpet. Install a separate seat back from any side. Both fabrics retain their colors. The installed back selects the wood for the back, legs, and braces. A framed base renders the custom panel saved with a framed back.
+- Two sneak-clicks on adjacent seat tops with either drill join or separate the sides. A sneak-click on the side rotates the seat without moving its joins. An ordinary drill click returns the cushion first from above, then the back. The sides also let the player remove the floor carpet. Breaking returns the original attachments and the seat material separately.
+- An ordinary click seats one player. A nearby named mob can board an empty seat every five seconds and can be released with a sneak-click. Occupied seats provide full power with the chair redstone option enabled, including power through a solid neighbor. Safely dismounting or removing the seat clears the output.
+- The old slab recipes craft the seat and all five seat backs in twelve materials. Upgrading a style-two back uses the material of the added slabs as in 1.12.2. The existing furniture paneler accepts any framed back.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -228,7 +237,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `fancy_sign` | mounted shape baseline: thin sign plane (`x:0.0-0.06 y:0.2-0.8 z:0.0-1.0`) rotated by `facing` for floor/wall/ceiling placements | old sign bbox + legacy mount states |
 | `label` | `x:0.0-0.06 y:0.12-0.38 z:0.28-0.72` | old wall label bbox |
 | `table` | Full tabletop slab with either the original center post or exposed corner supports, plus the optional floor carpet | Neighbor connections pick the same legs for the shape and the rendered mesh |
-| `seat` | `x/z:0.15-0.85 y:0.0-0.7509` | OBJ visibility extents (`seat.obj`) |
+| `seat` | Seat, surviving legs and braces, linked extensions, and optional floor carpet | Collision and rendered bench pieces share the same directional connections |
 | `clock` | `x:0.0-0.165 y:0.0-0.9976 z:0.2549-0.7451` | OBJ visibility extents (`clock.obj`) |
 | `case` | floor/wall mount baseline: floor (`x:0.06-0.94 y:0.0-0.5 z:0.0-1.0`), wall (`x:0.0-0.5 y:0.0-1.0 z:0.06-0.94`), both rotated by `facing` | old floor/wall case bbox |
 | `map_frame` | mounted baseline: wall (`x:0.0-0.05 y:0.0-1.0 z:0.0-1.0`), floor (`y:0.0-0.05` full XZ), ceiling (`y:0.95-1.0` full XZ) | old map-frame floor/wall/ceiling bbox |
@@ -270,7 +279,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/BiblioCraft.java` (creative tab filtering by toggle)
 - `src/main/java/art/arcane/bibliocraft/block/PlaceholderEntityBlock.java` (block menu open toggle checks)
 - `src/main/java/art/arcane/bibliocraft/item/MenuOpeningItem.java` (item menu open toggle checks)
-- `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java` (seat interaction toggle check)
+- `src/main/java/art/arcane/bibliocraft/block/SeatBlock.java` (sitting, attachments, and redstone toggle checks)
 - `src/main/java/art/arcane/bibliocraft/registry/ModMenus.java` (menu lookup toggle checks)
 - `src/main/java/art/arcane/bibliocraft/recipe/EnchantedAtlasRecipe.java` (recipe availability toggle checks)
 - Placeholder runtime classes:
@@ -424,7 +433,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - death flow (`LivingDeathEvent`) captures pending player death position.
 - spawn/join flow (`EntityJoinLevelEvent`) consumes pending death marker (placeholder waypoint handoff hook).
 - item toss flow (`ItemTossEvent`) closes container for legacy packet-heavy item set.
-- seat interaction flow (`PlayerInteractEvent.RightClickBlock`) mounts player onto seat entity for `bibliocraft:seat`.
+- ordinary seat block use now handles riding and attachments. The common interaction hook allows the seat to handle sneak-use.
 - Client Forge event subscriber:
 - `src/main/java/art/arcane/bibliocraft/event/ClientRenderEvents.java`
 - Placeholder legacy client hook coverage:

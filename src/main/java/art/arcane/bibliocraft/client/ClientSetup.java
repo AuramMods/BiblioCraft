@@ -1,16 +1,21 @@
 package art.arcane.bibliocraft.client;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.block.SeatBlock;
 import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
+import art.arcane.bibliocraft.blockentity.SeatBlockEntity;
 import art.arcane.bibliocraft.blockentity.TableBlockEntity;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModBlocks;
+import art.arcane.bibliocraft.registry.ModEntities;
+import art.arcane.bibliocraft.registry.ModItems;
 import art.arcane.bibliocraft.registry.ModMenus;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
@@ -29,6 +34,7 @@ public final class ClientSetup {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.SEAT_ENTITY.get(), NoopRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SHELF.get(), ShelfRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.FURNITURE_PANELER.get(), FurniturePanelerRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.POTION_SHELF.get(), RackRenderer::new);
@@ -82,6 +88,8 @@ public final class ClientSetup {
                 ModBlocks.CASE.getId().getPath(), ModBlocks.DESK.getId().getPath(), ModBlocks.ARMOR_STAND.getId().getPath(),
                 ModBlocks.TABLE.getId().getPath());
         var bookcases = Set.of(ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath());
+        var seatbacks = Set.of(ModItems.SEAT_BACK_1.getId().getPath(), ModItems.SEAT_BACK_2.getId().getPath(),
+                ModItems.SEAT_BACK_3.getId().getPath(), ModItems.SEAT_BACK_4.getId().getPath(), ModItems.SEAT_BACK_5.getId().getPath());
         var books = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/bookcase_books");
         var cookies = ResourceLocation.withDefaultNamespace("item/cookie");
         var deskBooks = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/desk_books");
@@ -98,6 +106,19 @@ public final class ClientSetup {
             if (path.equals(ModBlocks.TABLE.getId().getPath()) && !"inventory".equals(location.getVariant())) {
                 model = new SlotVisibilityModel(model, (state, data) -> TableBlock.visibleParts(state,
                         data.has(TableBlockEntity.CLOTH_COLOR), data.has(TableBlockEntity.CARPET_COLOR)));
+            }
+            if (path.equals(ModBlocks.SEAT.getId().getPath())) {
+                if (!"inventory".equals(location.getVariant())) {
+                    model = new SlotVisibilityModel(model, (state, data) -> {
+                        var appearance = data.get(SeatBlockEntity.APPEARANCE);
+                        return SeatBlock.visibleParts(state, appearance == null ? 0 : appearance.back(),
+                                appearance != null && appearance.carpet() != null);
+                    });
+                }
+                return new FurnitureMaterialModel(model, true);
+            }
+            if (seatbacks.contains(path) && "inventory".equals(location.getVariant())) {
+                return new FurnitureMaterialModel(model, true);
             }
             if (furniture.contains(path)) {
                 model = new FurnitureMaterialModel(model);

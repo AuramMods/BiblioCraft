@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "bibliocraft:seatback5",
+  "ingredients": [
+    {
+      "item": "bibliocraft:seatback2"
+    },
+    {
+      "item": "minecraft:dark_oak_slab"
+    },
+    {
+      "item": "minecraft:dark_oak_slab"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:seatback5",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "dark_oak"
+        }
+      }
+    }
+  }
+}

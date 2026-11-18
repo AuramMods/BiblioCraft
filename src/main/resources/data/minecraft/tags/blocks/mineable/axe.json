@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "bibliocraft:armor_stand",
-    "bibliocraft:table"
+    "bibliocraft:table",
+    "bibliocraft:seat"
   ]
 }

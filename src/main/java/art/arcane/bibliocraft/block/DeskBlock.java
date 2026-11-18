@@ -7,7 +7,7 @@ import art.arcane.bibliocraft.menu.DeskMenu;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
+import art.arcane.bibliocraft.item.DrillSelection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -157,20 +157,10 @@ public final class DeskBlock extends InventoryFurnitureBlock {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
-        ItemStack drill = context.getItemInHand();
-        CompoundTag previous = drill.getTagElement("DeskSelection");
-        String dimension = level.dimension().location().toString();
-        if (previous == null || !previous.hasUUID("Player") || !previous.getUUID("Player").equals(player.getUUID())
-                || !previous.getString("Dimension").equals(dimension)) {
-            CompoundTag selection = drill.getOrCreateTagElement("DeskSelection");
-            selection.putLong("Pos", pos.asLong());
-            selection.putUUID("Player", player.getUUID());
-            selection.putString("Dimension", dimension);
-            player.displayClientMessage(Component.translatable("message.bibliocraft.desk.selected"), true);
+        BlockPos otherPos = DrillSelection.select(context, "DeskSelection", "message.bibliocraft.desk.selected");
+        if (otherPos == null) {
             return InteractionResult.CONSUME;
         }
-        drill.removeTagKey("DeskSelection");
-        BlockPos otherPos = BlockPos.of(previous.getLong("Pos"));
         BlockState state = level.getBlockState(pos);
         Direction right = state.getValue(FACING);
         boolean otherOnRight = otherPos.equals(pos.relative(right));

@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.config.BiblioConfig;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
+import art.arcane.bibliocraft.item.SeatBackItem;
 import art.arcane.bibliocraft.network.ModNetwork;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
@@ -55,7 +56,11 @@ public class BiblioCraft {
                         });
                         ModItems.getTabItems().forEach(item -> {
                             if (BiblioFeatureToggles.isItemEnabled(item.getId())) {
-                                output.accept(item.get());
+                                if (item.get() instanceof SeatBackItem back) {
+                                    back.addVariants(output);
+                                } else {
+                                    output.accept(item.get());
+                                }
                             }
                         });
                     })

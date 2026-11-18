@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "bibliocraft:seatback5",
+  "ingredients": [
+    {
+      "item": "bibliocraft:seatback2"
+    },
+    {
+      "item": "minecraft:spruce_slab"
+    },
+    {
+      "item": "minecraft:spruce_slab"
+    }
+  ],
+  "result": {
+    "item": "bibliocraft:seatback5",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "spruce"
+        }
+      }
+    }
+  }
+}
