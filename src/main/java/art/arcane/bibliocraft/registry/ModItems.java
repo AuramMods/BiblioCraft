@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.item.AtlasItem;
+import art.arcane.bibliocraft.item.ClipboardItem;
 import art.arcane.bibliocraft.item.DeathCompassItem;
 import art.arcane.bibliocraft.item.BigBookItem;
 import art.arcane.bibliocraft.item.FramingSawItem;
@@ -70,7 +71,7 @@ public final class ModItems {
             register("biblio_drill", () -> new FurnitureDrillItem(new Item.Properties().stacksTo(1), false));
     public static final RegistryObject<Item> BIBLIO_CREATIVE_LOCK =
             register("biblio_creative_lock", FurnitureLockItem::new);
-    public static final RegistryObject<Item> BIBLIO_CLIPBOARD = register("biblio_clipboard");
+    public static final RegistryObject<Item> BIBLIO_CLIPBOARD = register("biblio_clipboard", ClipboardItem::new);
 
     private ModItems() {}
 

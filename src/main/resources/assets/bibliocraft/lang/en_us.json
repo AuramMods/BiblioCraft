@@ -349,6 +349,8 @@
   "message.bibliocraft.lock.unlocked": "This block has been unlocked.",
   "message.bibliocraft.lock.not_owner": "You are not the owner of this block.",
   "message.bibliocraft.lock.break": "Unlock this block before breaking it.",
+  "gui.bibliocraft.clipboard.title": "Checklist title",
+  "gui.bibliocraft.clipboard.task": "Task %s",
   "item.bibliocraft.biblio_clipboard": "Biblio Clipboard",
   "gui.bibliocraft.typesetting.library": "Typesetting Table · Book Management",
   "gui.bibliocraft.typesetting.empty": "Sneak-use the source book slot to save a book here.",

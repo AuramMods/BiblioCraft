@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.SeatBlock;
 import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
+import art.arcane.bibliocraft.blockentity.ClipboardBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.blockentity.FancyWorkbenchBlockEntity;
@@ -54,6 +55,7 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.SWORD_PEDESTAL.get(), SwordPedestalRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TYPEWRITER.get(), TypewriterRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.DESK.get(), DeskRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.CLIPBOARD.get(), ClipboardRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.ARMOR_STAND.get(), ArmorStandRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TABLE.get(), TableRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.LABEL.get(), SignDisplayRenderer::new);
@@ -110,6 +112,7 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.DISC_RACK.get(), DiscRackScreen::new);
             MenuScreens.register(ModMenus.DESK.get(), DeskScreen::new);
             MenuScreens.register(ModMenus.DESK_BOOK.get(), DeskBookScreen::new);
+            MenuScreens.register(ModMenus.CLIPBOARD.get(), ClipboardScreen::new);
             MenuScreens.register(ModMenus.BIG_BOOK.get(), BigBookScreen::new);
             MenuScreens.register(ModMenus.ARMOR_STAND.get(), ArmorStandScreen::new);
             MenuScreens.register(ModMenus.TABLE.get(), TableScreen::new);
@@ -203,6 +206,9 @@ public final class ClientSetup {
             }
             if ("inventory".equals(location.getVariant())) {
                 return model;
+            }
+            if (path.equals(ModBlocks.CLIPBOARD.getId().getPath())) {
+                return new SlotVisibilityModel(model, null, ClipboardBlockEntity.VISIBLE_PARTS);
             }
             if (path.equals(ModBlocks.FANCY_WORKBENCH.getId().getPath())) {
                 return new SlotVisibilityModel(model, books, FancyWorkbenchBlockEntity.OCCUPIED_BOOKS);

@@ -126,5 +126,26 @@
         0.5
       ]
     }
+  },
+  "render_type": "minecraft:cutout",
+  "visibility": {
+    "box5x": false,
+    "box8x": false,
+    "box3x": false,
+    "box3c": false,
+    "box8c": false,
+    "box6x": false,
+    "box1x": false,
+    "box4c": false,
+    "box6c": false,
+    "box9c": false,
+    "box1c": false,
+    "box2c": false,
+    "box4x": false,
+    "box9x": false,
+    "box7x": false,
+    "box2x": false,
+    "box7c": false,
+    "box5c": false
   }
 }

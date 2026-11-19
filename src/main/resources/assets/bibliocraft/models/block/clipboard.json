@@ -4,5 +4,6 @@
   "flip_v": true,
   "textures": {
     "particle": "bibliocraft:block/clipboard"
-  }
+  },
+  "render_type": "minecraft:cutout"
 }

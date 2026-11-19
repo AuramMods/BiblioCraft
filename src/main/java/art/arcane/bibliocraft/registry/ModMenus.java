@@ -3,10 +3,10 @@ package art.arcane.bibliocraft.registry;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.menu.AtlasMenu;
 import art.arcane.bibliocraft.block.RackType;
-import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.ArmorStandMenu;
 import art.arcane.bibliocraft.menu.BigBookMenu;
 import art.arcane.bibliocraft.menu.BookcaseMenu;
+import art.arcane.bibliocraft.menu.ClipboardMenu;
 import art.arcane.bibliocraft.menu.CookieJarMenu;
 import art.arcane.bibliocraft.menu.DeskBookMenu;
 import art.arcane.bibliocraft.menu.DeskMenu;
@@ -31,17 +31,12 @@ import art.arcane.bibliocraft.menu.TableMenu;
 import art.arcane.bibliocraft.menu.StockroomCatalogMenu;
 import art.arcane.bibliocraft.menu.WaypointCompassMenu;
 import art.arcane.bibliocraft.menu.FurniturePanelerMenu;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class ModMenus {
     public static final DeferredRegister<MenuType<?>> MENUS =
@@ -93,7 +88,8 @@ public final class ModMenus {
             MENUS.register("furniture_paneler", () -> new MenuType<>(FurniturePanelerMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<FramedChestMenu>> FRAMED_CHEST =
             MENUS.register("framed_chest", () -> IForgeMenuType.create(FramedChestMenu::new));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> CLIPBOARD = register("clipboard");
+    public static final RegistryObject<MenuType<ClipboardMenu>> CLIPBOARD =
+            MENUS.register("clipboard", () -> IForgeMenuType.create(ClipboardMenu::new));
     public static final RegistryObject<MenuType<ClockMenu>> CLOCK =
             MENUS.register("clock", () -> IForgeMenuType.create(ClockMenu::new));
     public static final RegistryObject<MenuType<TypesettingTableMenu>> TYPESETTING_TABLE =
@@ -108,12 +104,6 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<WaypointCompassMenu>> WAYPOINT_COMPASS =
             MENUS.register("compass", () -> IForgeMenuType.create(WaypointCompassMenu::new));
 
-    private static final Map<ResourceLocation, RegistryObject<MenuType<PlaceholderMenu>>> BLOCK_MENU_MAP = new HashMap<>();
-
-    static {
-        mapBlock("clipboard", CLIPBOARD);
-    }
-
     private ModMenus() {}
 
     private static RegistryObject<MenuType<PlaceholderMenu>> register(String name) {
@@ -126,16 +116,4 @@ public final class ModMenus {
         return holder[0];
     }
 
-    @Nullable
-    public static MenuType<PlaceholderMenu> getMenuForBlock(ResourceLocation blockId) {
-        if (!BiblioFeatureToggles.isBlockEnabled(blockId)) {
-            return null;
-        }
-        RegistryObject<MenuType<PlaceholderMenu>> entry = BLOCK_MENU_MAP.get(blockId);
-        return entry == null ? null : entry.get();
-    }
-
-    private static void mapBlock(String blockPath, RegistryObject<MenuType<PlaceholderMenu>> menuType) {
-        BLOCK_MENU_MAP.put(ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, blockPath), menuType);
-    }
 }

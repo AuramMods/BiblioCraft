@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.registry;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.ArmorStandBlock;
 import art.arcane.bibliocraft.block.BookcaseBlock;
+import art.arcane.bibliocraft.block.ClipboardBlock;
 import art.arcane.bibliocraft.block.ColorMountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.CookieJarBlock;
 import art.arcane.bibliocraft.block.DeskBellBlock;
@@ -15,7 +16,6 @@ import art.arcane.bibliocraft.block.FancySignBlock;
 import art.arcane.bibliocraft.block.FramedChestBlock;
 import art.arcane.bibliocraft.block.ClockBlock;
 import art.arcane.bibliocraft.block.LabelBlock;
-import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MapFrameBlock;
 import art.arcane.bibliocraft.block.MarkerPoleBlock;
 import art.arcane.bibliocraft.block.RackBlock;
@@ -59,7 +59,7 @@ public final class ModBlocks {
 
     private static final VoxelShape SHAPE_HALF_RACK = box(0.0, 0.0, 0.0, 0.5, 1.0, 1.0);
     private static final VoxelShape SHAPE_HALF_RACK_EAST = box(0.5, 0.0, 0.0, 1.0, 1.0, 1.0);
-    private static final VoxelShape SHAPE_CLIPBOARD = box(0.0, 0.08, 0.15, 0.08, 0.92, 0.85);
+    private static final VoxelShape SHAPE_CLIPBOARD = box(0, 0.0725, 0.1525, 0.077, 0.9595, 0.8475);
     private static final VoxelShape SHAPE_LANTERN = box(0.2133, 0.0, 0.2517, 0.7867, 0.7007, 0.7483);
     private static final VoxelShape SHAPE_LANTERN_WALL = box(0.2133, 0.0, 0.2517, 1.0, 0.9789, 0.7483);
     private static final VoxelShape SHAPE_LANTERN_CEILING = box(0.15, 0.0, 0.1971, 0.85, 1.0, 0.8033);
@@ -95,7 +95,7 @@ public final class ModBlocks {
     public static final RegistryObject<Block> MARKER_POLE =
             register("marker_pole", () -> new MarkerPoleBlock(woodProps().mapColor(MapColor.METAL).sound(SoundType.ANVIL)));
     public static final RegistryObject<Block> CLIPBOARD =
-            register("clipboard", () -> shapedWoodEntity(SHAPE_CLIPBOARD, "clipboard"));
+            register("clipboard", () -> new ClipboardBlock(woodProps().sound(SoundType.WOOD), SHAPE_CLIPBOARD));
     public static final RegistryObject<Block> LANTERN_GOLD =
             registerMountedLight("lantern_gold", SHAPE_LANTERN, SHAPE_LANTERN_WALL, SHAPE_LANTERN_CEILING, true);
     public static final RegistryObject<Block> LANTERN_IRON =
@@ -198,10 +198,6 @@ public final class ModBlocks {
         RegistryObject<Item> blockItem = ITEMS.register(name, () -> itemFactory.apply(block.get()));
         TAB_ITEMS.add(blockItem);
         return block;
-    }
-
-    private static Block shapedWoodEntity(VoxelShape shape, String blockEntityPath) {
-        return new HorizontalFacingEntityBlock(woodProps(), shape, blockEntityPath);
     }
 
     private static RegistryObject<Block> registerMountedLight(String name, VoxelShape floorShape,

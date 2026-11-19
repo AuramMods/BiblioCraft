@@ -216,6 +216,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The tape uses the normal Forge item interaction and posts the ordinary place event when the clicked face can accept a marker. The distance still works on occupied faces. The tape still rotates a table display when used against its side. Wire protocol 13 removes the empty measurement packet.
 - The plumb line searches the adjacent column in the direction the player faces. It reports the depth and surface height, stops at the dimension floor, and reports an empty column when it finds no surface.
 
+## Clipboard Port
+
+- The handheld item keeps `bibliocraft:biblio_clipboard`. The wall block, wall block entity, compatibility block item, and editor menu retain `bibliocraft:clipboard`. The handheld item's legacy name was `BiblioClipboard`. The handheld recipe accepts any vanilla wooden pressure plate. The existing one-item conversion to a wall block item stores the complete checklist in `BlockEntityTag.Clipboard`.
+- The item keeps the legacy one-based `currentPage`, `totalPages`, and `pageN` keys, with the original title, task text, and task state limits. The wall block entity saves the full item under `Clipboard`. An empty wall block from the earlier port keeps its block item until it acquires checklist data. Pickup, loot, and pick-block return the whole edited item.
+- The editor uses identical pages in the hand and the desk. Wire protocol 14 sends a bounded page at a time through the active menu, validates the original held or desk stack, and merges independently edited text and marks. The wall uses ordinary block interactions for marks and page navigation. Both the desk and the wall honor furniture locks.
+- One OBJ retains the original board vertices, faces, normals, and UVs. Forge material indices select the eighteen original check and cross groups. The front text and page number follow the board rotation. The handheld keeps its original sprite, and the desk displays the legacy open-book mesh for a clipboard in its writing slot.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`

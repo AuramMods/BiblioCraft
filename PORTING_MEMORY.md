@@ -47,6 +47,8 @@
 
 - The tape measure again starts and finishes measurements, switches between axis and absolute modes in the air, and shows the original live meter readout. All 129 Forge GameTests passed. The two muted clients saved a floor and wall pole with distinct measurement IDs and reopened both starts on a dedicated server. The owner saw their meter count change from 3 to 6 while moving and finished a 4 m east/west reading while the guest's pole stayed up. The guest finished a 3 m absolute reading, attached a new pole to the ceiling, and dropped the tape to clear it. The plumb line read 7 m down to Y 124 through water, and a tape still rotated a table display. On the reobfuscated JAR each one-second right-click triggered one action, including air-use mode changes.
 
+- The clipboard restores the handheld and writing-desk checklist editor, wall placement, and the original board, checkmark, and cross geometry. All 133 Forge GameTests passed. One muted client created two pages with the original screen, then hung the clipboard in survival. The other player turned both pages and changed a wall checkmark to a cross. A dedicated restart preserved the wall text, marks, and selected page. The first player picked it up, put it on the writing desk, and both players edited different tasks at once. Both changes survived desk removal, rehanging, survival mining, and pickup of the single drop.
+
 ## Initial Breadth Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).
 - Core registry flow located and mapped.
@@ -340,7 +342,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Continue with the clipboard and slotted book. The clipboard spans the handheld item, placed block, desk, and edited stack. Compare the nine tasks per page, three task states, keyboard and page navigation, and the wall renderer with the original entries in the porting manifest.
+- Continue with the slotted book and redstone book. Use the original slotted inventory and editor layouts. The redstone book opens an explanation screen with a title field and separate save and cancel actions.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

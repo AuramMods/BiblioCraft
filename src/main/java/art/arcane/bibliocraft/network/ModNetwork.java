@@ -4,10 +4,13 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.FurnitureReading;
 import art.arcane.bibliocraft.catalog.CatalogContents;
 import art.arcane.bibliocraft.book.BigBookContent;
+import art.arcane.bibliocraft.book.ClipboardContent;
 import art.arcane.bibliocraft.client.BigBookScreen;
+import art.arcane.bibliocraft.client.ClipboardScreen;
 import art.arcane.bibliocraft.client.ReadingOverlay;
 import art.arcane.bibliocraft.client.StockroomCatalogScreen;
 import art.arcane.bibliocraft.menu.BigBookMenu;
+import art.arcane.bibliocraft.menu.ClipboardMenu;
 import art.arcane.bibliocraft.client.RecipeBookScreen;
 import art.arcane.bibliocraft.client.TypesettingTableScreen;
 import art.arcane.bibliocraft.menu.TypesettingTableMenu;
@@ -50,7 +53,7 @@ import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "13";
+    private static final String PROTOCOL = "14";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -180,7 +183,30 @@ public final class ModNetwork {
                     }
                     context.get().setPacketHandled(true);
                 }).add();
-        registerServerbound(ClipboardPacket.class, ClipboardPacket::new);
+        CHANNEL.messageBuilder(ClipboardVisit.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(ClipboardVisit::encode).decoder(ClipboardVisit::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof ClipboardMenu menu
+                            && menu.containerId == message.menuId()) {
+                        var view = menu.visit(player, message.page());
+                        if (view != null) {
+                            CHANNEL.send(PacketDistributor.PLAYER.with(() -> player),
+                                    new ClipboardPage(menu.containerId, view));
+                        }
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(ClipboardEdit.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(ClipboardEdit::encode).decoder(ClipboardEdit::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof ClipboardMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.edit(player, message.page(), message.content());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         registerServerbound(UpdateInvPacket.class, UpdateInvPacket::new);
         CHANNEL.messageBuilder(MapPinPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(MapPinPacket::encode).decoder(MapPinPacket::decode)
@@ -272,6 +298,12 @@ public final class ModNetwork {
                     context.get().setPacketHandled(true);
                 }).add();
         registerClientbound(OpenBookPacket.class, OpenBookPacket::new);
+        CHANNEL.messageBuilder(ClipboardPage.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ClipboardPage::encode).decoder(ClipboardPage::decode)
+                .consumerMainThread((message, context) -> {
+                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClipboardScreen.accept(message));
+                    context.get().setPacketHandled(true);
+                }).add();
         registerClientbound(DeskOpenGuiPacket.class, DeskOpenGuiPacket::new);
         registerClientbound(SoundPlayerPacket.class, SoundPlayerPacket::new);
         CHANNEL.messageBuilder(ReadingRequest.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
@@ -511,7 +543,39 @@ public final class ModNetwork {
         }
     }
 
-    public static final class ClipboardPacket extends EmptyPacket {}
+    public record ClipboardVisit(int menuId, int page) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeVarInt(page);
+        }
+
+        private static ClipboardVisit decode(FriendlyByteBuf buffer) {
+            return new ClipboardVisit(buffer.readVarInt(), buffer.readVarInt());
+        }
+    }
+
+    public record ClipboardEdit(int menuId, int page, ClipboardContent.Page content) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeVarInt(page);
+            content.write(buffer);
+        }
+
+        private static ClipboardEdit decode(FriendlyByteBuf buffer) {
+            return new ClipboardEdit(buffer.readVarInt(), buffer.readVarInt(), ClipboardContent.Page.read(buffer));
+        }
+    }
+
+    public record ClipboardPage(int menuId, ClipboardContent.View view) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            view.write(buffer);
+        }
+
+        private static ClipboardPage decode(FriendlyByteBuf buffer) {
+            return new ClipboardPage(buffer.readVarInt(), ClipboardContent.View.read(buffer));
+        }
+    }
     public static final class UpdateInvPacket extends EmptyPacket {}
     public record MapPinPacket(int menuId, String name, DyeColor color, boolean remove) {
         private void encode(FriendlyByteBuf buffer) {

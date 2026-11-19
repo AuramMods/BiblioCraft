@@ -6,6 +6,7 @@ import art.arcane.bibliocraft.recipe.ColoredBlockRecolorRecipe;
 import art.arcane.bibliocraft.recipe.FancySignRecipe;
 import art.arcane.bibliocraft.recipe.MaterialShapedRecipe;
 import art.arcane.bibliocraft.recipe.TintedGlassesRecipe;
+import art.arcane.bibliocraft.recipe.ClipboardBlockRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
@@ -24,6 +25,8 @@ public final class ModRecipes {
             RECIPE_SERIALIZERS.register("enchantedatlas", () -> new SimpleCraftingRecipeSerializer<>(EnchantedAtlasRecipe::new));
     public static final RegistryObject<RecipeSerializer<TintedGlassesRecipe>> TINTED_GLASSES =
             RECIPE_SERIALIZERS.register("tinted_glasses", () -> new SimpleCraftingRecipeSerializer<>(TintedGlassesRecipe::new));
+    public static final RegistryObject<RecipeSerializer<ClipboardBlockRecipe>> CLIPBOARD_BLOCK =
+            RECIPE_SERIALIZERS.register("clipboard_block", () -> new SimpleCraftingRecipeSerializer<>(ClipboardBlockRecipe::new));
     public static final RegistryObject<RecipeSerializer<ColoredBlockRecolorRecipe>> SWORD_PEDESTAL_RECOLOR =
             RECIPE_SERIALIZERS.register("sword_pedestal_recolor",
                     () -> new ColoredBlockRecolorRecipe.Serializer(() -> ModBlocks.SWORD_PEDESTAL.get().asItem()));

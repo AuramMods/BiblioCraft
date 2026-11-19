@@ -17,7 +17,7 @@ import art.arcane.bibliocraft.blockentity.SwordPedestalBlockEntity;
 import art.arcane.bibliocraft.blockentity.TypewriterBlockEntity;
 import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
-import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
+import art.arcane.bibliocraft.blockentity.ClipboardBlockEntity;
 import art.arcane.bibliocraft.blockentity.TypesettingTableBlockEntity;
 import art.arcane.bibliocraft.blockentity.PrintingPressBlockEntity;
 import art.arcane.bibliocraft.blockentity.PaintingFrameBlockEntity;
@@ -37,8 +37,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Arrays;
-
 public final class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BiblioCraft.MODID);
@@ -52,8 +50,9 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<MarkerPoleBlockEntity>> MARKER_POLE =
             BLOCK_ENTITIES.register("marker_pole", () ->
                     BlockEntityType.Builder.of(MarkerPoleBlockEntity::new, ModBlocks.MARKER_POLE.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> CLIPBOARD =
-            register("clipboard", ModBlocks.CLIPBOARD);
+    public static final RegistryObject<BlockEntityType<ClipboardBlockEntity>> CLIPBOARD =
+            BLOCK_ENTITIES.register("clipboard", () ->
+                    BlockEntityType.Builder.of(ClipboardBlockEntity::new, ModBlocks.CLIPBOARD.get()).build(null));
     public static final RegistryObject<BlockEntityType<FurnitureBlockEntity>> BIBLIOLIGHT =
             BLOCK_ENTITIES.register("bibliolight", () -> BlockEntityType.Builder.of(ModBlockEntities::createLight,
                     ModBlocks.LAMP_GOLD.get(), ModBlocks.LAMP_IRON.get(), ModBlocks.LANTERN_GOLD.get(),
@@ -152,21 +151,4 @@ public final class ModBlockEntities {
         return new FurnitureBlockEntity(BIBLIOLIGHT.get(), pos, state);
     }
 
-    @SafeVarargs
-    private static RegistryObject<BlockEntityType<PlaceholderBlockEntity>> register(
-            String name,
-            RegistryObject<Block>... validBlocks
-    ) {
-        @SuppressWarnings("unchecked")
-        final RegistryObject<BlockEntityType<PlaceholderBlockEntity>>[] holder = new RegistryObject[1];
-
-        holder[0] = BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder
-                .of(
-                        (pos, state) -> new PlaceholderBlockEntity(holder[0].get(), pos, state),
-                        Arrays.stream(validBlocks).map(RegistryObject::get).toArray(Block[]::new)
-                )
-                .build(null));
-
-        return holder[0];
-    }
 }

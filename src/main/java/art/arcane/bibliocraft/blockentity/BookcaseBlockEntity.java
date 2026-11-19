@@ -30,6 +30,9 @@ public class BookcaseBlockEntity extends FurnitureInventoryBlockEntity {
     }
 
     public static boolean acceptsBook(ItemStack stack) {
+        if (stack.is(ModItems.BIBLIO_CLIPBOARD.get())) {
+            return true;
+        }
         if (stack.isEmpty() || stack.getItem() instanceof BlockItem) {
             return false;
         }
