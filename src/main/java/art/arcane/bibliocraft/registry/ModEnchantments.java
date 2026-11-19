@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.enchantment.DeathCompassEnchantment;
 import art.arcane.bibliocraft.enchantment.PlaceholderEnchantment;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -14,7 +15,7 @@ public final class ModEnchantments {
             DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, BiblioCraft.MODID);
 
     public static final RegistryObject<Enchantment> DEATH_COMPASS =
-            register("deathcompassench");
+            ENCHANTMENTS.register("deathcompassench", DeathCompassEnchantment::new);
     public static final RegistryObject<Enchantment> READING =
             register("readingench");
 

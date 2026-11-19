@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.item;
 
 import art.arcane.bibliocraft.book.PrintingLibrary;
 import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.map.AtlasContents;
 import art.arcane.bibliocraft.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -42,6 +43,32 @@ public final class PrintingPlateItem extends Item {
         return plate;
     }
 
+    public static ItemStack forAtlas(ItemStack source) {
+        ItemStack atlas = source.copyWithCount(1);
+        var snapshot = new AtlasContents(atlas);
+        for (int slot = 0; slot < AtlasContents.SIZE; slot++) {
+            if (!snapshot.isFilled(slot)) {
+                snapshot.removeItemNoUpdate(slot);
+            }
+        }
+        snapshot.select(snapshot.selected());
+        snapshot.selectCompass(-1);
+        snapshot.saveInventory();
+        ItemStack plate = new ItemStack(ModItems.ATLAS_PLATE.get());
+        plate.getOrCreateTag().put("AtlasTag", atlas.getOrCreateTag());
+        return plate;
+    }
+
+    public static ItemStack atlasCopy(ItemStack plate) {
+        var snapshot = plate.getTagElement("AtlasTag");
+        if (!plate.is(ModItems.ATLAS_PLATE.get()) || snapshot == null) {
+            return ItemStack.EMPTY;
+        }
+        var atlas = new ItemStack(ModItems.ATLAS_BOOK.get());
+        atlas.setTag(snapshot.copy());
+        return atlas;
+    }
+
     public static ItemStack enchantedCopy(ItemStack plate) {
         var tag = plate.getTag();
         if (!plate.is(ModItems.ENCHANTED_PLATE.get()) || tag == null || remainingUses(plate) <= 0) {
@@ -63,19 +90,23 @@ public final class PrintingPlateItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        return stack.is(ModItems.ENCHANTED_PLATE.get()) || super.isFoil(stack);
+        return stack.is(ModItems.ENCHANTED_PLATE.get()) || stack.is(ModItems.ATLAS_PLATE.get()) || super.isFoil(stack);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         CompoundTag tag = stack.getTag();
         ItemStack enchanted = enchantedCopy(stack);
+        ItemStack atlas = atlasCopy(stack);
         if (bookId(stack) != null) {
             tooltip.add(Component.literal(tag.getString("Title")).withStyle(ChatFormatting.GRAY));
             tooltip.add(Component.literal(tag.getString("Author")).withStyle(ChatFormatting.GRAY));
         } else if (!enchanted.isEmpty()) {
             Items.ENCHANTED_BOOK.appendHoverText(enchanted, level, tooltip, flag);
             tooltip.add(Component.translatable("item.bibliocraft.enchanted_plate.uses", remainingUses(stack))
+                    .withStyle(ChatFormatting.GRAY));
+        } else if (!atlas.isEmpty()) {
+            tooltip.add(Component.translatable("item.bibliocraft.atlas_plate.sheets", new AtlasContents(atlas).filledMapCount())
                     .withStyle(ChatFormatting.GRAY));
         } else {
             tooltip.add(Component.translatable("item.bibliocraft.print_plate.blank").withStyle(ChatFormatting.GRAY));

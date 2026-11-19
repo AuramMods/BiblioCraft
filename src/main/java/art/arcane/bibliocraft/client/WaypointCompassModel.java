@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.client;
 
 import art.arcane.bibliocraft.item.WaypointCompassItem;
+import art.arcane.bibliocraft.item.DeathCompassItem;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
@@ -40,8 +41,9 @@ record WaypointCompassModel(ObjModel original) implements IUnbakedGeometry<Waypo
                 if (entity == null) {
                     return model;
                 }
-                var target = WaypointCompassItem.getTarget(stack);
-                if (target.dimension() != null && !target.dimension().equals(entity.level().dimension().location())) {
+                var target = stack.getItem() instanceof DeathCompassItem ? DeathCompassItem.target(stack)
+                        : WaypointCompassItem.getTarget(stack);
+                if (target == null || target.dimension() != null && !target.dimension().equals(entity.level().dimension().location())) {
                     return model;
                 }
                 int part = WaypointCompassItem.needlePart(entity.getX(), entity.getZ(), entity.getYRot(), target);

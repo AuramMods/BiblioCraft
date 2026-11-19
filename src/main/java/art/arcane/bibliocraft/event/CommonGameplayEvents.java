@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.event;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.catalog.CatalogContents;
 import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.item.DeathCompassItem;
 import art.arcane.bibliocraft.item.StockroomCatalogItem;
 import art.arcane.bibliocraft.registry.ModParticles;
 import art.arcane.bibliocraft.block.ArmorStandBlock;
@@ -23,7 +24,6 @@ import art.arcane.bibliocraft.block.TypewriterBlock;
 import art.arcane.bibliocraft.block.DeskBlock;
 import art.arcane.bibliocraft.block.MapFrameBlock;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -32,29 +32,23 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.slf4j.Logger;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = BiblioCraft.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class CommonGameplayEvents {
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     private static final Set<String> CONTAINER_SENSITIVE_ITEMS = new HashSet<>();
-    private static final Map<UUID, BlockPos> PENDING_DEATH_LOCATIONS = new HashMap<>();
 
     static {
         // Legacy toss flow closed packet-heavy item containers before dropping.
@@ -78,22 +72,24 @@ public final class CommonGameplayEvents {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
-            // Placeholder for death compass behavior parity.
-            PENDING_DEATH_LOCATIONS.put(player.getUUID(), player.blockPosition());
+            DeathCompassItem.recordDeath(player);
         }
     }
 
     @SubscribeEvent
-    public static void onPlayerSpawn(EntityJoinLevelEvent event) {
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
-            BlockPos deathPos = PENDING_DEATH_LOCATIONS.remove(player.getUUID());
-            if (deathPos != null) {
-                // Placeholder hook for restoring death waypoint data to the player.
-                LOGGER.debug("Queued death position for {} at {}", player.getGameProfile().getName(), deathPos);
-            }
+            DeathCompassItem.deliver(player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            DeathCompassItem.deliver(player);
         }
     }
 

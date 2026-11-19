@@ -132,6 +132,16 @@ public final class AtlasContents extends SimpleContainer {
         return slot >= SUPPLIES && slot < SIZE && getItem(slot).is(Items.FILLED_MAP);
     }
 
+    public int filledMapCount() {
+        int count = 0;
+        for (int slot = SUPPLIES; slot < SIZE; slot++) {
+            if (isFilled(slot)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public ItemStack selectedMap() {
         return getItem(selected());
     }

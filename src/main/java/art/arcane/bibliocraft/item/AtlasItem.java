@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.item;
 
 import art.arcane.bibliocraft.blockentity.MapFrameBlockEntity;
 import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.enchantment.DeathCompassEnchantment;
 import art.arcane.bibliocraft.map.AtlasContents;
 import art.arcane.bibliocraft.menu.AtlasMenu;
 import net.minecraft.network.chat.Component;
@@ -20,6 +21,16 @@ import net.minecraft.world.level.Level;
 public final class AtlasItem extends Item {
     public AtlasItem() {
         super(new Properties().stacksTo(1));
+    }
+
+    @Override
+    public int getEnchantmentValue() {
+        return 15;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return DeathCompassEnchantment.enabled();
     }
 
     @Override
@@ -77,8 +88,14 @@ public final class AtlasItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
-        if (!(entity instanceof ServerPlayer player) || !BiblioConfig.COMMON.enableAtlas.get()
-                || !selected && player.getOffhandItem() != stack
+        if (!(entity instanceof ServerPlayer player) || !BiblioConfig.COMMON.enableAtlas.get()) {
+            return;
+        }
+        if (DeathCompassEnchantment.hasLegacyMarker(stack) && DeathCompassEnchantment.enabled()) {
+            DeathCompassEnchantment.apply(stack);
+            player.getInventory().setChanged();
+        }
+        if (!selected && player.getOffhandItem() != stack
                 || level.getGameTime() % BiblioConfig.COMMON.mapUpdateRate.get() != 0) {
             return;
         }

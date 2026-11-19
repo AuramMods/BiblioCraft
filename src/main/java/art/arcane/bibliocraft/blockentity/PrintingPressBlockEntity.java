@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.blockentity;
 import art.arcane.bibliocraft.book.PrintingLibrary;
 import art.arcane.bibliocraft.config.BiblioConfig;
 import art.arcane.bibliocraft.item.PrintingPlateItem;
+import art.arcane.bibliocraft.map.AtlasContents;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModItems;
 import net.minecraft.core.BlockPos;
@@ -37,6 +38,7 @@ public final class PrintingPressBlockEntity extends FurnitureInventoryBlockEntit
     private LazyOptional<IItemHandler> intake = sidedHandler(Direction.UP);
     private LazyOptional<IItemHandler> outlet = sidedHandler(Direction.DOWN);
     private ItemStack jobPlate = ItemStack.EMPTY;
+    private ItemStack jobAtlas = ItemStack.EMPTY;
     private int ticksLeft;
     private int visibleParts;
     private int inkLevel;
@@ -49,8 +51,10 @@ public final class PrintingPressBlockEntity extends FurnitureInventoryBlockEntit
     public static boolean accepts(int slot, ItemStack stack) {
         return switch (slot) {
             case INK -> stack.is(Tags.Items.DYES_BLACK) || stack.is(Items.INK_SAC);
-            case PLATE -> stack.is(ModItems.PRINT_PLATE.get()) || stack.is(ModItems.ENCHANTED_PLATE.get());
-            case BLANK -> stack.is(Items.BOOK);
+            case PLATE -> stack.is(ModItems.PRINT_PLATE.get()) || stack.is(ModItems.ENCHANTED_PLATE.get())
+                    || BiblioConfig.COMMON.enableAtlas.get() && stack.is(ModItems.ATLAS_PLATE.get());
+            case BLANK -> stack.is(Items.BOOK) || BiblioConfig.COMMON.enableAtlas.get()
+                    && stack.is(ModItems.ATLAS_BOOK.get()) && new AtlasContents(stack).isEmpty();
             default -> false;
         };
     }
@@ -126,15 +130,19 @@ public final class PrintingPressBlockEntity extends FurnitureInventoryBlockEntit
             return;
         }
         ItemStack plate = getItem(PLATE);
+        ItemStack blank = getItem(BLANK);
+        boolean atlasJob = plate.is(ModItems.ATLAS_PLATE.get());
         if (ticksLeft == 0) {
-            if (hasInputs() && accepts(INK, getItem(INK)) && !printableBook(server, plate).isEmpty()) {
+            if (hasInputs(atlasJob, blank) && accepts(INK, getItem(INK)) && !printableBook(server, plate).isEmpty()) {
                 jobPlate = plate.copy();
+                jobAtlas = atlasJob ? blank.copyWithCount(1) : ItemStack.EMPTY;
                 ticksLeft = PRINT_TICKS;
                 removeItem(INK, 1);
             }
             return;
         }
-        if (!hasInputs() || !ItemStack.isSameItemSameTags(plate, jobPlate)) {
+        if (!hasInputs(atlasJob, blank) || !ItemStack.isSameItemSameTags(plate, jobPlate)
+                || atlasJob && !ItemStack.isSameItemSameTags(blank, jobAtlas)) {
             resetJob();
             return;
         }
@@ -146,7 +154,9 @@ public final class PrintingPressBlockEntity extends FurnitureInventoryBlockEntit
         ItemStack printed = printableBook(server, plate);
         if (!printed.isEmpty()) {
             removeItem(BLANK, 1);
-            if (plate.is(ModItems.ENCHANTED_PLATE.get())) {
+            if (atlasJob) {
+                setItem(PLATE, ItemStack.EMPTY);
+            } else if (plate.is(ModItems.ENCHANTED_PLATE.get())) {
                 if (PrintingPlateItem.remainingUses(plate) <= 1) {
                     setItem(PLATE, ItemStack.EMPTY);
                 } else {
@@ -161,13 +171,15 @@ public final class PrintingPressBlockEntity extends FurnitureInventoryBlockEntit
         resetJob();
     }
 
-    private boolean hasInputs() {
-        return getItem(RESULT).isEmpty() && accepts(BLANK, getItem(BLANK));
+    private boolean hasInputs(boolean atlasJob, ItemStack blank) {
+        return getItem(RESULT).isEmpty() && (atlasJob ? blank.is(ModItems.ATLAS_BOOK.get()) && accepts(BLANK, blank)
+                : blank.is(Items.BOOK));
     }
 
     private void resetJob() {
         ticksLeft = 0;
         jobPlate = ItemStack.EMPTY;
+        jobAtlas = ItemStack.EMPTY;
         setChanged();
     }
 
@@ -176,6 +188,9 @@ public final class PrintingPressBlockEntity extends FurnitureInventoryBlockEntit
         if (id != null) {
             var entry = PrintingLibrary.get(server).find(id);
             return entry == null ? ItemStack.EMPTY : entry.book();
+        }
+        if (plate.is(ModItems.ATLAS_PLATE.get())) {
+            return PrintingPlateItem.atlasCopy(plate);
         }
         return PrintingPlateItem.enchantedCopy(plate);
     }
@@ -198,6 +213,7 @@ public final class PrintingPressBlockEntity extends FurnitureInventoryBlockEntit
     public void load(CompoundTag tag) {
         super.load(tag);
         jobPlate = ItemStack.of(tag.getCompound("JobPlate"));
+        jobAtlas = ItemStack.of(tag.getCompound("JobAtlas"));
         ticksLeft = jobPlate.isEmpty() ? 0 : Mth.clamp(tag.getInt("TicksLeft"), 0, PRINT_TICKS);
         animationStart = tag.contains("AnimationStart") ? tag.getLong("AnimationStart") : -1;
         int parts = tag.getInt("VisibleParts");
@@ -215,6 +231,9 @@ public final class PrintingPressBlockEntity extends FurnitureInventoryBlockEntit
         if (ticksLeft > 0) {
             tag.putInt("TicksLeft", ticksLeft);
             tag.put("JobPlate", jobPlate.save(new CompoundTag()));
+            if (!jobAtlas.isEmpty()) {
+                tag.put("JobAtlas", jobAtlas.save(new CompoundTag()));
+            }
         }
     }
 

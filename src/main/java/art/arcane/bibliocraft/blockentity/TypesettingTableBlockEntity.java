@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.blockentity;
 import art.arcane.bibliocraft.book.PrintingLibrary;
 import art.arcane.bibliocraft.config.BiblioConfig;
 import art.arcane.bibliocraft.item.PrintingPlateItem;
+import art.arcane.bibliocraft.map.AtlasContents;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModItems;
 import net.minecraft.core.BlockPos;
@@ -41,6 +42,7 @@ public final class TypesettingTableBlockEntity extends FurnitureInventoryBlockEn
     public boolean canPlaceItem(int slot, ItemStack stack) {
         return switch (slot) {
             case SOURCE -> PrintingLibrary.isPublishable(stack) || stack.is(ModItems.PRINT_PLATE.get())
+                    || BiblioConfig.COMMON.enableAtlas.get() && stack.is(ModItems.ATLAS_BOOK.get())
                     || stack.is(Items.ENCHANTED_BOOK) && !EnchantedBookItem.getEnchantments(stack).isEmpty();
             case CHASES -> stack.is(ModItems.BIBLIO_CHASE.get());
             default -> false;
@@ -120,6 +122,22 @@ public final class TypesettingTableBlockEntity extends FurnitureInventoryBlockEn
             }
             return true;
         }
+        if (source.is(ModItems.ATLAS_BOOK.get()) && BiblioConfig.COMMON.enableAtlas.get()) {
+            int sheets = new AtlasContents(source).filledMapCount();
+            if (!hasSupplies() || sheets == 0) {
+                return false;
+            }
+            int cost = atlasCost(sheets);
+            if (!player.isCreative() && player.experienceLevel < cost) {
+                player.displayClientMessage(Component.translatable("message.bibliocraft.typesetting.levels", cost), true);
+                return false;
+            }
+            stamp(PrintingPlateItem.forAtlas(source));
+            if (!player.isCreative()) {
+                player.giveExperienceLevels(-cost);
+            }
+            return true;
+        }
         var book = PrintingLibrary.get(server).publish(source, player);
         if (book == null) {
             return false;
@@ -150,6 +168,17 @@ public final class TypesettingTableBlockEntity extends FurnitureInventoryBlockEn
             total += (effective * (double) effective + 15) * (i == 0 ? 1 : 0.5 / i);
         }
         return (int) (total * BiblioConfig.COMMON.enchantmentMultiplyer.get() / 10);
+    }
+
+    private static int atlasCost(int sheets) {
+        int level = 0;
+        int xp = 7;
+        // The original charges the level index of the bar containing 32 XP per sheet.
+        while (xp < sheets * 32) {
+            level++;
+            xp += level < 16 ? 2 * level + 7 : 5 * level - 38;
+        }
+        return level;
     }
 
     @Override
