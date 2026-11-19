@@ -7,8 +7,10 @@ import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.blockentity.FancyWorkbenchBlockEntity;
+import art.arcane.bibliocraft.blockentity.PrintingPressBlockEntity;
 import art.arcane.bibliocraft.blockentity.SeatBlockEntity;
 import art.arcane.bibliocraft.blockentity.TableBlockEntity;
+import art.arcane.bibliocraft.blockentity.TypesettingTableBlockEntity;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModBlocks;
@@ -55,6 +57,7 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.FANCY_SIGN.get(), SignDisplayRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.CLOCK.get(), ClockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.FRAMED_CHEST.get(), FramedChestRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PRINTING_PRESS.get(), PrintingPressRenderer::new);
     }
 
     @SubscribeEvent
@@ -62,6 +65,7 @@ public final class ClientSetup {
         TypewriterRenderer.registerModels(event);
         ClockRenderer.registerModels(event);
         FramedChestRenderer.registerModels(event);
+        PrintingPressRenderer.registerModels(event);
     }
 
     @SubscribeEvent
@@ -99,6 +103,8 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.FANCY_WORKBENCH.get(), FancyWorkbenchScreen::new);
             MenuScreens.register(ModMenus.RECIPE_BOOK.get(), RecipeBookScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
+            MenuScreens.register(ModMenus.TYPESETTING_TABLE.get(), TypesettingTableScreen::new);
+            MenuScreens.register(ModMenus.PRINTING_PRESS.get(), PrintingPressScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
                 if (entry.get() instanceof ColoredBlockItem colored) {
@@ -125,6 +131,7 @@ public final class ClientSetup {
         var cookies = ResourceLocation.withDefaultNamespace("item/cookie");
         var deskBooks = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/desk_books");
         var deskCarpet = ResourceLocation.withDefaultNamespace("block/white_wool");
+        var typesetting = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/typesettingtable");
         event.getModels().replaceAll((id, model) -> {
             if (id.equals(ClockRenderer.GRANDFATHER_CASE) || FramedChestRenderer.isLid(id)) {
                 return new FurnitureMaterialModel(model);
@@ -168,6 +175,12 @@ public final class ClientSetup {
             }
             if (path.equals(ModBlocks.COOKIE_JAR.getId().getPath())) {
                 return new SlotVisibilityModel(model, cookies, CookieJarBlockEntity.VISIBLE_COOKIES);
+            }
+            if (path.equals(ModBlocks.TYPESETTING_TABLE.getId().getPath())) {
+                return new SlotVisibilityModel(model, typesetting, TypesettingTableBlockEntity.VISIBLE_PARTS);
+            }
+            if (path.equals(ModBlocks.PRINTING_PRESS.getId().getPath())) {
+                return new PrintingPressModel(model);
             }
             return model;
         });

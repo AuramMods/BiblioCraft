@@ -1,7 +1,44 @@
 newmtl inkplate
 Kd 1.00 1.00 1.00
+forge_TintIndex -1
 map_Kd bibliocraft:block/inkplate0
 
 newmtl press
 Kd 1.00 1.00 1.00
+forge_TintIndex -1
+map_Kd bibliocraft:block/printpress
+
+newmtl plate
+Kd 1.00 1.00 1.00
+forge_TintIndex 0
+map_Kd bibliocraft:block/printpress
+
+newmtl book1
+Kd 1.00 1.00 1.00
+forge_TintIndex 1
+map_Kd bibliocraft:block/printpress
+
+newmtl book2
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd bibliocraft:block/printpress
+
+newmtl book3
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd bibliocraft:block/printpress
+
+newmtl book4
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd bibliocraft:block/printpress
+
+newmtl bookBlue
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd bibliocraft:block/printpress
+
+newmtl bookEnchant
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
 map_Kd bibliocraft:block/printpress

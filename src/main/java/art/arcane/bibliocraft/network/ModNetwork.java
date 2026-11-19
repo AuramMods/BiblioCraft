@@ -7,6 +7,8 @@ import art.arcane.bibliocraft.client.BigBookScreen;
 import art.arcane.bibliocraft.client.StockroomCatalogScreen;
 import art.arcane.bibliocraft.menu.BigBookMenu;
 import art.arcane.bibliocraft.client.RecipeBookScreen;
+import art.arcane.bibliocraft.client.TypesettingTableScreen;
+import art.arcane.bibliocraft.menu.TypesettingTableMenu;
 import art.arcane.bibliocraft.crafting.RecordedRecipe;
 import art.arcane.bibliocraft.menu.RecipeBookMenu;
 import art.arcane.bibliocraft.item.WaypointCompassItem;
@@ -31,10 +33,11 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "7";
+    private static final String PROTOCOL = "8";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -54,10 +57,16 @@ public final class ModNetwork {
         initialized = true;
 
         registerServerbound(AtlasWptPacket.class, AtlasWptPacket::new);
-        registerServerbound(TypePacket.class, TypePacket::new);
-        registerServerbound(TypeFlagPacket.class, TypeFlagPacket::new);
-        registerServerbound(TypeDeletePacket.class, TypeDeletePacket::new);
-        registerServerbound(TypeUpdatePacket.class, TypeUpdatePacket::new);
+        CHANNEL.messageBuilder(TypesettingActionPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(TypesettingActionPacket::encode).decoder(TypesettingActionPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof TypesettingTableMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.apply(player, message.action(), message.book());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         CHANNEL.messageBuilder(McbEditPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(McbEditPacket::encode).decoder(McbEditPacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -206,6 +215,12 @@ public final class ModNetwork {
                     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BigBookScreen.receive(message));
                     context.get().setPacketHandled(true);
                 }).add();
+        CHANNEL.messageBuilder(TypesettingPagePacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(TypesettingPagePacket::encode).decoder(TypesettingPagePacket::decode)
+                .consumerMainThread((message, context) -> {
+                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TypesettingTableScreen.receive(message));
+                    context.get().setPacketHandled(true);
+                }).add();
         registerClientbound(OpenBookPacket.class, OpenBookPacket::new);
         registerClientbound(DeskOpenGuiPacket.class, DeskOpenGuiPacket::new);
         registerClientbound(AtlasSwpClientPacket.class, AtlasSwpClientPacket::new);
@@ -245,10 +260,27 @@ public final class ModNetwork {
     }
 
     public static final class AtlasWptPacket extends EmptyPacket {}
-    public static final class TypePacket extends EmptyPacket {}
-    public static final class TypeFlagPacket extends EmptyPacket {}
-    public static final class TypeDeletePacket extends EmptyPacket {}
-    public static final class TypeUpdatePacket extends EmptyPacket {}
+    public record TypesettingActionPacket(int menuId, TypesettingTableMenu.Action action, UUID book) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId).writeEnum(action).writeNullable(book, FriendlyByteBuf::writeUUID);
+        }
+
+        private static TypesettingActionPacket decode(FriendlyByteBuf buffer) {
+            return new TypesettingActionPacket(buffer.readVarInt(), buffer.readEnum(TypesettingTableMenu.Action.class),
+                    buffer.readNullable(FriendlyByteBuf::readUUID));
+        }
+    }
+
+    public record TypesettingPagePacket(int menuId, TypesettingTableMenu.Page page) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            page.write(buffer);
+        }
+
+        private static TypesettingPagePacket decode(FriendlyByteBuf buffer) {
+            return new TypesettingPagePacket(buffer.readVarInt(), TypesettingTableMenu.Page.read(buffer));
+        }
+    }
     public record McbEditPacket(int menuId, int page, List<String> pages, Optional<String> title) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId);

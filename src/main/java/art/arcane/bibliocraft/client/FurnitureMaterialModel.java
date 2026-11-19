@@ -177,7 +177,7 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
                 && !MissingTextureAtlasSprite.getLocation().equals(panel.contents().name()) ? panel : null;
     }
 
-    private static BakedQuad replaceSprite(QuadTexture entry) {
+    static BakedQuad replaceSprite(QuadTexture entry) {
         BakedQuad quad = entry.quad();
         TextureAtlasSprite old = quad.getSprite();
         TextureAtlasSprite sprite = entry.sprite();
@@ -192,6 +192,6 @@ final class FurnitureMaterialModel extends BakedModelWrapper<BakedModel> {
                 quad.hasAmbientOcclusion());
     }
 
-    private record QuadTexture(BakedQuad quad, TextureAtlasSprite sprite) {}
+    record QuadTexture(BakedQuad quad, TextureAtlasSprite sprite) {}
     private record ItemPass(BakedModel model, TextureAtlasSprite sprite) {}
 }

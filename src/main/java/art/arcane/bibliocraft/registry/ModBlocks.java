@@ -24,6 +24,8 @@ import art.arcane.bibliocraft.block.SeatBlock;
 import art.arcane.bibliocraft.block.SwordPedestalBlock;
 import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.block.TypewriterBlock;
+import art.arcane.bibliocraft.block.TypesettingTableBlock;
+import art.arcane.bibliocraft.block.PrintingPressBlock;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import art.arcane.bibliocraft.block.FancyWorkbenchBlock;
@@ -169,9 +171,11 @@ public final class ModBlocks {
     public static final RegistryObject<Block> BELL =
             register("bell", () -> new DeskBellBlock(woodProps().mapColor(MapColor.METAL).sound(SoundType.METAL), SHAPE_BELL));
     public static final RegistryObject<Block> TYPESETTING_TABLE =
-            register("typesetting_table", () -> shapedWoodEntity(SHAPE_TYPESETTING_TABLE, "typesetting_table"));
+            register("typesetting_table", () -> new TypesettingTableBlock(woodProps().sound(SoundType.WOOD),
+                    SHAPE_TYPESETTING_TABLE));
     public static final RegistryObject<Block> PRINTING_PRESS =
-            register("printing_press", () -> fullWoodEntity("printing_press"));
+            register("printing_press", () -> new PrintingPressBlock(woodProps().mapColor(MapColor.METAL)
+                    .sound(SoundType.ANVIL)));
     public static final RegistryObject<Block> COOKIE_JAR =
             register("cookie_jar", () -> new CookieJarBlock(woodProps(), SHAPE_COOKIE_JAR));
     public static final RegistryObject<Block> DINNER_PLATE =
@@ -216,10 +220,6 @@ public final class ModBlocks {
         return new MountedFacingEntityBlock(woodProps(), floorShape, wallShape, ceilingShape, blockEntityPath);
     }
 
-
-    private static Block fullWoodEntity(String blockEntityPath) {
-        return new HorizontalFacingEntityBlock(woodProps(), Shapes.block(), blockEntityPath);
-    }
 
     private static BlockBehaviour.Properties woodProps() {
         // OBJ display blocks should not occlude neighboring faces like full cubes.

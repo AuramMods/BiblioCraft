@@ -4,15 +4,15 @@
   "flip_v": true,
   "visibility": {
     "base": true,
-    "bookRed": false,
-    "bookBlue": false,
-    "bookEnchant": false,
-    "chase1": false,
-    "chase2": false,
-    "chase3": false,
-    "chase4": false,
-    "plateLeft": false,
-    "plateRight": false
+    "bookRed": true,
+    "bookBlue": true,
+    "bookEnchant": true,
+    "chase1": true,
+    "chase2": true,
+    "chase3": true,
+    "chase4": true,
+    "plateLeft": true,
+    "plateRight": true
   },
   "textures": {
     "particle": "bibliocraft:block/typesettingtable"

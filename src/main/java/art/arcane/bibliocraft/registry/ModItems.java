@@ -6,6 +6,7 @@ import art.arcane.bibliocraft.item.FramingSawItem;
 import art.arcane.bibliocraft.item.FurnitureDrillItem;
 import art.arcane.bibliocraft.item.FurnitureLockItem;
 import art.arcane.bibliocraft.item.MenuOpeningItem;
+import art.arcane.bibliocraft.item.PrintingPlateItem;
 import art.arcane.bibliocraft.item.RecipeBookItem;
 import art.arcane.bibliocraft.item.SeatBackItem;
 import art.arcane.bibliocraft.item.StockroomCatalogItem;
@@ -58,8 +59,8 @@ public final class ModItems {
     public static final RegistryObject<Item> TAPE_MEASURE = register("tape_measure");
     public static final RegistryObject<Item> TAPE = register("tape");
     public static final RegistryObject<Item> BIBLIO_CHASE = register("biblio_chase");
-    public static final RegistryObject<Item> PRINT_PLATE = register("print_plate");
-    public static final RegistryObject<Item> ENCHANTED_PLATE = register("enchanted_plate");
+    public static final RegistryObject<Item> PRINT_PLATE = register("print_plate", PrintingPlateItem::new);
+    public static final RegistryObject<Item> ENCHANTED_PLATE = register("enchanted_plate", PrintingPlateItem::new);
     public static final RegistryObject<Item> BIBLIO_RED_BOOK = register("biblio_red_book");
     public static final RegistryObject<Item> BIBLIO_GLASSES = register("biblio_glasses");
     public static final RegistryObject<Item> BIBLIO_DRILL =

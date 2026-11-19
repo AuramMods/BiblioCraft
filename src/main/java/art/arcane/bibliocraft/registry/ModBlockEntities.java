@@ -18,6 +18,8 @@ import art.arcane.bibliocraft.blockentity.TypewriterBlockEntity;
 import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
+import art.arcane.bibliocraft.blockentity.TypesettingTableBlockEntity;
+import art.arcane.bibliocraft.blockentity.PrintingPressBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.RackBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
@@ -103,10 +105,12 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ArmorStandBlockEntity>> ARMOR_STAND =
             BLOCK_ENTITIES.register("armor_stand", () -> BlockEntityType.Builder.of(
                     ArmorStandBlockEntity::new, ModBlocks.ARMOR_STAND.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> TYPESETTING_TABLE =
-            register("typesetting_table", ModBlocks.TYPESETTING_TABLE);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PRINTING_PRESS =
-            register("printing_press", ModBlocks.PRINTING_PRESS);
+    public static final RegistryObject<BlockEntityType<TypesettingTableBlockEntity>> TYPESETTING_TABLE =
+            BLOCK_ENTITIES.register("typesetting_table", () ->
+                    BlockEntityType.Builder.of(TypesettingTableBlockEntity::new, ModBlocks.TYPESETTING_TABLE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<PrintingPressBlockEntity>> PRINTING_PRESS =
+            BLOCK_ENTITIES.register("printing_press", () ->
+                    BlockEntityType.Builder.of(PrintingPressBlockEntity::new, ModBlocks.PRINTING_PRESS.get()).build(null));
     public static final RegistryObject<BlockEntityType<CookieJarBlockEntity>> COOKIE_JAR =
             BLOCK_ENTITIES.register("cookie_jar", () ->
                     BlockEntityType.Builder.of(CookieJarBlockEntity::new, ModBlocks.COOKIE_JAR.get()).build(null));

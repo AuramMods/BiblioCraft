@@ -1,3 +1,49 @@
 newmtl Default
 Kd 1.00 1.00 1.00
+forge_TintIndex -1
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl bookRed
+Kd 1.00 1.00 1.00
+forge_TintIndex 0
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl bookBlue
+Kd 1.00 1.00 1.00
+forge_TintIndex 1
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl bookEnchant
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl chase1
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl chase2
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl chase3
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl chase4
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl plateLeft
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd bibliocraft:block/typesettingtable
+
+newmtl plateRight
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
 map_Kd bibliocraft:block/typesettingtable

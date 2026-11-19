@@ -114,6 +114,7 @@ public final class RecipeBookMenu extends AbstractContainerMenu {
         tag.putBoolean("edited", true);
         if (sign) {
             tag.putBoolean("signed", true);
+            tag.putString("author", player.getGameProfile().getName());
         }
         if (desk != null) {
             desk.setItem(DeskBlockEntity.OPEN_BOOK, edited);

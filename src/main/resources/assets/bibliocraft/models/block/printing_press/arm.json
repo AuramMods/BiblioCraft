@@ -1,0 +1,23 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/printpress.obj",
+  "flip_v": true,
+  "visibility": {
+    "press": false,
+    "plate": false,
+    "book1": false,
+    "book2": false,
+    "book3": false,
+    "book4": false,
+    "bookBlue": false,
+    "bookEnchant": false,
+    "arm": true,
+    "arm_item": false,
+    "bed": false,
+    "bed_item": false
+  },
+  "textures": {
+    "particle": "bibliocraft:block/inkplate0"
+  },
+  "automatic_culling": false
+}
