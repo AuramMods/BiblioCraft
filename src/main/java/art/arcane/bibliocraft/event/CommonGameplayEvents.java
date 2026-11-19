@@ -1,6 +1,10 @@
 package art.arcane.bibliocraft.event;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.catalog.CatalogContents;
+import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.item.StockroomCatalogItem;
+import art.arcane.bibliocraft.registry.ModParticles;
 import art.arcane.bibliocraft.block.ArmorStandBlock;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.block.BookcaseBlock;
@@ -25,6 +29,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -104,6 +109,35 @@ public final class CommonGameplayEvents {
                 && CONTAINER_SENSITIVE_ITEMS.contains(key.toString())) {
             // Placeholder for legacy packet/container validation before toss.
             player.closeContainer();
+        }
+    }
+
+    @SubscribeEvent
+    public static void onCatalogHeld(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END || !(event.player instanceof ServerPlayer player)
+                || player.tickCount % 15 != 0 || !BiblioConfig.COMMON.enableStockroomCatalog.get()) {
+            return;
+        }
+        ItemStack catalog = player.getMainHandItem();
+        if (!(catalog.getItem() instanceof StockroomCatalogItem)) {
+            catalog = player.getOffhandItem();
+        }
+        if (!(catalog.getItem() instanceof StockroomCatalogItem)) {
+            return;
+        }
+        var level = player.serverLevel();
+        for (var location : CatalogContents.locations(catalog, level.dimension())) {
+            BlockPos pos = location.pos();
+            if (!location.dimension().equals(level.dimension()) || !pos.closerToCenterThan(player.position(), 24)
+                    || !level.hasChunkAt(pos) || CatalogContents.findContainer(level, pos) == null) {
+                continue;
+            }
+            int direction = player.tickCount / 15 % 5;
+            double dx = direction == 0 ? 0.07 : direction == 1 ? -0.07 : 0.01;
+            double dy = direction == 2 ? 0.07 : 0.01;
+            double dz = direction == 3 ? 0.07 : direction == 4 ? -0.07 : 0.01;
+            level.sendParticles(player, ModParticles.CATALOG.get(), false, pos.getX() + 0.5,
+                    pos.getY() + 0.5, pos.getZ() + 0.5, 0, dx, dy, dz, 1.0);
         }
     }
 

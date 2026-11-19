@@ -12,6 +12,7 @@ import art.arcane.bibliocraft.registry.ModEnchantments;
 import art.arcane.bibliocraft.registry.ModEntities;
 import art.arcane.bibliocraft.registry.ModItems;
 import art.arcane.bibliocraft.registry.ModMenus;
+import art.arcane.bibliocraft.registry.ModParticles;
 import art.arcane.bibliocraft.registry.ModRecipes;
 import art.arcane.bibliocraft.registry.ModSounds;
 import com.mojang.logging.LogUtils;
@@ -79,6 +80,7 @@ public class BiblioCraft {
         ModEntities.ENTITY_TYPES.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);
         ModSounds.SOUND_EVENTS.register(modEventBus);
+        ModParticles.PARTICLES.register(modEventBus);
         ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
         ModRecipes.RECIPE_TYPES.register(modEventBus);
         CREATIVE_TABS.register(modEventBus);

@@ -19,6 +19,8 @@ import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.RackMenu;
 import art.arcane.bibliocraft.menu.ShelfMenu;
 import art.arcane.bibliocraft.menu.TableMenu;
+import art.arcane.bibliocraft.menu.StockroomCatalogMenu;
+import art.arcane.bibliocraft.menu.WaypointCompassMenu;
 import art.arcane.bibliocraft.menu.FurniturePanelerMenu;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
@@ -80,6 +82,11 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<PlaceholderMenu>> TYPESETTING_TABLE = register("typesetting_table");
     public static final RegistryObject<MenuType<PlaceholderMenu>> PRINTING_PRESS = register("printing_press");
     public static final RegistryObject<MenuType<PlaceholderMenu>> MAP_FRAME = register("map_frame");
+
+    public static final RegistryObject<MenuType<StockroomCatalogMenu>> STOCKROOM_CATALOG =
+            MENUS.register("stockroom_catalog", () -> IForgeMenuType.create(StockroomCatalogMenu::new));
+    public static final RegistryObject<MenuType<WaypointCompassMenu>> WAYPOINT_COMPASS =
+            MENUS.register("compass", () -> IForgeMenuType.create(WaypointCompassMenu::new));
 
     private static final Map<ResourceLocation, RegistryObject<MenuType<PlaceholderMenu>>> BLOCK_MENU_MAP = new HashMap<>();
 

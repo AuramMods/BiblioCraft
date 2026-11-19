@@ -14,6 +14,7 @@ import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModEntities;
 import art.arcane.bibliocraft.registry.ModItems;
 import art.arcane.bibliocraft.registry.ModMenus;
+import art.arcane.bibliocraft.registry.ModParticles;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -22,6 +23,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.model.geometry.IGeometryLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -61,6 +64,16 @@ public final class ClientSetup {
     }
 
     @SubscribeEvent
+    public static void registerModelLoaders(ModelEvent.RegisterGeometryLoaders event) {
+        event.register("waypoint_compass", (IGeometryLoader<WaypointCompassModel>) WaypointCompassModel::read);
+    }
+
+    @SubscribeEvent
+    public static void registerParticles(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(ModParticles.CATALOG.get(), CatalogParticle.Provider::new);
+    }
+
+    @SubscribeEvent
     public static void setupClient(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenus.SHELF.get(), ShelfScreen::new);
@@ -78,6 +91,8 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.LABEL.get(), LabelScreen::new);
             MenuScreens.register(ModMenus.FANCY_SIGN.get(), FancySignScreen::new);
             MenuScreens.register(ModMenus.CLOCK.get(), ClockScreen::new);
+            MenuScreens.register(ModMenus.STOCKROOM_CATALOG.get(), StockroomCatalogScreen::new);
+            MenuScreens.register(ModMenus.WAYPOINT_COMPASS.get(), WaypointCompassScreen::new);
             MenuScreens.register(ModMenus.FRAMED_CHEST.get(), FramedChestScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");

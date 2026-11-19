@@ -1,13 +1,21 @@
 package art.arcane.bibliocraft.network;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.catalog.CatalogContents;
+import art.arcane.bibliocraft.client.StockroomCatalogScreen;
+import art.arcane.bibliocraft.item.WaypointCompassItem;
+import art.arcane.bibliocraft.menu.StockroomCatalogMenu;
+import art.arcane.bibliocraft.menu.WaypointCompassMenu;
 import art.arcane.bibliocraft.blockentity.ClockSettings;
 import art.arcane.bibliocraft.blockentity.FancySignLayout;
 import art.arcane.bibliocraft.menu.DeskBookMenu;
 import art.arcane.bibliocraft.menu.ClockMenu;
 import art.arcane.bibliocraft.menu.FancySignMenu;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -18,7 +26,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "4";
+    private static final String PROTOCOL = "5";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -62,8 +70,49 @@ public final class ModNetwork {
                 }).add();
         registerServerbound(PanelerPacket.class, PanelerPacket::new);
         registerServerbound(RecipeCraftPacket.class, RecipeCraftPacket::new);
-        registerServerbound(StockTitlePacket.class, StockTitlePacket::new);
-        registerServerbound(StockCompassPacket.class, StockCompassPacket::new);
+        CHANNEL.messageBuilder(StockTitlePacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(StockTitlePacket::encode).decoder(StockTitlePacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof StockroomCatalogMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.rename(player, message.title());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(StockCompassPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(StockCompassPacket::encode).decoder(StockCompassPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof StockroomCatalogMenu menu
+                            && menu.containerId == message.menuId()
+                            && !menu.assign(player, message.slot(), message.location(), message.item())) {
+                        player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                                "message.bibliocraft.catalog.assignment_unavailable"), false);
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(StockRefreshPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder((message, buffer) -> buffer.writeVarInt(message.menuId()))
+                .decoder(buffer -> new StockRefreshPacket(buffer.readVarInt()))
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof StockroomCatalogMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.refresh(player);
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(WaypointEditPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(WaypointEditPacket::encode).decoder(WaypointEditPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof WaypointCompassMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.save(player, message.x(), message.z(), message.name(), message.currentDimension());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         registerServerbound(ClipboardPacket.class, ClipboardPacket::new);
         registerServerbound(UpdateInvPacket.class, UpdateInvPacket::new);
         registerServerbound(AtlasPacket.class, AtlasPacket::new);
@@ -97,7 +146,12 @@ public final class ModNetwork {
         registerClientbound(AtlasClientPacket.class, AtlasClientPacket::new);
         registerClientbound(PanelerClientPacket.class, PanelerClientPacket::new);
         registerClientbound(RecipeTextPacket.class, RecipeTextPacket::new);
-        registerClientbound(StockLogPacket.class, StockLogPacket::new);
+        CHANNEL.messageBuilder(StockLogPacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(StockLogPacket::encode).decoder(StockLogPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> StockroomCatalogScreen.receive(message));
+                    context.get().setPacketHandled(true);
+                }).add();
         registerClientbound(OpenBookPacket.class, OpenBookPacket::new);
         registerClientbound(DeskOpenGuiPacket.class, DeskOpenGuiPacket::new);
         registerClientbound(AtlasSwpClientPacket.class, AtlasSwpClientPacket::new);
@@ -170,8 +224,48 @@ public final class ModNetwork {
     }
     public static final class PanelerPacket extends EmptyPacket {}
     public static final class RecipeCraftPacket extends EmptyPacket {}
-    public static final class StockTitlePacket extends EmptyPacket {}
-    public static final class StockCompassPacket extends EmptyPacket {}
+    public record StockTitlePacket(int menuId, String title) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeUtf(title, CatalogContents.TITLE_LENGTH);
+        }
+
+        private static StockTitlePacket decode(FriendlyByteBuf buffer) {
+            return new StockTitlePacket(buffer.readVarInt(), buffer.readUtf(CatalogContents.TITLE_LENGTH));
+        }
+    }
+
+    public record StockCompassPacket(int menuId, int slot, GlobalPos location, String item) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeVarInt(slot);
+            buffer.writeGlobalPos(location);
+            buffer.writeUtf(item, CatalogContents.NAME_LENGTH);
+        }
+
+        private static StockCompassPacket decode(FriendlyByteBuf buffer) {
+            return new StockCompassPacket(buffer.readVarInt(), buffer.readVarInt(), buffer.readGlobalPos(),
+                    buffer.readUtf(CatalogContents.NAME_LENGTH));
+        }
+    }
+
+    public record StockRefreshPacket(int menuId) {}
+
+    public record WaypointEditPacket(int menuId, int x, int z, String name, boolean currentDimension) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeInt(x);
+            buffer.writeInt(z);
+            buffer.writeUtf(name, WaypointCompassItem.MAX_NAME_LENGTH);
+            buffer.writeBoolean(currentDimension);
+        }
+
+        private static WaypointEditPacket decode(FriendlyByteBuf buffer) {
+            return new WaypointEditPacket(buffer.readVarInt(), buffer.readInt(), buffer.readInt(),
+                    buffer.readUtf(WaypointCompassItem.MAX_NAME_LENGTH), buffer.readBoolean());
+        }
+    }
+
     public static final class ClipboardPacket extends EmptyPacket {}
     public static final class UpdateInvPacket extends EmptyPacket {}
     public static final class AtlasPacket extends EmptyPacket {}
@@ -207,7 +301,22 @@ public final class ModNetwork {
     public static final class AtlasClientPacket extends EmptyPacket {}
     public static final class PanelerClientPacket extends EmptyPacket {}
     public static final class RecipeTextPacket extends EmptyPacket {}
-    public static final class StockLogPacket extends EmptyPacket {}
+    public record StockLogPacket(int menuId, int sourceCount, int unavailable, boolean finished,
+                                 @org.jetbrains.annotations.Nullable CatalogContents.Source source) {
+        void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeVarInt(sourceCount);
+            buffer.writeVarInt(unavailable);
+            buffer.writeBoolean(finished);
+            buffer.writeNullable(source, (out, value) -> value.write(out));
+        }
+
+        static StockLogPacket decode(FriendlyByteBuf buffer) {
+            return new StockLogPacket(buffer.readVarInt(), buffer.readVarInt(), buffer.readVarInt(),
+                    buffer.readBoolean(), buffer.readNullable(CatalogContents.Source::read));
+        }
+    }
+
     public static final class OpenBookPacket extends EmptyPacket {}
     public static final class DeskOpenGuiPacket extends EmptyPacket {}
     public static final class AtlasSwpClientPacket extends EmptyPacket {}

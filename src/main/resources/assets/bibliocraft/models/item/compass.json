@@ -1,5 +1,5 @@
 {
-  "loader": "forge:obj",
+  "loader": "bibliocraft:waypoint_compass",
   "model": "bibliocraft:models/item/compass.obj",
   "flip_v": true,
   "automatic_culling": false,
@@ -7,75 +7,75 @@
     "thirdperson_righthand": {
       "rotation": [
         75,
-        45,
+        0,
         0
       ],
       "translation": [
         0,
-        2.5,
+        3,
         0
       ],
       "scale": [
-        0.375,
-        0.375,
-        0.375
+        0.9,
+        0.9,
+        0.9
       ]
     },
     "thirdperson_lefthand": {
       "rotation": [
         75,
-        45,
+        0,
         0
       ],
       "translation": [
         0,
-        2.5,
+        3,
         0
       ],
       "scale": [
-        0.375,
-        0.375,
-        0.375
+        0.9,
+        0.9,
+        0.9
       ]
     },
     "firstperson_righthand": {
       "rotation": [
+        55,
         0,
-        45,
         0
       ],
       "translation": [
-        0,
-        0,
+        -0.65,
+        4.3,
         0
       ],
       "scale": [
-        0.4,
-        0.4,
-        0.4
+        0.65,
+        0.65,
+        0.65
       ]
     },
     "firstperson_lefthand": {
       "rotation": [
+        55,
         0,
-        45,
         0
       ],
       "translation": [
-        0,
-        0,
+        -0.65,
+        4.3,
         0
       ],
       "scale": [
-        0.4,
-        0.4,
-        0.4
+        0.65,
+        0.65,
+        0.65
       ]
     },
     "gui": {
       "rotation": [
-        30,
-        225,
+        78,
+        0,
         0
       ],
       "translation": [
@@ -84,9 +84,9 @@
         0
       ],
       "scale": [
-        0.625,
-        0.625,
-        0.625
+        1.45,
+        1.45,
+        1.45
       ]
     },
     "ground": {
@@ -101,14 +101,14 @@
         0
       ],
       "scale": [
-        0.25,
-        0.25,
-        0.25
+        0.8,
+        0.8,
+        0.8
       ]
     },
     "fixed": {
       "rotation": [
-        0,
+        90,
         0,
         0
       ],
@@ -118,10 +118,18 @@
         0
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        1.7,
+        1.7,
+        1.7
       ]
     }
-  }
+  },
+  "transform": {
+    "translation": [
+      0.5,
+      0.43,
+      0.5
+    ]
+  },
+  "gui_light": "front"
 }

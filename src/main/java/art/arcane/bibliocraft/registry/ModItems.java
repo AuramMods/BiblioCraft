@@ -6,6 +6,8 @@ import art.arcane.bibliocraft.item.FurnitureDrillItem;
 import art.arcane.bibliocraft.item.FurnitureLockItem;
 import art.arcane.bibliocraft.item.MenuOpeningItem;
 import art.arcane.bibliocraft.item.SeatBackItem;
+import art.arcane.bibliocraft.item.StockroomCatalogItem;
+import art.arcane.bibliocraft.item.WaypointCompassItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,14 +22,14 @@ public final class ModItems {
 
     private static final List<RegistryObject<Item>> TAB_ITEMS = new ArrayList<>();
 
-    public static final RegistryObject<Item> WAYPOINT_COMPASS = register("compass");
+    public static final RegistryObject<Item> WAYPOINT_COMPASS = register("compass", WaypointCompassItem::new);
     public static final RegistryObject<Item> MAP_TOOL = register("maptool");
     public static final RegistryObject<Item> SEAT_BACK_1 = register("seatback1", () -> new SeatBackItem(1));
     public static final RegistryObject<Item> SEAT_BACK_2 = register("seatback2", () -> new SeatBackItem(2));
     public static final RegistryObject<Item> SEAT_BACK_3 = register("seatback3", () -> new SeatBackItem(3));
     public static final RegistryObject<Item> SEAT_BACK_4 = register("seatback4", () -> new SeatBackItem(4));
     public static final RegistryObject<Item> SEAT_BACK_5 = register("seatback5", () -> new SeatBackItem(5));
-    public static final RegistryObject<Item> STOCKROOM_CATALOG = register("stockroom_catalog");
+    public static final RegistryObject<Item> STOCKROOM_CATALOG = register("stockroom_catalog", StockroomCatalogItem::new);
     public static final RegistryObject<Item> PLUMB_LINE = register("plumb_line");
     public static final RegistryObject<Item> FRAMING_SAW = register("framing_saw", FramingSawItem::new);
     public static final RegistryObject<Item> FRAMING_BOARD = register("framing_board");
