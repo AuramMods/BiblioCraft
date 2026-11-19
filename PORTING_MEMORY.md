@@ -49,6 +49,8 @@
 
 - The clipboard restores the handheld and writing-desk checklist editor, wall placement, and the original board, checkmark, and cross geometry. All 133 Forge GameTests passed. One muted client created two pages with the original screen, then hung the clipboard in survival. The other player turned both pages and changed a wall checkmark to a cross. A dedicated restart preserved the wall text, marks, and selected page. The first player picked it up, put it on the writing desk, and both players edited different tasks at once. Both changes survived desk removal, rehanging, survival mining, and pickup of the single drop.
 
+- The slotted and redstone books again use their original screens and recipes. All 137 Forge GameTests passed. The muted client rejected a second slotted book, then stored a named pickaxe with 19 damage and saved a title and two description lines. It named a redstone book, canceled another edit, and put the named book in the bookcase's sixteenth slot. The guest saw an adjacent side lamp lit and the front lamp dark. After a dedicated restart, both lamp states and book titles persisted, and the slotted book still showed both description lines and the pickaxe. Two shift-click attempts returned one pickaxe with its original damage and name.
+
 ## Initial Breadth Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).
 - Core registry flow located and mapped.
@@ -342,7 +344,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Continue with the slotted book and redstone book. Use the original slotted inventory and editor layouts. The redstone book opens an explanation screen with a title field and separate save and cancel actions.
+- Finish shared drill actions and feedback for the remaining display furniture, then restore the item tester. Follow with the config, recipes, loot, save compatibility, and supported BiblioWoods audit.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

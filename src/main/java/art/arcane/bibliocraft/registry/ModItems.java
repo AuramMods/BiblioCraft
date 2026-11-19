@@ -3,6 +3,8 @@ package art.arcane.bibliocraft.registry;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.item.AtlasItem;
 import art.arcane.bibliocraft.item.ClipboardItem;
+import art.arcane.bibliocraft.item.SlottedBookItem;
+import art.arcane.bibliocraft.item.RedstoneBookItem;
 import art.arcane.bibliocraft.item.DeathCompassItem;
 import art.arcane.bibliocraft.item.BigBookItem;
 import art.arcane.bibliocraft.item.FramingSawItem;
@@ -54,10 +56,7 @@ public final class ModItems {
     public static final RegistryObject<Item> PAINTING_CANVAS = register("painting_canvas", PaintingCanvasItem::new);
     public static final RegistryObject<Item> BIG_BOOK = register("big_book", BigBookItem::new);
     public static final RegistryObject<Item> RECIPE_BOOK = register("recipe_book", RecipeBookItem::new);
-    public static final RegistryObject<Item> SLOTTED_BOOK = register(
-            "slotted_book",
-            () -> new MenuOpeningItem(new Item.Properties().stacksTo(1), ModMenus.SLOTTED_BOOK::get, "slotted_book")
-    );
+    public static final RegistryObject<Item> SLOTTED_BOOK = register("slotted_book", SlottedBookItem::new);
     public static final RegistryObject<Item> HAND_DRILL =
             register("hand_drill", () -> new FurnitureDrillItem(new Item.Properties().stacksTo(1), true));
     public static final RegistryObject<Item> TAPE_MEASURE = register("tape_measure", TapeMeasureItem::new);
@@ -65,7 +64,7 @@ public final class ModItems {
     public static final RegistryObject<Item> BIBLIO_CHASE = register("biblio_chase");
     public static final RegistryObject<Item> PRINT_PLATE = register("print_plate", PrintingPlateItem::new);
     public static final RegistryObject<Item> ENCHANTED_PLATE = register("enchanted_plate", PrintingPlateItem::new);
-    public static final RegistryObject<Item> BIBLIO_RED_BOOK = register("biblio_red_book");
+    public static final RegistryObject<Item> BIBLIO_RED_BOOK = register("biblio_red_book", RedstoneBookItem::new);
     public static final RegistryObject<Item> BIBLIO_GLASSES = register("biblio_glasses", ReadingGlassesItem::new);
     public static final RegistryObject<Item> BIBLIO_DRILL =
             register("biblio_drill", () -> new FurnitureDrillItem(new Item.Properties().stacksTo(1), false));

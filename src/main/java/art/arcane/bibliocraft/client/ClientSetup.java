@@ -113,6 +113,8 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.DESK.get(), DeskScreen::new);
             MenuScreens.register(ModMenus.DESK_BOOK.get(), DeskBookScreen::new);
             MenuScreens.register(ModMenus.CLIPBOARD.get(), ClipboardScreen::new);
+            MenuScreens.register(ModMenus.SLOTTED_BOOK.get(), SlottedBookScreen::new);
+            MenuScreens.register(ModMenus.REDSTONE_BOOK.get(), RedstoneBookScreen::new);
             MenuScreens.register(ModMenus.BIG_BOOK.get(), BigBookScreen::new);
             MenuScreens.register(ModMenus.ARMOR_STAND.get(), ArmorStandScreen::new);
             MenuScreens.register(ModMenus.TABLE.get(), TableScreen::new);

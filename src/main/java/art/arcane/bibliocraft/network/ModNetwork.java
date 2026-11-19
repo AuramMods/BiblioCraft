@@ -5,12 +5,15 @@ import art.arcane.bibliocraft.block.FurnitureReading;
 import art.arcane.bibliocraft.catalog.CatalogContents;
 import art.arcane.bibliocraft.book.BigBookContent;
 import art.arcane.bibliocraft.book.ClipboardContent;
+import art.arcane.bibliocraft.book.SlottedBookContents;
 import art.arcane.bibliocraft.client.BigBookScreen;
 import art.arcane.bibliocraft.client.ClipboardScreen;
 import art.arcane.bibliocraft.client.ReadingOverlay;
 import art.arcane.bibliocraft.client.StockroomCatalogScreen;
 import art.arcane.bibliocraft.menu.BigBookMenu;
 import art.arcane.bibliocraft.menu.ClipboardMenu;
+import art.arcane.bibliocraft.menu.SlottedBookMenu;
+import art.arcane.bibliocraft.menu.RedstoneBookMenu;
 import art.arcane.bibliocraft.client.RecipeBookScreen;
 import art.arcane.bibliocraft.client.TypesettingTableScreen;
 import art.arcane.bibliocraft.menu.TypesettingTableMenu;
@@ -53,7 +56,7 @@ import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "14";
+    private static final String PROTOCOL = "15";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -207,7 +210,26 @@ public final class ModNetwork {
                     }
                     context.get().setPacketHandled(true);
                 }).add();
-        registerServerbound(UpdateInvPacket.class, UpdateInvPacket::new);
+        CHANNEL.messageBuilder(SlottedBookEdit.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(SlottedBookEdit::encode).decoder(SlottedBookEdit::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof SlottedBookMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.saveLabel(player, message.label());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(RedstoneBookRename.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(RedstoneBookRename::encode).decoder(RedstoneBookRename::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof RedstoneBookMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.rename(player, message.title());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         CHANNEL.messageBuilder(MapPinPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(MapPinPacket::encode).decoder(MapPinPacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -576,7 +598,27 @@ public final class ModNetwork {
             return new ClipboardPage(buffer.readVarInt(), ClipboardContent.View.read(buffer));
         }
     }
-    public static final class UpdateInvPacket extends EmptyPacket {}
+    public record SlottedBookEdit(int menuId, SlottedBookContents.Label label) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            label.write(buffer);
+        }
+
+        private static SlottedBookEdit decode(FriendlyByteBuf buffer) {
+            return new SlottedBookEdit(buffer.readVarInt(), SlottedBookContents.Label.read(buffer));
+        }
+    }
+
+    public record RedstoneBookRename(int menuId, String title) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeUtf(title, RedstoneBookMenu.TITLE_LENGTH);
+        }
+
+        private static RedstoneBookRename decode(FriendlyByteBuf buffer) {
+            return new RedstoneBookRename(buffer.readVarInt(), buffer.readUtf(RedstoneBookMenu.TITLE_LENGTH));
+        }
+    }
     public record MapPinPacket(int menuId, String name, DyeColor color, boolean remove) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId).writeUtf(name, MapPin.NAME_LENGTH).writeEnum(color).writeBoolean(remove);

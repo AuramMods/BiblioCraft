@@ -7,6 +7,8 @@ import art.arcane.bibliocraft.menu.ArmorStandMenu;
 import art.arcane.bibliocraft.menu.BigBookMenu;
 import art.arcane.bibliocraft.menu.BookcaseMenu;
 import art.arcane.bibliocraft.menu.ClipboardMenu;
+import art.arcane.bibliocraft.menu.SlottedBookMenu;
+import art.arcane.bibliocraft.menu.RedstoneBookMenu;
 import art.arcane.bibliocraft.menu.CookieJarMenu;
 import art.arcane.bibliocraft.menu.DeskBookMenu;
 import art.arcane.bibliocraft.menu.DeskMenu;
@@ -46,7 +48,10 @@ public final class ModMenus {
             MENUS.register("atlas", () -> IForgeMenuType.create(AtlasMenu::new));
     public static final RegistryObject<MenuType<BigBookMenu>> BIG_BOOK =
             MENUS.register("big_book", () -> IForgeMenuType.create(BigBookMenu::new));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> SLOTTED_BOOK = register("slotted_book");
+    public static final RegistryObject<MenuType<SlottedBookMenu>> SLOTTED_BOOK =
+            MENUS.register("slotted_book", () -> IForgeMenuType.create(SlottedBookMenu::new));
+    public static final RegistryObject<MenuType<RedstoneBookMenu>> REDSTONE_BOOK =
+            MENUS.register("redstone_book", () -> IForgeMenuType.create(RedstoneBookMenu::new));
     public static final RegistryObject<MenuType<PlaceholderMenu>> TESTER = register("tester");
     public static final RegistryObject<MenuType<BookcaseMenu>> BOOKCASE =
             MENUS.register("bookcase", () -> new MenuType<>(BookcaseMenu::new, FeatureFlags.DEFAULT_FLAGS));

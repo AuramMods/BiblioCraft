@@ -223,6 +223,12 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The editor uses identical pages in the hand and the desk. Wire protocol 14 sends a bounded page at a time through the active menu, validates the original held or desk stack, and merges independently edited text and marks. The wall uses ordinary block interactions for marks and page navigation. Both the desk and the wall honor furniture locks.
 - One OBJ retains the original board vertices, faces, normals, and UVs. Forge material indices select the eighteen original check and cross groups. The front text and page number follow the board rotation. The handheld keeps its original sprite, and the desk displays the legacy open-book mesh for a clipboard in its writing slot.
 
+## Slotted Book and Redstone Book Port
+
+- `bibliocraft:slotted_book` and `bibliocraft:biblio_red_book` keep their item IDs, author strings, glint, and legacy recipes. Slotted books remain unstackable. The redstone book title editor uses `bibliocraft:redstone_book` for its menu.
+- The slotted book saves one full item stack in the legacy `Inventory` list at `Slot:0`. `lines.line1` through `lines.line5` hold its description, and the title uses the standard stack display name. Inventory moves persist as they happen, and Save applies the title and description. The menu prevents nested slotted books and protects the held book from inventory moves.
+- The redstone book opens a description of its interaction with the bookcase and lets the player save a custom title. Both editors check that the exact book still belongs to the live server menu. A redstone book occupies a normal bookcase slot and supplies its zero-based slot strength to every side except the front, whether renamed or carrying the default title.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
