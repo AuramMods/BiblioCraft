@@ -6,6 +6,7 @@ import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
+import art.arcane.bibliocraft.blockentity.FancyWorkbenchBlockEntity;
 import art.arcane.bibliocraft.blockentity.SeatBlockEntity;
 import art.arcane.bibliocraft.blockentity.TableBlockEntity;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
@@ -94,6 +95,8 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.STOCKROOM_CATALOG.get(), StockroomCatalogScreen::new);
             MenuScreens.register(ModMenus.WAYPOINT_COMPASS.get(), WaypointCompassScreen::new);
             MenuScreens.register(ModMenus.FRAMED_CHEST.get(), FramedChestScreen::new);
+            MenuScreens.register(ModMenus.FANCY_WORKBENCH.get(), FancyWorkbenchScreen::new);
+            MenuScreens.register(ModMenus.RECIPE_BOOK.get(), RecipeBookScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
@@ -112,7 +115,8 @@ public final class ClientSetup {
                 ModBlocks.TOOL_RACK.getId().getPath(), ModBlocks.POTION_SHELF.getId().getPath(),
                 ModBlocks.CASE.getId().getPath(), ModBlocks.DESK.getId().getPath(), ModBlocks.ARMOR_STAND.getId().getPath(),
                 ModBlocks.TABLE.getId().getPath(), ModBlocks.LABEL.getId().getPath(), ModBlocks.FANCY_SIGN.getId().getPath(),
-                ModBlocks.CLOCK.getId().getPath(), ModBlocks.FRAMED_CHEST.getId().getPath());
+                ModBlocks.CLOCK.getId().getPath(), ModBlocks.FRAMED_CHEST.getId().getPath(),
+                ModBlocks.FANCY_WORKBENCH.getId().getPath());
         var bookcases = Set.of(ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath());
         var seatbacks = Set.of(ModItems.SEAT_BACK_1.getId().getPath(), ModItems.SEAT_BACK_2.getId().getPath(),
                 ModItems.SEAT_BACK_3.getId().getPath(), ModItems.SEAT_BACK_4.getId().getPath(), ModItems.SEAT_BACK_5.getId().getPath());
@@ -154,6 +158,9 @@ public final class ClientSetup {
             }
             if ("inventory".equals(location.getVariant())) {
                 return model;
+            }
+            if (path.equals(ModBlocks.FANCY_WORKBENCH.getId().getPath())) {
+                return new SlotVisibilityModel(model, books, FancyWorkbenchBlockEntity.OCCUPIED_BOOKS);
             }
             if (bookcases.contains(path)) {
                 return new SlotVisibilityModel(model, books, BookcaseBlockEntity.OCCUPIED_SLOTS);

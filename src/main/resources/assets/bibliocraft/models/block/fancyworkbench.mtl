@@ -10,6 +10,42 @@ newmtl sides
 Kd 1.00 1.00 1.00
 map_Kd bibliocraft:block/benchsides
 
-newmtl books
+newmtl book1
 Kd 1.00 1.00 1.00
+forge_TintIndex 0
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book2
+Kd 1.00 1.00 1.00
+forge_TintIndex 1
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book3
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book4
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book5
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book6
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book7
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd bibliocraft:block/bookcase_books
+
+newmtl book8
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
 map_Kd bibliocraft:block/bookcase_books

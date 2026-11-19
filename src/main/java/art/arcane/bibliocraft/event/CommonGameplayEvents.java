@@ -13,6 +13,7 @@ import art.arcane.bibliocraft.block.DinnerPlateBlock;
 import art.arcane.bibliocraft.block.DiscRackBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
+import art.arcane.bibliocraft.block.FancyWorkbenchBlock;
 import art.arcane.bibliocraft.block.RackBlock;
 import art.arcane.bibliocraft.block.SeatBlock;
 import art.arcane.bibliocraft.block.ShelfBlock;
@@ -144,10 +145,11 @@ public final class CommonGameplayEvents {
     @SubscribeEvent
     public static void onFurnitureSecondaryUse(PlayerInteractEvent.RightClickBlock event) {
         var block = event.getLevel().getBlockState(event.getPos()).getBlock();
+        boolean workbenchExtraction = block instanceof FancyWorkbenchBlock && event.getItemStack().isEmpty();
         if (event.getHand() == InteractionHand.MAIN_HAND && event.getEntity().isShiftKeyDown()
                 && event.getUseBlock() == Event.Result.DEFAULT
                 && (block instanceof ShelfBlock || block instanceof BookcaseBlock || block instanceof DisplayCaseBlock
-                        || block instanceof RackBlock || block instanceof FurniturePanelerBlock
+                        || block instanceof RackBlock || workbenchExtraction || block instanceof FurniturePanelerBlock
                         || block instanceof DinnerPlateBlock || block instanceof DiscRackBlock || block instanceof TypewriterBlock
                         || block instanceof DeskBlock || block instanceof ArmorStandBlock || block instanceof TableBlock
                         || block instanceof SeatBlock || block instanceof SignDisplayBlock || block instanceof ClockBlock)

@@ -1,7 +1,7 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "bibliocraft:fancy_workbench",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:fancy_workbench",
   "pattern": [
     "FWD",
     "SBS",
@@ -17,14 +17,9 @@
     "D": {
       "tag": "forge:dyes/black"
     },
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ],
+    "S": {
+      "item": "minecraft:oak_slab"
+    },
     "B": {
       "item": "bibliocraft:bookcase"
     }

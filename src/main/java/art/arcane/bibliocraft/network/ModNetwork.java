@@ -3,6 +3,9 @@ package art.arcane.bibliocraft.network;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.catalog.CatalogContents;
 import art.arcane.bibliocraft.client.StockroomCatalogScreen;
+import art.arcane.bibliocraft.client.RecipeBookScreen;
+import art.arcane.bibliocraft.crafting.RecordedRecipe;
+import art.arcane.bibliocraft.menu.RecipeBookMenu;
 import art.arcane.bibliocraft.item.WaypointCompassItem;
 import art.arcane.bibliocraft.menu.StockroomCatalogMenu;
 import art.arcane.bibliocraft.menu.WaypointCompassMenu;
@@ -13,6 +16,7 @@ import art.arcane.bibliocraft.menu.ClockMenu;
 import art.arcane.bibliocraft.menu.FancySignMenu;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
@@ -26,7 +30,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "5";
+    private static final String PROTOCOL = "6";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -69,7 +73,6 @@ public final class ModNetwork {
                     context.get().setPacketHandled(true);
                 }).add();
         registerServerbound(PanelerPacket.class, PanelerPacket::new);
-        registerServerbound(RecipeCraftPacket.class, RecipeCraftPacket::new);
         CHANNEL.messageBuilder(StockTitlePacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(StockTitlePacket::encode).decoder(StockTitlePacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -118,8 +121,16 @@ public final class ModNetwork {
         registerServerbound(AtlasPacket.class, AtlasPacket::new);
         registerServerbound(MeasurePacket.class, MeasurePacket::new);
         registerServerbound(MapPinPacket.class, MapPinPacket::new);
-        registerServerbound(RBookPacket.class, RBookPacket::new);
-        registerServerbound(RBookLoadPacket.class, RBookLoadPacket::new);
+        CHANNEL.messageBuilder(RecipeBookEditPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(RecipeBookEditPacket::encode).decoder(RecipeBookEditPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof RecipeBookMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.annotate(player, message.lines(), message.sign());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         CHANNEL.messageBuilder(SignPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(SignPacket::encode).decoder(SignPacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -145,7 +156,12 @@ public final class ModNetwork {
         registerClientbound(DrillTextPacket.class, DrillTextPacket::new);
         registerClientbound(AtlasClientPacket.class, AtlasClientPacket::new);
         registerClientbound(PanelerClientPacket.class, PanelerClientPacket::new);
-        registerClientbound(RecipeTextPacket.class, RecipeTextPacket::new);
+        CHANNEL.messageBuilder(RecipeTextPacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(RecipeTextPacket::encode).decoder(RecipeTextPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> RecipeBookScreen.receive(message));
+                    context.get().setPacketHandled(true);
+                }).add();
         CHANNEL.messageBuilder(StockLogPacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(StockLogPacket::encode).decoder(StockLogPacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -223,7 +239,6 @@ public final class ModNetwork {
         }
     }
     public static final class PanelerPacket extends EmptyPacket {}
-    public static final class RecipeCraftPacket extends EmptyPacket {}
     public record StockTitlePacket(int menuId, String title) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId);
@@ -271,8 +286,19 @@ public final class ModNetwork {
     public static final class AtlasPacket extends EmptyPacket {}
     public static final class MeasurePacket extends EmptyPacket {}
     public static final class MapPinPacket extends EmptyPacket {}
-    public static final class RBookPacket extends EmptyPacket {}
-    public static final class RBookLoadPacket extends EmptyPacket {}
+    public record RecipeBookEditPacket(int menuId, List<String> lines, boolean sign) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeCollection(lines, (out, line) -> out.writeUtf(line, RecordedRecipe.LINE_LENGTH));
+            buffer.writeBoolean(sign);
+        }
+
+        private static RecipeBookEditPacket decode(FriendlyByteBuf buffer) {
+            return new RecipeBookEditPacket(buffer.readVarInt(),
+                    buffer.readCollection(FriendlyByteBuf.limitValue(ArrayList::new, RecordedRecipe.TEXT_LINES),
+                            in -> in.readUtf(RecordedRecipe.LINE_LENGTH)), buffer.readBoolean());
+        }
+    }
     public record SignPacket(int menuId, FancySignLayout layout) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId);
@@ -300,7 +326,16 @@ public final class ModNetwork {
     public static final class DrillTextPacket extends EmptyPacket {}
     public static final class AtlasClientPacket extends EmptyPacket {}
     public static final class PanelerClientPacket extends EmptyPacket {}
-    public static final class RecipeTextPacket extends EmptyPacket {}
+    public record RecipeTextPacket(int menuId, Component message) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            buffer.writeComponent(message);
+        }
+
+        private static RecipeTextPacket decode(FriendlyByteBuf buffer) {
+            return new RecipeTextPacket(buffer.readVarInt(), buffer.readComponent());
+        }
+    }
     public record StockLogPacket(int menuId, int sourceCount, int unavailable, boolean finished,
                                  @org.jetbrains.annotations.Nullable CatalogContents.Source source) {
         void encode(FriendlyByteBuf buffer) {

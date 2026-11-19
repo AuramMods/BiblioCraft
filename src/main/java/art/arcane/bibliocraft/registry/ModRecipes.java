@@ -4,7 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.recipe.EnchantedAtlasRecipe;
 import art.arcane.bibliocraft.recipe.ColoredBlockRecolorRecipe;
 import art.arcane.bibliocraft.recipe.FancySignRecipe;
-import art.arcane.bibliocraft.recipe.FramedChestRecipe;
+import art.arcane.bibliocraft.recipe.MaterialShapedRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
@@ -28,8 +28,11 @@ public final class ModRecipes {
             RECIPE_SERIALIZERS.register("colored_block_recolor", ColoredBlockRecolorRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<FancySignRecipe>> FANCY_SIGN =
             RECIPE_SERIALIZERS.register("fancy_sign", FancySignRecipe.Serializer::new);
-    public static final RegistryObject<RecipeSerializer<FramedChestRecipe>> FRAMED_CHEST =
-            RECIPE_SERIALIZERS.register("framed_chest", FramedChestRecipe.Serializer::new);
+    public static final RegistryObject<RecipeSerializer<MaterialShapedRecipe>> FRAMED_CHEST =
+            RECIPE_SERIALIZERS.register("framed_chest", () -> new MaterialShapedRecipe.Serializer(() -> ModBlocks.LABEL.get().asItem()));
+    public static final RegistryObject<RecipeSerializer<MaterialShapedRecipe>> FANCY_WORKBENCH =
+            RECIPE_SERIALIZERS.register("fancy_workbench",
+                    () -> new MaterialShapedRecipe.Serializer(() -> ModBlocks.BOOKCASE.get().asItem()));
 
     public static final RegistryObject<RecipeType<EnchantedAtlasRecipe>> ENCHANTED_ATLAS_RECIPE_TYPE =
             RECIPE_TYPES.register("enchantedatlas", () -> new RecipeType<>() {

@@ -3,6 +3,8 @@ package art.arcane.bibliocraft.block;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.config.BiblioConfig;
 import art.arcane.bibliocraft.menu.DeskBookMenu;
+import art.arcane.bibliocraft.menu.RecipeBookMenu;
+import art.arcane.bibliocraft.registry.ModItems;
 import art.arcane.bibliocraft.menu.DeskMenu;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -125,7 +127,10 @@ public final class DeskBlock extends InventoryFurnitureBlock {
             }
         }
         ItemStack book = desk.getItem(DeskBlockEntity.OPEN_BOOK);
-        if (area == DeskBlockEntity.OPEN_BOOK && (book.is(Items.WRITABLE_BOOK) || book.is(Items.WRITTEN_BOOK))
+        if (area == DeskBlockEntity.OPEN_BOOK && book.is(ModItems.RECIPE_BOOK.get())
+                && BiblioConfig.COMMON.enableFancyWorkbench.get() && player instanceof ServerPlayer serverPlayer) {
+            RecipeBookMenu.open(serverPlayer, desk, null, book);
+        } else if (area == DeskBlockEntity.OPEN_BOOK && (book.is(Items.WRITABLE_BOOK) || book.is(Items.WRITTEN_BOOK))
                 && player instanceof ServerPlayer serverPlayer) {
             NetworkHooks.openScreen(serverPlayer,
                     new SimpleMenuProvider((id, inventory, viewer) -> new DeskBookMenu(id, desk), book.getHoverName()),

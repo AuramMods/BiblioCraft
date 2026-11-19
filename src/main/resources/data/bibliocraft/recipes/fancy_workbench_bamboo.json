@@ -1,0 +1,45 @@
+{
+  "type": "bibliocraft:fancy_workbench",
+  "category": "building",
+  "group": "bibliocraft:fancy_workbench",
+  "pattern": [
+    "FWD",
+    "SBS",
+    "SSS"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "W": {
+      "item": "minecraft:crafting_table"
+    },
+    "D": {
+      "tag": "forge:dyes/black"
+    },
+    "S": {
+      "item": "minecraft:bamboo_slab"
+    },
+    "B": {
+      "item": "bibliocraft:bookcase",
+      "type": "forge:partial_nbt",
+      "nbt": {
+        "BlockEntityTag": {
+          "FurnitureMaterial": {
+            "wood": "bamboo"
+          }
+        }
+      }
+    }
+  },
+  "result": {
+    "item": "bibliocraft:fancy_workbench",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "bamboo"
+        }
+      }
+    }
+  }
+}

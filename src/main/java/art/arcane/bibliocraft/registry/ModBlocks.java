@@ -26,6 +26,7 @@ import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.block.TypewriterBlock;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
+import art.arcane.bibliocraft.block.FancyWorkbenchBlock;
 import art.arcane.bibliocraft.item.FancySignItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -114,7 +115,8 @@ public final class ModBlocks {
             register("fancy_sign", () -> new FancySignBlock(woodProps().sound(SoundType.WOOD)),
                     block -> new FancySignItem(block, new Item.Properties()));
     public static final RegistryObject<Block> FANCY_WORKBENCH =
-            register("fancy_workbench", () -> fullWoodEntity("fancy_workbench"));
+            register("fancy_workbench", () -> new FancyWorkbenchBlock(woodProps().sound(SoundType.WOOD)),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> POTION_SHELF =
             register("potion_shelf", () -> new RackBlock(woodProps(), SHAPE_HALF_RACK_EAST, "potion_shelf", RackType.POTIONS),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));

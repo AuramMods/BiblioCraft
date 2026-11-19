@@ -6,16 +6,17 @@
     "bench": true,
     "top": true,
     "sides": true,
-    "book1": false,
-    "book2": false,
-    "book3": false,
-    "book4": false,
-    "book5": false,
-    "book6": false,
-    "book7": false,
-    "book8": false
+    "book1": true,
+    "book2": true,
+    "book3": true,
+    "book4": true,
+    "book5": true,
+    "book6": true,
+    "book7": true,
+    "book8": true
   },
   "textures": {
     "particle": "minecraft:block/oak_planks"
-  }
+  },
+  "automatic_culling": false
 }

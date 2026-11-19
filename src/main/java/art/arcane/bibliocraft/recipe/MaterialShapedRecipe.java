@@ -1,24 +1,27 @@
 package art.arcane.bibliocraft.recipe;
 
 import art.arcane.bibliocraft.block.FurnitureMaterial;
-import art.arcane.bibliocraft.registry.ModBlocks;
-import art.arcane.bibliocraft.registry.ModRecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
-public final class FramedChestRecipe extends ShapedRecipe {
-    private final FurnitureMaterial.Wood wood;
+import java.util.function.Supplier;
 
-    private FramedChestRecipe(ShapedRecipe recipe) {
+public final class MaterialShapedRecipe extends ShapedRecipe {
+    private final FurnitureMaterial.Wood wood;
+    private final Serializer serializer;
+
+    private MaterialShapedRecipe(ShapedRecipe recipe, Serializer serializer) {
         super(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.getWidth(), recipe.getHeight(),
                 recipe.getIngredients(), recipe.getResultItem(RegistryAccess.EMPTY), recipe.showNotification());
+        this.serializer = serializer;
         wood = FurnitureMaterial.fromItem(recipe.getResultItem(RegistryAccess.EMPTY)).wood();
     }
 
@@ -27,18 +30,18 @@ public final class FramedChestRecipe extends ShapedRecipe {
         if (!super.matches(container, level)) {
             return false;
         }
-        ItemStack label = findLabel(container);
-        return !label.isEmpty() && FurnitureMaterial.fromItem(label).wood() == wood;
+        ItemStack material = findMaterial(container);
+        return !material.isEmpty() && FurnitureMaterial.fromItem(material).wood() == wood;
     }
 
     @Override
     public ItemStack assemble(CraftingContainer container, RegistryAccess registries) {
-        return FurnitureMaterial.fromItem(findLabel(container)).applyTo(super.assemble(container, registries));
+        return FurnitureMaterial.fromItem(findMaterial(container)).applyTo(super.assemble(container, registries));
     }
 
-    private static ItemStack findLabel(CraftingContainer container) {
+    private ItemStack findMaterial(CraftingContainer container) {
         for (ItemStack stack : container.getItems()) {
-            if (stack.is(ModBlocks.LABEL.get().asItem())) {
+            if (stack.is(serializer.materialSource.get())) {
                 return stack;
             }
         }
@@ -47,24 +50,29 @@ public final class FramedChestRecipe extends ShapedRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.FRAMED_CHEST.get();
+        return serializer;
     }
 
-    public static final class Serializer implements RecipeSerializer<FramedChestRecipe> {
+    public static final class Serializer implements RecipeSerializer<MaterialShapedRecipe> {
         private final ShapedRecipe.Serializer shaped = new ShapedRecipe.Serializer();
+        private final Supplier<Item> materialSource;
 
-        @Override
-        public FramedChestRecipe fromJson(ResourceLocation id, JsonObject json) {
-            return new FramedChestRecipe(shaped.fromJson(id, json));
+        public Serializer(Supplier<Item> materialSource) {
+            this.materialSource = materialSource;
         }
 
         @Override
-        public FramedChestRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
-            return new FramedChestRecipe(shaped.fromNetwork(id, buffer));
+        public MaterialShapedRecipe fromJson(ResourceLocation id, JsonObject json) {
+            return new MaterialShapedRecipe(shaped.fromJson(id, json), this);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, FramedChestRecipe recipe) {
+        public MaterialShapedRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
+            return new MaterialShapedRecipe(shaped.fromNetwork(id, buffer), this);
+        }
+
+        @Override
+        public void toNetwork(FriendlyByteBuf buffer, MaterialShapedRecipe recipe) {
             shaped.toNetwork(buffer, recipe);
         }
     }
