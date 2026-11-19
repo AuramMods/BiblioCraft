@@ -1,18 +1,48 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,part=single": {
       "model": "bibliocraft:block/framed_chest"
     },
-    "facing=east": {
+    "facing=north,part=left": {
+      "model": "bibliocraft:block/framed_chest_left"
+    },
+    "facing=north,part=right": {
+      "model": "bibliocraft:block/framed_chest_right"
+    },
+    "facing=east,part=single": {
       "model": "bibliocraft:block/framed_chest",
       "y": 90
     },
-    "facing=south": {
+    "facing=east,part=left": {
+      "model": "bibliocraft:block/framed_chest_left",
+      "y": 90
+    },
+    "facing=east,part=right": {
+      "model": "bibliocraft:block/framed_chest_right",
+      "y": 90
+    },
+    "facing=south,part=single": {
       "model": "bibliocraft:block/framed_chest",
       "y": 180
     },
-    "facing=west": {
+    "facing=south,part=left": {
+      "model": "bibliocraft:block/framed_chest_left",
+      "y": 180
+    },
+    "facing=south,part=right": {
+      "model": "bibliocraft:block/framed_chest_right",
+      "y": 180
+    },
+    "facing=west,part=single": {
       "model": "bibliocraft:block/framed_chest",
+      "y": 270
+    },
+    "facing=west,part=left": {
+      "model": "bibliocraft:block/framed_chest_left",
+      "y": 270
+    },
+    "facing=west,part=right": {
+      "model": "bibliocraft:block/framed_chest_right",
       "y": 270
     }
   }

@@ -130,8 +130,17 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The original OBJ remains byte-identical to the bundled source, retaining all ten groups, 606 vertices, 667 UVs, and 814 faces. The wall case translates along the authored X axis. The grandfather case retains the uncut two-block geometry and renders from the upper block entity across both cells. Both cases use the original face, hour and minute hands, and appropriate pendulum. The inventory uses the original static hands and pendulum group.
 - The upper clock controls a grandfather clock's redstone output and editor. Both halves emit direct and indirect power. Breaking either half makes the other a wall clock again. The upper clock's material supplies the joined case and each component keeps its own material and settings.
 - The original dial schedules chimes and redstone separately in half-hour intervals. The two rings align with the in-game times printed on the clock. Presets select every 30 minutes, hour, two hours, or six hours, or clear a ring. Redstone supports 40-tick pulses and sustained power for the whole selected interval. The tick, tock, wound chime, and wind use their original sound events.
-- Modern schedules are two 48-bit masks under `ClockSettings`. Activation times are saved separately to keep an in-flight pulse or avoid replaying the current chime after reload. For migration, legacy arrays start at 18:00 in their editor and modern index zero is midnight. The matching server wire protocol is version 3. Lock and range checks apply to schedule edits and the server merges separately edited slots.
+- Modern schedules are two 48-bit masks under `ClockSettings`. Activation times are saved separately to keep an in-flight pulse or avoid replaying the current chime after reload. For migration, legacy arrays start at 18:00 in their editor and modern index zero is midnight. Clock editing introduced wire protocol version 3. Lock and range checks apply to schedule edits and the server merges separately edited slots.
 - The twelve recipes retain the original slab, clock, stick, and gold pattern. Normal pick-block and harvest preserve the individual clock's schedule and frame, and placing either item restores them. The joined case always uses two real blocks and survival removal of one returns one clock.
+
+## Framed Chest Port
+
+- The block, item, block entity, and menu retain `bibliocraft:framed_chest`. The legacy block and item used the identifier `bibliocraft:framedchest`. Existing port chest states keep their saved facing and default to the single model, an empty inventory, and oak.
+- All nine groups, 504 vertices, 1,330 UVs, and 916 faces are byte-identical to the bundled OBJ. The Forge blockstate chooses the body, and the renderer moves the original lid and latch about their authored hinge. The large chest uses one latch at the seam. Each half's own material applies to its body and lid. The item continues to use the authored static lid and latch.
+- Two sneak-uses with either drill join or separate horizontally adjacent chests facing the same direction. An ordinary drill use rotates the clicked chest and separates it from any partner. Placement and selection follow the same authored axis. Harvest returns one chest item with its material and drops only that half's contents.
+- Each chest stores 27 slots under `Items`. A joined menu shows the left inventory first and the right inventory second. Both halves count active viewers and share lid animation until the final viewer leaves, with one vanilla chest sound at the seam. Locking either half revokes shared menu access. The individual sided inventories still track their own locks.
+- The front label is a representative item from the largest total of stacks with matching item and tags. It is derived after inventory mutations and world loading. Chunk updates send the rendered item, material, lock data, and transient lid state. Menu synchronization handles the private slot contents. The `part` blockstate replaces legacy `isDouble` and `isLeft`. The derived icon replaces `labelStack`. The chest menu uses wire protocol version 4.
+- The legacy frame recipe requires matching planks and a wood label. The framed variant uses framing sheets and inherits a custom panel from an already paneled label. Pick-block, the furniture paneler, and loot all preserve the frame material.
 
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
@@ -251,7 +260,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `lantern_gold`, `lantern_iron` | floor: `x:0.2133-0.7867 y:0.0-0.7007 z:0.2517-0.7483`; wall: `x:0.2133-1.0 y:0.0-0.9789 z:0.2517-0.7483`; ceiling: `x:0.15-0.85 y:0.0-1.0 z:0.1971-0.8033` | OBJ visibility extents (`lantern.obj`) with mount-state variants |
 | `lamp_gold`, `lamp_iron` | floor: `x:0.0485-0.85 y:0.0-1.0 z:0.1-0.9`; wall: `x:0.0485-1.0 y:0.0-0.5403 z:0.1-0.9`; ceiling: `x:0.0485-0.9515 y:0.0-1.0 z:0.1-0.9` | OBJ visibility extents (`lamp.obj`) with mount-state variants |
 | `furniture_paneler` | `x/z:0.0-1.0 y:0.0-0.63` | old `BlockFurniturePaneler` bbox |
-| `framed_chest` | `x/z:0.054-0.946 y:0.0-0.866` | old single chest bbox |
+| `framed_chest` | `x:0.05-0.965 y:0-0.868 z:0.052389-0.952389` for the north single state | Joined shapes extend to the seam |
 | `fancy_sign` | mounted shape baseline: thin sign plane (`x:0.0-0.06 y:0.2-0.8 z:0.0-1.0`) rotated by `facing` for floor/wall/ceiling placements | old sign bbox + legacy mount states |
 | `label` | `x:0.0-0.0625 y:0.093-0.405 z:0.25-0.75` in the north state | Selection follows the originally authored frame |
 | `table` | Full tabletop slab with either the original center post or exposed corner supports, plus the optional floor carpet | Neighbor connections pick the same legs for the shape and the rendered mesh |
@@ -479,7 +488,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `typesetting_table`, `printing_press`, `map_frame`.
+- `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `clipboard`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`

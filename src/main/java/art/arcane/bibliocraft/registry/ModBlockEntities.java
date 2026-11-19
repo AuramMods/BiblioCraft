@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.blockentity.FancySignBlockEntity;
+import art.arcane.bibliocraft.blockentity.FramedChestBlockEntity;
 import art.arcane.bibliocraft.blockentity.ClockBlockEntity;
 import art.arcane.bibliocraft.blockentity.LabelBlockEntity;
 import art.arcane.bibliocraft.BiblioCraft;
@@ -75,8 +76,9 @@ public final class ModBlockEntities {
                     FancySignBlockEntity::new, ModBlocks.FANCY_SIGN.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> FANCY_WORKBENCH =
             register("fancy_workbench", ModBlocks.FANCY_WORKBENCH);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> FRAMED_CHEST =
-            register("framed_chest", ModBlocks.FRAMED_CHEST);
+    public static final RegistryObject<BlockEntityType<FramedChestBlockEntity>> FRAMED_CHEST =
+            BLOCK_ENTITIES.register("framed_chest", () -> BlockEntityType.Builder.of(
+                    FramedChestBlockEntity::new, ModBlocks.FRAMED_CHEST.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> MAP_FRAME =
             register("map_frame", ModBlocks.MAP_FRAME);
     public static final RegistryObject<BlockEntityType<DisplayCaseBlockEntity>> CASE =

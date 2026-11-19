@@ -50,12 +50,14 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.LABEL.get(), SignDisplayRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.FANCY_SIGN.get(), SignDisplayRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.CLOCK.get(), ClockRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.FRAMED_CHEST.get(), FramedChestRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {
         TypewriterRenderer.registerModels(event);
         ClockRenderer.registerModels(event);
+        FramedChestRenderer.registerModels(event);
     }
 
     @SubscribeEvent
@@ -76,6 +78,7 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.LABEL.get(), LabelScreen::new);
             MenuScreens.register(ModMenus.FANCY_SIGN.get(), FancySignScreen::new);
             MenuScreens.register(ModMenus.CLOCK.get(), ClockScreen::new);
+            MenuScreens.register(ModMenus.FRAMED_CHEST.get(), FramedChestScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
@@ -94,7 +97,7 @@ public final class ClientSetup {
                 ModBlocks.TOOL_RACK.getId().getPath(), ModBlocks.POTION_SHELF.getId().getPath(),
                 ModBlocks.CASE.getId().getPath(), ModBlocks.DESK.getId().getPath(), ModBlocks.ARMOR_STAND.getId().getPath(),
                 ModBlocks.TABLE.getId().getPath(), ModBlocks.LABEL.getId().getPath(), ModBlocks.FANCY_SIGN.getId().getPath(),
-                ModBlocks.CLOCK.getId().getPath());
+                ModBlocks.CLOCK.getId().getPath(), ModBlocks.FRAMED_CHEST.getId().getPath());
         var bookcases = Set.of(ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath());
         var seatbacks = Set.of(ModItems.SEAT_BACK_1.getId().getPath(), ModItems.SEAT_BACK_2.getId().getPath(),
                 ModItems.SEAT_BACK_3.getId().getPath(), ModItems.SEAT_BACK_4.getId().getPath(), ModItems.SEAT_BACK_5.getId().getPath());
@@ -103,7 +106,7 @@ public final class ClientSetup {
         var deskBooks = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "block/desk_books");
         var deskCarpet = ResourceLocation.withDefaultNamespace("block/white_wool");
         event.getModels().replaceAll((id, model) -> {
-            if (id.equals(ClockRenderer.GRANDFATHER_CASE)) {
+            if (id.equals(ClockRenderer.GRANDFATHER_CASE) || FramedChestRenderer.isLid(id)) {
                 return new FurnitureMaterialModel(model);
             }
             if (!(id instanceof ModelResourceLocation location) || !id.getNamespace().equals(BiblioCraft.MODID)) {

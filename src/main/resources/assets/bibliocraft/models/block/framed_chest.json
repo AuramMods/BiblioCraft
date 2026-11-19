@@ -4,8 +4,8 @@
   "flip_v": true,
   "visibility": {
     "small_chest": true,
-    "small_lid": true,
-    "latch": true,
+    "small_lid": false,
+    "latch": false,
     "small_lid_item": false,
     "latch_item": false,
     "large_chest_left": false,

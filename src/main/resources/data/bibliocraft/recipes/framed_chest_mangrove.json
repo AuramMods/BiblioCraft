@@ -1,0 +1,36 @@
+{
+  "type": "bibliocraft:framed_chest",
+  "category": "building",
+  "group": "bibliocraft:framed_chest",
+  "pattern": [
+    "PPP",
+    "PLP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:mangrove_planks"
+    },
+    "L": {
+      "type": "forge:partial_nbt",
+      "item": "bibliocraft:label",
+      "nbt": {
+        "BlockEntityTag": {
+          "FurnitureMaterial": {
+            "wood": "mangrove"
+          }
+        }
+      }
+    }
+  },
+  "result": {
+    "item": "bibliocraft:framed_chest",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "mangrove"
+        }
+      }
+    }
+  }
+}

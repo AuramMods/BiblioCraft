@@ -96,6 +96,10 @@ public class FurnitureBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
+        saveFurnitureData(tag);
+    }
+
+    protected final void saveFurnitureData(CompoundTag tag) {
         material.save(tag);
         if (lockOwner != null) {
             tag.putUUID("LockOwner", lockOwner);

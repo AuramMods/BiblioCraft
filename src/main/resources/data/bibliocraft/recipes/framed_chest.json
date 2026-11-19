@@ -1,21 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "bibliocraft:framed_chest",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:framed_chest",
   "pattern": [
     "PPP",
     "PLP",
     "PPP"
   ],
   "key": {
-    "P": [
-      {
-        "tag": "minecraft:planks"
-      },
-      {
-        "item": "bibliocraft:framing_sheet"
-      }
-    ],
+    "P": {
+      "item": "minecraft:oak_planks"
+    },
     "L": {
       "item": "bibliocraft:label"
     }

@@ -12,6 +12,7 @@ import art.arcane.bibliocraft.menu.DinnerPlateMenu;
 import art.arcane.bibliocraft.menu.DiscRackMenu;
 import art.arcane.bibliocraft.menu.DisplayCaseMenu;
 import art.arcane.bibliocraft.menu.FancySignMenu;
+import art.arcane.bibliocraft.menu.FramedChestMenu;
 import art.arcane.bibliocraft.menu.ClockMenu;
 import art.arcane.bibliocraft.menu.LabelMenu;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
@@ -71,7 +72,8 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<PlaceholderMenu>> PAINTING = register("painting");
     public static final RegistryObject<MenuType<FurniturePanelerMenu>> FURNITURE_PANELER =
             MENUS.register("furniture_paneler", () -> new MenuType<>(FurniturePanelerMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> FRAMED_CHEST = register("framed_chest");
+    public static final RegistryObject<MenuType<FramedChestMenu>> FRAMED_CHEST =
+            MENUS.register("framed_chest", () -> IForgeMenuType.create(FramedChestMenu::new));
     public static final RegistryObject<MenuType<PlaceholderMenu>> CLIPBOARD = register("clipboard");
     public static final RegistryObject<MenuType<ClockMenu>> CLOCK =
             MENUS.register("clock", () -> IForgeMenuType.create(ClockMenu::new));
@@ -89,7 +91,6 @@ public final class ModMenus {
         mapBlock("painting_frame_simple", PAINTING);
         mapBlock("painting_frame_middle", PAINTING);
         mapBlock("painting_frame_fancy", PAINTING);
-        mapBlock("framed_chest", FRAMED_CHEST);
         mapBlock("clipboard", CLIPBOARD);
         mapBlock("typesetting_table", TYPESETTING_TABLE);
         mapBlock("printing_press", PRINTING_PRESS);
