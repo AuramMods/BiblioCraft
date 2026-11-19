@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class MapFrameBlockEntity extends FurnitureInventoryBlockEntity {
-    private static final double PIN_CLICK_RADIUS = 0.026;
     public static final int MAP = 0;
     private int rotation;
     private List<MapPin> pins = List.of();
@@ -54,16 +53,7 @@ public final class MapFrameBlockEntity extends FurnitureInventoryBlockEntity {
     }
 
     public @Nullable MapPin pinAt(MapPin.Point point) {
-        MapPin closest = null;
-        double distance = PIN_CLICK_RADIUS * PIN_CLICK_RADIUS;
-        for (MapPin pin : pins()) {
-            double candidate = point.distanceSquared(pin.point());
-            if (candidate < distance) {
-                distance = candidate;
-                closest = pin;
-            }
-        }
-        return closest;
+        return MapPin.near(pins(), point);
     }
 
     public boolean addPin(MapPin pin) {
@@ -95,6 +85,12 @@ public final class MapFrameBlockEntity extends FurnitureInventoryBlockEntity {
         MapPin.write(getItem(MAP), pins);
         this.pins = List.copyOf(pins);
         setChanged();
+    }
+
+    public void replacePins(List<MapPin> pins) {
+        if (getItem(MAP).is(Items.FILLED_MAP)) {
+            savePins(pins);
+        }
     }
 
     public void tickMap(ServerLevel server) {

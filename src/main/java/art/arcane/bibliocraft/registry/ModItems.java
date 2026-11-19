@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.item.AtlasItem;
 import art.arcane.bibliocraft.item.BigBookItem;
 import art.arcane.bibliocraft.item.FramingSawItem;
 import art.arcane.bibliocraft.item.FurnitureDrillItem;
@@ -42,10 +43,7 @@ public final class ModItems {
             "tester_item",
             () -> new MenuOpeningItem(new Item.Properties(), ModMenus.TESTER::get, "tester")
     );
-    public static final RegistryObject<Item> ATLAS_BOOK = register(
-            "atlas_book",
-            () -> new MenuOpeningItem(new Item.Properties().stacksTo(1), ModMenus.ATLAS::get, "atlas")
-    );
+    public static final RegistryObject<Item> ATLAS_BOOK = register("atlas_book", AtlasItem::new);
     public static final RegistryObject<Item> ATLAS_PLATE = register("atlas_plate");
     public static final RegistryObject<Item> DEATH_COMPASS = register("death_compass");
     public static final RegistryObject<Item> PAINTING_CANVAS = register("painting_canvas", PaintingCanvasItem::new);

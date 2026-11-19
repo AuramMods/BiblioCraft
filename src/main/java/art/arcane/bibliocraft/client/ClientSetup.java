@@ -77,6 +77,7 @@ public final class ClientSetup {
         PrintingPressRenderer.registerModels(event);
         event.register(PaintingPressRenderer.LID);
         event.register(MapFrameRenderer.PIN);
+        AtlasHandRenderer.registerModels(event);
     }
 
     @SubscribeEvent
@@ -87,6 +88,7 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void registerModelLoaders(ModelEvent.RegisterGeometryLoaders event) {
         event.register("waypoint_compass", (IGeometryLoader<WaypointCompassModel>) WaypointCompassModel::read);
+        event.register("atlas", (IGeometryLoader<AtlasModel>) AtlasModel::read);
     }
 
     @SubscribeEvent
@@ -124,6 +126,7 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.PAINTING_PRESS.get(), PaintingPressScreen::new);
             MenuScreens.register(ModMenus.PAINTING.get(), PaintingFrameScreen::new);
             MenuScreens.register(ModMenus.MAP_FRAME.get(), MapFrameScreen::new);
+            MenuScreens.register(ModMenus.ATLAS.get(), AtlasScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
                 if (entry.get() instanceof ColoredBlockItem colored) {

@@ -1,0 +1,7 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/item/atlascover.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "visibility": {"atlascover": true, "pin": false}
+}

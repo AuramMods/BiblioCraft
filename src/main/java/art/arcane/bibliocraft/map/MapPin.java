@@ -14,10 +14,15 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.jetbrains.annotations.Nullable;
 
 public record MapPin(UUID id, Point point, String name, DyeColor color) {
     public static final int LIMIT = 32;
     public static final int NAME_LENGTH = 42;
+    public static final List<DyeColor> WOOL_COLORS = List.of(DyeColor.BLACK, DyeColor.RED, DyeColor.GREEN, DyeColor.LIME,
+            DyeColor.BROWN, DyeColor.BLUE, DyeColor.CYAN, DyeColor.LIGHT_BLUE, DyeColor.PURPLE, DyeColor.MAGENTA,
+            DyeColor.PINK, DyeColor.YELLOW, DyeColor.ORANGE, DyeColor.GRAY, DyeColor.LIGHT_GRAY, DyeColor.WHITE);
+    private static final double CLICK_RADIUS = 0.026;
     private static final String TAG = "BiblioMapPins";
 
     public MapPin {
@@ -62,6 +67,19 @@ public record MapPin(UUID id, Point point, String name, DyeColor color) {
             items.add(tag);
         }
         map.getOrCreateTag().put(TAG, items);
+    }
+
+    public static @Nullable MapPin near(List<MapPin> pins, Point point) {
+        MapPin nearest = null;
+        double distance = CLICK_RADIUS * CLICK_RADIUS;
+        for (MapPin pin : pins) {
+            double candidate = point.distanceSquared(pin.point());
+            if (candidate < distance) {
+                distance = candidate;
+                nearest = pin;
+            }
+        }
+        return nearest;
     }
 
     public WaypointCompassItem.Target target(MapItemSavedData map) {

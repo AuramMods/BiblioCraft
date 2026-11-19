@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.menu.AtlasMenu;
 import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.menu.ArmorStandMenu;
@@ -46,7 +47,8 @@ public final class ModMenus {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, BiblioCraft.MODID);
 
-    public static final RegistryObject<MenuType<PlaceholderMenu>> ATLAS = register("atlas");
+    public static final RegistryObject<MenuType<AtlasMenu>> ATLAS =
+            MENUS.register("atlas", () -> IForgeMenuType.create(AtlasMenu::new));
     public static final RegistryObject<MenuType<BigBookMenu>> BIG_BOOK =
             MENUS.register("big_book", () -> IForgeMenuType.create(BigBookMenu::new));
     public static final RegistryObject<MenuType<PlaceholderMenu>> SLOTTED_BOOK = register("slotted_book");

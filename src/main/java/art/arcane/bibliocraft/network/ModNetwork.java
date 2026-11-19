@@ -12,8 +12,8 @@ import art.arcane.bibliocraft.menu.TypesettingTableMenu;
 import art.arcane.bibliocraft.menu.PaintingFrameMenu;
 import art.arcane.bibliocraft.menu.PaintingPressMenu;
 import art.arcane.bibliocraft.menu.MapFrameMenu;
+import art.arcane.bibliocraft.menu.AtlasMenu;
 import art.arcane.bibliocraft.map.MapPin;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 import art.arcane.bibliocraft.painting.PaintingArt;
 import art.arcane.bibliocraft.painting.PaintingSettings;
@@ -45,7 +45,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "10";
+    private static final String PROTOCOL = "11";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -64,7 +64,16 @@ public final class ModNetwork {
         }
         initialized = true;
 
-        registerServerbound(AtlasWptPacket.class, AtlasWptPacket::new);
+        CHANNEL.messageBuilder(AtlasPinPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(AtlasPinPacket::encode).decoder(AtlasPinPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof AtlasMenu menu && menu.containerId == message.menuId()) {
+                        menu.edit(player, message.action(), message.slot(), message.mapId(), message.pin(), message.point(),
+                                message.name(), message.color(), message.compass());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         CHANNEL.messageBuilder(TypesettingActionPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(TypesettingActionPacket::encode).decoder(TypesettingActionPacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -167,7 +176,6 @@ public final class ModNetwork {
                 }).add();
         registerServerbound(ClipboardPacket.class, ClipboardPacket::new);
         registerServerbound(UpdateInvPacket.class, UpdateInvPacket::new);
-        registerServerbound(AtlasPacket.class, AtlasPacket::new);
         registerServerbound(MeasurePacket.class, MeasurePacket::new);
         CHANNEL.messageBuilder(MapPinPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(MapPinPacket::encode).decoder(MapPinPacket::decode)
@@ -233,7 +241,6 @@ public final class ModNetwork {
                 }).add();
 
         registerClientbound(DrillTextPacket.class, DrillTextPacket::new);
-        registerClientbound(AtlasClientPacket.class, AtlasClientPacket::new);
         registerClientbound(PanelerClientPacket.class, PanelerClientPacket::new);
         CHANNEL.messageBuilder(RecipeTextPacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(RecipeTextPacket::encode).decoder(RecipeTextPacket::decode)
@@ -261,8 +268,6 @@ public final class ModNetwork {
                 }).add();
         registerClientbound(OpenBookPacket.class, OpenBookPacket::new);
         registerClientbound(DeskOpenGuiPacket.class, DeskOpenGuiPacket::new);
-        registerClientbound(AtlasSwpClientPacket.class, AtlasSwpClientPacket::new);
-        registerClientbound(AtlasTGuiPacket.class, AtlasTGuiPacket::new);
         registerClientbound(SoundPlayerPacket.class, SoundPlayerPacket::new);
     }
 
@@ -297,7 +302,23 @@ public final class ModNetwork {
         }
     }
 
-    public static final class AtlasWptPacket extends EmptyPacket {}
+    public record AtlasPinPacket(int menuId, AtlasMenu.Edit action, int slot, int mapId,
+                                 @org.jetbrains.annotations.Nullable UUID pin, MapPin.Point point, String name,
+                                 DyeColor color, int compass) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId).writeEnum(action).writeVarInt(slot).writeVarInt(mapId);
+            buffer.writeNullable(pin, FriendlyByteBuf::writeUUID);
+            buffer.writeDouble(point.u()).writeDouble(point.v());
+            buffer.writeUtf(name, MapPin.NAME_LENGTH).writeEnum(color).writeVarInt(compass);
+        }
+
+        private static AtlasPinPacket decode(FriendlyByteBuf buffer) {
+            return new AtlasPinPacket(buffer.readVarInt(), buffer.readEnum(AtlasMenu.Edit.class), buffer.readVarInt(),
+                    buffer.readVarInt(), buffer.readNullable(FriendlyByteBuf::readUUID),
+                    new MapPin.Point(buffer.readDouble(), buffer.readDouble()), buffer.readUtf(MapPin.NAME_LENGTH),
+                    buffer.readEnum(DyeColor.class), buffer.readVarInt());
+        }
+    }
     public record TypesettingActionPacket(int menuId, TypesettingTableMenu.Action action, UUID book) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId).writeEnum(action).writeNullable(book, FriendlyByteBuf::writeUUID);
@@ -436,7 +457,6 @@ public final class ModNetwork {
 
     public static final class ClipboardPacket extends EmptyPacket {}
     public static final class UpdateInvPacket extends EmptyPacket {}
-    public static final class AtlasPacket extends EmptyPacket {}
     public static final class MeasurePacket extends EmptyPacket {}
     public record MapPinPacket(int menuId, String name, DyeColor color, boolean remove) {
         private void encode(FriendlyByteBuf buffer) {
@@ -506,7 +526,6 @@ public final class ModNetwork {
     }
 
     public static final class DrillTextPacket extends EmptyPacket {}
-    public static final class AtlasClientPacket extends EmptyPacket {}
     public static final class PanelerClientPacket extends EmptyPacket {}
     public record RecipeTextPacket(int menuId, Component message) {
         private void encode(FriendlyByteBuf buffer) {
@@ -536,7 +555,5 @@ public final class ModNetwork {
 
     public static final class OpenBookPacket extends EmptyPacket {}
     public static final class DeskOpenGuiPacket extends EmptyPacket {}
-    public static final class AtlasSwpClientPacket extends EmptyPacket {}
-    public static final class AtlasTGuiPacket extends EmptyPacket {}
     public static final class SoundPlayerPacket extends EmptyPacket {}
 }

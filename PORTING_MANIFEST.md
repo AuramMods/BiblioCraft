@@ -188,6 +188,12 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The frame's single slot keeps the filled map's vanilla `map` ID. Its `mapRotation` tag counts quarter turns. The filled map now owns up to 32 `BiblioMapPins` with stable IDs, unrotated map coordinates, names, and colors. Rotation moves their display positions while compass targets retain the map's world coordinates and dimension. Both drills and harvesting return the map with its pins intact.
 - The map tool uses the active frame, held item, and filled map in the validated server menu. Wire protocol 10 sends and validates the editor changes. Atlas transfers can share the same filled-map pin data.
 
+## Atlas and Atlas Waypoint Port
+
+- The atlas book keeps `bibliocraft:atlas_book` and its `bibliocraft:atlas` menu. The 1.12.2 item declared `AtlasBook`. Earlier unfilled Forge 1.20.1 atlases start with empty slots, no selected sheet or compass, and manual selection at scale one. `Inventory` stores the six supply slots and 42 individual sheets. The tags `mapSlot`, `autoCenter`, `autoCreate`, `zoomLevel`, `lastGUImode`, and `savedCompass` retain the legacy field names. The vanilla `map` ID on each filled sheet supplies the dimension, scale, and center. The additional legacy `maps` cache is superseded by vanilla saved data and the `BiblioMapPins` on each filled sheet.
+- Control-click or middle-click selects a sheet in the inventory. Map arrows show neighboring same-scale sheets. Auto mode searches by dimension and scale and creates aligned sheets on the Forge 1.20.1 vanilla map grid. The original book, compass and 36 needle groups are baked individually. The first-person cover reuses the original OBJ and texture, with live map pixels and colored pin meshes. Its sprite lives at `textures/item/atlas_cover.png` for the modern block atlas.
+- Crouch-use with an atlas consumes one empty map when making a copy. The backed frame and the atlas preserve independent pin lists on their copies. Using the atlas on the currently selected matching map opens the original transfer panel. The active menu validates the held atlas, frame access, the exact live framed map stack, and the map ID. Waypoint edits and compass targeting validate their slot and map ID under wire protocol 11.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`

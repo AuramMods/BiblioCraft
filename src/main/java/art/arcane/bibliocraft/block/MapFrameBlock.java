@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.block;
 
 import art.arcane.bibliocraft.blockentity.MapFrameBlockEntity;
 import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.item.AtlasItem;
 import art.arcane.bibliocraft.item.WaypointCompassItem;
 import art.arcane.bibliocraft.map.MapPin;
 import art.arcane.bibliocraft.menu.MapFrameMenu;
@@ -138,7 +139,9 @@ public final class MapFrameBlock extends InventoryFurnitureBlock {
                 || (held.is(ModItems.BIBLIO_DRILL.get()) && BiblioConfig.COMMON.enableDrill.get());
         MapPin.Point point = pointAt(state, hit, frame.rotation());
         MapPin pin = point == null ? null : frame.pinAt(point);
-        if (player.isShiftKeyDown() && !map.isEmpty()) {
+        if (player.isShiftKeyDown() && held.is(ModItems.ATLAS_BOOK.get()) && BiblioConfig.COMMON.enableAtlas.get()) {
+            return AtlasItem.useFrame(player, hand, frame);
+        } else if (player.isShiftKeyDown() && !map.isEmpty()) {
             if (!level.isClientSide) {
                 frame.rotateMap();
             }

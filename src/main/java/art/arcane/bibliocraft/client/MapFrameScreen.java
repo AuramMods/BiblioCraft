@@ -12,16 +12,10 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.DyeColor;
-
-import java.util.List;
 
 final class MapFrameScreen extends AbstractContainerScreen<MapFrameMenu> {
     private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(
             BiblioCraft.MODID, "textures/gui/mapwaypointgui.png");
-    private static final List<DyeColor> COLORS = List.of(DyeColor.BLACK, DyeColor.RED, DyeColor.GREEN, DyeColor.LIME,
-            DyeColor.BROWN, DyeColor.BLUE, DyeColor.CYAN, DyeColor.LIGHT_BLUE, DyeColor.PURPLE, DyeColor.MAGENTA,
-            DyeColor.PINK, DyeColor.YELLOW, DyeColor.ORANGE, DyeColor.GRAY, DyeColor.LIGHT_GRAY, DyeColor.WHITE);
     private EditBox name;
     private Button colorButton;
     private int colorIndex;
@@ -30,7 +24,7 @@ final class MapFrameScreen extends AbstractContainerScreen<MapFrameMenu> {
         super(menu, inventory, title);
         imageWidth = 256;
         imageHeight = 96;
-        colorIndex = COLORS.indexOf(menu.view().pin().color());
+        colorIndex = MapPin.WOOL_COLORS.indexOf(menu.view().pin().color());
     }
 
     @Override
@@ -46,7 +40,7 @@ final class MapFrameScreen extends AbstractContainerScreen<MapFrameMenu> {
         name.setValue(value);
         addRenderableWidget(name);
         colorButton = addRenderableWidget(Button.builder(Component.empty(), button -> {
-            colorIndex = (colorIndex + 1) % COLORS.size();
+            colorIndex = (colorIndex + 1) % MapPin.WOOL_COLORS.size();
             updateColor();
         }).bounds(leftPos + 118, topPos + 57, 20, 20).build());
         updateColor();
@@ -63,13 +57,13 @@ final class MapFrameScreen extends AbstractContainerScreen<MapFrameMenu> {
     }
 
     private void updateColor() {
-        var color = COLORS.get(colorIndex);
+        var color = MapPin.WOOL_COLORS.get(colorIndex);
         colorButton.setTooltip(Tooltip.create(text("color", Component.translatable("color.minecraft." + color.getName()))));
     }
 
     private void save(boolean remove) {
         ModNetwork.CHANNEL.sendToServer(new ModNetwork.MapPinPacket(menu.containerId, name.getValue(),
-                COLORS.get(colorIndex), remove));
+                MapPin.WOOL_COLORS.get(colorIndex), remove));
     }
 
     @Override
@@ -88,7 +82,7 @@ final class MapFrameScreen extends AbstractContainerScreen<MapFrameMenu> {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(graphics);
         super.render(graphics, mouseX, mouseY, partialTick);
-        var texture = ResourceLocation.withDefaultNamespace("textures/block/" + COLORS.get(colorIndex).getName() + "_wool.png");
+        var texture = ResourceLocation.withDefaultNamespace("textures/block/" + MapPin.WOOL_COLORS.get(colorIndex).getName() + "_wool.png");
         graphics.blit(texture, leftPos + 120, topPos + 59, 0, 0, 16, 16, 16, 16);
     }
 
