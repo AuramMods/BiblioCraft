@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-public final class SeatBlock extends InventoryFurnitureBlock {
+public final class SeatBlock extends WoodenFurnitureBlock {
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
     private static final List<Direction> SIDES = List.of(Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST);
     private static final Map<Direction, BooleanProperty> CONNECTIONS = Map.of(

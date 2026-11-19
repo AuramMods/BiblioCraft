@@ -1,5 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:painting_frame_borderless",
+        "bibliocraft:framing_board"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:painting_frame_borderless",
   "pattern": [

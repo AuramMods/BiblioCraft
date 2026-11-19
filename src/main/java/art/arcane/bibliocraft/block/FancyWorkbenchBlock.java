@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public final class FancyWorkbenchBlock extends InventoryFurnitureBlock implements DrillAdjustable {
+public final class FancyWorkbenchBlock extends WoodenFurnitureBlock implements DrillAdjustable {
     public FancyWorkbenchBlock(Properties properties) {
         super(properties, box(0, 0, 0, 16, 16, 16), "fancy_workbench");
     }

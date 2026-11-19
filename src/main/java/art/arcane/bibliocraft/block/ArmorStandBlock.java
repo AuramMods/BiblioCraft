@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public final class ArmorStandBlock extends InventoryFurnitureBlock {
+public final class ArmorStandBlock extends WoodenFurnitureBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     private static final VoxelShape UPRIGHT = Shapes.box(0.3, 0, 0, 0.7, 1, 1);
     private static final VoxelShape FOOT = Shapes.box(0, 0, 0, 1, 0.075, 1);

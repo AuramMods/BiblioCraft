@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.List;
 import java.util.Map;
 
-public abstract class ShiftableFurnitureBlock extends InventoryFurnitureBlock implements DrillAdjustable {
+public abstract class ShiftableFurnitureBlock extends WoodenFurnitureBlock implements DrillAdjustable {
     public static final IntegerProperty SHIFT = IntegerProperty.create("shift", 0, 2);
     private final double baseStep;
     private final List<Map<Direction, VoxelShape>> shiftedShapes;

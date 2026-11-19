@@ -29,11 +29,11 @@ import art.arcane.bibliocraft.block.TypesettingTableBlock;
 import art.arcane.bibliocraft.block.PrintingPressBlock;
 import art.arcane.bibliocraft.block.PaintingFrameBlock;
 import art.arcane.bibliocraft.block.PaintingPressBlock;
+import art.arcane.bibliocraft.item.BiblioBlockItem;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import art.arcane.bibliocraft.block.FancyWorkbenchBlock;
 import art.arcane.bibliocraft.item.FancySignItem;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -189,7 +189,7 @@ public final class ModBlocks {
     }
 
     private static RegistryObject<Block> register(String name, Supplier<Block> blockSupplier) {
-        return register(name, blockSupplier, block -> new BlockItem(block, new Item.Properties()));
+        return register(name, blockSupplier, block -> new BiblioBlockItem(block, new Item.Properties()));
     }
 
     private static RegistryObject<Block> register(String name, Supplier<Block> blockSupplier,

@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.gametest;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurnitureMaterial;
+import art.arcane.bibliocraft.block.WoodenFurnitureBlock;
 import art.arcane.bibliocraft.blockentity.DisplayCaseBlockEntity;
 import art.arcane.bibliocraft.menu.DisplayCaseMenu;
 import art.arcane.bibliocraft.registry.ModBlocks;
@@ -69,8 +70,10 @@ public final class CaseModelGameTests {
                 "Looking straight should place the wall display case");
         helper.assertTrue(wall.getCollisionShape(helper.getLevel(), pos).bounds().getYsize() == 1,
                 "The wall case should occupy the full height");
-        helper.assertTrue(displayCase.getStateDefinition().getPossibleStates().size() == 16
-                        && !wall.getValue(DisplayCaseBlock.OPEN) && !floor.getValue(DisplayCaseBlock.OPEN),
+        long unlitStates = displayCase.getStateDefinition().getPossibleStates().stream()
+                .filter(state -> state.getValue(WoodenFurnitureBlock.DISPLAY_LIGHT) == 0)
+                .count();
+        helper.assertTrue(unlitStates == 16 && !wall.getValue(DisplayCaseBlock.OPEN) && !floor.getValue(DisplayCaseBlock.OPEN),
                 "Both lid states should exist for each rotation and mount, with the lid closed by default");
         helper.succeed();
     }

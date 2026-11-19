@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public final class FramedChestBlock extends InventoryFurnitureBlock {
+public final class FramedChestBlock extends WoodenFurnitureBlock {
     public static final EnumProperty<FramedChestPart> PART = EnumProperty.create("part", FramedChestPart.class);
     private static final int JOIN_UPDATE = Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE;
     private static final List<Map<Direction, VoxelShape>> SHAPES = List.of(

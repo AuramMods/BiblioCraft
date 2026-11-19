@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public final class PaintingFrameBlock extends InventoryFurnitureBlock {
+public final class PaintingFrameBlock extends WoodenFurnitureBlock {
     private final Style style;
 
     public PaintingFrameBlock(Properties properties, Style style, String path) {

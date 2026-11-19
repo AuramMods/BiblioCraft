@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": ["bibliocraft:biblio_creative_lock"],
+      "lock_recipe": true
+    }
+  ],
+  "category": "equipment",
+  "group": "bibliocraft",
+  "pattern": [
+    "NI",
+    "NI",
+    " I"
+  ],
+  "key": {
+    "N": {"item": "minecraft:gold_nugget"},
+    "I": {"item": "minecraft:gold_ingot"}
+  },
+  "result": {"item": "bibliocraft:biblio_creative_lock"}
+}

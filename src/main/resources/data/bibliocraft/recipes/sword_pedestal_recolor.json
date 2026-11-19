@@ -1,4 +1,12 @@
 {
   "type": "bibliocraft:sword_pedestal_recolor",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:sword_pedestal"
+      ]
+    }
+  ],
   "category": "building"
 }

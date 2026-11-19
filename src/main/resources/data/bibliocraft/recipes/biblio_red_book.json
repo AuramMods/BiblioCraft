@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:biblio_red_book"
+      ]
+    }
+  ],
   "category": "misc",
   "group": "bibliocraft",
   "ingredients": [

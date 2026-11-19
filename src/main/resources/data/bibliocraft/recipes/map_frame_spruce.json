@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:map_frame"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:map_frame",
   "pattern": [

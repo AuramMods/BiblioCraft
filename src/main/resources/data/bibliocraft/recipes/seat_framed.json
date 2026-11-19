@@ -1,5 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:seat",
+        "bibliocraft:framing_board"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:seat",
   "pattern": [

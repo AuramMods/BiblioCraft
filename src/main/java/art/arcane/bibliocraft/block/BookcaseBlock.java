@@ -101,7 +101,7 @@ public class BookcaseBlock extends ShiftableFurnitureBlock {
 
     @Override
     public float getEnchantPowerBonus(BlockState state, LevelReader level, BlockPos pos) {
-        return level.getBlockEntity(pos) instanceof BookcaseBlockEntity bookcase
+        return BiblioConfig.COMMON.enableBookcase.get() && level.getBlockEntity(pos) instanceof BookcaseBlockEntity bookcase
                 ? Integer.bitCount(bookcase.getOccupiedSlots()) / 8.0F : 0;
     }
 

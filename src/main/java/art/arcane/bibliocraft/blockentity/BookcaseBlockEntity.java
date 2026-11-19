@@ -69,12 +69,25 @@ public class BookcaseBlockEntity extends FurnitureInventoryBlockEntity {
     }
 
     public int getRedstoneSignal() {
+        return BiblioConfig.COMMON.enableBookcase.get() && BiblioConfig.COMMON.enableRedstonebook.get()
+                ? storedRedstoneSignal() : 0;
+    }
+
+    private int storedRedstoneSignal() {
         for (int slot = 0; slot < SLOT_COUNT; slot++) {
             if (getItem(slot).is(ModItems.BIBLIO_RED_BOOK.get())) {
                 return slot;
             }
         }
         return 0;
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (level != null && !level.isClientSide && storedRedstoneSignal() > 0) {
+            BookcaseBlock.updateSignalNeighbors(level, worldPosition, getBlockState());
+        }
     }
 
     @Override

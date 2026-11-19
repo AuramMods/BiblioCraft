@@ -1,5 +1,14 @@
 {
   "type": "bibliocraft:fancy_sign",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:fancy_sign",
+        "bibliocraft:label"
+      ]
+    }
+  ],
   "category": "misc",
   "group": "bibliocraft",
   "ingredients": [

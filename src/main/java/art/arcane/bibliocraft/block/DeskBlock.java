@@ -45,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public final class DeskBlock extends InventoryFurnitureBlock {
+public final class DeskBlock extends WoodenFurnitureBlock {
     public static final EnumProperty<DeskSection> SECTION = EnumProperty.create("section", DeskSection.class);
     private static final VoxelShape TOP = Shapes.box(0, 0.8734, 0, 1, 1, 1);
     private static final VoxelShape LEFT_LEG = Shapes.box(0.0311, 0, 0.8115, 0.9689, 0.8753, 0.9678);

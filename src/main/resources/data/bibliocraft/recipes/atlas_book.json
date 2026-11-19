@@ -1,5 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:atlas_book",
+        "bibliocraft:maptool",
+        "bibliocraft:slotted_book"
+      ]
+    }
+  ],
   "category": "misc",
   "group": "bibliocraft",
   "pattern": [

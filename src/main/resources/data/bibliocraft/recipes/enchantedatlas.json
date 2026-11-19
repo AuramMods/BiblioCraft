@@ -1,4 +1,14 @@
 {
   "type": "bibliocraft:enchantedatlas",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:atlas_book",
+        "bibliocraft:death_compass",
+        "bibliocraft:compass"
+      ]
+    }
+  ],
   "category": "misc"
 }

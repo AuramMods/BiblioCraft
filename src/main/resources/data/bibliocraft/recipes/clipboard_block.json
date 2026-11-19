@@ -1,4 +1,13 @@
 {
   "type": "bibliocraft:clipboard_block",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:clipboard",
+        "bibliocraft:biblio_clipboard"
+      ]
+    }
+  ],
   "category": "building"
 }

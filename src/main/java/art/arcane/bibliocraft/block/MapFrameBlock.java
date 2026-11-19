@@ -37,7 +37,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public final class MapFrameBlock extends InventoryFurnitureBlock implements DrillAdjustable {
+public final class MapFrameBlock extends WoodenFurnitureBlock implements DrillAdjustable {
     public static final EnumProperty<AttachFace> FACE = MountedFacingEntityBlock.FACE;
     private static final VoxelShape WALL = Shapes.box(0, 0, 0, .045, 1, 1);
     private static final VoxelShape FLOOR = Shapes.box(0, 0, 0, 1, .045, 1);

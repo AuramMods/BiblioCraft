@@ -4,7 +4,6 @@ import art.arcane.bibliocraft.block.FurnitureMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,7 +14,7 @@ import net.minecraft.world.level.block.Block;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FurnitureBlockItem extends BlockItem {
+public class FurnitureBlockItem extends BiblioBlockItem {
     public FurnitureBlockItem(Block block, Properties properties) {
         super(block, properties);
     }

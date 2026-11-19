@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:armor_stand"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:armor_stand",
   "pattern": [

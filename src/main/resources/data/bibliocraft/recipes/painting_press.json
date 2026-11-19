@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:painting_press"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft",
   "pattern": [

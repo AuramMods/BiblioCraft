@@ -1,5 +1,15 @@
 {
   "type": "bibliocraft:fancy_workbench",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:fancy_workbench",
+        "bibliocraft:framing_board",
+        "bibliocraft:bookcase"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:fancy_workbench",
   "pattern": [

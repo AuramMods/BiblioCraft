@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:marker_pole"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft",
   "pattern": [

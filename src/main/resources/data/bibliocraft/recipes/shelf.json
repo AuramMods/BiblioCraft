@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:shelf"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:shelf",
   "pattern": [

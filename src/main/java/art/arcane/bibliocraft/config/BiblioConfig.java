@@ -89,7 +89,8 @@ public final class BiblioConfig {
         public final ForgeConfigSpec.ConfigValue<String> additionalDiscs;
 
         private Common(ForgeConfigSpec.Builder builder) {
-            builder.push("blocks_enabled");
+            builder.comment("Controls BiblioCraft's creative listings, bundled recipes, placement, and feature actions. Existing saved blocks and items keep their IDs and data.")
+                    .push("blocks_enabled");
             enableBookcase = define(builder, "bookcase", true);
             enableArmorstand = define(builder, "armorstand", true);
             enablePotionshelf = define(builder, "potionshelf", true);
@@ -134,12 +135,14 @@ public final class BiblioConfig {
             builder.pop();
 
             builder.push("recipes");
-            enableLockRecipe = define(builder, "enable_lock_recipe", false);
+            enableLockRecipe = builder.comment("Enable the original Lock and Key crafting recipe.")
+                    .define("enable_lock_recipe", false);
             enableRecipeBookCrafting = define(builder, "enable_recipe_book_crafting", true);
             enablePublicTypesettingBooks = define(builder, "enable_public_typesetting_books", false);
             builder.pop();
 
-            builder.push("rendering");
+            builder.comment("The per-block Force Fast Render keys are retained for config compatibility with older installs.")
+                    .push("rendering");
             forceFastRenderShelf = define(builder, "force_fast_render_shelf", false);
             forceFastRenderPotionShelf = define(builder, "force_fast_render_potion_shelf", true);
             forceFastRenderFancySign = define(builder, "force_fast_render_fancy_sign", true);
@@ -149,8 +152,10 @@ public final class BiblioConfig {
             forceFastRenderToolrack = define(builder, "force_fast_render_toolrack", false);
             forceFastRenderDinnerPlate = define(builder, "force_fast_render_dinner_plate", false);
             forceFastRenderDiscRack = define(builder, "force_fast_render_disc_rack", false);
-            emitLight = define(builder, "emit_light", true);
-            disablerenderers = define(builder, "disable_renderers", false);
+            emitLight = builder.comment("Let stored luminous blocks light up the area around legacy wooden furniture. Restart the world after changing this setting.")
+                    .worldRestart().define("emit_light", true);
+            disablerenderers = builder.comment("Hide block entity contents and animation on this client for renderer troubleshooting.")
+                    .define("disable_renderers", false);
             renderDistancePainting = builder
                     .comment("Legacy setting: max render distance (in blocks) for paintings.")
                     .defineInRange("painting_render_distance", 64.0D, 1.0D, 512.0D);
@@ -158,7 +163,8 @@ public final class BiblioConfig {
 
             builder.push("gameplay");
             chairRedstone = define(builder, "chair_redstone", true);
-            checkforupdate = define(builder, "check_for_update", true);
+            checkforupdate = builder.comment("Retained for config compatibility with older installs.")
+                    .define("check_for_update", true);
             enchPlateMaxUses = builder.defineInRange("enchanted_plate_max_uses", 3, 1, 64);
             enchantmentMultiplyer = builder.defineInRange("enchantment_cost_multiplier", 10, 1, 500);
             mapUpdateRate = builder.defineInRange("map_update_rate", 10, 1, 200);

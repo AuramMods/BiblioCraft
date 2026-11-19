@@ -1,5 +1,14 @@
 {
   "type": "bibliocraft:framed_chest",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:framed_chest",
+        "bibliocraft:label"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:framed_chest",
   "pattern": [

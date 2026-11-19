@@ -2,6 +2,13 @@
 
 **FIRST STEP EVERY SESSION: read this file first, then `PORTING.md`, then `PORTING_MANIFEST.md` before touching code.**
 
+## Display Lighting and Config (2026-11-19)
+
+- Wooden furniture derives the `display_light` block state from the brightest stored standalone block. Existing saves without that property load at zero and recover their light from the inventory. The server sends the resulting state to clients so the light works with client block entity rendering disabled. A server restart with `rendering.emit_light` disabled clears the state and keeps the stored items.
+- Forge's `bibliocraft:features_enabled` recipe condition checks the BiblioCraft result and required ingredients. Existing registry IDs and inventories stay available to saves when their feature is disabled. The original opt-in Lock and Key recipe returns one key from two gold nuggets and three gold ingots. The default is off.
+- All 150 Forge GameTests passed on Forge 47.4.10. The added tests cover propagation, extraction, automation, feature-gated recipes and placement, and the actual loot from all 37 registered block IDs.
+- Two muted clients joined the same dedicated world on the reobfuscated JAR. A shelf saved by the previous build recovered its stored glowstone's light, including for the client with furniture renderers disabled. The local block light went from 13 to 0 and back to 13 as the player ejected, recovered, and replaced the named glowstone. Restarting with lighting and redstone books disabled cleared the saved light and the neighboring lamp's power. Both named items were still in their saved slots. The shelf recipe was absent, survival placement left the shelf in the player's inventory, and the enabled gold recipe crafted one Lock and Key at a normal crafting table.
+
 ## Session Snapshot (2026-11-18)
 
 - The shelf now uses a real four-slot block entity, menu, screen, and block-entity renderer. The old tile allocated 16 slots, but the legacy menu, click handling, and renderer only used slots 0–3. The Forge port keeps `bibliocraft:shelf` for the block, item, block entity, and menu.
@@ -346,8 +353,9 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Audit config, recipes, and loot against the legacy source. Restore display light from stored blocks and identify render settings with meaningful modern equivalents. Verify earlier 1.20.1 saves and supported BiblioWoods integrations.
+- Verify supported BiblioWoods integrations with their actual block registries, recipes, and rendered furniture.
 - Published Forge 1.20.1 integration candidates include Biomes O' Plenty and Forestry Community Edition. Natura has two independent community ports with Forge builds. Check their actual registry IDs and wood coverage in isolated tests. Legacy Botania contains only a block lookup probe. [Biomes O' Plenty Forge release](https://modrinth.com/mod/biomes-o-plenty/version/qlLkvQuH), [Forestry Community Edition releases](https://www.curseforge.com/minecraft/mc-mods/forestry-community-edition), [Natura Port](https://www.curseforge.com/minecraft/mc-mods/natura-port), [Natura unofficial Forge release](https://www.curseforge.com/minecraft/mc-mods/natura-unofficial-port/files/9339478).
+- Audit earlier Forge 1.20.1 saves and run the final reobfuscated JAR on clean Forge and in Auram.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

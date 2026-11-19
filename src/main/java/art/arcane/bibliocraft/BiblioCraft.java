@@ -7,6 +7,7 @@ import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import art.arcane.bibliocraft.item.SeatBackItem;
 import art.arcane.bibliocraft.item.ReadingGlassesItem;
 import art.arcane.bibliocraft.network.ModNetwork;
+import art.arcane.bibliocraft.recipe.RecipeFeatureCondition;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModEnchantments;
@@ -21,6 +22,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -74,6 +76,7 @@ public class BiblioCraft {
     public BiblioCraft(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BiblioConfig.SPEC);
+        CraftingHelper.register(RecipeFeatureCondition.SERIALIZER);
         ModNetwork.register();
         ModBlocks.BLOCKS.register(modEventBus);
         ModBlocks.ITEMS.register(modEventBus);

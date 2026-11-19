@@ -22,7 +22,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class FurniturePanelerBlock extends InventoryFurnitureBlock {
+public class FurniturePanelerBlock extends WoodenFurnitureBlock {
     public static final IntegerProperty STACKS = IntegerProperty.create("panels", 0, 8);
 
     public FurniturePanelerBlock(Properties properties, VoxelShape shape) {

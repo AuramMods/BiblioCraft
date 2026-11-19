@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:seatback2"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:seatback2",
   "pattern": [

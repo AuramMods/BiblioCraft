@@ -2,7 +2,6 @@ package art.arcane.bibliocraft.item;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public final class ColoredBlockItem extends BlockItem {
+public final class ColoredBlockItem extends BiblioBlockItem {
     public ColoredBlockItem(Block block, Properties properties) {
         super(block, properties);
     }

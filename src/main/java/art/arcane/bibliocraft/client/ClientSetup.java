@@ -3,6 +3,7 @@ package art.arcane.bibliocraft.client;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.SeatBlock;
 import art.arcane.bibliocraft.block.TableBlock;
+import art.arcane.bibliocraft.config.BiblioConfig;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.blockentity.ClipboardBlockEntity;
 import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
@@ -21,11 +22,17 @@ import art.arcane.bibliocraft.registry.ModEntities;
 import art.arcane.bibliocraft.registry.ModItems;
 import art.arcane.bibliocraft.registry.ModMenus;
 import art.arcane.bibliocraft.registry.ModParticles;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
@@ -45,31 +52,60 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.SEAT_ENTITY.get(), NoopRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.SHELF.get(), ShelfRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.FURNITURE_PANELER.get(), FurniturePanelerRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.POTION_SHELF.get(), RackRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.TOOL_RACK.get(), RackRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.CASE.get(), DisplayCaseRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.DINNER_PLATE.get(), DinnerPlateRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.DISC_RACK.get(), DiscRackRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.SWORD_PEDESTAL.get(), SwordPedestalRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.TYPEWRITER.get(), TypewriterRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.DESK.get(), DeskRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.CLIPBOARD.get(), ClipboardRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.ARMOR_STAND.get(), ArmorStandRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.TABLE.get(), TableRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.LABEL.get(), SignDisplayRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.FANCY_SIGN.get(), SignDisplayRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.CLOCK.get(), ClockRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.FRAMED_CHEST.get(), FramedChestRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.PRINTING_PRESS.get(), PrintingPressRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_PRESS.get(), PaintingPressRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_BORDERLESS.get(), PaintingFrameRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_FLAT.get(), PaintingFrameRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_SIMPLE.get(), PaintingFrameRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_MIDDLE.get(), PaintingFrameRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_FANCY.get(), PaintingFrameRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.MAP_FRAME.get(), MapFrameRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SHELF.get(), configurable(ShelfRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.FURNITURE_PANELER.get(), configurable(FurniturePanelerRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.POTION_SHELF.get(), configurable(RackRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.TOOL_RACK.get(), configurable(RackRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.CASE.get(), configurable(DisplayCaseRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.DINNER_PLATE.get(), configurable(DinnerPlateRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.DISC_RACK.get(), configurable(DiscRackRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.SWORD_PEDESTAL.get(), configurable(SwordPedestalRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.TYPEWRITER.get(), configurable(TypewriterRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.DESK.get(), configurable(DeskRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.CLIPBOARD.get(), configurable(ClipboardRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.ARMOR_STAND.get(), configurable(ArmorStandRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.TABLE.get(), configurable(TableRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.LABEL.get(), configurable(SignDisplayRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.FANCY_SIGN.get(), configurable(SignDisplayRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.CLOCK.get(), configurable(ClockRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.FRAMED_CHEST.get(), configurable(FramedChestRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.PRINTING_PRESS.get(), configurable(PrintingPressRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_PRESS.get(), configurable(PaintingPressRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_BORDERLESS.get(), configurable(PaintingFrameRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_FLAT.get(), configurable(PaintingFrameRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_SIMPLE.get(), configurable(PaintingFrameRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_MIDDLE.get(), configurable(PaintingFrameRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_FANCY.get(), configurable(PaintingFrameRenderer::new));
+        event.registerBlockEntityRenderer(ModBlockEntities.MAP_FRAME.get(), configurable(MapFrameRenderer::new));
+    }
+
+    private static <T extends BlockEntity> BlockEntityRendererProvider<T> configurable(BlockEntityRendererProvider<T> provider) {
+        return context -> new ConfigurableRenderer<>(provider.create(context));
+    }
+
+    private record ConfigurableRenderer<T extends BlockEntity>(BlockEntityRenderer<T> delegate)
+            implements BlockEntityRenderer<T> {
+        @Override
+        public void render(T entity, float partialTick, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
+            if (!BiblioConfig.COMMON.disablerenderers.get()) {
+                delegate.render(entity, partialTick, pose, buffers, light, overlay);
+            }
+        }
+
+        @Override
+        public boolean shouldRenderOffScreen(T entity) {
+            return delegate.shouldRenderOffScreen(entity);
+        }
+
+        @Override
+        public int getViewDistance() {
+            return delegate.getViewDistance();
+        }
+
+        @Override
+        public boolean shouldRender(T entity, Vec3 camera) {
+            return delegate.shouldRender(entity, camera);
+        }
     }
 
     @SubscribeEvent

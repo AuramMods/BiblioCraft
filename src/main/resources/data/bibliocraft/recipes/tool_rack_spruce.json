@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:tool_rack"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:tool_rack",
   "pattern": [

@@ -1,5 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:furniture_paneler",
+        "bibliocraft:framing_saw",
+        "bibliocraft:framing_board",
+        "bibliocraft:framing_sheet"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft:furniture_paneler",
   "pattern": [

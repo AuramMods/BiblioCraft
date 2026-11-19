@@ -1,5 +1,14 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:framing_sheet",
+        "bibliocraft:framing_saw"
+      ]
+    }
+  ],
   "category": "misc",
   "group": "bibliocraft",
   "ingredients": [

@@ -1,5 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "bibliocraft:features_enabled",
+      "items": [
+        "bibliocraft:lantern_gold"
+      ]
+    }
+  ],
   "category": "building",
   "group": "bibliocraft",
   "pattern": [

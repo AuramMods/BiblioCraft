@@ -1,6 +1,9 @@
 package art.arcane.bibliocraft.blockentity;
 
+import art.arcane.bibliocraft.block.WoodenFurnitureBlock;
 import art.arcane.bibliocraft.book.BigBookContent;
+import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import art.arcane.bibliocraft.registry.ModItems;
 
 import net.minecraft.core.BlockPos;
@@ -71,7 +74,11 @@ public abstract class FurnitureInventoryBlockEntity extends FurnitureBlockEntity
 
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
-        return ContainerHelper.takeItem(items, slot);
+        ItemStack removed = ContainerHelper.takeItem(items, slot);
+        if (!removed.isEmpty()) {
+            updateDisplayedLight();
+        }
+        return removed;
     }
 
     @Override
@@ -162,6 +169,7 @@ public abstract class FurnitureInventoryBlockEntity extends FurnitureBlockEntity
 
     @Override
     public void setChanged() {
+        updateDisplayedLight();
         super.setChanged();
         if (level != null && !level.isClientSide) {
             BlockState state = getBlockState();
@@ -174,6 +182,38 @@ public abstract class FurnitureInventoryBlockEntity extends FurnitureBlockEntity
         super.load(tag);
         items.clear();
         ContainerHelper.loadAllItems(tag, items);
+        updateDisplayedLight();
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        updateDisplayedLight();
+    }
+
+    public final int displayedLight() {
+        int light = 0;
+        for (ItemStack stack : items) {
+            if (!stack.isEmpty() && stack.getItem() instanceof BlockItem item && !(item instanceof FurnitureBlockItem)) {
+                light = Math.max(light, item.getBlock().defaultBlockState().getLightEmission());
+            }
+        }
+        return light;
+    }
+
+    private void updateDisplayedLight() {
+        var lightProperty = WoodenFurnitureBlock.DISPLAY_LIGHT;
+        if (level == null || level.isClientSide || isRemoved() || !getBlockState().hasProperty(lightProperty)) {
+            return;
+        }
+        BlockState state = level.getBlockState(worldPosition);
+        if (state.is(getBlockState().getBlock())) {
+            int light = BiblioConfig.COMMON.emitLight.get() ? displayedLight() : 0;
+            if (state.getValue(lightProperty) != light) {
+                level.setBlock(worldPosition, state.setValue(lightProperty, light),
+                        Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
+            }
+        }
     }
 
     @Override

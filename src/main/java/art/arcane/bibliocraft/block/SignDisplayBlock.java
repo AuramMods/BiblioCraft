@@ -22,7 +22,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public abstract class SignDisplayBlock extends InventoryFurnitureBlock {
+public abstract class SignDisplayBlock extends WoodenFurnitureBlock {
     protected SignDisplayBlock(Properties properties, VoxelShape shape, String id) {
         super(properties, shape, id);
     }
