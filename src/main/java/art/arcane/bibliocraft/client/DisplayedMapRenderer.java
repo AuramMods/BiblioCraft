@@ -17,8 +17,6 @@ final class DisplayedMapRenderer {
     private DisplayedMapRenderer() {}
 
     static void render(PoseStack pose, MultiBufferSource buffers, ItemStack stack, Level level, float width, int light) {
-        Integer id = MapItem.getMapId(stack);
-        var map = MapItem.getSavedData(id, level);
         pose.mulPose(Axis.XP.rotationDegrees(90));
         float scale = width / 128;
         pose.scale(scale, scale, scale);
@@ -29,8 +27,15 @@ final class DisplayedMapRenderer {
         vertices.vertex(matrix, 135, 135, 0).color(255, 255, 255, 255).uv(1, 1).uv2(light).endVertex();
         vertices.vertex(matrix, 135, -7, 0).color(255, 255, 255, 255).uv(1, 0).uv2(light).endVertex();
         vertices.vertex(matrix, -7, -7, 0).color(255, 255, 255, 255).uv(0, 0).uv2(light).endVertex();
+        renderPixels(pose, buffers, stack, level, false, light);
+    }
+
+    static void renderPixels(PoseStack pose, MultiBufferSource buffers, ItemStack stack, Level level,
+                             boolean frame, int light) {
+        Integer id = MapItem.getMapId(stack);
+        var map = MapItem.getSavedData(id, level);
         if (id != null && map != null) {
-            Minecraft.getInstance().gameRenderer.getMapRenderer().render(pose, buffers, id, map, false, light);
+            Minecraft.getInstance().gameRenderer.getMapRenderer().render(pose, buffers, id, map, frame, light);
         }
     }
 }

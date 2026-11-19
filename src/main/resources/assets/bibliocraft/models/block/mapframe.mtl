@@ -1,7 +1,48 @@
-newmtl Default
-Kd 1.00 1.00 1.00
-map_Kd minecraft:block/oak_planks
-
 newmtl pin
 Kd 1.00 1.00 1.00
 map_Kd minecraft:block/red_wool
+
+newmtl main
+Kd 1.00 1.00 1.00
+forge_TintIndex 0
+map_Kd minecraft:block/oak_planks
+
+newmtl borderTop
+Kd 1.00 1.00 1.00
+forge_TintIndex 1
+map_Kd minecraft:block/oak_planks
+
+newmtl borderRight
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd minecraft:block/oak_planks
+
+newmtl borderBottom
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd minecraft:block/oak_planks
+
+newmtl borderLeft
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd minecraft:block/oak_planks
+
+newmtl cornerTL
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd minecraft:block/oak_planks
+
+newmtl cornerTR
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd minecraft:block/oak_planks
+
+newmtl cornerBR
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd minecraft:block/oak_planks
+
+newmtl cornerBL
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd minecraft:block/oak_planks

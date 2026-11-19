@@ -66,6 +66,7 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_SIMPLE.get(), PaintingFrameRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_MIDDLE.get(), PaintingFrameRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_FANCY.get(), PaintingFrameRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.MAP_FRAME.get(), MapFrameRenderer::new);
     }
 
     @SubscribeEvent
@@ -75,6 +76,7 @@ public final class ClientSetup {
         FramedChestRenderer.registerModels(event);
         PrintingPressRenderer.registerModels(event);
         event.register(PaintingPressRenderer.LID);
+        event.register(MapFrameRenderer.PIN);
     }
 
     @SubscribeEvent
@@ -121,6 +123,7 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.PRINTING_PRESS.get(), PrintingPressScreen::new);
             MenuScreens.register(ModMenus.PAINTING_PRESS.get(), PaintingPressScreen::new);
             MenuScreens.register(ModMenus.PAINTING.get(), PaintingFrameScreen::new);
+            MenuScreens.register(ModMenus.MAP_FRAME.get(), MapFrameScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
                 if (entry.get() instanceof ColoredBlockItem colored) {
@@ -156,6 +159,10 @@ public final class ClientSetup {
                 return model;
             }
             String path = id.getPath();
+            if (path.equals(ModBlocks.MAP_FRAME.getId().getPath())) {
+                return "inventory".equals(location.getVariant()) ? new FurnitureMaterialModel(model)
+                        : new MapFrameModel(model);
+            }
             if (path.startsWith("painting_frame_")) {
                 return "inventory".equals(location.getVariant()) ? new FurnitureMaterialModel(model)
                         : new PaintingFrameModel(model);

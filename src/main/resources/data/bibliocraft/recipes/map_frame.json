@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:map_frame",
   "pattern": [
     "III",
     "ISI",
@@ -11,14 +11,9 @@
     "I": {
       "item": "minecraft:stick"
     },
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ]
+    "S": {
+      "item": "minecraft:oak_slab"
+    }
   },
   "result": {
     "item": "bibliocraft:map_frame"

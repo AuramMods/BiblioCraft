@@ -16,7 +16,7 @@ import art.arcane.bibliocraft.block.FramedChestBlock;
 import art.arcane.bibliocraft.block.ClockBlock;
 import art.arcane.bibliocraft.block.LabelBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
-import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
+import art.arcane.bibliocraft.block.MapFrameBlock;
 import art.arcane.bibliocraft.block.RackBlock;
 import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.block.ShelfBlock;
@@ -75,9 +75,6 @@ public final class ModBlocks {
             box(0, 0, 0.0625, 0.5, 1, 0.9375),
             box(0.3125, 0.4375, 0, 0.4375, 0.5625, 0.0625)
     );
-    private static final VoxelShape SHAPE_MAP_FRAME_WALL = box(0.0, 0.0, 0.0, 0.05, 1.0, 1.0);
-    private static final VoxelShape SHAPE_MAP_FRAME_FLOOR = box(0.0, 0.0, 0.0, 1.0, 0.05, 1.0);
-    private static final VoxelShape SHAPE_MAP_FRAME_CEILING = box(0.0, 0.95, 0.0, 1.0, 1.0, 1.0);
     private static final VoxelShape SHAPE_TYPEWRITER = box(0.1384, 0.0, 0.2466, 0.6452, 0.1966, 0.7534);
     private static final VoxelShape SHAPE_SWORD_PEDESTAL = box(0.2758, 0.0, 0.0712, 0.7242, 0.2340, 0.9288);
     private static final VoxelShape SHAPE_BELL = box(0.36518, 0, 0.36518, 0.63482, 0.2, 0.63482);
@@ -144,7 +141,8 @@ public final class ModBlocks {
             register("case", () -> new DisplayCaseBlock(woodProps(), SHAPE_CASE_FLOOR, SHAPE_CASE_WALL),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> MAP_FRAME =
-            register("map_frame", () -> mountedWoodEntity(SHAPE_MAP_FRAME_FLOOR, SHAPE_MAP_FRAME_WALL, SHAPE_MAP_FRAME_CEILING, "map_frame"));
+            register("map_frame", () -> new MapFrameBlock(woodProps().sound(SoundType.WOOD)),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> PAINTING_FRAME_FLAT =
             paintingFrame("painting_frame_flat", PaintingFrameBlock.Style.FLAT);
     public static final RegistryObject<Block> PAINTING_FRAME_SIMPLE =
@@ -211,16 +209,6 @@ public final class ModBlocks {
         return register(name, () -> new ColorMountedFacingEntityBlock(lightProps(), floorShape, wallShape, ceilingShape, candle),
                 block -> new ColoredBlockItem(block, new Item.Properties()));
     }
-
-    private static Block mountedWoodEntity(
-            VoxelShape floorShape,
-            VoxelShape wallShape,
-            VoxelShape ceilingShape,
-            String blockEntityPath
-    ) {
-        return new MountedFacingEntityBlock(woodProps(), floorShape, wallShape, ceilingShape, blockEntityPath);
-    }
-
 
     private static BlockBehaviour.Properties woodProps() {
         // OBJ display blocks should not occlude neighboring faces like full cubes.

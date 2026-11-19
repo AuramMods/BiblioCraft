@@ -34,7 +34,7 @@ public final class PaintingPressBlock extends InventoryFurnitureBlock {
     }
 
     public static boolean isHandle(BlockState state, BlockHitResult hit) {
-        Vec3 local = TypesettingTableBlock.northHit(state, hit);
+        Vec3 local = northHit(state, hit);
         return hit.getDirection() == state.getValue(FACING).getClockWise() && local.y > 0.75
                 || hit.getDirection() == Direction.UP && local.x > 0.82;
     }

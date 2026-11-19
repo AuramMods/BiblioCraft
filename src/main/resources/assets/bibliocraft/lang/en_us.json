@@ -331,5 +331,14 @@
   "painting.bibliocraft.loveofbacon": "Love of Bacon",
   "painting.bibliocraft.boathouse": "Boathouse",
   "painting.bibliocraft.jimi": "Jimi",
-  "painting.bibliocraft.raven": "Raven"
+  "painting.bibliocraft.raven": "Raven",
+  "gui.bibliocraft.map_pin.title": "Map Waypoint",
+  "gui.bibliocraft.map_pin.number": "Waypoint %s",
+  "gui.bibliocraft.map_pin.name": "Waypoint name",
+  "gui.bibliocraft.map_pin.color": "Pin color · %s",
+  "gui.bibliocraft.map_pin.save": "Save",
+  "gui.bibliocraft.map_pin.remove": "Remove",
+  "gui.bibliocraft.map_pin.cancel": "Cancel",
+  "gui.bibliocraft.map_pin.coordinates": "X %s    Z %s",
+  "message.bibliocraft.map_pin.conflict": "That pin changed, overlaps another pin, or the map has 32 pins. Reopen the map tool to try again."
 }

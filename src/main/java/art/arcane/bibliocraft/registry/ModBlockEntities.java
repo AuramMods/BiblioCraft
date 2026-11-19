@@ -22,6 +22,7 @@ import art.arcane.bibliocraft.blockentity.TypesettingTableBlockEntity;
 import art.arcane.bibliocraft.blockentity.PrintingPressBlockEntity;
 import art.arcane.bibliocraft.blockentity.PaintingFrameBlockEntity;
 import art.arcane.bibliocraft.blockentity.PaintingPressBlockEntity;
+import art.arcane.bibliocraft.blockentity.MapFrameBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.RackBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
@@ -85,8 +86,9 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<FramedChestBlockEntity>> FRAMED_CHEST =
             BLOCK_ENTITIES.register("framed_chest", () -> BlockEntityType.Builder.of(
                     FramedChestBlockEntity::new, ModBlocks.FRAMED_CHEST.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> MAP_FRAME =
-            register("map_frame", ModBlocks.MAP_FRAME);
+    public static final RegistryObject<BlockEntityType<MapFrameBlockEntity>> MAP_FRAME =
+            BLOCK_ENTITIES.register("map_frame", () -> BlockEntityType.Builder.of(
+                    MapFrameBlockEntity::new, ModBlocks.MAP_FRAME.get()).build(null));
     public static final RegistryObject<BlockEntityType<DisplayCaseBlockEntity>> CASE =
             BLOCK_ENTITIES.register("case", () ->
                     BlockEntityType.Builder.of(DisplayCaseBlockEntity::new, ModBlocks.CASE.get()).build(null));

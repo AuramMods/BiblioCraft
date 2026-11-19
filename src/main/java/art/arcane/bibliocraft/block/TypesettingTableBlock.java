@@ -69,16 +69,6 @@ public final class TypesettingTableBlock extends InventoryFurnitureBlock impleme
         return point.x <= 0.43 && point.z > 0.3 && point.z < 0.7 ? TypesettingTableBlockEntity.CHASES : -1;
     }
 
-    static Vec3 northHit(BlockState state, BlockHitResult hit) {
-        var point = hit.getLocation().subtract(Vec3.atLowerCornerOf(hit.getBlockPos()));
-        return switch (state.getValue(FACING)) {
-            case EAST -> new Vec3(point.z, point.y, 1 - point.x);
-            case SOUTH -> new Vec3(1 - point.x, point.y, 1 - point.z);
-            case WEST -> new Vec3(1 - point.z, point.y, point.x);
-            default -> point;
-        };
-    }
-
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
                                                                           BlockEntityType<T> type) {

@@ -21,6 +21,7 @@ import art.arcane.bibliocraft.block.SignDisplayBlock;
 import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.block.TypewriterBlock;
 import art.arcane.bibliocraft.block.DeskBlock;
+import art.arcane.bibliocraft.block.MapFrameBlock;
 import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
@@ -152,7 +153,8 @@ public final class CommonGameplayEvents {
                         || block instanceof RackBlock || workbenchExtraction || block instanceof FurniturePanelerBlock
                         || block instanceof DinnerPlateBlock || block instanceof DiscRackBlock || block instanceof TypewriterBlock
                         || block instanceof DeskBlock || block instanceof ArmorStandBlock || block instanceof TableBlock
-                        || block instanceof SeatBlock || block instanceof SignDisplayBlock || block instanceof ClockBlock)
+                        || block instanceof SeatBlock || block instanceof SignDisplayBlock || block instanceof ClockBlock
+                        || block instanceof MapFrameBlock)
                 && BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(block))) {
             event.setUseBlock(Event.Result.ALLOW);
         }

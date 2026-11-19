@@ -22,6 +22,7 @@ import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.PrintingPressMenu;
 import art.arcane.bibliocraft.menu.PaintingFrameMenu;
 import art.arcane.bibliocraft.menu.PaintingPressMenu;
+import art.arcane.bibliocraft.menu.MapFrameMenu;
 import art.arcane.bibliocraft.menu.TypesettingTableMenu;
 import art.arcane.bibliocraft.menu.RackMenu;
 import art.arcane.bibliocraft.menu.ShelfMenu;
@@ -97,7 +98,8 @@ public final class ModMenus {
             MENUS.register("typesetting_table", () -> new MenuType<>(TypesettingTableMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<PrintingPressMenu>> PRINTING_PRESS =
             MENUS.register("printing_press", () -> new MenuType<>(PrintingPressMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> MAP_FRAME = register("map_frame");
+    public static final RegistryObject<MenuType<MapFrameMenu>> MAP_FRAME =
+            MENUS.register("map_frame", () -> IForgeMenuType.create(MapFrameMenu::new));
 
     public static final RegistryObject<MenuType<StockroomCatalogMenu>> STOCKROOM_CATALOG =
             MENUS.register("stockroom_catalog", () -> IForgeMenuType.create(StockroomCatalogMenu::new));
@@ -108,7 +110,6 @@ public final class ModMenus {
 
     static {
         mapBlock("clipboard", CLIPBOARD);
-        mapBlock("map_frame", MAP_FRAME);
     }
 
     private ModMenus() {}

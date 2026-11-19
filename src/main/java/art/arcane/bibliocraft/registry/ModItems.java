@@ -27,7 +27,7 @@ public final class ModItems {
     private static final List<RegistryObject<Item>> TAB_ITEMS = new ArrayList<>();
 
     public static final RegistryObject<Item> WAYPOINT_COMPASS = register("compass", WaypointCompassItem::new);
-    public static final RegistryObject<Item> MAP_TOOL = register("maptool");
+    public static final RegistryObject<Item> MAP_TOOL = register("maptool", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SEAT_BACK_1 = register("seatback1", () -> new SeatBackItem(1));
     public static final RegistryObject<Item> SEAT_BACK_2 = register("seatback2", () -> new SeatBackItem(2));
     public static final RegistryObject<Item> SEAT_BACK_3 = register("seatback3", () -> new SeatBackItem(3));

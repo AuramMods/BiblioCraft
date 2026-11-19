@@ -1,0 +1,21 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/mapframe.obj",
+  "flip_v": true,
+  "visibility": {
+    "main": false,
+    "borderTop": false,
+    "borderBottom": false,
+    "borderLeft": false,
+    "borderRight": false,
+    "cornerTL": false,
+    "cornerTR": false,
+    "cornerBL": false,
+    "cornerBR": false,
+    "pin": true
+  },
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  },
+  "automatic_culling": false
+}

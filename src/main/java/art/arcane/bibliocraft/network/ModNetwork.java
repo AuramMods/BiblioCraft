@@ -11,6 +11,10 @@ import art.arcane.bibliocraft.client.TypesettingTableScreen;
 import art.arcane.bibliocraft.menu.TypesettingTableMenu;
 import art.arcane.bibliocraft.menu.PaintingFrameMenu;
 import art.arcane.bibliocraft.menu.PaintingPressMenu;
+import art.arcane.bibliocraft.menu.MapFrameMenu;
+import art.arcane.bibliocraft.map.MapPin;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.DyeColor;
 import art.arcane.bibliocraft.painting.PaintingArt;
 import art.arcane.bibliocraft.painting.PaintingSettings;
 import art.arcane.bibliocraft.crafting.RecordedRecipe;
@@ -41,7 +45,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "9";
+    private static final String PROTOCOL = "10";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -165,7 +169,20 @@ public final class ModNetwork {
         registerServerbound(UpdateInvPacket.class, UpdateInvPacket::new);
         registerServerbound(AtlasPacket.class, AtlasPacket::new);
         registerServerbound(MeasurePacket.class, MeasurePacket::new);
-        registerServerbound(MapPinPacket.class, MapPinPacket::new);
+        CHANNEL.messageBuilder(MapPinPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(MapPinPacket::encode).decoder(MapPinPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof MapFrameMenu menu
+                            && menu.containerId == message.menuId() && menu.stillValid(player)) {
+                        if (menu.save(player, message.name(), message.color(), message.remove())) {
+                            player.closeContainer();
+                        } else {
+                            player.displayClientMessage(Component.translatable("message.bibliocraft.map_pin.conflict"), false);
+                        }
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         CHANNEL.messageBuilder(RecipeBookEditPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(RecipeBookEditPacket::encode).decoder(RecipeBookEditPacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -421,7 +438,16 @@ public final class ModNetwork {
     public static final class UpdateInvPacket extends EmptyPacket {}
     public static final class AtlasPacket extends EmptyPacket {}
     public static final class MeasurePacket extends EmptyPacket {}
-    public static final class MapPinPacket extends EmptyPacket {}
+    public record MapPinPacket(int menuId, String name, DyeColor color, boolean remove) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId).writeUtf(name, MapPin.NAME_LENGTH).writeEnum(color).writeBoolean(remove);
+        }
+
+        private static MapPinPacket decode(FriendlyByteBuf buffer) {
+            return new MapPinPacket(buffer.readVarInt(), buffer.readUtf(MapPin.NAME_LENGTH),
+                    buffer.readEnum(DyeColor.class), buffer.readBoolean());
+        }
+    }
     public record RecipeBookEditPacket(int menuId, List<String> lines, boolean sign) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId);

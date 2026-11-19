@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
 
@@ -21,6 +23,16 @@ public class HorizontalFacingEntityBlock extends PlaceholderEntityBlock {
 
     private final Map<Direction, VoxelShape> shapesByFacing;
     private final Map<Direction, VoxelShape> collisionByFacing;
+
+    static Vec3 northHit(BlockState state, BlockHitResult hit) {
+        var point = hit.getLocation().subtract(Vec3.atLowerCornerOf(hit.getBlockPos()));
+        return switch (state.getValue(FACING)) {
+            case EAST -> new Vec3(point.z, point.y, 1 - point.x);
+            case SOUTH -> new Vec3(1 - point.x, point.y, 1 - point.z);
+            case WEST -> new Vec3(1 - point.z, point.y, point.x);
+            default -> point;
+        };
+    }
 
     public HorizontalFacingEntityBlock(Properties properties, VoxelShape shape, String blockEntityPath) {
         this(properties, shape, shape, blockEntityPath);

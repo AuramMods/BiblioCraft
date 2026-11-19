@@ -67,7 +67,7 @@ public final class PrintingPressBlock extends InventoryFurnitureBlock implements
         if (hit.getDirection() != Direction.UP) {
             return -1;
         }
-        Vec3 point = TypesettingTableBlock.northHit(state, hit);
+        Vec3 point = northHit(state, hit);
         if (point.x >= 0.67) {
             return point.z < 0.5 ? PrintingPressBlockEntity.RESULT : PrintingPressBlockEntity.BLANK;
         }
