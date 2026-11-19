@@ -19,15 +19,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class PlaceholderEntityBlock extends StaticShapeBlock implements EntityBlock {
+abstract class ShapedEntityBlock extends StaticShapeBlock implements EntityBlock {
     private final ResourceLocation blockEntityId;
 
-    public PlaceholderEntityBlock(Properties properties, VoxelShape shape, String blockEntityPath) {
-        super(properties, shape);
-        this.blockEntityId = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, blockEntityPath);
-    }
-
-    public PlaceholderEntityBlock(Properties properties, VoxelShape shape, VoxelShape collisionShape, String blockEntityPath) {
+    protected ShapedEntityBlock(Properties properties, VoxelShape shape, VoxelShape collisionShape, String blockEntityPath) {
         super(properties, shape, collisionShape);
         this.blockEntityId = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, blockEntityPath);
     }

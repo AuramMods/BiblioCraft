@@ -2,6 +2,13 @@
 
 **FIRST STEP EVERY SESSION: read this file first, then `PORTING.md`, then `PORTING_MANIFEST.md` before touching code.**
 
+## Earlier Forge Saves and Release Packaging (2026-11-19)
+
+- The February Forge build at `bd5558b` wrote a dedicated world with 1,041 BiblioCraft placements, all 37 block IDs, all 33 block entity IDs, and all 68 item IDs. The current packaged code retained the earlier faces, orientations, and colors and all 70 stored stacks after a real restart and save. A legacy armor stand added its upper half when clear and kept a cobblestone block above another stand. The muted client edited an earlier fancy sign. An atlas from the older chest acquired the real Death Compass enchantment and kept its name.
+- Nineteen archived playtest worlds reopened and resaved under the current JAR. The servers queried all 278 saved BiblioCraft block entities. The before-and-after audit found one changed stored block entity field, a printing job countdown that progressed from 134 to 68 ticks. The compared player files and BiblioCraft world data were preserved.
+- Removed five unused network registrations and an empty render hook. Menus and block entity updates already handle paneling and books. Registered sound events and the live catalog and Reading paths supply those features. The network protocol is 18. The JAR carries the original MIT notice and names the original author. The mod metadata identifies Minecraft 1.20.1, and all 151 GameTests passed after packaging.
+- The final package booted a new world on a dedicated Forge 47.4.10 server with BiblioCraft as its sole installed mod. The muted Forge client crafted and placed a cherry shelf, inserted three emeralds, and rendered the stack on the original shelf geometry. The server saved the shelf material and all three emeralds.
+
 ## BiblioWoods (2026-11-19)
 
 - BiblioWoods lists 13 Biomes O' Plenty, 43 Forestry CE, and 13 Natura wood families. The existing 27 framed furniture items use each installed plank's sprite, panel name, and registry ID. The three creative tabs appear when they contain furniture from the available woods. A saved panel retains its ID even when the source is unavailable.
@@ -360,7 +367,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Audit earlier Forge 1.20.1 saves and run the final reobfuscated JAR on clean Forge and in Auram.
+- Run the final reobfuscated JAR in a disposable copy of the Auram development profile.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

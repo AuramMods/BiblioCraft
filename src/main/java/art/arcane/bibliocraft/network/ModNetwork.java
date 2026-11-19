@@ -53,10 +53,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.WeakHashMap;
-import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "17";
+    private static final String PROTOCOL = "18";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -142,7 +141,6 @@ public final class ModNetwork {
                     }
                     context.get().setPacketHandled(true);
                 }).add();
-        registerServerbound(PanelerPacket.class, PanelerPacket::new);
         CHANNEL.messageBuilder(StockTitlePacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(StockTitlePacket::encode).decoder(StockTitlePacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -293,7 +291,6 @@ public final class ModNetwork {
                     context.get().setPacketHandled(true);
                 }).add();
 
-        registerClientbound(PanelerClientPacket.class, PanelerClientPacket::new);
         CHANNEL.messageBuilder(RecipeTextPacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(RecipeTextPacket::encode).decoder(RecipeTextPacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -318,15 +315,12 @@ public final class ModNetwork {
                     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TypesettingTableScreen.receive(message));
                     context.get().setPacketHandled(true);
                 }).add();
-        registerClientbound(OpenBookPacket.class, OpenBookPacket::new);
         CHANNEL.messageBuilder(ClipboardPage.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(ClipboardPage::encode).decoder(ClipboardPage::decode)
                 .consumerMainThread((message, context) -> {
                     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClipboardScreen.accept(message));
                     context.get().setPacketHandled(true);
                 }).add();
-        registerClientbound(DeskOpenGuiPacket.class, DeskOpenGuiPacket::new);
-        registerClientbound(SoundPlayerPacket.class, SoundPlayerPacket::new);
         CHANNEL.messageBuilder(ReadingRequest.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder((message, buffer) -> buffer.writeVarInt(message.sequence()))
                 .decoder(buffer -> new ReadingRequest(buffer.readVarInt()))
@@ -377,37 +371,6 @@ public final class ModNetwork {
             return new ReadingResponse(buffer.readVarInt(),
                     buffer.readOptional(buf -> new FurnitureReading.Target(buf.readBlockPos(), buf.readVarInt())),
                     buffer.readList(FriendlyByteBuf::readComponent));
-        }
-    }
-
-    private static <T extends EmptyPacket> void registerServerbound(Class<T> type, Supplier<T> factory) {
-        register(type, factory, Optional.of(NetworkDirection.PLAY_TO_SERVER));
-    }
-
-    private static <T extends EmptyPacket> void registerClientbound(Class<T> type, Supplier<T> factory) {
-        register(type, factory, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-    }
-
-    private static <T extends EmptyPacket> void register(
-            Class<T> type,
-            Supplier<T> factory,
-            Optional<NetworkDirection> direction
-    ) {
-        CHANNEL.registerMessage(
-                packetId++,
-                type,
-                EmptyPacket::encode,
-                buf -> factory.get(),
-                (message, contextSupplier) -> {
-                    contextSupplier.get().setPacketHandled(true);
-                },
-                direction
-        );
-    }
-
-    public abstract static class EmptyPacket {
-        public static void encode(EmptyPacket message, FriendlyByteBuf buffer) {
-            // Placeholder packet has no payload during breadth-first porting.
         }
     }
 
@@ -521,7 +484,6 @@ public final class ModNetwork {
         }
     }
 
-    public static final class PanelerPacket extends EmptyPacket {}
     public record StockTitlePacket(int menuId, String title) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId);
@@ -685,7 +647,6 @@ public final class ModNetwork {
         }
     }
 
-    public static final class PanelerClientPacket extends EmptyPacket {}
     public record RecipeTextPacket(int menuId, Component message) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId);
@@ -712,7 +673,4 @@ public final class ModNetwork {
         }
     }
 
-    public static final class OpenBookPacket extends EmptyPacket {}
-    public static final class DeskOpenGuiPacket extends EmptyPacket {}
-    public static final class SoundPlayerPacket extends EmptyPacket {}
 }

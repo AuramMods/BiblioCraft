@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
 
-public class HorizontalFacingEntityBlock extends PlaceholderEntityBlock {
+public class HorizontalFacingEntityBlock extends ShapedEntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     private final Map<Direction, VoxelShape> shapesByFacing;

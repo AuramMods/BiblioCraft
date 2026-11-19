@@ -105,7 +105,6 @@ public final class CommonGameplayEvents {
         if (key != null
                 && BiblioFeatureToggles.isItemEnabled(key)
                 && CONTAINER_SENSITIVE_ITEMS.contains(key.toString())) {
-            // Placeholder for legacy packet/container validation before toss.
             player.closeContainer();
         }
     }

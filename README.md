@@ -1,7 +1,7 @@
 # BiblioCraft Forge 1.20.1 Port
 
 ## What This Project Is
-This repository is an active port of **BiblioCraft** from **Forge 1.12.2** to **Forge 1.20.1**.
+This repository ports **BiblioCraft** from Forge 1.12.2 to **Minecraft 1.20.1 on Forge**. It restores the original furniture models, display items, books, workstations, paintings, maps, and tools.
 
 The old source is kept in:
 - `old-1.12.2/`
@@ -10,11 +10,17 @@ The active 1.20.1 port code is in:
 - `src/main/java/art/arcane/bibliocraft`
 - `src/main/resources/assets/bibliocraft`
 
-## Porting Strategy
-The project is following a **breadth-first** strategy:
-- Register and surface all legacy content first.
-- Make everything load and render at a smoke-test level.
-- Then iterate depth: behavior parity, dynamic rendering, block entities, menus, networking, etc.
+## Install and Build
+
+Use Java 17 to run Minecraft 1.20.1. The port is tested on Forge 47.4.10. Place the same BiblioCraft JAR in the `mods` folder on each client and the dedicated server.
+
+```bash
+./gradlew jar
+```
+
+This produces the reobfuscated `build/libs/bibliocraft-1.0.0.jar`. The `build` task also copies the JAR to the configured local Auram instance.
+
+BiblioWoods recipes and creative tabs appear for supported woods from installed companion mods. The [porting manifest](PORTING_MANIFEST.md) records supported versions and save formats. Earlier Forge 1.20.1 worlds can be opened with the port. Direct Forge 1.12.2 world conversion is a separate migration project.
 
 ## Source-of-Truth Docs
 Always use these files together:
@@ -31,15 +37,6 @@ Always use these files together:
 - Legacy registry/index map (blocks, items, block entities, packet surfaces, source locations).
 - Lookup/reference document for where things come from.
 
-## Current Snapshot (High Level)
-As of the latest updates in the porting docs:
-- Legacy surface mapped from 1.12.2.
-- 37 legacy blocks registered in 1.20.1.
-- 31 legacy standalone items registered in 1.20.1.
-- Legacy OBJ/MTL/textures imported for smoke testing.
-- First-pass non-full voxel shapes added for many blocks.
-- Block items and key custom items are now 3D OBJ-based in inventory/hand.
-
 ## How To Check Progress
 Use these checks regularly:
 
@@ -53,7 +50,7 @@ Use these checks regularly:
 
 3. Data generation health (when touching generated assets/data)
 ```bash
-./gradlew --no-daemon runData
+./gradlew --no-daemon generateBiblioWoodsRecipes
 ```
 
 4. Runtime checks
@@ -62,11 +59,15 @@ Use these checks regularly:
 
 ## Daily Workflow
 1. Read `PORTING_MEMORY.md` -> `PORTING.md` -> `PORTING_MANIFEST.md`.
-2. Pick the next breadth/depth target from `PORTING.md`.
+2. Pick the next feature or verification target from `PORTING.md`.
 3. Use `PORTING_MANIFEST.md` to locate legacy source and registry IDs.
 4. Implement in 1.20.1 code/resources.
 5. Run build checks.
 6. Update all three docs with what changed.
+
+## Credits
+
+Original BiblioCraft by Joseph D. Sinclair (Nuchaz). The original [MIT notice](old-1.12.2/LICENSE) is included at `META-INF/BIBLIOCRAFT-LICENSE.txt` in the JAR.
 
 ## Project Purpose
 The near-term goal is a complete 1.20.1 registry and rendering surface for all legacy BiblioCraft content.

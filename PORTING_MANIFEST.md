@@ -244,7 +244,15 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `rendering.disable_renderers` skips client block entity render passes and leaves the baked furniture mesh visible for troubleshooting. The per-block fast-render keys remain for TOML compatibility, matching the bundled source's unused options. The legacy update-check key remains in the TOML. Update checking awaits a release feed for this port.
 - All 37 block loot tables retain their current item identities. Wooden variants copy their source panel, dyeable blocks copy their color, and clocks carry their settings. The dedicated code paths return a packed fancy sign or a filled clipboard once, and the armor stand lower half owns its drop. Temporary measuring poles have empty loot. The ordinary inventory path drops contents separately from furniture.
 
-## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
+## Forge 1.20.1 Save Compatibility
+
+- The February build at `bd5558b` and the current port use the same 37 block IDs, 68 item IDs, and 33 block entity IDs. The February block entities wrote only the standard identity and position fields. Current registries route those IDs to the real feature data and menus.
+- Existing facing, mount, and dye values carry forward. New state properties use the block defaults when absent. For example, the display case starts closed and the drill shift is zero. An earlier one-block armor stand restores its upper half when the cell above is clear. Display light is recomputed from the saved inventory and current config.
+- An earlier atlas with `bibliocraft:death_compass_enabled` acquires `bibliocraft:deathcompassench` when it enters the player's inventory. The item retains its other data. The modern Reading enchantment retains `bibliocraft:readingench`.
+- Direct 1.12.2 conversion requires a separate migration. The legacy registry tables below identify the original blocks, items, enchantments, and entities. Legacy metadata wood colors and `renderTexture` use `FurnitureMaterial` with a wood value and optional source block ID in the port. Saved furniture contents now use vanilla `Items` slot data, and locks store a `LockOwner` UUID. The feature sections document other data differences.
+- Protocol 18 uses the same gameplay paths as the prior build with five unused packet registrations removed. Install the same BiblioCraft JAR on the client and server.
+
+## February Asset Mapping Snapshot
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
 - Imported for baseline:
@@ -342,7 +350,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `lamp_gold`, `lamp_iron`, `lantern_gold`, and `lantern_iron` now use `face + facing + color` blockstates.
 - Mounted light variants inherit their mount geometry and textures from the base model. `lamp.mtl` and `lantern.mtl` share the body and shade slots across both metals and all colors.
 
-## Current 1.20 Voxel Shape Snapshot (Pass 1)
+## February Voxel Shape Snapshot
 - Source of truth: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` (`SHAPE_*` constants + registrations).
 - Shape block classes:
 - `src/main/java/art/arcane/bibliocraft/block/StaticShapeBlock.java`
@@ -383,7 +391,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `desk` | Rotated top, legs, shelf, and back panel | Separate shapes for the four legacy joined desk sections |
 | `fancy_workbench`, `printing_press` | full shape placeholder (BE-backed) | pending deeper shape/state pass |
 
-## Current 1.20 Registry Skeleton Snapshot
+## February Registry Snapshot
 - The shelf preserves the `bibliocraft:shelf` block, item, block-entity, and menu IDs. Its feature implementation is in `ShelfBlock`, `ShelfBlockEntity`, `ShelfMenu`, `ShelfScreen`, and `ShelfRenderer`.
 - The shelf blockstate selects the full OBJ or hides the `shelf_top` group. The blockstate rotates the original east-opening mesh around the block center. Slot hit testing and rendering use the same rotation.
 - `FurnitureMaterial`, `FurnitureBlockEntity`, and `FurnitureMaterialModel` carry shelf materials through item NBT, world NBT, block-entity updates, and baked quads. The shelf keeps its existing registry IDs across all materials. The oak recipe keeps `bibliocraft:shelf`. The other shaped recipes use `bibliocraft:shelf_<material>`.
@@ -426,7 +434,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java`
 - `src/main/java/art/arcane/bibliocraft/event/ClientRenderEvents.java`
 
-### Current 1.20 Block -> BlockEntity ID Mapping (Placeholder Runtime)
+### February Block Entity ID Mapping
 - Source: `src/main/java/art/arcane/bibliocraft/registry/ModBlocks.java` + `src/main/java/art/arcane/bibliocraft/registry/ModBlockEntities.java`.
 - Mapping strategy:
 - Most blocks map 1:1 (`<block_id>` -> `<block_entity_id>`).
@@ -438,7 +446,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `fancy_workbench` -> `fancy_workbench`
 - `printing_press` -> `printing_press`
 
-### Placeholder Registry Counts (Current 1.20.1)
+### February Registry Counts
 - Blocks: 37
 - Block items: 37
 - Standalone items: 31
@@ -451,7 +459,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Packet registrations (placeholder): 33 (23 serverbound + 10 clientbound)
 - Recipe placeholders: 1 serializer + 1 type (`enchantedatlas`)
 
-### Current 1.20 Network + Recipe Skeleton Snapshot
+### February Network and Recipe Snapshot
 - Network channel:
 - `src/main/java/art/arcane/bibliocraft/network/ModNetwork.java`
 - Legacy packet parity represented via no-payload placeholders:
@@ -555,7 +563,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - 3x3 pattern requires atlas center + 4 ender pearls + 2 waypoint compasses + 2 enchanted books.
 - Output atlas currently includes placeholder marker NBT (`bibliocraft:death_compass_enabled=true`) until full enchantment parity is ported.
 
-### Current 1.20 Event Hook + Seat Snapshot
+### February Event Hook and Seat Snapshot
 - Common Forge event subscriber:
 - `src/main/java/art/arcane/bibliocraft/event/CommonGameplayEvents.java`
 - Placeholder legacy hook coverage:
@@ -575,7 +583,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - self-removes when target block is not `bibliocraft:seat`.
 - self-removes after short empty timeout when no passenger remains.
 
-### Current 1.20 Menu-Open Placeholder Snapshot
+### February Menu Entry Points
 - Placeholder menu class:
 - `src/main/java/art/arcane/bibliocraft/menu/PlaceholderMenu.java`
 - now requires a real registered `MenuType` (no null placeholder type).

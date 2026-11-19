@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.RenderHighlightEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -54,8 +53,4 @@ public final class ClientRenderEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onRenderHighlight(RenderHighlightEvent.Block event) {
-        // Placeholder for legacy block highlight behavior (catalog markers, item name overlays).
-    }
 }
