@@ -869,29 +869,37 @@ Note: explicit `RegistryEvent.Register<SoundEvent>` path was not found in legacy
 - `textures/armor`: 3 files
 
 ## Add-on Mods in Old Tree (`jds/bibliowoods`)
+
+The Forge port uses one creative tab per installed wood source and the existing 27 framed furniture items. A variant stores the companion mod's plank block ID in `FurnitureMaterial.panel`. The client uses the installed plank model's particle sprite on the original furniture quads. The same material survives menu sync, pick-block, loot, and world saves. A missing source block renders the default frame and leaves the saved panel ID intact.
+
+`src/main/resources/bibliocraft/bibliowoods.json` lists the supported plank and slab families. `generateBiblioWoodsRecipes` builds the recipes from the current base layouts and keeps their feature conditions. The dependent recipes require the matching framed bookcase, label, borderless frame, or seat back. Fancy frames inherit their panel from the existing generic framed recipe. The creative bookcase remains available in creative. Forge item-existence conditions omit recipes when their registered ingredients or plank textures are unavailable.
+
 ### `BiblioWoodsBoP`
 - File: `old-1.12.2/src/main/java/jds/bibliowoods/bop/BiblioWoodsBoP.java`
 - Mod ID: `bibliowoodsbop`
 - Version: `2.0`
 - Integrates 16 BoP wood textures through `RegisterCustomFramedBlocks`
+- The 1.20.1 Forge build has 13 registered plank-and-slab families, including 10 original families and Dead, Empyreal, and Maple. Sacred Oak, BoP Cherry, Ethereal, BoP Mangrove, Ebony, and Eucalyptus have no corresponding block IDs in this build. Vanilla Cherry and Mangrove already have core furniture recipes. [Biomes O' Plenty 19.0.0.91](https://modrinth.com/mod/biomes-o-plenty/version/qlLkvQuH).
 
 ### `BiblioWoodsForestry`
 - File: `old-1.12.2/src/main/java/jds/bibliowoods/forestry/BiblioWoodsForestry.java`
 - Mod ID: `bibliowoodsforestry`
 - Version: `2.0`
 - Integrates 29 Forestry wood textures through `RegisterCustomFramedBlocks`
+- The 1.20.1 integration covers the 43 regular Forestry CE wood families, including the original 29 with `acacia_desert` and `hill_cherry` as the current block names. Fireproof planks can be applied in the furniture paneler. [Forestry CE 2.11.2](https://modrinth.com/mod/forestry-community-edition/version/dvKfwvis), [Forestry Cherry rename](https://modrinth.com/mod/forestry-community-edition/version/2.0.0).
 
 ### `BiblioWoodsNatura`
 - File: `old-1.12.2/src/main/java/jds/bibliowoods/natura/BiblioWoodsNatura.java`
 - Mod ID: `bibliowoodsnatura`
 - Version: `2.0`
 - Integrates 13 Natura wood textures through `RegisterCustomFramedBlocks`
+- Both Forge 1.20.1 ports register the same 13 source IDs. Those releases both use the `natura` mod ID and are alternate installations. [Natura Port 0.1.0](https://www.curseforge.com/minecraft/mc-mods/natura-port/files/8704184), [Natura (Unofficial Port) 1.0.1](https://www.curseforge.com/minecraft/mc-mods/natura-unofficial-port/files/9339478).
 
 ### `BiblioWoodsBotania`
 - File: `old-1.12.2/src/main/java/jds/bibliowoods/botania/BiblioWoodsBotania.java`
 - Mod ID: `bibliowoodsbotania`
 - Version: `2.0`
-- Contains probing/test logic; does not register framed block content like other add-ons.
+- The bundled add-on only probes block lookup. Compatible Botania blocks can use the general furniture paneler.
 
 ## Fluids
 - No fluid registration path found.

@@ -1,5 +1,8 @@
 {
   "itemGroup.bibliocraft.bibliocraft_tab": "BiblioCraft",
+  "itemGroup.bibliocraft.bibliowoods_biomesoplenty": "BiblioWoods Biomes O' Plenty",
+  "itemGroup.bibliocraft.bibliowoods_forestry": "BiblioWoods Forestry",
+  "itemGroup.bibliocraft.bibliowoods_natura": "BiblioWoods Natura",
   "block.bibliocraft.bookcase": "Bookcase",
   "block.bibliocraft.bookcase_creative": "Bookcase Creative",
   "block.bibliocraft.shelf": "Shelf",

@@ -47,7 +47,8 @@
 | Death compass and its enchantment | Both original crafting layouts and the enchantment table can upgrade atlases. A tracked death grants one compass with its dimension and coordinates. The original death-compass face and moving needle use the shared compass geometry. Earlier atlases with the placeholder marker acquire the real enchantment. | Forge GameTests cover both recipes through the normal crafting type, atlas-only application, marker conversion, and once-only respawn delivery with saved coordinates. In the muted client, the crafting table upgraded the printed atlas. The player died in the Nether, disconnected while dead, and received one compass on respawning in the Overworld. The right-click readout showed the Nether coordinates and height. The original needle reversed when the player turned in the Nether, and the dropped atlas was recovered with the enchantment and both maps. |
 | Lock and Key | Lock ownership is saved by UUID on ported inventory furniture. The owner can use and unlock it. Other players lose access to use, drills, and open menus. Locked furniture blocks survival mining and automated transfers. | Four Forge GameTests cover same-name players, menus, drills, mining, hopper and Forge transfers, and saved lock data. Two muted clients on a clean dedicated server verified menu closure, denied guest access, owner access, and survival break protection. The owner and contents survived a server restart. |
 | Display lighting, config, recipes, and loot | Wooden furniture emits the brightest light from a stored block. Existing config keys control displayed light, recipes, placement, redstone behavior, and optional client renderers. The Lock and Key has its original opt-in gold recipe. | Seven new Forge GameTests cover light propagation and removal, recipe conditions, and actual drops for all 37 block IDs. The packaged JAR recovered light from a shelf saved by the prior build. Both muted clients saw the room light up, including the client with furniture renderers disabled. A player ejected, recovered, and replaced one named glowstone. The nearby block light went from 13 to 0 and back to 13. Restarting with lighting and redstone books disabled cleared both signals and preserved the stored items. The disabled shelf recipe was absent and the opt-in Lock and Key was craftable at a normal crafting table. |
-| BiblioWoods and save compatibility | Legacy source and identifiers are mapped. | Supported 1.20.1 integrations and fixture upgrades for existing 1.20.1 worlds pending. Direct 1.12.2 world migration is separate. |
+| BiblioWoods | Three optional creative tabs and plank-and-slab recipes cover 69 live wood families across Biomes O' Plenty, Forestry CE, and Natura. The port retains its furniture IDs and resolves each panel from the installed plank. | Forge GameTests passed with no wood add-ons, all three add-ons, and the alternative Natura port. The dedicated server found all 69 shelf recipes. Two muted clients rendered Magic, Ebony, and Bloodwood shelves crafted and placed in survival. The owner also verified all three creative tabs. Restart preserved the panels and the picked Magic shelf. Harvest returned one Ebony shelf and all three stored amethyst shards. Compatibility limits are recorded in the manifest. |
+| Save compatibility | Existing Forge 1.20.1 registry IDs and feature data carry forward. Earlier blockstates and tags use their documented defaults. | Individual feature cycles cover prior-build save fixtures. The full inventory of earlier Forge 1.20.1 layouts remains to be audited. Direct 1.12.2 world migration is separate. |
 
 Legacy model fidelity is a primary acceptance criterion in each feature cycle. Compare the original OBJ parts, materials, UVs, and authored axes with the 1.12.2 state mapper and renderer. Check the world mesh, inventory and held models, state-driven parts, animation, transparent surfaces, displayed items, and material variants where applicable. Verify representative states and live transitions in an isolated muted Forge client. Confirm that selection shapes and click targets align with the rendered parts in every supported orientation.
 
@@ -329,12 +330,11 @@ For the shelf, the OBJ opens toward positive X in its base orientation. The exis
 - [x] Config migration strategy scaffold (legacy config booleans -> 1.20 config).
 
 ## Phase 7 - Add-on and Compatibility Modules
-- [ ] Decide scope for BiblioWoods add-ons in 1.20.1.
-- [ ] Re-implement framed texture variant support or replace with modern data-driven alternative.
-- [ ] Add integration tests for optional-mod behavior.
+- [x] Map the live Biomes O' Plenty, Forestry CE, and Natura plank-and-slab families.
+- [x] Reuse framed material support for BiblioWoods recipes and creative listings.
+- [x] Add Forge GameTests for optional-mod behavior.
 
 ## Near-Term Lookahead
-- Verify supported BiblioWoods integrations with their actual Forge 1.20.1 dependencies.
 - Audit earlier 1.20.1 saves and verify the packaged release on clean Forge and in Auram.
 
 ## Definition of Done

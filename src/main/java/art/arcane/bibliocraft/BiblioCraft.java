@@ -8,6 +8,7 @@ import art.arcane.bibliocraft.item.SeatBackItem;
 import art.arcane.bibliocraft.item.ReadingGlassesItem;
 import art.arcane.bibliocraft.network.ModNetwork;
 import art.arcane.bibliocraft.recipe.RecipeFeatureCondition;
+import art.arcane.bibliocraft.registry.BiblioWoods;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModEnchantments;
@@ -89,6 +90,7 @@ public class BiblioCraft {
         ModParticles.PARTICLES.register(modEventBus);
         ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
         ModRecipes.RECIPE_TYPES.register(modEventBus);
+        BiblioWoods.registerTabs(CREATIVE_TABS);
         CREATIVE_TABS.register(modEventBus);
     }
 }

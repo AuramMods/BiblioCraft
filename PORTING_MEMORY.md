@@ -2,6 +2,13 @@
 
 **FIRST STEP EVERY SESSION: read this file first, then `PORTING.md`, then `PORTING_MANIFEST.md` before touching code.**
 
+## BiblioWoods (2026-11-19)
+
+- BiblioWoods lists 13 Biomes O' Plenty, 43 Forestry CE, and 13 Natura wood families. The existing 27 framed furniture items use each installed plank's sprite, panel name, and registry ID. The three creative tabs appear when they contain furniture from the available woods. A saved panel retains its ID even when the source is unavailable.
+- `generateBiblioWoodsRecipes` packages 1,725 optional recipes from the base layouts. Forge activates them when the source items are registered and the furniture feature is enabled. Dependent recipes match their input panel. Creative bookcases use their creative listing, and fancy frames inherit their panel from the generic framed recipe.
+- All 151 Forge GameTests passed in three profiles. One profile omitted the wood mods. The combined profile used Biomes O' Plenty 19.0.0.91, Forestry CE 2.11.2, and Natura (Unofficial Port) 1.0.1. The third profile used Natura Port 0.1.0. The tests craft matching shelves and signs and reject a mixed slab or mismatched label.
+- Two muted clients tested the packaged JAR on a fresh dedicated world with the three wood add-ons. The creative tabs drew the expected OBJ variants and panel tooltips. The player crafted and placed Magic, Ebony, and Bloodwood shelves in survival. The dedicated restart preserved the three textures and the picked Magic shelf. The server found all 69 shelf recipes. Harvesting the Ebony shelf after the restart returned one matching shelf and all three amethyst shards from its inventory.
+
 ## Display Lighting and Config (2026-11-19)
 
 - Wooden furniture derives the `display_light` block state from the brightest stored standalone block. Existing saves without that property load at zero and recover their light from the inventory. The server sends the resulting state to clients so the light works with client block entity rendering disabled. A server restart with `rendering.emit_light` disabled clears the state and keeps the stored items.
@@ -353,8 +360,6 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Verify supported BiblioWoods integrations with their actual block registries, recipes, and rendered furniture.
-- Published Forge 1.20.1 integration candidates include Biomes O' Plenty and Forestry Community Edition. Natura has two independent community ports with Forge builds. Check their actual registry IDs and wood coverage in isolated tests. Legacy Botania contains only a block lookup probe. [Biomes O' Plenty Forge release](https://modrinth.com/mod/biomes-o-plenty/version/qlLkvQuH), [Forestry Community Edition releases](https://www.curseforge.com/minecraft/mc-mods/forestry-community-edition), [Natura Port](https://www.curseforge.com/minecraft/mc-mods/natura-port), [Natura unofficial Forge release](https://www.curseforge.com/minecraft/mc-mods/natura-unofficial-port/files/9339478).
 - Audit earlier Forge 1.20.1 saves and run the final reobfuscated JAR on clean Forge and in Auram.
 
 ## Registry Surface Size (Legacy)

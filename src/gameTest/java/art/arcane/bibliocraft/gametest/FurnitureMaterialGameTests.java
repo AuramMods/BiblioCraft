@@ -32,6 +32,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.gametest.GameTestHolder;
 import net.minecraftforge.gametest.PrefixGameTestTemplate;
 
+import java.util.Map;
+
 @GameTestHolder(BiblioCraft.MODID)
 @PrefixGameTestTemplate(false)
 public final class FurnitureMaterialGameTests {
@@ -59,6 +61,55 @@ public final class FurnitureMaterialGameTests {
         grid.setItem(4, new ItemStack(Items.OAK_PLANKS));
         helper.assertTrue(!craft(helper, grid).is(ModBlocks.SHELF.get().asItem()),
                 "A shelf cannot mix ordinary wood with framing parts");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void biblioWoodsRecipesRequireInstalledMatchingMaterials(GameTestHelper helper) {
+        var player = helper.makeMockSurvivalPlayer();
+        var grid = new TransientCraftingContainer(new CraftingMenu(0, player.getInventory()), 3, 3);
+        var recipes = helper.getLevel().getRecipeManager();
+        var samples = Map.of("biomesoplenty", "magic", "forestry", "ebony", "natura", "bloodwood");
+        for (var entry : samples.entrySet()) {
+            String namespace = entry.getKey();
+            String wood = entry.getValue();
+            var panel = ResourceLocation.fromNamespaceAndPath(namespace, wood + "_planks");
+            var slab = ResourceLocation.fromNamespaceAndPath(namespace, wood + "_slab");
+            var base = "bibliowoods/" + namespace + '/' + wood + '/';
+            boolean installed = BuiltInRegistries.ITEM.containsKey(panel) && BuiltInRegistries.ITEM.containsKey(slab);
+            for (String family : new String[]{"shelf", "framed_chest", "fancy_sign", "seatback5"}) {
+                var recipe = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, base + family);
+                helper.assertTrue(recipes.byKey(recipe).isPresent() == installed,
+                        recipe + " should be available with its source wood installed");
+            }
+            if (!installed) {
+                continue;
+            }
+
+            var expected = new FurnitureMaterial(FurnitureMaterial.Wood.FRAMED, panel);
+            Item slabItem = BuiltInRegistries.ITEM.get(slab);
+            grid.clearContent();
+            grid.setItem(4, new ItemStack(BuiltInRegistries.ITEM.get(panel)));
+            for (int slot : new int[]{0, 1, 2, 6, 7, 8}) {
+                grid.setItem(slot, new ItemStack(slabItem));
+            }
+            ItemStack shelf = craft(helper, grid);
+            helper.assertTrue(shelf.is(ModBlocks.SHELF.get().asItem()) && expected.equals(FurnitureMaterial.fromItem(shelf)),
+                    "The crafted shelf should carry " + panel);
+            grid.setItem(0, new ItemStack(Items.OAK_SLAB));
+            helper.assertTrue(craft(helper, grid).isEmpty(), "Mixing the slabs should not craft a shelf");
+
+            grid.clearContent();
+            var label = new ItemStack(ModBlocks.LABEL.get());
+            grid.setItem(0, label);
+            grid.setItem(1, new ItemStack(slabItem));
+            grid.setItem(2, new ItemStack(Items.PAPER));
+            helper.assertTrue(craft(helper, grid).isEmpty(), "An oak label should not match a BiblioWoods sign recipe");
+            grid.setItem(0, expected.applyTo(label.copy()));
+            ItemStack sign = craft(helper, grid);
+            helper.assertTrue(sign.is(ModBlocks.FANCY_SIGN.get().asItem()) && expected.equals(FurnitureMaterial.fromItem(sign)),
+                    "The shapeless sign recipe should carry its matching label's " + panel);
+        }
         helper.succeed();
     }
 

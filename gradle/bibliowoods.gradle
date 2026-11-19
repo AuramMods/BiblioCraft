@@ -1,0 +1,69 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
+def resources = layout.projectDirectory.dir('src/main/resources')
+def woodsFile = resources.file('bibliocraft/bibliowoods.json')
+def recipeTemplates = resources.dir('data/bibliocraft/recipes')
+def families = [
+        'armor_stand', 'bookcase', 'case', 'clock', 'desk', 'fancy_sign', 'fancy_workbench',
+        'framed_chest', 'furniture_paneler', 'label', 'map_frame', 'painting_frame_borderless',
+        'painting_frame_flat', 'painting_frame_middle', 'painting_frame_simple', 'potion_shelf',
+        'seat', 'seatback1', 'seatback2', 'seatback3', 'seatback4', 'seatback5', 'shelf', 'table', 'tool_rack'
+]
+def materialSources = ['bibliocraft:bookcase', 'bibliocraft:label',
+                       'bibliocraft:painting_frame_borderless', 'bibliocraft:seatback2']
+def generatedRecipes = layout.buildDirectory.dir('generated/bibliowoods')
+def generateBiblioWoodsRecipes = tasks.register('generateBiblioWoodsRecipes') {
+    inputs.file(woodsFile)
+    inputs.files(families.collect { recipeTemplates.file("${it}.json") })
+    outputs.dir(generatedRecipes)
+
+    doLast {
+        def json = new JsonSlurper()
+        def destination = generatedRecipes.get().asFile
+        delete(destination)
+        json.parse(woodsFile.asFile).each { namespace, woods ->
+            woods.each { wood ->
+                def plank = "${namespace}:${wood}_planks".toString()
+                def slab = "${namespace}:${wood}_slab".toString()
+                def material = [BlockEntityTag: [FurnitureMaterial: [wood: 'framed', panel: plank]]]
+                def woodDirectory = new File(destination, "data/bibliocraft/recipes/bibliowoods/${namespace}/${wood}")
+                woodDirectory.mkdirs()
+
+                families.each { family ->
+                    def recipe = json.parse(recipeTemplates.file("${family}.json").asFile)
+                    recipe.result.nbt = material
+                    if (family == 'fancy_sign') {
+                        // The add-on's sign recipe uses its slab alongside the matching label.
+                        recipe.type = 'minecraft:crafting_shapeless'
+                        recipe.ingredients[1] = [item: 'minecraft:oak_slab']
+                    } else if (recipe.key != null) {
+                        recipe.type = 'minecraft:crafting_shaped'
+                    }
+
+                    Set<String> requiredItems = [plank] as Set
+                    def ingredients = recipe.key == null ? recipe.ingredients : recipe.key.values()
+                    ingredients.each { ingredient ->
+                        switch (ingredient.item) {
+                            case 'minecraft:oak_planks':
+                                ingredient.item = plank
+                                break
+                            case 'minecraft:oak_slab':
+                                ingredient.item = slab
+                                requiredItems.add(slab)
+                                break
+                            case { materialSources.contains(it) }:
+                                ingredient.type = 'forge:partial_nbt'
+                                ingredient.nbt = material
+                                break
+                        }
+                    }
+                    recipe.conditions.addAll(requiredItems.collect { [type: 'forge:item_exists', item: it] })
+                    new File(woodDirectory, "${family}.json").setText(JsonOutput.toJson(recipe) + '\n', 'UTF-8')
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources.srcDir(generateBiblioWoodsRecipes)
