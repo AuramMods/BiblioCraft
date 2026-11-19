@@ -1,0 +1,11 @@
+{
+  "parent": "bibliocraft:block/potion_shelf",
+  "transform": {
+    "origin": "corner",
+    "translation": [
+      -0.25,
+      0,
+      0
+    ]
+  }
+}

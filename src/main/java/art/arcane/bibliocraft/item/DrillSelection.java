@@ -3,12 +3,31 @@ package art.arcane.bibliocraft.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public final class DrillSelection {
+    private static final List<String> KEYS = List.of("DeskSelection", "SeatSelection", "ClockSelection",
+            "FramedChestSelection", "PaintingLink");
+
     private DrillSelection() {}
+
+    public static boolean hasSelection(ItemStack tool) {
+        return KEYS.stream().anyMatch(key -> tool.getTagElement(key) != null);
+    }
+
+    public static void clear(ItemStack tool) {
+        KEYS.forEach(tool::removeTagKey);
+    }
+
+    public static void reportJoin(Player player, boolean joined) {
+        player.displayClientMessage(Component.translatable(joined ? "message.bibliocraft.drill.joined"
+                : "message.bibliocraft.drill.separated"), true);
+    }
 
     public static @Nullable BlockPos select(UseOnContext context, String key, String prompt) {
         var player = context.getPlayer();

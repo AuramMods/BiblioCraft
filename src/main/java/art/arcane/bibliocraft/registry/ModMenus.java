@@ -21,7 +21,7 @@ import art.arcane.bibliocraft.menu.RecipeBookMenu;
 import art.arcane.bibliocraft.menu.FramedChestMenu;
 import art.arcane.bibliocraft.menu.ClockMenu;
 import art.arcane.bibliocraft.menu.LabelMenu;
-import art.arcane.bibliocraft.menu.PlaceholderMenu;
+import art.arcane.bibliocraft.menu.ItemTesterMenu;
 import art.arcane.bibliocraft.menu.PrintingPressMenu;
 import art.arcane.bibliocraft.menu.PaintingFrameMenu;
 import art.arcane.bibliocraft.menu.PaintingPressMenu;
@@ -52,7 +52,8 @@ public final class ModMenus {
             MENUS.register("slotted_book", () -> IForgeMenuType.create(SlottedBookMenu::new));
     public static final RegistryObject<MenuType<RedstoneBookMenu>> REDSTONE_BOOK =
             MENUS.register("redstone_book", () -> IForgeMenuType.create(RedstoneBookMenu::new));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> TESTER = register("tester");
+    public static final RegistryObject<MenuType<ItemTesterMenu>> TESTER =
+            MENUS.register("tester", () -> IForgeMenuType.create(ItemTesterMenu::new));
     public static final RegistryObject<MenuType<BookcaseMenu>> BOOKCASE =
             MENUS.register("bookcase", () -> new MenuType<>(BookcaseMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<ShelfMenu>> SHELF =
@@ -110,15 +111,4 @@ public final class ModMenus {
             MENUS.register("compass", () -> IForgeMenuType.create(WaypointCompassMenu::new));
 
     private ModMenus() {}
-
-    private static RegistryObject<MenuType<PlaceholderMenu>> register(String name) {
-        @SuppressWarnings("unchecked")
-        final RegistryObject<MenuType<PlaceholderMenu>>[] holder = new RegistryObject[1];
-
-        holder[0] = MENUS.register(name,
-                () -> IForgeMenuType.create((containerId, inventory, buffer) -> new PlaceholderMenu(holder[0].get(), containerId)));
-
-        return holder[0];
-    }
-
 }

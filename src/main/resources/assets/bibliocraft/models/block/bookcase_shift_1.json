@@ -1,0 +1,11 @@
+{
+  "parent": "bibliocraft:block/bookcase",
+  "transform": {
+    "origin": "corner",
+    "translation": [
+      0.25,
+      0,
+      0
+    ]
+  }
+}

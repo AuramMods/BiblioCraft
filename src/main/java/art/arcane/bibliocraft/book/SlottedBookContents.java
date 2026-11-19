@@ -3,8 +3,6 @@ package art.arcane.bibliocraft.book;
 import art.arcane.bibliocraft.catalog.CatalogContents;
 import net.minecraft.SharedConstants;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -17,29 +15,6 @@ public final class SlottedBookContents {
     public static final int TEXT_LENGTH = 20;
 
     private SlottedBookContents() {}
-
-    public static ItemStack stored(ItemStack book) {
-        if (book.getTag() != null) {
-            ListTag inventory = book.getTag().getList("Inventory", Tag.TAG_COMPOUND);
-            for (int index = 0; index < inventory.size(); index++) {
-                CompoundTag item = inventory.getCompound(index);
-                if (item.contains("Slot", Tag.TAG_ANY_NUMERIC) && item.getInt("Slot") == 0) {
-                    return ItemStack.of(item);
-                }
-            }
-        }
-        return ItemStack.EMPTY;
-    }
-
-    public static void store(ItemStack book, ItemStack stack) {
-        ListTag inventory = new ListTag();
-        if (!stack.isEmpty()) {
-            CompoundTag saved = stack.save(new CompoundTag());
-            saved.putByte("Slot", (byte) 0);
-            inventory.add(saved);
-        }
-        book.getOrCreateTag().put("Inventory", inventory);
-    }
 
     public static Label label(ItemStack book) {
         CompoundTag saved = book.getTagElement("lines");

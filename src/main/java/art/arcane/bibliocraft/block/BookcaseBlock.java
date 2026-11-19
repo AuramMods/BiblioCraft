@@ -25,11 +25,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class BookcaseBlock extends InventoryFurnitureBlock {
+public class BookcaseBlock extends ShiftableFurnitureBlock {
     private final boolean stockedOnPlacement;
 
     public BookcaseBlock(Properties properties, VoxelShape shape, boolean stockedOnPlacement) {
-        super(properties, shape, "bookcase");
+        super(properties, shape, "bookcase", 0.25);
         this.stockedOnPlacement = stockedOnPlacement;
     }
 
@@ -75,7 +75,7 @@ public class BookcaseBlock extends InventoryFurnitureBlock {
             Direction opening = opening(state);
             int slot = slotAt(pos, hit.getLocation(), opening);
             if (player.isShiftKeyDown()) {
-                ejectStack(level, pos, opening, bookcase, slot);
+                ejectShiftedStack(state, level, pos, opening, bookcase, slot);
             } else if (bookcase.getItem(slot).isEmpty() && bookcase.canPlaceItem(slot, held)) {
                 bookcase.setItem(slot, held.split(Math.min(held.getMaxStackSize(), bookcase.getMaxStackSize())));
             } else {
@@ -125,6 +125,14 @@ public class BookcaseBlock extends InventoryFurnitureBlock {
 
     public static void updateSignalNeighbors(Level level, BlockPos pos, BlockState state) {
         updatePowerNeighbors(level, pos, state, opening(state));
+    }
+
+    @Override
+    public void afterDrill(Level level, BlockPos pos, BlockState previous, BlockState adjusted) {
+        if (opening(previous) != opening(adjusted)
+                && level.getBlockEntity(pos) instanceof BookcaseBlockEntity bookcase && bookcase.getRedstoneSignal() > 0) {
+            updatePowerNeighbors(level, pos, adjusted, null);
+        }
     }
 
     @Override

@@ -174,6 +174,7 @@ public final class FramedChestBlock extends InventoryFurnitureBlock {
         } else {
             return invalidJoin(player);
         }
+        DrillSelection.reportJoin(player, other != selectedChest);
         return InteractionResult.CONSUME;
     }
 

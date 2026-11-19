@@ -10,7 +10,7 @@ import art.arcane.bibliocraft.item.BigBookItem;
 import art.arcane.bibliocraft.item.FramingSawItem;
 import art.arcane.bibliocraft.item.FurnitureDrillItem;
 import art.arcane.bibliocraft.item.FurnitureLockItem;
-import art.arcane.bibliocraft.item.MenuOpeningItem;
+import art.arcane.bibliocraft.item.NameTesterItem;
 import art.arcane.bibliocraft.item.PrintingPlateItem;
 import art.arcane.bibliocraft.item.PaintingCanvasItem;
 import art.arcane.bibliocraft.item.PlumbLineItem;
@@ -46,10 +46,7 @@ public final class ModItems {
     public static final RegistryObject<Item> FRAMING_SAW = register("framing_saw", FramingSawItem::new);
     public static final RegistryObject<Item> FRAMING_BOARD = register("framing_board");
     public static final RegistryObject<Item> FRAMING_SHEET = register("framing_sheet");
-    public static final RegistryObject<Item> TESTER_ITEM = register(
-            "tester_item",
-            () -> new MenuOpeningItem(new Item.Properties(), ModMenus.TESTER::get, "tester")
-    );
+    public static final RegistryObject<Item> TESTER_ITEM = register("tester_item", NameTesterItem::new);
     public static final RegistryObject<Item> ATLAS_BOOK = register("atlas_book", AtlasItem::new);
     public static final RegistryObject<Item> ATLAS_PLATE = register("atlas_plate", PrintingPlateItem::new);
     public static final RegistryObject<Item> DEATH_COMPASS = register("death_compass", DeathCompassItem::new);

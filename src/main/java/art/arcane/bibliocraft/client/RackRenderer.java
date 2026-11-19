@@ -26,10 +26,11 @@ final class RackRenderer implements BlockEntityRenderer<RackBlockEntity> {
                        MultiBufferSource buffers, int light, int overlay) {
         RackType type = rack.type();
         boolean potions = type == RackType.POTIONS;
+        var state = rack.getBlockState();
         pose.pushPose();
         pose.translate(0.5, 0, 0.5);
-        pose.mulPose(Axis.YP.rotationDegrees(180 - rack.getBlockState().getValue(RackBlock.FACING).toYRot()));
-        pose.translate(-0.5, 0, -0.5);
+        pose.mulPose(Axis.YP.rotationDegrees(180 - state.getValue(RackBlock.FACING).toYRot()));
+        pose.translate(((RackBlock) state.getBlock()).localShift(state) - 0.5, 0, -0.5);
         for (int slot = 0; slot < rack.getContainerSize(); slot++) {
             ItemStack stack = rack.getItem(slot);
             if (stack.isEmpty()) {

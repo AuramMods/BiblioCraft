@@ -51,6 +51,8 @@
 
 - The slotted and redstone books again use their original screens and recipes. All 137 Forge GameTests passed. The muted client rejected a second slotted book, then stored a named pickaxe with 19 damage and saved a title and two description lines. It named a redstone book, canceled another edit, and put the named book in the bookcase's sixteenth slot. The guest saw an adjacent side lamp lit and the front lamp dark. After a dedicated restart, both lamp states and book titles persisted, and the slotted book still showed both description lines and the pickaxe. Two shift-click attempts returned one pickaxe with its original damage and name.
 
+- The two drills now shift the shelf, tool rack, potion shelf, and both bookcases and switch the display case's mount. Their artwork, shapes, and contents track the same state. Both drills also rotate the supported furniture and vanilla blocks. All 143 Forge GameTests passed. Two muted clients watched an apple, sword, potion, and book move with their furniture. The open display case kept its emerald block and lime liner. A turned vanilla chest kept all seven ingots. An existing bookcase from the preceding JAR kept its original facing and named redstone book. A dedicated restart preserved all shifted states and the remounted case. The tester showed the named axe, exact translation key and registry ID, and 37 damage after the restart. Two extraction attempts returned the one original axe. Mining the fully shifted and rotated shelf returned one shelf and all three apples. Sneak-using a drill selected a desk and using it in the air cleared that selection.
+
 ## Initial Breadth Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).
 - Core registry flow located and mapped.
@@ -344,7 +346,8 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Finish shared drill actions and feedback for the remaining display furniture, then restore the item tester. Follow with the config, recipes, loot, save compatibility, and supported BiblioWoods audit.
+- Audit config, recipes, and loot against the legacy source. Restore display light from stored blocks and identify render settings with meaningful modern equivalents. Verify earlier 1.20.1 saves and supported BiblioWoods integrations.
+- Published Forge 1.20.1 integration candidates include Biomes O' Plenty and Forestry Community Edition. Natura has two independent community ports with Forge builds. Check their actual registry IDs and wood coverage in isolated tests. Legacy Botania contains only a block lookup probe. [Biomes O' Plenty Forge release](https://modrinth.com/mod/biomes-o-plenty/version/qlLkvQuH), [Forestry Community Edition releases](https://www.curseforge.com/minecraft/mc-mods/forestry-community-edition), [Natura Port](https://www.curseforge.com/minecraft/mc-mods/natura-port), [Natura unofficial Forge release](https://www.curseforge.com/minecraft/mc-mods/natura-unofficial-port/files/9339478).
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

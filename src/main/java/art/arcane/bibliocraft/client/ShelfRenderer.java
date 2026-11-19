@@ -23,9 +23,10 @@ public class ShelfRenderer implements BlockEntityRenderer<ShelfBlockEntity> {
     public void render(ShelfBlockEntity shelf, float partialTick, PoseStack pose,
                        MultiBufferSource buffers, int light, int overlay) {
         pose.pushPose();
+        var state = shelf.getBlockState();
         pose.translate(0.5, 0, 0.5);
-        pose.mulPose(Axis.YP.rotationDegrees(180 - shelf.getBlockState().getValue(ShelfBlock.FACING).toYRot()));
-        pose.translate(-0.5, 0, -0.5);
+        pose.mulPose(Axis.YP.rotationDegrees(180 - state.getValue(ShelfBlock.FACING).toYRot()));
+        pose.translate(((ShelfBlock) state.getBlock()).localShift(state) - 0.5, 0, -0.5);
         for (int slot = 0; slot < shelf.getContainerSize(); slot++) {
             ItemStack stack = shelf.getItem(slot);
             if (stack.isEmpty()) {

@@ -229,6 +229,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The slotted book saves one full item stack in the legacy `Inventory` list at `Slot:0`. `lines.line1` through `lines.line5` hold its description, and the title uses the standard stack display name. Inventory moves persist as they happen, and Save applies the title and description. The menu prevents nested slotted books and protects the held book from inventory moves.
 - The redstone book opens a description of its interaction with the bookcase and lets the player save a custom title. Both editors check that the exact book still belongs to the live server menu. A redstone book occupies a normal bookcase slot and supplies its zero-based slot strength to every side except the front, whether renamed or carrying the default title.
 
+## Shared Drill Actions and Item Tester
+
+- Both drills cycle shelves, bookcases, creative bookcases, tool racks, and potion shelves through the original zero, quarter-block, and half-block shifts. `shift=0` preserves geometry in older Forge 1.20.1 saves. The shift moves the baked mesh, selection and collision shapes, and stored item poses together. The potion shelf moves toward its opposite edge because its existing base OBJ occupies the east half of the block.
+- Sneak-use rotates those blocks and map frames. Regular use changes a display case between its floor and wall mounts while preserving the open or closed lid, lining, material, and contents. Plain drill use on a filled map frame still returns the map. Rotating a powered bookcase updates the circuits at both the old and new openings.
+- Chests, dispensers, droppers, furnaces, ender chests, and comparators rotate on ordinary or sneak-use. Doors, trapdoors, repeaters, levers, anvils, and retracted pistons rotate on sneak-use. Both door halves update together. A double chest separates into two intact inventories if one half turns. An extended piston keeps its orientation until retracted. Right-clicking in the air clears the held drill's selection, and completed joins provide a localized action-bar readout.
+- `bibliocraft:tester_item` opens the original parchment and one inspection slot under `bibliocraft:tester`. It shows the live display name, translation key, item ID, and damage. It shares the slotted book's server-owned `Inventory` storage and exact held-stack validation. Opening a stacked tester from an earlier port gives the player back the extra testers and leaves any sample with one copy.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`

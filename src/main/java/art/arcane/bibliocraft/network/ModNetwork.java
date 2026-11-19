@@ -56,7 +56,7 @@ import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "15";
+    private static final String PROTOCOL = "16";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -293,7 +293,6 @@ public final class ModNetwork {
                     context.get().setPacketHandled(true);
                 }).add();
 
-        registerClientbound(DrillTextPacket.class, DrillTextPacket::new);
         registerClientbound(PanelerClientPacket.class, PanelerClientPacket::new);
         CHANNEL.messageBuilder(RecipeTextPacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(RecipeTextPacket::encode).decoder(RecipeTextPacket::decode)
@@ -686,7 +685,6 @@ public final class ModNetwork {
         }
     }
 
-    public static final class DrillTextPacket extends EmptyPacket {}
     public static final class PanelerClientPacket extends EmptyPacket {}
     public record RecipeTextPacket(int menuId, Component message) {
         private void encode(FriendlyByteBuf buffer) {

@@ -5,6 +5,7 @@ import art.arcane.bibliocraft.block.BookcaseBlock;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
 import art.arcane.bibliocraft.book.SlottedBookContents;
 import art.arcane.bibliocraft.book.SlottedBookContents.Label;
+import art.arcane.bibliocraft.item.PortableInventory;
 import art.arcane.bibliocraft.menu.RedstoneBookMenu;
 import art.arcane.bibliocraft.menu.SlottedBookMenu;
 import art.arcane.bibliocraft.registry.ModBlocks;
@@ -49,17 +50,17 @@ public final class UtilityBookGameTests {
         helper.assertTrue(ItemStack.matches(menu.quickMoveStack(player, 1), input)
                         && inventory.getItem(9).isEmpty(), "Shift-click should move the item into the book");
         var saved = ItemStack.of(book.save(new CompoundTag()));
-        helper.assertTrue(ItemStack.matches(SlottedBookContents.stored(saved), input),
+        helper.assertTrue(ItemStack.matches(PortableInventory.read(saved), input),
                 "The item, name, and damage should save immediately");
         var label = new Label("Tool cache", List.of("Workshop", "Keep dry", "", "", "Spare kit"));
         menu.saveLabel(player, label);
         helper.assertTrue(SlottedBookContents.label(book).equals(label)
-                        && ItemStack.matches(SlottedBookContents.stored(book), input),
+                        && ItemStack.matches(PortableInventory.read(book), input),
                 "Saving a label must preserve the inventory");
 
         var reopened = new SlottedBookMenu(2, inventory, InteractionHand.MAIN_HAND);
         helper.assertTrue(ItemStack.matches(reopened.quickMoveStack(player, 0), input)
-                        && SlottedBookContents.stored(book).isEmpty() && inventory.countItem(Items.DIAMOND_PICKAXE) == 1,
+                        && PortableInventory.read(book).isEmpty() && inventory.countItem(Items.DIAMOND_PICKAXE) == 1,
                 "Reopening and shift-clicking out should return exactly one copy");
         helper.succeed();
     }

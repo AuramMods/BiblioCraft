@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class DisplayCaseBlock extends FloorWallFacingEntityBlock {
+public class DisplayCaseBlock extends FloorWallFacingEntityBlock implements DrillAdjustable {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
     public DisplayCaseBlock(Properties properties, VoxelShape floorShape, VoxelShape wallShape) {
@@ -35,6 +35,11 @@ public class DisplayCaseBlock extends FloorWallFacingEntityBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(OPEN);
+    }
+
+    @Override
+    public BlockState adjustWithDrill(BlockState state, boolean sneaking) {
+        return sneaking ? DrillAdjustable.super.adjustWithDrill(state, true) : state.cycle(FACE);
     }
 
     @Override

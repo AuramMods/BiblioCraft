@@ -185,6 +185,7 @@ public final class ClockBlock extends HorizontalFacingEntityBlock {
         level.setBlock(upper, upperState.setValue(PART, joining ? ClockPart.UPPER : ClockPart.WALL), PAIR_UPDATE);
         updatePowerNeighbors(level, lower, lowerState, null);
         updatePowerNeighbors(level, upper, upperState, null);
+        DrillSelection.reportJoin(player, joining);
     }
 
     public static void updateClockPower(Level level, BlockPos pos, BlockState state) {

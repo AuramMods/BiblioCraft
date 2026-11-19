@@ -274,6 +274,7 @@ public final class SeatBlock extends InventoryFurnitureBlock {
         int flags = Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE;
         level.setBlock(pos, a.setValue(side, connect), flags);
         level.setBlock(previous, b.setValue(opposite, connect), flags);
+        DrillSelection.reportJoin(player, connect);
     }
 
     public static void setOccupied(ServerLevel level, BlockPos pos, boolean occupied) {

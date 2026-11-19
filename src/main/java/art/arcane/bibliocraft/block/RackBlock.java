@@ -19,11 +19,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class RackBlock extends InventoryFurnitureBlock {
+public class RackBlock extends ShiftableFurnitureBlock {
     private final RackType type;
 
     public RackBlock(Properties properties, VoxelShape shape, String id, RackType type) {
-        super(properties, shape, id);
+        super(properties, shape, id, type == RackType.POTIONS ? -0.25 : 0.25);
         this.type = type;
     }
 
@@ -65,11 +65,11 @@ public class RackBlock extends InventoryFurnitureBlock {
         var held = player.getMainHandItem();
         if (type == RackType.TOOLS) {
             if (!rack.canPlaceItem(slot, held) || !insertStack(rack, slot, held)) {
-                ejectStack(level, pos, side, rack, slot);
+                ejectShiftedStack(state, level, pos, side, rack, slot);
             }
             return true;
         }
-        return (sneaking && ejectStack(level, pos, side, rack, slot))
+        return (sneaking && ejectShiftedStack(state, level, pos, side, rack, slot))
                 || (rack.canPlaceItem(slot, held) && insertStack(rack, slot, held));
     }
 

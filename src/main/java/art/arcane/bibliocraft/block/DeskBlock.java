@@ -191,6 +191,7 @@ public final class DeskBlock extends InventoryFurnitureBlock {
         int flags = Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE;
         level.setBlock(pos, state.setValue(SECTION, otherOnRight ? current.withRight(join) : current.withLeft(join)), flags);
         level.setBlock(otherPos, otherState.setValue(SECTION, otherOnRight ? adjacent.withLeft(join) : adjacent.withRight(join)), flags);
+        DrillSelection.reportJoin(player, join);
         return InteractionResult.CONSUME;
     }
 

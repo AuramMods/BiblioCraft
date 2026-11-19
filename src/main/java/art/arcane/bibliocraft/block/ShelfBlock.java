@@ -21,11 +21,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ShelfBlock extends InventoryFurnitureBlock {
+public class ShelfBlock extends ShiftableFurnitureBlock {
     public static final BooleanProperty TOP = BooleanProperty.create("top");
 
     public ShelfBlock(Properties properties, VoxelShape shape) {
-        super(properties, shape, "shelf");
+        super(properties, shape, "shelf", 0.25);
         registerDefaultState(defaultBlockState().setValue(TOP, true));
     }
 
@@ -63,7 +63,8 @@ public class ShelfBlock extends InventoryFurnitureBlock {
             Direction opening = state.getValue(FACING).getClockWise();
             if (!player.isShiftKeyDown() && hit.getDirection() == opening) {
                 int slot = slotAt(pos, hit.getLocation(), opening);
-                if (transferStack(level, pos, opening, shelf, slot, player)) {
+                if (insertStack(shelf, slot, player.getMainHandItem())
+                        || ejectShiftedStack(state, level, pos, opening, shelf, slot)) {
                     return InteractionResult.CONSUME;
                 }
             }
@@ -81,8 +82,4 @@ public class ShelfBlock extends InventoryFurnitureBlock {
         return row + (rightOffset >= 0 ? 1 : 0);
     }
 
-    private static boolean transferStack(Level level, BlockPos pos, Direction opening,
-                                         ShelfBlockEntity shelf, int slot, Player player) {
-        return insertStack(shelf, slot, player.getMainHandItem()) || ejectStack(level, pos, opening, shelf, slot);
-    }
 }
