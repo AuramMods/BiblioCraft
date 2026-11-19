@@ -126,7 +126,7 @@ public final class DiscRackBlock extends InventoryFurnitureBlock implements Dril
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
-    private static int slotAt(BlockState state, BlockPos pos, Vec3 target) {
+    static int slotAt(BlockState state, BlockPos pos, Vec3 target) {
         float inverseYaw = (state.getValue(FACING).toYRot() - 180) * Mth.DEG_TO_RAD;
         Vec3 local = target.subtract(Vec3.atCenterOf(pos)).yRot(inverseYaw).add(0.5, 0.5, 0.5);
         double x = state.getValue(MOUNT).slotAxis(local);

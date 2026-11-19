@@ -1,8 +1,11 @@
 package art.arcane.bibliocraft.event;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.client.ReadingOverlay;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderHighlightEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -13,7 +16,16 @@ public final class ClientRenderEvents {
 
     @SubscribeEvent
     public static void onRenderOverlay(RenderGuiOverlayEvent.Post event) {
-        // Placeholder for legacy GUI overlay behavior (tape measure, drill text, glasses readout).
+        if (event.getOverlay().id().equals(VanillaGuiOverlay.CROSSHAIR.id())) {
+            ReadingOverlay.draw(event.getGuiGraphics());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            ReadingOverlay.tick();
+        }
     }
 
     @SubscribeEvent

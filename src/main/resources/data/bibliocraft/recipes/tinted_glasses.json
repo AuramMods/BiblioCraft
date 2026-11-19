@@ -1,16 +1,4 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "group": "bibliocraft",
-  "ingredients": [
-    {
-      "item": "bibliocraft:biblio_glasses"
-    },
-    {
-      "tag": "forge:dyes/gray"
-    }
-  ],
-  "result": {
-    "item": "bibliocraft:biblio_glasses"
-  }
+  "type": "bibliocraft:tinted_glasses",
+  "category": "misc"
 }

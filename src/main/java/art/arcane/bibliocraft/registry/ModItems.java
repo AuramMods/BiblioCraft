@@ -11,6 +11,7 @@ import art.arcane.bibliocraft.item.MenuOpeningItem;
 import art.arcane.bibliocraft.item.PrintingPlateItem;
 import art.arcane.bibliocraft.item.PaintingCanvasItem;
 import art.arcane.bibliocraft.item.RecipeBookItem;
+import art.arcane.bibliocraft.item.ReadingGlassesItem;
 import art.arcane.bibliocraft.item.SeatBackItem;
 import art.arcane.bibliocraft.item.StockroomCatalogItem;
 import art.arcane.bibliocraft.item.WaypointCompassItem;
@@ -62,7 +63,7 @@ public final class ModItems {
     public static final RegistryObject<Item> PRINT_PLATE = register("print_plate", PrintingPlateItem::new);
     public static final RegistryObject<Item> ENCHANTED_PLATE = register("enchanted_plate", PrintingPlateItem::new);
     public static final RegistryObject<Item> BIBLIO_RED_BOOK = register("biblio_red_book");
-    public static final RegistryObject<Item> BIBLIO_GLASSES = register("biblio_glasses");
+    public static final RegistryObject<Item> BIBLIO_GLASSES = register("biblio_glasses", ReadingGlassesItem::new);
     public static final RegistryObject<Item> BIBLIO_DRILL =
             register("biblio_drill", () -> new FurnitureDrillItem(new Item.Properties().stacksTo(1), false));
     public static final RegistryObject<Item> BIBLIO_CREATIVE_LOCK =

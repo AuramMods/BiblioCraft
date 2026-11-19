@@ -16,6 +16,9 @@
     }
   },
   "result": {
-    "item": "bibliocraft:biblio_glasses"
+    "item": "bibliocraft:biblio_glasses",
+    "nbt": {
+      "GlassesVariant": 2
+    }
   }
 }

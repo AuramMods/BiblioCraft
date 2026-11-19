@@ -47,34 +47,39 @@ public class RackBlock extends InventoryFurnitureBlock {
                 || !(level.getBlockEntity(pos) instanceof RackBlockEntity rack)) {
             return InteractionResult.PASS;
         }
-        if (!level.isClientSide && !interactWithSlot(level, pos, type.opening(state.getValue(FACING)), player, hit, rack)) {
+        if (!level.isClientSide && !interactWithSlot(level, pos, state, player, hit, rack)) {
             player.openMenu(new SimpleMenuProvider(
                     (id, inventory, viewer) -> new RackMenu(id, inventory, rack), getName()));
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
-    private boolean interactWithSlot(Level level, BlockPos pos, Direction opening, Player player,
+    private boolean interactWithSlot(Level level, BlockPos pos, BlockState state, Player player,
                                      BlockHitResult hit, RackBlockEntity rack) {
-        Direction side = hit.getDirection();
+        int slot = readingSlot(state, hit);
         boolean sneaking = player.isShiftKeyDown();
+        if (slot < 0 || type == RackType.TOOLS && sneaking) {
+            return false;
+        }
+        Direction side = hit.getDirection();
         var held = player.getMainHandItem();
         if (type == RackType.TOOLS) {
-            if (side != opening || sneaking) {
-                return false;
-            }
-            int slot = slotAt(pos, hit.getLocation(), opening);
             if (!rack.canPlaceItem(slot, held) || !insertStack(rack, slot, held)) {
-                ejectStack(level, pos, opening, rack, slot);
+                ejectStack(level, pos, side, rack, slot);
             }
             return true;
         }
-        if (side != opening && side != opening.getOpposite()) {
-            return false;
-        }
-        int slot = slotAt(pos, hit.getLocation(), opening);
         return (sneaking && ejectStack(level, pos, side, rack, slot))
                 || (rack.canPlaceItem(slot, held) && insertStack(rack, slot, held));
+    }
+
+    int readingSlot(BlockState state, BlockHitResult hit) {
+        Direction opening = type.opening(state.getValue(FACING));
+        Direction side = hit.getDirection();
+        if (side == opening || type != RackType.TOOLS && side == opening.getOpposite()) {
+            return slotAt(hit.getBlockPos(), hit.getLocation(), opening);
+        }
+        return -1;
     }
 
     private int slotAt(BlockPos pos, Vec3 hit, Direction opening) {

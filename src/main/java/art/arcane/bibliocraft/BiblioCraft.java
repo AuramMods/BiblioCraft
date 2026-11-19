@@ -5,6 +5,7 @@ import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import art.arcane.bibliocraft.item.SeatBackItem;
+import art.arcane.bibliocraft.item.ReadingGlassesItem;
 import art.arcane.bibliocraft.network.ModNetwork;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
@@ -59,6 +60,8 @@ public class BiblioCraft {
                             if (BiblioFeatureToggles.isItemEnabled(item.getId())) {
                                 if (item.get() instanceof SeatBackItem back) {
                                     back.addVariants(output);
+                                } else if (item.get() instanceof ReadingGlassesItem glasses) {
+                                    glasses.addVariants(output);
                                 } else {
                                     output.accept(item.get());
                                 }

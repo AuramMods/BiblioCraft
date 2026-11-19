@@ -201,6 +201,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - `bibliocraft:deathcompassench` keeps its Forge 1.20.1 ID. It is a level-one atlas enchantment available from the enchanting table and both legacy upgrade layouts. The `bibliocraft:enchantedatlas` recipe is discoverable through the normal crafting type and preserves the atlas's data. Atlases with the earlier `bibliocraft:death_compass_enabled` marker convert it to the enchantment in a player's inventory.
 - A tracked death records one pending reward in Forge's persisted player data. The player receives it on respawn or when next logging in alive. The compass keeps `XCoord`, `ZCoord`, `WaypointName`, and `WaypointDimension` and records the height as `DeathY`. The original distinct death-compass texture uses the shared OBJ with one of its 36 original needle poses. The needle tracks the death coordinates in the recorded dimension.
 
+## Reading Glasses and Furniture Readouts
+
+- The existing item ID `bibliocraft:biblio_glasses` replaces legacy `BiblioGlasses` metadata with an optional `GlassesVariant` tag. Plain glasses use the default value 0, tinted glasses use 1, and the monocle uses 2. Untagged Forge 1.20.1 stacks become wearable plain glasses. The original hand and inventory sprites and the three original armor textures follow the tag. Tinting preserves the original stack's custom name and enchantments.
+- `bibliocraft:readingench` keeps its earlier port ID. The original one-level enchantment appears on books at an enchantment table and applies to head armor at an anvil. All three glasses grant the same reading ability when worn. The `reading_glasses` config controls the readout and enchantment availability.
+- The readout uses the legacy position below the crosshair. Shelf slots use the shared interaction coordinates. Both armor-stand halves resolve to the lower block entity, and the typesetting table shares the actual formulas for atlas and enchanted plate costs. A framed chest shows its built-in label item and matching count. The cookie jar shows its first stored stack.
+- Wire protocol 12 adds a rate-limited readout request and reply. The server selects the aimed slot from the player's current reach and checks furniture ownership and printing library visibility. The reply contains display text for the matching target. Each client and server uses the same JAR.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`

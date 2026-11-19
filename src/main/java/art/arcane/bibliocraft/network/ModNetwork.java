@@ -1,9 +1,11 @@
 package art.arcane.bibliocraft.network;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.block.FurnitureReading;
 import art.arcane.bibliocraft.catalog.CatalogContents;
 import art.arcane.bibliocraft.book.BigBookContent;
 import art.arcane.bibliocraft.client.BigBookScreen;
+import art.arcane.bibliocraft.client.ReadingOverlay;
 import art.arcane.bibliocraft.client.StockroomCatalogScreen;
 import art.arcane.bibliocraft.menu.BigBookMenu;
 import art.arcane.bibliocraft.client.RecipeBookScreen;
@@ -28,6 +30,8 @@ import art.arcane.bibliocraft.menu.DeskBookMenu;
 import art.arcane.bibliocraft.menu.ClockMenu;
 import art.arcane.bibliocraft.menu.FancySignMenu;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -42,10 +46,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "11";
+    private static final String PROTOCOL = "12";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -55,6 +60,7 @@ public final class ModNetwork {
 
     private static int packetId = 0;
     private static boolean initialized = false;
+    private static final WeakHashMap<ServerPlayer, Long> LAST_READING_REQUEST = new WeakHashMap<>();
 
     private ModNetwork() {}
 
@@ -269,6 +275,57 @@ public final class ModNetwork {
         registerClientbound(OpenBookPacket.class, OpenBookPacket::new);
         registerClientbound(DeskOpenGuiPacket.class, DeskOpenGuiPacket::new);
         registerClientbound(SoundPlayerPacket.class, SoundPlayerPacket::new);
+        CHANNEL.messageBuilder(ReadingRequest.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder((message, buffer) -> buffer.writeVarInt(message.sequence()))
+                .decoder(buffer -> new ReadingRequest(buffer.readVarInt()))
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null) {
+                        replyToReadingRequest(player, message);
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(ReadingResponse.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ReadingResponse::encode).decoder(ReadingResponse::decode)
+                .consumerMainThread((message, context) -> {
+                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ReadingOverlay.receive(message));
+                    context.get().setPacketHandled(true);
+                }).add();
+    }
+
+    private static void replyToReadingRequest(ServerPlayer player, ReadingRequest request) {
+        long tick = player.server.overworld().getGameTime();
+        Long last = LAST_READING_REQUEST.get(player);
+        if (last != null && tick - last < 3) {
+            return;
+        }
+        LAST_READING_REQUEST.put(player, tick);
+
+        // The server resolves the aim and range without accepting a client-supplied inventory address.
+        var hit = player.pick(player.getBlockReach(), 1, false);
+        var target = hit instanceof BlockHitResult blockHit ? FurnitureReading.target(player.level(), blockHit) : null;
+        var text = target == null ? List.<Component>of() : FurnitureReading.read(player, target);
+        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player),
+                new ReadingResponse(request.sequence(), text.isEmpty() ? Optional.empty() : Optional.of(target), text));
+    }
+
+    public record ReadingRequest(int sequence) {}
+
+    public record ReadingResponse(int sequence, Optional<FurnitureReading.Target> target, List<Component> text) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(sequence);
+            buffer.writeOptional(target, (buf, value) -> {
+                buf.writeBlockPos(value.pos());
+                buf.writeVarInt(value.slot());
+            });
+            buffer.writeCollection(text, FriendlyByteBuf::writeComponent);
+        }
+
+        private static ReadingResponse decode(FriendlyByteBuf buffer) {
+            return new ReadingResponse(buffer.readVarInt(),
+                    buffer.readOptional(buf -> new FurnitureReading.Target(buf.readBlockPos(), buf.readVarInt())),
+                    buffer.readList(FriendlyByteBuf::readComponent));
+        }
     }
 
     private static <T extends EmptyPacket> void registerServerbound(Class<T> type, Supplier<T> factory) {

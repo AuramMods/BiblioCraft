@@ -2,5 +2,15 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "bibliocraft:item/readingglasses"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {"bibliocraft:glasses_variant": 1},
+      "model": "bibliocraft:item/tinted_glasses"
+    },
+    {
+      "predicate": {"bibliocraft:glasses_variant": 2},
+      "model": "bibliocraft:item/monocle"
+    }
+  ]
 }

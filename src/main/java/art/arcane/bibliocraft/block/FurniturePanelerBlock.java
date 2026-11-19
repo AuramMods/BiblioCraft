@@ -56,10 +56,7 @@ public class FurniturePanelerBlock extends InventoryFurnitureBlock {
     private static boolean clickTop(FurniturePanelerBlockEntity paneler, BlockState state,
                                     BlockHitResult hit, Player player) {
         BlockPos pos = hit.getBlockPos();
-        Vec3 local = hit.getLocation().subtract(Vec3.atCenterOf(pos))
-                .yRot((state.getValue(FACING).toYRot() - 180) * Mth.DEG_TO_RAD);
-        int slot = local.x > 0 ? FurniturePanelerBlockEntity.PANELS
-                : local.z < 0 ? FurniturePanelerBlockEntity.FURNITURE : FurniturePanelerMenu.RESULT;
+        int slot = topSlot(state, hit);
 
         if (player.isShiftKeyDown()) {
             boolean resultSlot = slot == FurniturePanelerMenu.RESULT;
@@ -91,5 +88,12 @@ public class FurniturePanelerBlock extends InventoryFurnitureBlock {
             return true;
         }
         return false;
+    }
+
+    static int topSlot(BlockState state, BlockHitResult hit) {
+        Vec3 local = hit.getLocation().subtract(Vec3.atCenterOf(hit.getBlockPos()))
+                .yRot((state.getValue(FACING).toYRot() - 180) * Mth.DEG_TO_RAD);
+        return local.x > 0 ? FurniturePanelerBlockEntity.PANELS
+                : local.z < 0 ? FurniturePanelerBlockEntity.FURNITURE : FurniturePanelerMenu.RESULT;
     }
 }

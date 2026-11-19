@@ -13,6 +13,7 @@ import art.arcane.bibliocraft.blockentity.SeatBlockEntity;
 import art.arcane.bibliocraft.blockentity.TableBlockEntity;
 import art.arcane.bibliocraft.blockentity.TypesettingTableBlockEntity;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
+import art.arcane.bibliocraft.item.ReadingGlassesItem;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
 import art.arcane.bibliocraft.registry.ModBlocks;
 import art.arcane.bibliocraft.registry.ModEntities;
@@ -127,6 +128,9 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.PAINTING.get(), PaintingFrameScreen::new);
             MenuScreens.register(ModMenus.MAP_FRAME.get(), MapFrameScreen::new);
             MenuScreens.register(ModMenus.ATLAS.get(), AtlasScreen::new);
+            ItemProperties.register(ModItems.BIBLIO_GLASSES.get(),
+                    ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "glasses_variant"),
+                    (stack, level, entity, seed) -> ReadingGlassesItem.variant(stack).id());
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
                 if (entry.get() instanceof ColoredBlockItem colored) {

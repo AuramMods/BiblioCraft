@@ -86,11 +86,11 @@ public class BookcaseBlock extends InventoryFurnitureBlock {
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
-    private static Direction opening(BlockState state) {
+    static Direction opening(BlockState state) {
         return state.getValue(FACING).getClockWise();
     }
 
-    private static int slotAt(BlockPos pos, Vec3 hit, Direction opening) {
+    static int slotAt(BlockPos pos, Vec3 hit, Direction opening) {
         Direction right = opening.getCounterClockWise();
         double offset = (hit.x - pos.getX() - 0.5) * right.getStepX()
                 + (hit.z - pos.getZ() - 0.5) * right.getStepZ();

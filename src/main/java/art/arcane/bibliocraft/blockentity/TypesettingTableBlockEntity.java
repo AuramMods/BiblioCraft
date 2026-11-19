@@ -170,6 +170,17 @@ public final class TypesettingTableBlockEntity extends FurnitureInventoryBlockEn
         return (int) (total * BiblioConfig.COMMON.enchantmentMultiplyer.get() / 10);
     }
 
+    public int sourceCost() {
+        ItemStack source = getItem(SOURCE);
+        if (source.is(Items.ENCHANTED_BOOK)) {
+            return enchantmentCost(source);
+        }
+        if (source.is(ModItems.ATLAS_BOOK.get()) && BiblioConfig.COMMON.enableAtlas.get()) {
+            return atlasCost(new AtlasContents(source).filledMapCount());
+        }
+        return 0;
+    }
+
     private static int atlasCost(int sheets) {
         int level = 0;
         int xp = 7;

@@ -73,7 +73,7 @@ public class ShelfBlock extends InventoryFurnitureBlock {
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
-    private static int slotAt(BlockPos pos, Vec3 hit, Direction opening) {
+    static int slotAt(BlockPos pos, Vec3 hit, Direction opening) {
         Direction right = opening.getCounterClockWise();
         double rightOffset = (hit.x - pos.getX() - 0.5) * right.getStepX()
                 + (hit.z - pos.getZ() - 0.5) * right.getStepZ();

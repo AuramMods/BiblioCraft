@@ -2,10 +2,8 @@ package art.arcane.bibliocraft.registry;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.enchantment.DeathCompassEnchantment;
-import art.arcane.bibliocraft.enchantment.PlaceholderEnchantment;
-import net.minecraft.world.entity.EquipmentSlot;
+import art.arcane.bibliocraft.enchantment.ReadingEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -17,18 +15,7 @@ public final class ModEnchantments {
     public static final RegistryObject<Enchantment> DEATH_COMPASS =
             ENCHANTMENTS.register("deathcompassench", DeathCompassEnchantment::new);
     public static final RegistryObject<Enchantment> READING =
-            register("readingench");
+            ENCHANTMENTS.register("readingench", ReadingEnchantment::new);
 
     private ModEnchantments() {}
-
-    private static RegistryObject<Enchantment> register(String name) {
-        return ENCHANTMENTS.register(
-                name,
-                () -> new PlaceholderEnchantment(
-                        Enchantment.Rarity.UNCOMMON,
-                        EnchantmentCategory.BREAKABLE,
-                        EquipmentSlot.MAINHAND
-                )
-        );
-    }
 }

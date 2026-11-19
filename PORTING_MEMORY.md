@@ -43,6 +43,8 @@
 - Remaining shelf parity includes shared drill and shift interactions and the legacy optional light emitted by stored blocks.
 - Atlas printing and the Death Compass enchantment are restored. All 121 Forge GameTests passed. The muted clients stamped a two-sheet plate for five levels and one chase and verified that the press resumed from 171 ticks after a dedicated server restart. It consumed one empty atlas and the single-use plate and left one dye. The master kept its compass and blank maps, and the copy kept both map IDs and their pins. The crafting table upgraded that printed copy. A Nether death recorded a pending compass, the player disconnected while dead, and respawning in the Overworld delivered exactly one compass. Its readout and original moving needle correctly referenced the Nether, and the player recovered the enchanted atlas intact. The earlier placeholder marker also converted in a live inventory.
 
+- Reading glasses, tinted glasses, and the monocle again work as wearable headgear, with the three original sprites and armor textures. All 125 Forge GameTests passed. Two muted clients saw the names and counts on a shelf and verified that the guest lost the readout when the owner used the Lock and Key. The reobfuscated build reopened all three glasses on armor stands and showed the forty-level Mending plate cost at the typesetting table. The guest applied Reading to an iron helmet for one level at a real anvil, then wore it and read the shelf. The enchanting table's original 10–61 power range has a headless regression check.
+
 ## Initial Breadth Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).
 - Core registry flow located and mapped.
@@ -336,7 +338,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Continue with reading glasses, the Reading enchantment, and the shared furniture overlays. The legacy item, enchantment, and per-block highlight behavior are in `ItemReadingGlasses`, `EnchantmentReading`, and `EventBlockMarkerHighlight`.
+- Continue with the tape measure, marker poles, and plumb line. Compare the legacy two-click measurement, air-use mode switch, pole attachments and cleanup, sounds, and live distance overlay. The original tape measure singleton shares measurement coordinates. Keep modern measurements scoped to the held stack and dimension.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37
