@@ -50,7 +50,7 @@ import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "12";
+    private static final String PROTOCOL = "13";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -182,7 +182,6 @@ public final class ModNetwork {
                 }).add();
         registerServerbound(ClipboardPacket.class, ClipboardPacket::new);
         registerServerbound(UpdateInvPacket.class, UpdateInvPacket::new);
-        registerServerbound(MeasurePacket.class, MeasurePacket::new);
         CHANNEL.messageBuilder(MapPinPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(MapPinPacket::encode).decoder(MapPinPacket::decode)
                 .consumerMainThread((message, context) -> {
@@ -514,7 +513,6 @@ public final class ModNetwork {
 
     public static final class ClipboardPacket extends EmptyPacket {}
     public static final class UpdateInvPacket extends EmptyPacket {}
-    public static final class MeasurePacket extends EmptyPacket {}
     public record MapPinPacket(int menuId, String name, DyeColor color, boolean remove) {
         private void encode(FriendlyByteBuf buffer) {
             buffer.writeVarInt(menuId).writeUtf(name, MapPin.NAME_LENGTH).writeEnum(color).writeBoolean(remove);

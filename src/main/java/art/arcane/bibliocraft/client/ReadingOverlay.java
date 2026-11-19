@@ -57,13 +57,13 @@ public final class ReadingOverlay {
         }
     }
 
-    public static void draw(GuiGraphics graphics) {
+    public static void draw(GuiGraphics graphics, int offset) {
         var minecraft = Minecraft.getInstance();
         if (text.isEmpty() || target == null || !target.equals(target(minecraft))) {
             return;
         }
         int width = graphics.guiWidth();
-        int y = graphics.guiHeight() / 2 + 20;
+        int y = graphics.guiHeight() / 2 + 20 + offset;
         for (var line : text) {
             for (var wrapped : minecraft.font.split(line, width - 16)) {
                 if (y + minecraft.font.lineHeight > graphics.guiHeight() - 38) {

@@ -45,6 +45,8 @@
 
 - Reading glasses, tinted glasses, and the monocle again work as wearable headgear, with the three original sprites and armor textures. All 125 Forge GameTests passed. Two muted clients saw the names and counts on a shelf and verified that the guest lost the readout when the owner used the Lock and Key. The reobfuscated build reopened all three glasses on armor stands and showed the forty-level Mending plate cost at the typesetting table. The guest applied Reading to an iron helmet for one level at a real anvil, then wore it and read the shelf. The enchanting table's original 10–61 power range has a headless regression check.
 
+- The tape measure again starts and finishes measurements, switches between axis and absolute modes in the air, and shows the original live meter readout. All 129 Forge GameTests passed. The two muted clients saved a floor and wall pole with distinct measurement IDs and reopened both starts on a dedicated server. The owner saw their meter count change from 3 to 6 while moving and finished a 4 m east/west reading while the guest's pole stayed up. The guest finished a 3 m absolute reading, attached a new pole to the ceiling, and dropped the tape to clear it. The plumb line read 7 m down to Y 124 through water, and a tape still rotated a table display. On the reobfuscated JAR each one-second right-click triggered one action, including air-use mode changes.
+
 ## Initial Breadth Snapshot (2026-02-09)
 - Scope scanned: `old-1.12.2` (425 Java files).
 - Core registry flow located and mapped.
@@ -338,7 +340,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Continue with the tape measure, marker poles, and plumb line. Compare the legacy two-click measurement, air-use mode switch, pole attachments and cleanup, sounds, and live distance overlay. The original tape measure singleton shares measurement coordinates. Keep modern measurements scoped to the held stack and dimension.
+- Continue with the clipboard and slotted book. The clipboard spans the handheld item, placed block, desk, and edited stack. Compare the nine tasks per page, three task states, keyboard and page navigation, and the wall renderer with the original entries in the porting manifest.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

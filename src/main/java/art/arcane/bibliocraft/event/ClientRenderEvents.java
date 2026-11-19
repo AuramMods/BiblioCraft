@@ -2,6 +2,11 @@ package art.arcane.bibliocraft.event;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.client.ReadingOverlay;
+import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.item.TapeMeasureItem;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderHighlightEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
@@ -17,8 +22,29 @@ public final class ClientRenderEvents {
     @SubscribeEvent
     public static void onRenderOverlay(RenderGuiOverlayEvent.Post event) {
         if (event.getOverlay().id().equals(VanillaGuiOverlay.CROSSHAIR.id())) {
-            ReadingOverlay.draw(event.getGuiGraphics());
+            var graphics = event.getGuiGraphics();
+            ReadingOverlay.draw(graphics, drawTapeDistance(graphics));
         }
+    }
+
+    private static int drawTapeDistance(GuiGraphics graphics) {
+        var minecraft = Minecraft.getInstance();
+        var player = minecraft.player;
+        if (!BiblioConfig.COMMON.enableTapemeasure.get() || player == null || minecraft.screen != null
+                || minecraft.options.hideGui || !minecraft.options.getCameraType().isFirstPerson()
+                || minecraft.getCameraEntity() != player || player.isSpectator()) {
+            return 0;
+        }
+        int distance = TapeMeasureItem.liveDistance(player, player.getMainHandItem());
+        if (distance == 0) {
+            distance = TapeMeasureItem.liveDistance(player, player.getOffhandItem());
+        }
+        if (distance == 0) {
+            return 0;
+        }
+        graphics.drawCenteredString(minecraft.font, Component.translatable("overlay.bibliocraft.tape.distance", distance),
+                graphics.guiWidth() / 2, graphics.guiHeight() / 2 + 20, 0xFFFFFF);
+        return minecraft.font.lineHeight;
     }
 
     @SubscribeEvent

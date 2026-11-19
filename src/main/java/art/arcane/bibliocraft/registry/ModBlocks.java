@@ -17,6 +17,7 @@ import art.arcane.bibliocraft.block.ClockBlock;
 import art.arcane.bibliocraft.block.LabelBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MapFrameBlock;
+import art.arcane.bibliocraft.block.MarkerPoleBlock;
 import art.arcane.bibliocraft.block.RackBlock;
 import art.arcane.bibliocraft.block.RackType;
 import art.arcane.bibliocraft.block.ShelfBlock;
@@ -58,7 +59,6 @@ public final class ModBlocks {
 
     private static final VoxelShape SHAPE_HALF_RACK = box(0.0, 0.0, 0.0, 0.5, 1.0, 1.0);
     private static final VoxelShape SHAPE_HALF_RACK_EAST = box(0.5, 0.0, 0.0, 1.0, 1.0, 1.0);
-    private static final VoxelShape SHAPE_MARKER_POLE = box(0.25, 0.0, 0.25, 0.75, 0.9, 0.75);
     private static final VoxelShape SHAPE_CLIPBOARD = box(0.0, 0.08, 0.15, 0.08, 0.92, 0.85);
     private static final VoxelShape SHAPE_LANTERN = box(0.2133, 0.0, 0.2517, 0.7867, 0.7007, 0.7483);
     private static final VoxelShape SHAPE_LANTERN_WALL = box(0.2133, 0.0, 0.2517, 1.0, 0.9789, 0.7483);
@@ -93,7 +93,7 @@ public final class ModBlocks {
             register("shelf", () -> new ShelfBlock(woodProps(), SHAPE_HALF_RACK),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> MARKER_POLE =
-            register("marker_pole", () -> shapedWoodEntity(SHAPE_MARKER_POLE, "marker_pole"));
+            register("marker_pole", () -> new MarkerPoleBlock(woodProps().mapColor(MapColor.METAL).sound(SoundType.ANVIL)));
     public static final RegistryObject<Block> CLIPBOARD =
             register("clipboard", () -> shapedWoodEntity(SHAPE_CLIPBOARD, "clipboard"));
     public static final RegistryObject<Block> LANTERN_GOLD =

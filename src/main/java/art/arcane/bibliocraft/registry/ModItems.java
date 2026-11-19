@@ -10,10 +10,12 @@ import art.arcane.bibliocraft.item.FurnitureLockItem;
 import art.arcane.bibliocraft.item.MenuOpeningItem;
 import art.arcane.bibliocraft.item.PrintingPlateItem;
 import art.arcane.bibliocraft.item.PaintingCanvasItem;
+import art.arcane.bibliocraft.item.PlumbLineItem;
 import art.arcane.bibliocraft.item.RecipeBookItem;
 import art.arcane.bibliocraft.item.ReadingGlassesItem;
 import art.arcane.bibliocraft.item.SeatBackItem;
 import art.arcane.bibliocraft.item.StockroomCatalogItem;
+import art.arcane.bibliocraft.item.TapeMeasureItem;
 import art.arcane.bibliocraft.item.WaypointCompassItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,7 +39,7 @@ public final class ModItems {
     public static final RegistryObject<Item> SEAT_BACK_4 = register("seatback4", () -> new SeatBackItem(4));
     public static final RegistryObject<Item> SEAT_BACK_5 = register("seatback5", () -> new SeatBackItem(5));
     public static final RegistryObject<Item> STOCKROOM_CATALOG = register("stockroom_catalog", StockroomCatalogItem::new);
-    public static final RegistryObject<Item> PLUMB_LINE = register("plumb_line");
+    public static final RegistryObject<Item> PLUMB_LINE = register("plumb_line", PlumbLineItem::new);
     public static final RegistryObject<Item> FRAMING_SAW = register("framing_saw", FramingSawItem::new);
     public static final RegistryObject<Item> FRAMING_BOARD = register("framing_board");
     public static final RegistryObject<Item> FRAMING_SHEET = register("framing_sheet");
@@ -57,7 +59,7 @@ public final class ModItems {
     );
     public static final RegistryObject<Item> HAND_DRILL =
             register("hand_drill", () -> new FurnitureDrillItem(new Item.Properties().stacksTo(1), true));
-    public static final RegistryObject<Item> TAPE_MEASURE = register("tape_measure");
+    public static final RegistryObject<Item> TAPE_MEASURE = register("tape_measure", TapeMeasureItem::new);
     public static final RegistryObject<Item> TAPE = register("tape");
     public static final RegistryObject<Item> BIBLIO_CHASE = register("biblio_chase");
     public static final RegistryObject<Item> PRINT_PLATE = register("print_plate", PrintingPlateItem::new);

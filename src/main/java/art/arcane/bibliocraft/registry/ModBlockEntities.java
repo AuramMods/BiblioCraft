@@ -23,6 +23,7 @@ import art.arcane.bibliocraft.blockentity.PrintingPressBlockEntity;
 import art.arcane.bibliocraft.blockentity.PaintingFrameBlockEntity;
 import art.arcane.bibliocraft.blockentity.PaintingPressBlockEntity;
 import art.arcane.bibliocraft.blockentity.MapFrameBlockEntity;
+import art.arcane.bibliocraft.blockentity.MarkerPoleBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.RackBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
@@ -48,8 +49,9 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ShelfBlockEntity>> SHELF =
             BLOCK_ENTITIES.register("shelf", () ->
                     BlockEntityType.Builder.of(ShelfBlockEntity::new, ModBlocks.SHELF.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> MARKER_POLE =
-            register("marker_pole", ModBlocks.MARKER_POLE);
+    public static final RegistryObject<BlockEntityType<MarkerPoleBlockEntity>> MARKER_POLE =
+            BLOCK_ENTITIES.register("marker_pole", () ->
+                    BlockEntityType.Builder.of(MarkerPoleBlockEntity::new, ModBlocks.MARKER_POLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> CLIPBOARD =
             register("clipboard", ModBlocks.CLIPBOARD);
     public static final RegistryObject<BlockEntityType<FurnitureBlockEntity>> BIBLIOLIGHT =

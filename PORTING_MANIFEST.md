@@ -208,6 +208,14 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The readout uses the legacy position below the crosshair. Shelf slots use the shared interaction coordinates. Both armor-stand halves resolve to the lower block entity, and the typesetting table shares the actual formulas for atlas and enchanted plate costs. A framed chest shows its built-in label item and matching count. The cookie jar shows its first stored stack.
 - Wire protocol 12 adds a rate-limited readout request and reply. The server selects the aimed slot from the player's current reach and checks furniture ownership and printing library visibility. The reply contains display text for the matching target. Each client and server uses the same JAR.
 
+## Tape Measure, Marker Pole, and Plumb Line
+
+- The early Forge 1.20.1 IDs remain `bibliocraft:tape_measure`, `bibliocraft:tape`, `bibliocraft:marker_pole`, and `bibliocraft:plumb_line`. The tape and plumb line keep the original item sprites and crafting layouts. Air use switches the tape's mode. The tape keeps its coordinates and dimension in `TapeStart` and the absolute mode in `TapeAbsolute`. The client derives the legacy meter readout from the held tape and the player's current block position.
+- The marker pole uses one translated legacy OBJ with its original UVs. Its floor, ceiling, and wall states rotate the same model and the outline follows the mount. Earlier poles default to permanent floor mounts. The existing crafting recipe and block drop remain available for permanent poles.
+- Tape-generated poles are temporary, have no collision or drops, and carry the owner's UUID and a measurement UUID. Completing a tape removes its own pole. Active marker IDs are saved in `bibliocraft_markers.dat` so a completed pole can retire after an unloaded origin starts ticking. Removing the support or leaving the tape out of its online owner's inventory also removes the temporary pole.
+- The tape uses the normal Forge item interaction and posts the ordinary place event when the clicked face can accept a marker. The distance still works on occupied faces. The tape still rotates a table display when used against its side. Wire protocol 13 removes the empty measurement packet.
+- The plumb line searches the adjacent column in the direction the player faces. It reports the depth and surface height, stops at the dimension floor, and reports an empty column when it finds no surface.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
