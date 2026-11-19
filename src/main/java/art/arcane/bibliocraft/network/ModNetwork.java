@@ -1,8 +1,10 @@
 package art.arcane.bibliocraft.network;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.blockentity.ClockSettings;
 import art.arcane.bibliocraft.blockentity.FancySignLayout;
 import art.arcane.bibliocraft.menu.DeskBookMenu;
+import art.arcane.bibliocraft.menu.ClockMenu;
 import art.arcane.bibliocraft.menu.FancySignMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +18,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "2";
+    private static final String PROTOCOL = "3";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -78,7 +80,15 @@ public final class ModNetwork {
                     }
                     context.get().setPacketHandled(true);
                 }).add();
-        registerServerbound(ClockPacket.class, ClockPacket::new);
+        CHANNEL.messageBuilder(ClockPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(ClockPacket::encode).decoder(ClockPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof ClockMenu menu && menu.containerId == message.menuId()) {
+                        menu.save(player, message.settings());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         registerServerbound(PaintPressPacket.class, PaintPressPacket::new);
         registerServerbound(PaintingPacket.class, PaintingPacket::new);
         registerServerbound(PaintingClearPacket.class, PaintingClearPacket::new);
@@ -179,7 +189,16 @@ public final class ModNetwork {
             return new SignPacket(buffer.readVarInt(), FancySignLayout.read(buffer));
         }
     }
-    public static final class ClockPacket extends EmptyPacket {}
+    public record ClockPacket(int menuId, ClockSettings settings) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            settings.write(buffer);
+        }
+
+        private static ClockPacket decode(FriendlyByteBuf buffer) {
+            return new ClockPacket(buffer.readVarInt(), ClockSettings.read(buffer));
+        }
+    }
     public static final class PaintPressPacket extends EmptyPacket {}
     public static final class PaintingPacket extends EmptyPacket {}
     public static final class PaintingClearPacket extends EmptyPacket {}

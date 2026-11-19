@@ -1,21 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:clock",
   "pattern": [
     "SCS",
     "SIS",
     "SXS"
   ],
   "key": {
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ],
+    "S": {
+      "item": "minecraft:oak_slab"
+    },
     "C": {
       "item": "minecraft:clock"
     },

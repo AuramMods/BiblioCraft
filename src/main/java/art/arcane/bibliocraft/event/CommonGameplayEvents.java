@@ -4,6 +4,7 @@ import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.block.ArmorStandBlock;
 import art.arcane.bibliocraft.config.BiblioFeatureToggles;
 import art.arcane.bibliocraft.block.BookcaseBlock;
+import art.arcane.bibliocraft.block.ClockBlock;
 import art.arcane.bibliocraft.block.DinnerPlateBlock;
 import art.arcane.bibliocraft.block.DiscRackBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
@@ -115,7 +116,7 @@ public final class CommonGameplayEvents {
                         || block instanceof RackBlock || block instanceof FurniturePanelerBlock
                         || block instanceof DinnerPlateBlock || block instanceof DiscRackBlock || block instanceof TypewriterBlock
                         || block instanceof DeskBlock || block instanceof ArmorStandBlock || block instanceof TableBlock
-                        || block instanceof SeatBlock || block instanceof SignDisplayBlock)
+                        || block instanceof SeatBlock || block instanceof SignDisplayBlock || block instanceof ClockBlock)
                 && BiblioFeatureToggles.isBlockEnabled(ForgeRegistries.BLOCKS.getKey(block))) {
             event.setUseBlock(Event.Result.ALLOW);
         }

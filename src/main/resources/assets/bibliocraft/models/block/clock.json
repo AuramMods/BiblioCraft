@@ -15,6 +15,14 @@
     "largePendulum": false
   },
   "textures": {
-    "particle": "bibliocraft:block/clock"
+    "particle": "minecraft:block/oak_planks"
+  },
+  "transform": {
+    "origin": "corner",
+    "translation": [
+      0.17,
+      0,
+      0
+    ]
   }
 }

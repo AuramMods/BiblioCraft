@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
     protected InventoryFurnitureBlock(Properties properties, VoxelShape shape, String blockEntityPath) {
@@ -78,17 +77,6 @@ abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
         }
         furniture.setItem(slot, ItemStack.EMPTY);
         return true;
-    }
-
-    protected static void updatePowerNeighbors(Level level, BlockPos pos, BlockState state,
-                                               @Nullable Direction unpoweredSide) {
-        level.updateNeighborsAt(pos, state.getBlock());
-        for (Direction direction : Direction.values()) {
-            BlockPos neighbor = pos.relative(direction);
-            if (direction != unpoweredSide && level.getBlockState(neighbor).isRedstoneConductor(level, neighbor)) {
-                level.updateNeighborsAtExceptFromFacing(neighbor, state.getBlock(), direction.getOpposite());
-            }
-        }
     }
 
     @Override

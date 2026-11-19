@@ -12,6 +12,7 @@ import art.arcane.bibliocraft.block.DiscRackBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
 import art.arcane.bibliocraft.block.FancySignBlock;
+import art.arcane.bibliocraft.block.ClockBlock;
 import art.arcane.bibliocraft.block.LabelBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
@@ -61,7 +62,6 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_LAMP_CEILING = box(0.0485, 0.0, 0.1, 0.9515, 1.0, 0.9);
     private static final VoxelShape SHAPE_FURNITURE_PANELER = box(0.0, 0.0, 0.0, 1.0, 0.63, 1.0);
     private static final VoxelShape SHAPE_FRAMED_CHEST = box(0.054, 0.0, 0.054, 0.946, 0.866, 0.946);
-    private static final VoxelShape SHAPE_CLOCK = box(0.0, 0.0, 0.2549, 0.165, 0.9976, 0.7451);
     private static final VoxelShape SHAPE_CASE_FLOOR = combine(
             box(0.0625, 0, 0, 0.9375, 0.5, 1),
             box(0.9375, 0.3125, 0.4375, 1, 0.4375, 0.5625)
@@ -132,7 +132,8 @@ public final class ModBlocks {
             register("seat", () -> new SeatBlock(woodProps().sound(SoundType.WOOD).dynamicShape()),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> CLOCK =
-            register("clock", () -> shapedWoodEntity(SHAPE_CLOCK, "clock"));
+            register("clock", () -> new ClockBlock(woodProps().sound(SoundType.WOOD)),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> CASE =
             register("case", () -> new DisplayCaseBlock(woodProps(), SHAPE_CASE_FLOOR, SHAPE_CASE_WALL),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));

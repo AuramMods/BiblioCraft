@@ -1,19 +1,121 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,part=wall,shift=0": {
       "model": "bibliocraft:block/clock"
     },
-    "facing=east": {
+    "facing=north,part=wall,shift=1": {
+      "model": "bibliocraft:block/clock_shift_1"
+    },
+    "facing=north,part=wall,shift=2": {
+      "model": "bibliocraft:block/clock_shift_2"
+    },
+    "facing=north,part=lower,shift=0": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=north,part=lower,shift=1": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=north,part=lower,shift=2": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=north,part=upper,shift=0": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=north,part=upper,shift=1": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=north,part=upper,shift=2": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=east,part=wall,shift=0": {
       "model": "bibliocraft:block/clock",
       "y": 90
     },
-    "facing=south": {
+    "facing=east,part=wall,shift=1": {
+      "model": "bibliocraft:block/clock_shift_1",
+      "y": 90
+    },
+    "facing=east,part=wall,shift=2": {
+      "model": "bibliocraft:block/clock_shift_2",
+      "y": 90
+    },
+    "facing=east,part=lower,shift=0": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=east,part=lower,shift=1": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=east,part=lower,shift=2": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=east,part=upper,shift=0": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=east,part=upper,shift=1": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=east,part=upper,shift=2": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=south,part=wall,shift=0": {
       "model": "bibliocraft:block/clock",
       "y": 180
     },
-    "facing=west": {
+    "facing=south,part=wall,shift=1": {
+      "model": "bibliocraft:block/clock_shift_1",
+      "y": 180
+    },
+    "facing=south,part=wall,shift=2": {
+      "model": "bibliocraft:block/clock_shift_2",
+      "y": 180
+    },
+    "facing=south,part=lower,shift=0": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=south,part=lower,shift=1": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=south,part=lower,shift=2": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=south,part=upper,shift=0": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=south,part=upper,shift=1": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=south,part=upper,shift=2": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=west,part=wall,shift=0": {
       "model": "bibliocraft:block/clock",
       "y": 270
+    },
+    "facing=west,part=wall,shift=1": {
+      "model": "bibliocraft:block/clock_shift_1",
+      "y": 270
+    },
+    "facing=west,part=wall,shift=2": {
+      "model": "bibliocraft:block/clock_shift_2",
+      "y": 270
+    },
+    "facing=west,part=lower,shift=0": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=west,part=lower,shift=1": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=west,part=lower,shift=2": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=west,part=upper,shift=0": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=west,part=upper,shift=1": {
+      "model": "bibliocraft:block/clock_empty"
+    },
+    "facing=west,part=upper,shift=2": {
+      "model": "bibliocraft:block/clock_empty"
     }
   }
 }

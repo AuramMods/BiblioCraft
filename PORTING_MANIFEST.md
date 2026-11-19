@@ -120,9 +120,18 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - The block, item, block entity, and menu retain the Forge 1.20.1 IDs `bibliocraft:label` and `bibliocraft:fancy_sign`. The legacy sign item used `bibliocraft:fancysign`. Existing port facings and sign mounts are retained. Existing signs without a depth property load at the wall edge with `shift=0`. Existing placeholders default to oak and an empty inventory.
 - The label retains 32 vertices, 46 UV coordinates, and 22 faces. The sign retains 160 vertices, 315 UV coordinates, and 135 faces across its front, wooden border, and two mount groups. Both OBJ files rotate 180 degrees around the original Y axis to align their faces with the saved block orientation. The hitboxes, world text, and icons use the same orientation. The two additional board positions are 0.43 and 0.93 blocks inward from the wall edge. Item model transforms center both meshes and present the original faces in inventory and fixed displays.
 - A label holds full stacks in three slots. The center icon expands if the side slots are empty. The sign holds one item in each of two icon slots. Both screens open on sneak-use and respect furniture locks. Either drill cycles the sign depth with ordinary use or rotates the sign with sneak-use.
-- The sign stores up to fifteen lines with six text sizes, legacy formatting codes, and two icon layouts with nine sizes, three block orientations, and independent positions. It trims text to the board at render time. The server accepts edits only through a current in-range sign menu and merges fields changed by the player. The wire protocol is now version 2.
+- The sign stores up to fifteen lines with six text sizes, legacy formatting codes, and two icon layouts with nine sizes, three block orientations, and independent positions. It trims text to the board at render time. The server accepts edits only through a current in-range sign menu and merges fields changed by the player. Sign editing introduced wire protocol version 2.
 - The modern block entities use `Items` and `FurnitureMaterial`. Fancy signs store text and icon layout in `SignLayout`. Survival harvest of a sign packs those values in `BlockEntityTag` so the sign can be placed again with its contents. A label drops its items separately. The old `Inventory`, `textscale`, `text0` through `text14`, and `s1*` and `s2*` tags remain part of the separate 1.12.2 migration problem.
 - Six identical slabs or framing boards craft a label. A label, a vanilla sign, and paper make a fancy sign in the label's wood or custom framed material. Both work with the existing furniture paneler. Normal pick-block returns the material variant.
+
+## Clock Port
+
+- The block, item, block entity, and editor retain `bibliocraft:clock`. Existing port states keep their saved facing and default to an oak wall clock at the wall-edge position. The `part` and `shift` properties remember the case and depth. Two sneak-clicks with either drill join or separate aligned clocks directly above one another. A regular drill click cycles through all three positions on both halves.
+- The original OBJ remains byte-identical to the bundled source, retaining all ten groups, 606 vertices, 667 UVs, and 814 faces. The wall case translates along the authored X axis. The grandfather case retains the uncut two-block geometry and renders from the upper block entity across both cells. Both cases use the original face, hour and minute hands, and appropriate pendulum. The inventory uses the original static hands and pendulum group.
+- The upper clock controls a grandfather clock's redstone output and editor. Both halves emit direct and indirect power. Breaking either half makes the other a wall clock again. The upper clock's material supplies the joined case and each component keeps its own material and settings.
+- The original dial schedules chimes and redstone separately in half-hour intervals. The two rings align with the in-game times printed on the clock. Presets select every 30 minutes, hour, two hours, or six hours, or clear a ring. Redstone supports 40-tick pulses and sustained power for the whole selected interval. The tick, tock, wound chime, and wind use their original sound events.
+- Modern schedules are two 48-bit masks under `ClockSettings`. Activation times are saved separately to keep an in-flight pulse or avoid replaying the current chime after reload. For migration, legacy arrays start at 18:00 in their editor and modern index zero is midnight. The matching server wire protocol is version 3. Lock and range checks apply to schedule edits and the server merges separately edited slots.
+- The twelve recipes retain the original slab, clock, stick, and gold pattern. Normal pick-block and harvest preserve the individual clock's schedule and frame, and placing either item restores them. The joined case always uses two real blocks and survival removal of one returns one clock.
 
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
@@ -247,7 +256,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `label` | `x:0.0-0.0625 y:0.093-0.405 z:0.25-0.75` in the north state | Selection follows the originally authored frame |
 | `table` | Full tabletop slab with either the original center post or exposed corner supports, plus the optional floor carpet | Neighbor connections pick the same legs for the shape and the rendered mesh |
 | `seat` | Seat, surviving legs and braces, linked extensions, and optional floor carpet | Collision and rendered bench pieces share the same directional connections |
-| `clock` | `x:0.0-0.165 y:0.0-0.9976 z:0.2549-0.7451` | OBJ visibility extents (`clock.obj`) |
+| `clock` | `x:0.0-0.3372 y:0.0-1.0 z:0.2549-0.7451`, with the chosen depth offset | Rotates with the visible case |
 | `case` | floor/wall mount baseline: floor (`x:0.06-0.94 y:0.0-0.5 z:0.0-1.0`), wall (`x:0.0-0.5 y:0.0-1.0 z:0.06-0.94`), both rotated by `facing` | old floor/wall case bbox |
 | `map_frame` | mounted baseline: wall (`x:0.0-0.05 y:0.0-1.0 z:0.0-1.0`), floor (`y:0.0-0.05` full XZ), ceiling (`y:0.95-1.0` full XZ) | old map-frame floor/wall/ceiling bbox |
 | `painting_frame_*` | `x:0.0-0.08 y:0.0-1.0 z:0.0-1.0` | old painting-frame wall bbox |
@@ -332,10 +341,10 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Recipe placeholders: 1 serializer + 1 type (`enchantedatlas`)
 
 ### Current 1.20 Network + Recipe Skeleton Snapshot
-- Network channel placeholder:
+- Network channel:
 - `src/main/java/art/arcane/bibliocraft/network/ModNetwork.java`
 - Legacy packet parity represented via no-payload placeholders:
-- Serverbound placeholders: `atlas_wpt`, `type`, `type_flag`, `type_delete`, `type_update`, `mcb_edit`, `mcb_page`, `paneler`, `recipe_craft`, `stock_title`, `stock_compass`, `clipboard`, `update_inv`, `atlas`, `measure`, `map_pin`, `rbook`, `rbook_load`, `sign`, `clock`, `paint_press`, `painting`, `painting_clear`.
+- Serverbound placeholders: `atlas_wpt`, `type`, `type_flag`, `type_delete`, `type_update`, `paneler`, `recipe_craft`, `stock_title`, `stock_compass`, `clipboard`, `update_inv`, `atlas`, `measure`, `map_pin`, `rbook`, `rbook_load`, `paint_press`, `painting`, `painting_clear`.
 - Clientbound placeholders: `drill_text`, `atlas_client`, `paneler_client`, `recipe_text`, `stock_log`, `open_book`, `desk_open_gui`, `atlas_swp_client`, `atlas_tgui`, `sound_player`.
 - Recipe placeholder:
 - `src/main/java/art/arcane/bibliocraft/registry/ModRecipes.java`
@@ -470,7 +479,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`

@@ -1,6 +1,7 @@
 package art.arcane.bibliocraft.item;
 
 import art.arcane.bibliocraft.block.ArmorStandBlock;
+import art.arcane.bibliocraft.block.ClockBlock;
 import art.arcane.bibliocraft.block.DeskBlock;
 import art.arcane.bibliocraft.block.DrillAdjustable;
 import art.arcane.bibliocraft.block.SeatBlock;
@@ -37,7 +38,8 @@ public final class FurnitureDrillItem extends Item {
         var block = state.getBlock();
         boolean sneaking = player.isShiftKeyDown();
         boolean paired = sneaking && (block instanceof DeskBlock || block instanceof ArmorStandBlock);
-        if (!(block instanceof DrillAdjustable || block instanceof TableBlock || block instanceof SeatBlock) && !paired) {
+        if (!(block instanceof DrillAdjustable || block instanceof TableBlock || block instanceof SeatBlock
+                || block instanceof ClockBlock) && !paired) {
             return InteractionResult.PASS;
         }
         var furniture = FurnitureBlockEntity.findAt(level, pos);
@@ -67,6 +69,13 @@ public final class FurnitureDrillItem extends Item {
         }
         if (block instanceof SeatBlock seat) {
             var result = seat.adjustWithDrill(context, sneaking);
+            if (!level.isClientSide && result.consumesAction()) {
+                playSound(context);
+            }
+            return result;
+        }
+        if (block instanceof ClockBlock clock) {
+            var result = clock.adjustWithDrill(context, sneaking);
             if (!level.isClientSide && result.consumesAction()) {
                 playSound(context);
             }

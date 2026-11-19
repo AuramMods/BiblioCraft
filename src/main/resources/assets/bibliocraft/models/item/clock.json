@@ -6,7 +6,7 @@
     "face": true,
     "smallClock": true,
     "smallHardware": true,
-    "itemhardware": false,
+    "itemhardware": true,
     "hour": false,
     "second": false,
     "smallPendulum": false,
@@ -15,7 +15,15 @@
     "largePendulum": false
   },
   "textures": {
-    "particle": "bibliocraft:block/clock"
+    "particle": "minecraft:block/oak_planks"
+  },
+  "transform": {
+    "origin": "corner",
+    "translation": [
+      0.5,
+      0,
+      0
+    ]
   },
   "automatic_culling": false,
   "display": {
@@ -89,8 +97,8 @@
     },
     "gui": {
       "rotation": [
-        30,
-        225,
+        15,
+        -74,
         0
       ],
       "translation": [
@@ -99,9 +107,9 @@
         0
       ],
       "scale": [
-        0.625,
-        0.625,
-        0.625
+        0.82,
+        0.82,
+        0.82
       ]
     },
     "ground": {
@@ -124,7 +132,7 @@
     "fixed": {
       "rotation": [
         0,
-        0,
+        -90,
         0
       ],
       "translation": [

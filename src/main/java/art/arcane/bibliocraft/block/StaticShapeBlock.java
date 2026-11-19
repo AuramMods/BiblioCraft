@@ -3,11 +3,13 @@ package art.arcane.bibliocraft.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -48,6 +50,17 @@ public class StaticShapeBlock extends Block {
         shapes.put(Direction.SOUTH, rotateClockwise(shapes.get(Direction.EAST)));
         shapes.put(Direction.WEST, rotateClockwise(shapes.get(Direction.SOUTH)));
         return shapes;
+    }
+
+    protected static void updatePowerNeighbors(Level level, BlockPos pos, BlockState state,
+                                               @Nullable Direction unpoweredSide) {
+        level.updateNeighborsAt(pos, state.getBlock());
+        for (Direction direction : Direction.values()) {
+            BlockPos neighbor = pos.relative(direction);
+            if (direction != unpoweredSide && level.getBlockState(neighbor).isRedstoneConductor(level, neighbor)) {
+                level.updateNeighborsAtExceptFromFacing(neighbor, state.getBlock(), direction.getOpposite());
+            }
+        }
     }
 
     private static VoxelShape rotateClockwise(VoxelShape shape) {

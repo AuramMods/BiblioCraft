@@ -1,0 +1,21 @@
+{
+  "loader": "forge:obj",
+  "model": "bibliocraft:models/block/clock.obj",
+  "flip_v": true,
+  "visibility": {
+    "face": false,
+    "smallClock": false,
+    "smallHardware": false,
+    "itemhardware": false,
+    "hour": false,
+    "second": false,
+    "smallPendulum": false,
+    "largeClock": false,
+    "largeHardware": false,
+    "largePendulum": true
+  },
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  },
+  "automatic_culling": false
+}
