@@ -54,7 +54,19 @@ Legacy model fidelity is a primary acceptance criterion in each feature cycle. C
 
 For the shelf, the OBJ opens toward positive X in its base orientation. The existing `facing=north` state still uses that transform. Placement now picks the saved state from the intended opening, and the slots use the same orientation as the rendered geometry. Horizontal, mounted, and floor/wall geometry share corrected shape rotations in block coordinates.
 
+## Definition of Done
+
+- [x] Resolve each feature and model family in the active parity checklist against the bundled 1.12.2 source. Document any unavailable integration dependencies.
+- [x] Preserve registry IDs and existing Forge 1.20.1 world state through save and reload, including tested defaults for older placeholders.
+- [x] Verify normal player workflows, client model parity, and dedicated server behavior with the reobfuscated JAR on Forge 1.20.1.
+- [x] Smoke-test the packaged JAR in the Auram development environment. The 479-mod dedicated profile booted, loaded a saved cherry shelf with three emeralds, added a bookcase, and saved both blocks to disk.
+
+The [release verification notes](PORTING_MEMORY.md#release-verification-in-auram) record the additional full-pack client test and its startup limits.
+
 ## Initial Breadth Snapshot (2026-02-09)
+
+The following snapshot and phase checklist record the original skeleton work. The active parity checklist and Definition of Done above track release status.
+
 - Old codebase scan completed across `old-1.12.2`.
 - All primary registries mapped: blocks, items, block-items, tile entities, enchantments, entity, networking, GUI containers, sounds, recipes, and add-on modules.
 - No fluid registry found in old source.
@@ -333,12 +345,3 @@ For the shelf, the OBJ opens toward positive X in its base orientation. The exis
 - [x] Map the live Biomes O' Plenty, Forestry CE, and Natura plank-and-slab families.
 - [x] Reuse framed material support for BiblioWoods recipes and creative listings.
 - [x] Add Forge GameTests for optional-mod behavior.
-
-## Near-Term Lookahead
-- Verify the packaged release in the Auram development environment.
-
-## Definition of Done
-- [x] Resolve each feature and model family in the active parity checklist against the bundled 1.12.2 source. Document any unavailable integration dependencies.
-- [x] Preserve registry IDs and existing Forge 1.20.1 world state through save and reload, including tested defaults for older placeholders.
-- [x] Verify normal player workflows, client model parity, and dedicated server behavior with the reobfuscated JAR on Forge 1.20.1.
-- [ ] Smoke-test the packaged JAR in the Auram development environment.

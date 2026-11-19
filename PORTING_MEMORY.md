@@ -2,6 +2,11 @@
 
 **FIRST STEP EVERY SESSION: read this file first, then `PORTING.md`, then `PORTING_MANIFEST.md` before touching code.**
 
+## Release Verification in Auram
+
+- The reobfuscated `build/libs/bibliocraft-1.0.0.jar` with SHA-256 `5f6ce8e23b0dea62a28229e9d3084338c9e079b6a05ad788cb4a3327ebde7860` passed the smoke test in a disposable copy of Auram's dedicated development profile. The profile retained its 479 original mod JARs. It loaded the saved cherry shelf and three emeralds, placed a new bookcase, and saved and stopped normally. The region data on disk contained both block entities and the original shelf contents.
+- The full Auram client remains unverified. The muted copy with the installed client mod set reproduced the Evolved Mekanism initialization crash with JEI. A disposable test with Evolved Mekanism 1.2.1-fix4 and the JEI load fix reached texture baking. The isolated VM ran out of memory during that step, even with shaders disabled and a smaller heap. The installed profile was untouched. [Upstream initialization issue](https://github.com/iglee42/EvolvedMekanism/issues/52).
+
 ## Earlier Forge Saves and Release Packaging (2026-11-19)
 
 - The February Forge build at `bd5558b` wrote a dedicated world with 1,041 BiblioCraft placements, all 37 block IDs, all 33 block entity IDs, and all 68 item IDs. The current packaged code retained the earlier faces, orientations, and colors and all 70 stored stacks after a real restart and save. A legacy armor stand added its upper half when clear and kept a cobblestone block above another stand. The muted client edited an earlier fancy sign. An atlas from the older chest acquired the real Death Compass enchantment and kept its name.
@@ -365,9 +370,6 @@
 - Block loot tables are currently broad self-drop placeholders; revisit block-entity-heavy blocks (`desk`, `printing_press`, `fancy_workbench`, etc.) for parity drops/NBT handling in depth passes.
 - Atlas-enchant reminder:
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
-
-## Near-Term Lookahead
-- Run the final reobfuscated JAR in a disposable copy of the Auram development profile.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37
