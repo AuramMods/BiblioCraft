@@ -2,6 +2,7 @@ package art.arcane.bibliocraft.block;
 
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.config.BiblioConfig;
+import art.arcane.bibliocraft.menu.BigBookMenu;
 import art.arcane.bibliocraft.menu.DeskBookMenu;
 import art.arcane.bibliocraft.menu.RecipeBookMenu;
 import art.arcane.bibliocraft.registry.ModItems;
@@ -127,7 +128,10 @@ public final class DeskBlock extends InventoryFurnitureBlock {
             }
         }
         ItemStack book = desk.getItem(DeskBlockEntity.OPEN_BOOK);
-        if (area == DeskBlockEntity.OPEN_BOOK && book.is(ModItems.RECIPE_BOOK.get())
+        if (area == DeskBlockEntity.OPEN_BOOK && book.is(ModItems.BIG_BOOK.get())
+                && BiblioConfig.COMMON.enableBigBook.get() && player instanceof ServerPlayer serverPlayer) {
+            BigBookMenu.openDesk(serverPlayer, desk);
+        } else if (area == DeskBlockEntity.OPEN_BOOK && book.is(ModItems.RECIPE_BOOK.get())
                 && BiblioConfig.COMMON.enableFancyWorkbench.get() && player instanceof ServerPlayer serverPlayer) {
             RecipeBookMenu.open(serverPlayer, desk, null, book);
         } else if (area == DeskBlockEntity.OPEN_BOOK && (book.is(Items.WRITABLE_BOOK) || book.is(Items.WRITTEN_BOOK))

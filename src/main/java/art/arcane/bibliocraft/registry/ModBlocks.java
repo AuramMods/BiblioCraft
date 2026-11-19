@@ -127,7 +127,8 @@ public final class ModBlocks {
             register("label", () -> new LabelBlock(woodProps().sound(SoundType.WOOD)),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> DESK =
-            register("desk", () -> new DeskBlock(woodProps()), block -> new FurnitureBlockItem(block, new Item.Properties()));
+            register("desk", () -> new DeskBlock(woodProps().sound(SoundType.WOOD)),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> TABLE =
             register("table", () -> new TableBlock(woodProps().sound(SoundType.WOOD).dynamicShape()),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));

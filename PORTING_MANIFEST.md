@@ -159,6 +159,13 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - Recipe books preserve the legacy `grid`, `result`, `text`, `edited`, and `signed` tags. `RecipeId` locates the server recipe. Older books with no ID resolve their exact input grid through the current recipe manager. Recorded samples preserve item tags and store one item per slot. The bench fills complete batches from matching carried items. Portable crafting validates the recipe and ingredients, consumes them once, and returns the current Forge crafting remainders. The crafting toggle applies to the held book.
 - The old screen textures back the bench, bookcase panels and recipe book, including the notes, confirmation, and saved pattern. Signed books retain their recipe and notes. A book on the writing desk can be read, edited or signed in place. The recipe book menus and annotation packets use wire protocol version 6.
 
+## Big Book Port
+
+- The item keeps `bibliocraft:big_book` and its existing paper-around-writable-book recipe. The legacy item was `bibliocraft:bigbook`. The item sprite, parchment, navigation arrows, color palette, and chapter tabs use their original textures.
+- Books retain `pagesTotal`, `pagesCurrent`, `pages.pageN`, `pages.pageScaleN`, `chapters.chapBools`, `chapters.chapPages`, `chapters.chaplineN`, `author`, and `signed`. A signed book also uses the vanilla JSON custom name and a `title` tag. Older raw signed names remain readable. The default line size comes from `default_big_book_text_scale`. Books support 256 pages, 44 lines per page, eight line sizes, and eight chapter links.
+- The book menu anchors to the item in the specific hand or writing desk slot. The server sends one page at a time. Draft changes are merged against the pages and chapter labels the editor opened, then committed together. Signing uses the server account name. Readers can retain a bookmark after signing. The book menu and its packets use wire protocol version 7.
+- Furniture packets omit Big Book pages and chapters while saved inventories and item drops retain them. The item uses a metadata-only inventory packet when its full tag approaches Minecraft's NBT quota. Opening that item still reads all its pages from the server. A client-side creative clone of an oversized item only has the metadata carried by its slot.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`

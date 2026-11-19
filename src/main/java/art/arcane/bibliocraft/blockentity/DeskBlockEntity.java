@@ -1,7 +1,9 @@
 package art.arcane.bibliocraft.blockentity;
 
+import art.arcane.bibliocraft.book.BigBookContent;
 import art.arcane.bibliocraft.config.BiblioConfig;
 import art.arcane.bibliocraft.registry.ModBlockEntities;
+import art.arcane.bibliocraft.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -90,7 +92,7 @@ public final class DeskBlockEntity extends FurnitureInventoryBlockEntity {
     @Override
     public void setItem(int slot, ItemStack stack) {
         if (slot == OPEN_BOOK && getItem(slot) != stack) {
-            page = 0;
+            page = stack.is(ModItems.BIG_BOOK.get()) ? BigBookContent.bookmark(stack) : 0;
         }
         super.setItem(slot, stack);
     }

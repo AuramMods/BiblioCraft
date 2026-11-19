@@ -2,7 +2,10 @@ package art.arcane.bibliocraft.network;
 
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.catalog.CatalogContents;
+import art.arcane.bibliocraft.book.BigBookContent;
+import art.arcane.bibliocraft.client.BigBookScreen;
 import art.arcane.bibliocraft.client.StockroomCatalogScreen;
+import art.arcane.bibliocraft.menu.BigBookMenu;
 import art.arcane.bibliocraft.client.RecipeBookScreen;
 import art.arcane.bibliocraft.crafting.RecordedRecipe;
 import art.arcane.bibliocraft.menu.RecipeBookMenu;
@@ -22,6 +25,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.ArrayList;
@@ -30,7 +34,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "6";
+    private static final String PROTOCOL = "7";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -69,6 +73,34 @@ public final class ModNetwork {
                     var player = context.get().getSender();
                     if (player != null && player.containerMenu instanceof DeskBookMenu menu && menu.containerId == message.menuId()) {
                         menu.turnPage(player, message.page());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(BigBookVisitPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(BigBookVisitPacket::encode).decoder(BigBookVisitPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof BigBookMenu menu && menu.containerId == message.menuId()) {
+                        menu.visit(player, message.index()).ifPresent(page -> CHANNEL.send(
+                                PacketDistributor.PLAYER.with(() -> player), new BigBookPagePacket(menu.containerId, message.index(), page)));
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(BigBookEditPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(BigBookEditPacket::encode).decoder(BigBookEditPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof BigBookMenu menu && menu.containerId == message.menuId()) {
+                        menu.stage(player, message.index(), message.page());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(BigBookFinishPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(BigBookFinishPacket::encode).decoder(BigBookFinishPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof BigBookMenu menu && menu.containerId == message.menuId()) {
+                        menu.finish(player, message.index(), message.chapters(), message.title());
                     }
                     context.get().setPacketHandled(true);
                 }).add();
@@ -168,6 +200,12 @@ public final class ModNetwork {
                     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> StockroomCatalogScreen.receive(message));
                     context.get().setPacketHandled(true);
                 }).add();
+        CHANNEL.messageBuilder(BigBookPagePacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(BigBookPagePacket::encode).decoder(BigBookPagePacket::decode)
+                .consumerMainThread((message, context) -> {
+                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BigBookScreen.receive(message));
+                    context.get().setPacketHandled(true);
+                }).add();
         registerClientbound(OpenBookPacket.class, OpenBookPacket::new);
         registerClientbound(DeskOpenGuiPacket.class, DeskOpenGuiPacket::new);
         registerClientbound(AtlasSwpClientPacket.class, AtlasSwpClientPacket::new);
@@ -238,6 +276,51 @@ public final class ModNetwork {
             return new McbPagePacket(buffer.readVarInt(), buffer.readVarInt());
         }
     }
+    public record BigBookVisitPacket(int menuId, int index) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId).writeByte(index);
+        }
+
+        private static BigBookVisitPacket decode(FriendlyByteBuf buffer) {
+            return new BigBookVisitPacket(buffer.readVarInt(), buffer.readUnsignedByte());
+        }
+    }
+
+    public record BigBookPagePacket(int menuId, int index, BigBookContent.Page page) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId).writeByte(index);
+            page.write(buffer);
+        }
+
+        private static BigBookPagePacket decode(FriendlyByteBuf buffer) {
+            return new BigBookPagePacket(buffer.readVarInt(), buffer.readUnsignedByte(), BigBookContent.Page.read(buffer));
+        }
+    }
+
+    public record BigBookEditPacket(int menuId, int index, BigBookContent.Page page) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId).writeByte(index);
+            page.write(buffer);
+        }
+
+        private static BigBookEditPacket decode(FriendlyByteBuf buffer) {
+            return new BigBookEditPacket(buffer.readVarInt(), buffer.readUnsignedByte(), BigBookContent.Page.read(buffer));
+        }
+    }
+
+    public record BigBookFinishPacket(int menuId, int index, List<BigBookContent.Chapter> chapters, Optional<String> title) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId).writeByte(index);
+            BigBookContent.Chapter.writeAll(buffer, chapters);
+            buffer.writeOptional(title, (out, text) -> out.writeUtf(text, BigBookContent.TITLE_LENGTH));
+        }
+
+        private static BigBookFinishPacket decode(FriendlyByteBuf buffer) {
+            return new BigBookFinishPacket(buffer.readVarInt(), buffer.readUnsignedByte(),
+                    BigBookContent.Chapter.readAll(buffer), buffer.readOptional(in -> in.readUtf(BigBookContent.TITLE_LENGTH)));
+        }
+    }
+
     public static final class PanelerPacket extends EmptyPacket {}
     public record StockTitlePacket(int menuId, String title) {
         private void encode(FriendlyByteBuf buffer) {

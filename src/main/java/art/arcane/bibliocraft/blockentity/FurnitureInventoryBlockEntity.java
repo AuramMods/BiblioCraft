@@ -1,9 +1,13 @@
 package art.arcane.bibliocraft.blockentity;
 
+import art.arcane.bibliocraft.book.BigBookContent;
+import art.arcane.bibliocraft.registry.ModItems;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
@@ -170,6 +174,20 @@ public abstract class FurnitureInventoryBlockEntity extends FurnitureBlockEntity
         super.load(tag);
         items.clear();
         ContainerHelper.loadAllItems(tag, items);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = super.getUpdateTag();
+        var synced = tag.getList("Items", Tag.TAG_COMPOUND);
+        String bigBookId = ModItems.BIG_BOOK.getId().toString();
+        for (int slot = 0; slot < synced.size(); slot++) {
+            CompoundTag stack = synced.getCompound(slot);
+            if (bigBookId.equals(stack.getString("id"))) {
+                BigBookContent.stripPageData(stack.getCompound("tag"));
+            }
+        }
+        return tag;
     }
 
     @Override
