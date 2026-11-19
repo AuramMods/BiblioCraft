@@ -3,6 +3,8 @@
   "values": [
     "bibliocraft:armor_stand",
     "bibliocraft:table",
-    "bibliocraft:seat"
+    "bibliocraft:seat",
+    "bibliocraft:label",
+    "bibliocraft:fancy_sign"
   ]
 }

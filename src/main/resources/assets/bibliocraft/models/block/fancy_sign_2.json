@@ -1,0 +1,11 @@
+{
+  "parent": "bibliocraft:block/fancy_sign",
+  "transform": {
+    "origin": "corner",
+    "translation": [
+      0.93,
+      0,
+      0
+    ]
+  }
+}

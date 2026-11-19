@@ -1,0 +1,11 @@
+{
+  "parent": "bibliocraft:block/fancy_sign_ceiling",
+  "transform": {
+    "origin": "corner",
+    "translation": [
+      0.43,
+      0,
+      0
+    ]
+  }
+}

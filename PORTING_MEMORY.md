@@ -30,6 +30,7 @@
 - Armor stands now render both original OBJ groups with the saved material. One lower block entity stores the gear. Either half resolves to that inventory, lock, drill orientation, and material. A powered sneak-click swaps the full set. All fifty-eight Forge GameTests passed. The muted client verified the wood and framed meshes, armor and head layers, original menu, live gear swaps, wooden placement sound, and reload. A survival break on the upper half dropped one cherry stand and the dyed helmet. Old unpaired blocks add an upper half when the cell above is clear.
 - Tables now use the original 30 model groups for pedestals, corner legs, tabletop quarters, and both fabrics. Existing tables retain their facing and calculate neighboring seams on load. All sixty-three Forge GameTests passed. The muted client verified the joined shapes, independent cloth and carpet colors, original menu, display rotation, and a newly filled map rendered flat. Reload kept the map ID, display angle, and fabrics. An existing desk map also rendered with the shared renderer. The client also confirmed that placing and mining a framed table updated both sides of the seam and that drilling returned each fabric once. The reading-glasses overlay remains pending.
 - Seats restore the original 31 model groups, five seat backs, separate fabric colors, and both drills. The registered riding anchor handles a single player or a nearby named mob and updates configurable redstone on mount and dismount. All sixty-eight Forge GameTests passed, including all seventy-two material recipes. The muted client showed the five backs, cushions, and carpet, joined three seats into a bench, and verified occupied lamps through player and mob interactions. The saved bench, material, attachments, and named rider were present after reopening on a dedicated server. Two muted clients saw the same rider and lamp, took turns sitting, and placed a cherry seat facing the player. A survival break detached the bench end and dropped one mangrove seat, one mangrove back, and one orange cushion.
+- Labels and fancy signs use the original faces and texture coordinates, with the meshes rotated into the modern block cell. Labels show one or three item icons and drop their three stacks separately. Fancy signs have formatted multiline text, two independently adjustable icons, three mounts, both drills, and a packed drop for relocating the whole sign. All seventy-three Forge GameTests passed. Two muted clients verified concurrent edits, formatting, and text and icons following the board through both drill shifts and rotation. A dedicated server restart preserved the filled label and sign. In survival, the sign reappeared with its contents after it was mined, collected, and placed on the floor. Mining the label returned its three stacks and a cherry label. Crafting kept a custom panel from the ingredient label. The label reading-glasses overlay and shared display-light setting remain pending.
 - Remaining shelf parity includes shared drill and shift interactions and the legacy optional light emitted by stored blocks.
 
 ## Initial Breadth Snapshot (2026-02-09)
@@ -63,7 +64,7 @@
 - Added explicit `"textures": {"particle": ...}` to all 37 block OBJ model JSON files, using first MTL `map_Kd` texture as particle source.
 - Translated negatively-authored OBJ meshes to reduce whole-model offset:
 - `+1 x` and `+1 z`: `cookiejar.obj`, `dinnerplate.obj`, `discrack.obj`, `lamp.obj`, `lantern.obj`, `markerpole.obj`, `paneler.obj`, `potionshelf.obj`, `seat.obj`, `swordpedestal.obj`, `table.obj`, `typewriter.obj`.
-- `+1 z`: `sign.obj`, `label.obj`.
+- `sign.obj` and `label.obj`: current orientation is a 180-degree Y rotation of the authored vertices. The original one-block Z translation was the earlier placeholder treatment.
 - Added major static visibility maps to emulate 1.12 default OBJ part selection and prevent overlapping variant geometry.
 - Updated visibility on:
 - `lamp_gold`, `lamp_iron`, `case`, `clock`, `table`, `seat`, `typewriter`, `furniture_paneler`, `fancy_sign`, `framed_chest`, `painting_press`, `printing_press`, `desk`, `typesetting_table`, `fancy_workbench`, `cookie_jar`, `bookcase`, `bookcase_creative`, `map_frame`, and all 5 `painting_frame_*` models.
@@ -325,7 +326,7 @@
 - `EnchantedAtlasRecipe` now has real matching/assembly; when true enchantment parity is ported, replace placeholder marker NBT with final enchantment/behavior.
 
 ## Near-Term Lookahead
-- Continue with labels and fancy signs. Compare the authored face and text transforms and restore the original label item and sign editing workflows.
+- Continue with clocks. Compare the small and tall case groups, moving hands, pendulum, drill interactions, and programmable chimes.
 
 ## Registry Surface Size (Legacy)
 - Registered blocks: 37

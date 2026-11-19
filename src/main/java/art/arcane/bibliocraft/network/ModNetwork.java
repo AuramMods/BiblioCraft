@@ -1,7 +1,9 @@
 package art.arcane.bibliocraft.network;
 
 import art.arcane.bibliocraft.BiblioCraft;
+import art.arcane.bibliocraft.blockentity.FancySignLayout;
 import art.arcane.bibliocraft.menu.DeskBookMenu;
+import art.arcane.bibliocraft.menu.FancySignMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
@@ -14,7 +16,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "1";
+    private static final String PROTOCOL = "2";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -67,7 +69,15 @@ public final class ModNetwork {
         registerServerbound(MapPinPacket.class, MapPinPacket::new);
         registerServerbound(RBookPacket.class, RBookPacket::new);
         registerServerbound(RBookLoadPacket.class, RBookLoadPacket::new);
-        registerServerbound(SignPacket.class, SignPacket::new);
+        CHANNEL.messageBuilder(SignPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(SignPacket::encode).decoder(SignPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof FancySignMenu menu && menu.containerId == message.menuId()) {
+                        menu.save(player, message.layout());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
         registerServerbound(ClockPacket.class, ClockPacket::new);
         registerServerbound(PaintPressPacket.class, PaintPressPacket::new);
         registerServerbound(PaintingPacket.class, PaintingPacket::new);
@@ -159,7 +169,16 @@ public final class ModNetwork {
     public static final class MapPinPacket extends EmptyPacket {}
     public static final class RBookPacket extends EmptyPacket {}
     public static final class RBookLoadPacket extends EmptyPacket {}
-    public static final class SignPacket extends EmptyPacket {}
+    public record SignPacket(int menuId, FancySignLayout layout) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            layout.write(buffer);
+        }
+
+        private static SignPacket decode(FriendlyByteBuf buffer) {
+            return new SignPacket(buffer.readVarInt(), FancySignLayout.read(buffer));
+        }
+    }
     public static final class ClockPacket extends EmptyPacket {}
     public static final class PaintPressPacket extends EmptyPacket {}
     public static final class PaintingPacket extends EmptyPacket {}

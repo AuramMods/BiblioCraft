@@ -11,6 +11,8 @@ import art.arcane.bibliocraft.menu.DeskMenu;
 import art.arcane.bibliocraft.menu.DinnerPlateMenu;
 import art.arcane.bibliocraft.menu.DiscRackMenu;
 import art.arcane.bibliocraft.menu.DisplayCaseMenu;
+import art.arcane.bibliocraft.menu.FancySignMenu;
+import art.arcane.bibliocraft.menu.LabelMenu;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.RackMenu;
 import art.arcane.bibliocraft.menu.ShelfMenu;
@@ -47,7 +49,8 @@ public final class ModMenus {
             () -> new MenuType<>((id, inventory) -> new RackMenu(id, inventory, RackType.TOOLS), FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<DisplayCaseMenu>> CASE =
             MENUS.register("case", () -> new MenuType<>(DisplayCaseMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> LABEL = register("label");
+    public static final RegistryObject<MenuType<LabelMenu>> LABEL =
+            MENUS.register("label", () -> new MenuType<>(LabelMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<DeskMenu>> DESK =
             MENUS.register("desk", () -> new MenuType<>(DeskMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<DeskBookMenu>> DESK_BOOK =
@@ -60,7 +63,8 @@ public final class ModMenus {
             MENUS.register("dinner_plate", () -> new MenuType<>(DinnerPlateMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<DiscRackMenu>> DISC_RACK =
             MENUS.register("disc_rack", () -> new MenuType<>(DiscRackMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> FANCY_SIGN = register("fancy_sign");
+    public static final RegistryObject<MenuType<FancySignMenu>> FANCY_SIGN =
+            MENUS.register("fancy_sign", () -> IForgeMenuType.create(FancySignMenu::new));
     public static final RegistryObject<MenuType<PlaceholderMenu>> FANCY_WORKBENCH = register("fancy_workbench");
     public static final RegistryObject<MenuType<PlaceholderMenu>> PAINTING_PRESS = register("painting_press");
     public static final RegistryObject<MenuType<PlaceholderMenu>> PAINTING = register("painting");
@@ -76,8 +80,6 @@ public final class ModMenus {
     private static final Map<ResourceLocation, RegistryObject<MenuType<PlaceholderMenu>>> BLOCK_MENU_MAP = new HashMap<>();
 
     static {
-        mapBlock("label", LABEL);
-        mapBlock("fancy_sign", FANCY_SIGN);
         mapBlock("fancy_workbench", FANCY_WORKBENCH);
         mapBlock("painting_press", PAINTING_PRESS);
         mapBlock("painting_frame_borderless", PAINTING);

@@ -11,6 +11,8 @@ import art.arcane.bibliocraft.block.DinnerPlateBlock;
 import art.arcane.bibliocraft.block.DiscRackBlock;
 import art.arcane.bibliocraft.block.DisplayCaseBlock;
 import art.arcane.bibliocraft.block.FurniturePanelerBlock;
+import art.arcane.bibliocraft.block.FancySignBlock;
+import art.arcane.bibliocraft.block.LabelBlock;
 import art.arcane.bibliocraft.block.HorizontalFacingEntityBlock;
 import art.arcane.bibliocraft.block.MountedFacingEntityBlock;
 import art.arcane.bibliocraft.block.RackBlock;
@@ -22,6 +24,7 @@ import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.block.TypewriterBlock;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
+import art.arcane.bibliocraft.item.FancySignItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -58,8 +61,6 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_LAMP_CEILING = box(0.0485, 0.0, 0.1, 0.9515, 1.0, 0.9);
     private static final VoxelShape SHAPE_FURNITURE_PANELER = box(0.0, 0.0, 0.0, 1.0, 0.63, 1.0);
     private static final VoxelShape SHAPE_FRAMED_CHEST = box(0.054, 0.0, 0.054, 0.946, 0.866, 0.946);
-    private static final VoxelShape SHAPE_SIGN_PLANE = box(0.0, 0.2, 0.0, 0.06, 0.8, 1.0);
-    private static final VoxelShape SHAPE_LABEL = box(0.0, 0.12, 0.28, 0.06, 0.38, 0.72);
     private static final VoxelShape SHAPE_CLOCK = box(0.0, 0.0, 0.2549, 0.165, 0.9976, 0.7451);
     private static final VoxelShape SHAPE_CASE_FLOOR = combine(
             box(0.0625, 0, 0, 0.9375, 0.5, 1),
@@ -109,7 +110,8 @@ public final class ModBlocks {
     public static final RegistryObject<Block> FRAMED_CHEST =
             register("framed_chest", () -> shapedWoodEntity(SHAPE_FRAMED_CHEST, "framed_chest"));
     public static final RegistryObject<Block> FANCY_SIGN =
-            register("fancy_sign", () -> mountedWoodEntity(SHAPE_SIGN_PLANE, SHAPE_SIGN_PLANE, SHAPE_SIGN_PLANE, "fancy_sign"));
+            register("fancy_sign", () -> new FancySignBlock(woodProps().sound(SoundType.WOOD)),
+                    block -> new FancySignItem(block, new Item.Properties()));
     public static final RegistryObject<Block> FANCY_WORKBENCH =
             register("fancy_workbench", () -> fullWoodEntity("fancy_workbench"));
     public static final RegistryObject<Block> POTION_SHELF =
@@ -119,7 +121,8 @@ public final class ModBlocks {
             register("tool_rack", () -> new RackBlock(woodProps(), SHAPE_HALF_RACK, "tool_rack", RackType.TOOLS),
                     block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> LABEL =
-            register("label", () -> shapedWoodEntity(SHAPE_LABEL, "label"));
+            register("label", () -> new LabelBlock(woodProps().sound(SoundType.WOOD)),
+                    block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> DESK =
             register("desk", () -> new DeskBlock(woodProps()), block -> new FurnitureBlockItem(block, new Item.Properties()));
     public static final RegistryObject<Block> TABLE =

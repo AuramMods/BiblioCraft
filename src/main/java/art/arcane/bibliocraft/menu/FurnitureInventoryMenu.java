@@ -20,13 +20,17 @@ abstract class FurnitureInventoryMenu extends AbstractContainerMenu {
     }
 
     protected final void addPlayerSlots(Inventory inventory) {
+        addPlayerSlots(inventory, 8, 84);
+    }
+
+    protected final void addPlayerSlots(Inventory inventory, int left, int top) {
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
-                addSlot(new Slot(inventory, 9 + row * 9 + column, 8 + column * 18, 84 + row * 18));
+                addSlot(new Slot(inventory, 9 + row * 9 + column, left + column * 18, top + row * 18));
             }
         }
         for (int column = 0; column < 9; column++) {
-            addSlot(new Slot(inventory, column, 8 + column * 18, 142));
+            addSlot(new Slot(inventory, column, left + column * 18, top + 58));
         }
     }
 

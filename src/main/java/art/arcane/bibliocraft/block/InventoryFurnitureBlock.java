@@ -103,10 +103,14 @@ abstract class InventoryFurnitureBlock extends HorizontalFacingEntityBlock {
 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState replacement, boolean moving) {
-        if (!level.isClientSide && !state.is(replacement.getBlock())
+        if (dropsInventorySeparately() && !level.isClientSide && !state.is(replacement.getBlock())
                 && level.getBlockEntity(pos) instanceof FurnitureInventoryBlockEntity furniture) {
             Containers.dropContents(level, pos, furniture);
         }
         super.onRemove(state, level, pos, replacement, moving);
+    }
+
+    protected boolean dropsInventorySeparately() {
+        return true;
     }
 }

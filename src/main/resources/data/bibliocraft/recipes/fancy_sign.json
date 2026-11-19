@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "bibliocraft:fancy_sign",
   "category": "misc",
   "group": "bibliocraft",
   "ingredients": [

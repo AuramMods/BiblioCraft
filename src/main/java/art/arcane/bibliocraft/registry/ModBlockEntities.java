@@ -1,5 +1,7 @@
 package art.arcane.bibliocraft.registry;
 
+import art.arcane.bibliocraft.blockentity.FancySignBlockEntity;
+import art.arcane.bibliocraft.blockentity.LabelBlockEntity;
 import art.arcane.bibliocraft.BiblioCraft;
 import art.arcane.bibliocraft.blockentity.ArmorStandBlockEntity;
 import art.arcane.bibliocraft.blockentity.BookcaseBlockEntity;
@@ -55,8 +57,9 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<RackBlockEntity>> TOOL_RACK =
             BLOCK_ENTITIES.register("tool_rack", () ->
                     BlockEntityType.Builder.of(RackBlockEntity::toolRack, ModBlocks.TOOL_RACK.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> LABEL =
-            register("label", ModBlocks.LABEL);
+    public static final RegistryObject<BlockEntityType<LabelBlockEntity>> LABEL =
+            BLOCK_ENTITIES.register("label", () -> BlockEntityType.Builder.of(
+                    LabelBlockEntity::new, ModBlocks.LABEL.get()).build(null));
     public static final RegistryObject<BlockEntityType<DeskBlockEntity>> DESK =
             BLOCK_ENTITIES.register("desk", () ->
                     BlockEntityType.Builder.of(DeskBlockEntity::new, ModBlocks.DESK.get()).build(null));
@@ -66,8 +69,9 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<SeatBlockEntity>> SEAT =
             BLOCK_ENTITIES.register("seat", () -> BlockEntityType.Builder.of(
                     SeatBlockEntity::new, ModBlocks.SEAT.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> FANCY_SIGN =
-            register("fancy_sign", ModBlocks.FANCY_SIGN);
+    public static final RegistryObject<BlockEntityType<FancySignBlockEntity>> FANCY_SIGN =
+            BLOCK_ENTITIES.register("fancy_sign", () -> BlockEntityType.Builder.of(
+                    FancySignBlockEntity::new, ModBlocks.FANCY_SIGN.get()).build(null));
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> FANCY_WORKBENCH =
             register("fancy_workbench", ModBlocks.FANCY_WORKBENCH);
     public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> FRAMED_CHEST =

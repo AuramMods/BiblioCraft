@@ -47,6 +47,8 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.DESK.get(), DeskRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.ARMOR_STAND.get(), ArmorStandRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TABLE.get(), TableRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.LABEL.get(), SignDisplayRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.FANCY_SIGN.get(), SignDisplayRenderer::new);
     }
 
     @SubscribeEvent
@@ -69,6 +71,8 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.DESK_BOOK.get(), DeskBookScreen::new);
             MenuScreens.register(ModMenus.ARMOR_STAND.get(), ArmorStandScreen::new);
             MenuScreens.register(ModMenus.TABLE.get(), TableScreen::new);
+            MenuScreens.register(ModMenus.LABEL.get(), LabelScreen::new);
+            MenuScreens.register(ModMenus.FANCY_SIGN.get(), FancySignScreen::new);
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
@@ -86,7 +90,7 @@ public final class ClientSetup {
                 ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath(),
                 ModBlocks.TOOL_RACK.getId().getPath(), ModBlocks.POTION_SHELF.getId().getPath(),
                 ModBlocks.CASE.getId().getPath(), ModBlocks.DESK.getId().getPath(), ModBlocks.ARMOR_STAND.getId().getPath(),
-                ModBlocks.TABLE.getId().getPath());
+                ModBlocks.TABLE.getId().getPath(), ModBlocks.LABEL.getId().getPath(), ModBlocks.FANCY_SIGN.getId().getPath());
         var bookcases = Set.of(ModBlocks.BOOKCASE.getId().getPath(), ModBlocks.BOOKCASE_CREATIVE.getId().getPath());
         var seatbacks = Set.of(ModItems.SEAT_BACK_1.getId().getPath(), ModItems.SEAT_BACK_2.getId().getPath(),
                 ModItems.SEAT_BACK_3.getId().getPath(), ModItems.SEAT_BACK_4.getId().getPath(), ModItems.SEAT_BACK_5.getId().getPath());

@@ -115,6 +115,15 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - An ordinary click seats one player. A nearby named mob can board an empty seat every five seconds and can be released with a sneak-click. Occupied seats provide full power with the chair redstone option enabled, including power through a solid neighbor. Safely dismounting or removing the seat clears the output.
 - The old slab recipes craft the seat and all five seat backs in twelve materials. Upgrading a style-two back uses the material of the added slabs as in 1.12.2. The existing furniture paneler accepts any framed back.
 
+## Label and Fancy Sign Port
+
+- The block, item, block entity, and menu retain the Forge 1.20.1 IDs `bibliocraft:label` and `bibliocraft:fancy_sign`. The legacy sign item used `bibliocraft:fancysign`. Existing port facings and sign mounts are retained. Existing signs without a depth property load at the wall edge with `shift=0`. Existing placeholders default to oak and an empty inventory.
+- The label retains 32 vertices, 46 UV coordinates, and 22 faces. The sign retains 160 vertices, 315 UV coordinates, and 135 faces across its front, wooden border, and two mount groups. Both OBJ files rotate 180 degrees around the original Y axis to align their faces with the saved block orientation. The hitboxes, world text, and icons use the same orientation. The two additional board positions are 0.43 and 0.93 blocks inward from the wall edge. Item model transforms center both meshes and present the original faces in inventory and fixed displays.
+- A label holds full stacks in three slots. The center icon expands if the side slots are empty. The sign holds one item in each of two icon slots. Both screens open on sneak-use and respect furniture locks. Either drill cycles the sign depth with ordinary use or rotates the sign with sneak-use.
+- The sign stores up to fifteen lines with six text sizes, legacy formatting codes, and two icon layouts with nine sizes, three block orientations, and independent positions. It trims text to the board at render time. The server accepts edits only through a current in-range sign menu and merges fields changed by the player. The wire protocol is now version 2.
+- The modern block entities use `Items` and `FurnitureMaterial`. Fancy signs store text and icon layout in `SignLayout`. Survival harvest of a sign packs those values in `BlockEntityTag` so the sign can be placed again with its contents. A label drops its items separately. The old `Inventory`, `textscale`, `text0` through `text14`, and `s1*` and `s2*` tags remain part of the separate 1.12.2 migration problem.
+- Six identical slabs or framing boards craft a label. A label, a vanilla sign, and paper make a fancy sign in the label's wood or custom framed material. Both work with the existing furniture paneler. Normal pick-block returns the material variant.
+
 ## Current 1.20.1 Asset Mapping Snapshot (Smoke Baseline)
 - Current resources root: `src/main/resources/assets/bibliocraft`
 - Legacy resource source: `old-1.12.2/src/main/resources/assets/bibliocraft`
@@ -235,7 +244,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 | `furniture_paneler` | `x/z:0.0-1.0 y:0.0-0.63` | old `BlockFurniturePaneler` bbox |
 | `framed_chest` | `x/z:0.054-0.946 y:0.0-0.866` | old single chest bbox |
 | `fancy_sign` | mounted shape baseline: thin sign plane (`x:0.0-0.06 y:0.2-0.8 z:0.0-1.0`) rotated by `facing` for floor/wall/ceiling placements | old sign bbox + legacy mount states |
-| `label` | `x:0.0-0.06 y:0.12-0.38 z:0.28-0.72` | old wall label bbox |
+| `label` | `x:0.0-0.0625 y:0.093-0.405 z:0.25-0.75` in the north state | Selection follows the originally authored frame |
 | `table` | Full tabletop slab with either the original center post or exposed corner supports, plus the optional floor carpet | Neighbor connections pick the same legs for the shape and the rendered mesh |
 | `seat` | Seat, surviving legs and braces, linked extensions, and optional floor carpet | Collision and rendered bench pieces share the same directional connections |
 | `clock` | `x:0.0-0.165 y:0.0-0.9976 z:0.2549-0.7451` | OBJ visibility extents (`clock.obj`) |
@@ -461,7 +470,7 @@ This file is the breadth-first source index for porting from Forge 1.12.2 to For
 - server-side opens mapped menus via `NetworkHooks.openScreen`.
 - mapped blocks return `SUCCESS` client-side and `CONSUME` server-side; unmapped blocks return `PASS`.
 - Current mapped block IDs:
-- `label`, `fancy_sign`, `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
+- `fancy_workbench`, `painting_press`, `painting_frame_borderless`, `painting_frame_flat`, `painting_frame_simple`, `painting_frame_middle`, `painting_frame_fancy`, `framed_chest`, `clipboard`, `clock`, `typesetting_table`, `printing_press`, `map_frame`.
 - Item-held placeholder menu mapping:
 - in `src/main/java/art/arcane/bibliocraft/registry/ModItems.java`:
 - `atlas_book` -> `ModMenus.ATLAS`
