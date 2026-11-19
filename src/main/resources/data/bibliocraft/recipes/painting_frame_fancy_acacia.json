@@ -1,0 +1,36 @@
+{
+  "type": "bibliocraft:painting_frame",
+  "category": "building",
+  "group": "bibliocraft:painting_frame_fancy",
+  "pattern": [
+    "III",
+    "IFI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "F": {
+      "item": "bibliocraft:painting_frame_borderless",
+      "type": "forge:partial_nbt",
+      "nbt": {
+        "BlockEntityTag": {
+          "FurnitureMaterial": {
+            "wood": "acacia"
+          }
+        }
+      }
+    }
+  },
+  "result": {
+    "item": "bibliocraft:painting_frame_fancy",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "acacia"
+        }
+      }
+    }
+  }
+}

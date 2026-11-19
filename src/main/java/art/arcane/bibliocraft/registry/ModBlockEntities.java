@@ -20,6 +20,8 @@ import art.arcane.bibliocraft.blockentity.FurnitureBlockEntity;
 import art.arcane.bibliocraft.blockentity.PlaceholderBlockEntity;
 import art.arcane.bibliocraft.blockentity.TypesettingTableBlockEntity;
 import art.arcane.bibliocraft.blockentity.PrintingPressBlockEntity;
+import art.arcane.bibliocraft.blockentity.PaintingFrameBlockEntity;
+import art.arcane.bibliocraft.blockentity.PaintingPressBlockEntity;
 import art.arcane.bibliocraft.blockentity.FurniturePanelerBlockEntity;
 import art.arcane.bibliocraft.blockentity.RackBlockEntity;
 import art.arcane.bibliocraft.blockentity.ShelfBlockEntity;
@@ -90,18 +92,19 @@ public final class ModBlockEntities {
                     BlockEntityType.Builder.of(DisplayCaseBlockEntity::new, ModBlocks.CASE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ClockBlockEntity>> CLOCK =
             BLOCK_ENTITIES.register("clock", () -> BlockEntityType.Builder.of(ClockBlockEntity::new, ModBlocks.CLOCK.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PAINTING_FRAME_BORDERLESS =
-            register("painting_frame_borderless", ModBlocks.PAINTING_FRAME_BORDERLESS);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PAINTING_FRAME_FANCY =
-            register("painting_frame_fancy", ModBlocks.PAINTING_FRAME_FANCY);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PAINTING_FRAME_FLAT =
-            register("painting_frame_flat", ModBlocks.PAINTING_FRAME_FLAT);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PAINTING_FRAME_MIDDLE =
-            register("painting_frame_middle", ModBlocks.PAINTING_FRAME_MIDDLE);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PAINTING_FRAME_SIMPLE =
-            register("painting_frame_simple", ModBlocks.PAINTING_FRAME_SIMPLE);
-    public static final RegistryObject<BlockEntityType<PlaceholderBlockEntity>> PAINTING_PRESS =
-            register("painting_press", ModBlocks.PAINTING_PRESS);
+    public static final RegistryObject<BlockEntityType<PaintingFrameBlockEntity>> PAINTING_FRAME_BORDERLESS =
+            paintingFrame("painting_frame_borderless", ModBlocks.PAINTING_FRAME_BORDERLESS);
+    public static final RegistryObject<BlockEntityType<PaintingFrameBlockEntity>> PAINTING_FRAME_FANCY =
+            paintingFrame("painting_frame_fancy", ModBlocks.PAINTING_FRAME_FANCY);
+    public static final RegistryObject<BlockEntityType<PaintingFrameBlockEntity>> PAINTING_FRAME_FLAT =
+            paintingFrame("painting_frame_flat", ModBlocks.PAINTING_FRAME_FLAT);
+    public static final RegistryObject<BlockEntityType<PaintingFrameBlockEntity>> PAINTING_FRAME_MIDDLE =
+            paintingFrame("painting_frame_middle", ModBlocks.PAINTING_FRAME_MIDDLE);
+    public static final RegistryObject<BlockEntityType<PaintingFrameBlockEntity>> PAINTING_FRAME_SIMPLE =
+            paintingFrame("painting_frame_simple", ModBlocks.PAINTING_FRAME_SIMPLE);
+    public static final RegistryObject<BlockEntityType<PaintingPressBlockEntity>> PAINTING_PRESS =
+            BLOCK_ENTITIES.register("painting_press", () -> BlockEntityType.Builder.of(
+                    PaintingPressBlockEntity::new, ModBlocks.PAINTING_PRESS.get()).build(null));
     public static final RegistryObject<BlockEntityType<ArmorStandBlockEntity>> ARMOR_STAND =
             BLOCK_ENTITIES.register("armor_stand", () -> BlockEntityType.Builder.of(
                     ArmorStandBlockEntity::new, ModBlocks.ARMOR_STAND.get()).build(null));
@@ -131,6 +134,15 @@ public final class ModBlockEntities {
                     BlockEntityType.Builder.of(TypewriterBlockEntity::new, ModBlocks.TYPEWRITER.get()).build(null));
 
     private ModBlockEntities() {}
+
+    private static RegistryObject<BlockEntityType<PaintingFrameBlockEntity>> paintingFrame(
+            String name, RegistryObject<Block> block) {
+        @SuppressWarnings("unchecked")
+        RegistryObject<BlockEntityType<PaintingFrameBlockEntity>>[] type = new RegistryObject[1];
+        type[0] = BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of(
+                (pos, state) -> new PaintingFrameBlockEntity(type[0].get(), pos, state), block.get()).build(null));
+        return type[0];
+    }
 
     private static FurnitureBlockEntity createLight(BlockPos pos, BlockState state) {
         return new FurnitureBlockEntity(BIBLIOLIGHT.get(), pos, state);

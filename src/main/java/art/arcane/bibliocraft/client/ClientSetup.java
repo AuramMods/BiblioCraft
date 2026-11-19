@@ -8,6 +8,7 @@ import art.arcane.bibliocraft.blockentity.CookieJarBlockEntity;
 import art.arcane.bibliocraft.blockentity.DeskBlockEntity;
 import art.arcane.bibliocraft.blockentity.FancyWorkbenchBlockEntity;
 import art.arcane.bibliocraft.blockentity.PrintingPressBlockEntity;
+import art.arcane.bibliocraft.blockentity.PaintingPressBlockEntity;
 import art.arcane.bibliocraft.blockentity.SeatBlockEntity;
 import art.arcane.bibliocraft.blockentity.TableBlockEntity;
 import art.arcane.bibliocraft.blockentity.TypesettingTableBlockEntity;
@@ -27,6 +28,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.model.geometry.IGeometryLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -58,6 +60,12 @@ public final class ClientSetup {
         event.registerBlockEntityRenderer(ModBlockEntities.CLOCK.get(), ClockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.FRAMED_CHEST.get(), FramedChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PRINTING_PRESS.get(), PrintingPressRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_PRESS.get(), PaintingPressRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_BORDERLESS.get(), PaintingFrameRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_FLAT.get(), PaintingFrameRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_SIMPLE.get(), PaintingFrameRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_MIDDLE.get(), PaintingFrameRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PAINTING_FRAME_FANCY.get(), PaintingFrameRenderer::new);
     }
 
     @SubscribeEvent
@@ -66,6 +74,12 @@ public final class ClientSetup {
         ClockRenderer.registerModels(event);
         FramedChestRenderer.registerModels(event);
         PrintingPressRenderer.registerModels(event);
+        event.register(PaintingPressRenderer.LID);
+    }
+
+    @SubscribeEvent
+    public static void paintingResources(RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener(new ClientPaintingArt());
     }
 
     @SubscribeEvent
@@ -105,6 +119,8 @@ public final class ClientSetup {
             MenuScreens.register(ModMenus.FURNITURE_PANELER.get(), FurniturePanelerScreen::new);
             MenuScreens.register(ModMenus.TYPESETTING_TABLE.get(), TypesettingTableScreen::new);
             MenuScreens.register(ModMenus.PRINTING_PRESS.get(), PrintingPressScreen::new);
+            MenuScreens.register(ModMenus.PAINTING_PRESS.get(), PaintingPressScreen::new);
+            MenuScreens.register(ModMenus.PAINTING.get(), PaintingFrameScreen::new);
             var colorProperty = ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "furniture_color");
             ModBlocks.getTabItems().forEach(entry -> {
                 if (entry.get() instanceof ColoredBlockItem colored) {
@@ -140,6 +156,13 @@ public final class ClientSetup {
                 return model;
             }
             String path = id.getPath();
+            if (path.startsWith("painting_frame_")) {
+                return "inventory".equals(location.getVariant()) ? new FurnitureMaterialModel(model)
+                        : new PaintingFrameModel(model);
+            }
+            if (path.equals(ModItems.PAINTING_CANVAS.getId().getPath()) && "inventory".equals(location.getVariant())) {
+                return new PaintingCanvasModel(model);
+            }
             if (path.equals(ModBlocks.DESK.getId().getPath()) && !"inventory".equals(location.getVariant())) {
                 model = new SlotVisibilityModel(model, deskBooks, DeskBlockEntity.VISIBLE_PARTS);
                 model = new SlotVisibilityModel(model, deskCarpet, DeskBlockEntity.VISIBLE_PARTS);
@@ -181,6 +204,9 @@ public final class ClientSetup {
             }
             if (path.equals(ModBlocks.PRINTING_PRESS.getId().getPath())) {
                 return new PrintingPressModel(model);
+            }
+            if (path.equals(ModBlocks.PAINTING_PRESS.getId().getPath())) {
+                return new SlotVisibilityModel(model, null, PaintingPressBlockEntity.VISIBLE_PARTS);
             }
             return model;
         });

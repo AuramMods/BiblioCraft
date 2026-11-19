@@ -20,6 +20,8 @@ import art.arcane.bibliocraft.menu.ClockMenu;
 import art.arcane.bibliocraft.menu.LabelMenu;
 import art.arcane.bibliocraft.menu.PlaceholderMenu;
 import art.arcane.bibliocraft.menu.PrintingPressMenu;
+import art.arcane.bibliocraft.menu.PaintingFrameMenu;
+import art.arcane.bibliocraft.menu.PaintingPressMenu;
 import art.arcane.bibliocraft.menu.TypesettingTableMenu;
 import art.arcane.bibliocraft.menu.RackMenu;
 import art.arcane.bibliocraft.menu.ShelfMenu;
@@ -80,8 +82,10 @@ public final class ModMenus {
             MENUS.register("fancy_workbench", () -> IForgeMenuType.create(FancyWorkbenchMenu::new));
     public static final RegistryObject<MenuType<RecipeBookMenu>> RECIPE_BOOK =
             MENUS.register("recipe_book", () -> IForgeMenuType.create(RecipeBookMenu::new));
-    public static final RegistryObject<MenuType<PlaceholderMenu>> PAINTING_PRESS = register("painting_press");
-    public static final RegistryObject<MenuType<PlaceholderMenu>> PAINTING = register("painting");
+    public static final RegistryObject<MenuType<PaintingPressMenu>> PAINTING_PRESS =
+            MENUS.register("painting_press", () -> IForgeMenuType.create(PaintingPressMenu::new));
+    public static final RegistryObject<MenuType<PaintingFrameMenu>> PAINTING =
+            MENUS.register("painting", () -> IForgeMenuType.create(PaintingFrameMenu::new));
     public static final RegistryObject<MenuType<FurniturePanelerMenu>> FURNITURE_PANELER =
             MENUS.register("furniture_paneler", () -> new MenuType<>(FurniturePanelerMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final RegistryObject<MenuType<FramedChestMenu>> FRAMED_CHEST =
@@ -103,12 +107,6 @@ public final class ModMenus {
     private static final Map<ResourceLocation, RegistryObject<MenuType<PlaceholderMenu>>> BLOCK_MENU_MAP = new HashMap<>();
 
     static {
-        mapBlock("painting_press", PAINTING_PRESS);
-        mapBlock("painting_frame_borderless", PAINTING);
-        mapBlock("painting_frame_flat", PAINTING);
-        mapBlock("painting_frame_simple", PAINTING);
-        mapBlock("painting_frame_middle", PAINTING);
-        mapBlock("painting_frame_fancy", PAINTING);
         mapBlock("clipboard", CLIPBOARD);
         mapBlock("map_frame", MAP_FRAME);
     }

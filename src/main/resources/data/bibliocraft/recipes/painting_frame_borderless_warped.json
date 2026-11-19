@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bibliocraft:painting_frame_borderless",
+  "pattern": [
+    "ISI",
+    "SSS",
+    "ISI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "minecraft:warped_slab"
+    }
+  },
+  "result": {
+    "item": "bibliocraft:painting_frame_borderless",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "warped"
+        }
+      }
+    }
+  }
+}

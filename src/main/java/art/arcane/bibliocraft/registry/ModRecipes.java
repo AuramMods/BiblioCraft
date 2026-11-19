@@ -33,6 +33,9 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeSerializer<MaterialShapedRecipe>> FANCY_WORKBENCH =
             RECIPE_SERIALIZERS.register("fancy_workbench",
                     () -> new MaterialShapedRecipe.Serializer(() -> ModBlocks.BOOKCASE.get().asItem()));
+    public static final RegistryObject<RecipeSerializer<MaterialShapedRecipe>> PAINTING_FRAME =
+            RECIPE_SERIALIZERS.register("painting_frame",
+                    () -> new MaterialShapedRecipe.Serializer(() -> ModBlocks.PAINTING_FRAME_BORDERLESS.get().asItem()));
 
     public static final RegistryObject<RecipeType<EnchantedAtlasRecipe>> ENCHANTED_ATLAS_RECIPE_TYPE =
             RECIPE_TYPES.register("enchantedatlas", () -> new RecipeType<>() {

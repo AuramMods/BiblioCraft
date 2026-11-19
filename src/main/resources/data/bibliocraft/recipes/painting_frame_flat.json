@@ -1,21 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "bibliocraft:painting_frame",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:painting_frame_flat",
   "pattern": [
     "SSS",
     "SFS",
     "SSS"
   ],
   "key": {
-    "S": [
-      {
-        "tag": "minecraft:wooden_slabs"
-      },
-      {
-        "item": "bibliocraft:framing_board"
-      }
-    ],
+    "S": {
+      "item": "minecraft:oak_slab"
+    },
     "F": {
       "item": "bibliocraft:painting_frame_borderless"
     }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "bibliocraft:printing_press"
+    "bibliocraft:printing_press",
+    "bibliocraft:painting_press"
   ]
 }

@@ -2,6 +2,417 @@ newmtl wood
 Kd 1.00 1.00 1.00
 map_Kd minecraft:block/oak_planks
 
+newmtl back
+Kd 1.00 1.00 1.00
+forge_TintIndex 0
+map_Kd minecraft:block/oak_planks
+
 newmtl canvas
 Kd 1.00 1.00 1.00
+forge_TintIndex 1
 map_Kd bibliocraft:block/canvas
+
+newmtl largeCanvas
+Kd 1.00 1.00 1.00
+forge_TintIndex 2
+map_Kd bibliocraft:block/canvas
+
+newmtl flatT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd minecraft:block/oak_planks
+
+newmtl flatTR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd minecraft:block/oak_planks
+
+newmtl flatTL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd minecraft:block/oak_planks
+
+newmtl flatT
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd minecraft:block/oak_planks
+
+newmtl flatR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd minecraft:block/oak_planks
+
+newmtl flatRB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd minecraft:block/oak_planks
+
+newmtl flatRT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 9
+map_Kd minecraft:block/oak_planks
+
+newmtl flatR
+Kd 1.00 1.00 1.00
+forge_TintIndex 10
+map_Kd minecraft:block/oak_planks
+
+newmtl flatB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 11
+map_Kd minecraft:block/oak_planks
+
+newmtl flatBL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 12
+map_Kd minecraft:block/oak_planks
+
+newmtl flatBR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 13
+map_Kd minecraft:block/oak_planks
+
+newmtl flatB
+Kd 1.00 1.00 1.00
+forge_TintIndex 14
+map_Kd minecraft:block/oak_planks
+
+newmtl flatL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 15
+map_Kd minecraft:block/oak_planks
+
+newmtl flatLT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 16
+map_Kd minecraft:block/oak_planks
+
+newmtl flatLB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 17
+map_Kd minecraft:block/oak_planks
+
+newmtl flatL
+Kd 1.00 1.00 1.00
+forge_TintIndex 18
+map_Kd minecraft:block/oak_planks
+
+newmtl flatBRcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 19
+map_Kd minecraft:block/oak_planks
+
+newmtl flatBLcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 20
+map_Kd minecraft:block/oak_planks
+
+newmtl flatTLcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 21
+map_Kd minecraft:block/oak_planks
+
+newmtl flatTRcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 22
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleTR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleTL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleT
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleRB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleRT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 9
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleR
+Kd 1.00 1.00 1.00
+forge_TintIndex 10
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 11
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleBL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 12
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleBR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 13
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleB
+Kd 1.00 1.00 1.00
+forge_TintIndex 14
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 15
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleLT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 16
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleLB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 17
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleL
+Kd 1.00 1.00 1.00
+forge_TintIndex 18
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleBRcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 19
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleBLcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 20
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleTLcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 21
+map_Kd minecraft:block/oak_planks
+
+newmtl simpleTRcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 22
+map_Kd minecraft:block/oak_planks
+
+newmtl middleT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd minecraft:block/oak_planks
+
+newmtl middleTR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd minecraft:block/oak_planks
+
+newmtl middleTL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd minecraft:block/oak_planks
+
+newmtl middleT
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd minecraft:block/oak_planks
+
+newmtl middleR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd minecraft:block/oak_planks
+
+newmtl middleRB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd minecraft:block/oak_planks
+
+newmtl middleRT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 9
+map_Kd minecraft:block/oak_planks
+
+newmtl middleR
+Kd 1.00 1.00 1.00
+forge_TintIndex 10
+map_Kd minecraft:block/oak_planks
+
+newmtl middleB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 11
+map_Kd minecraft:block/oak_planks
+
+newmtl middleBL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 12
+map_Kd minecraft:block/oak_planks
+
+newmtl middleBR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 13
+map_Kd minecraft:block/oak_planks
+
+newmtl middleB
+Kd 1.00 1.00 1.00
+forge_TintIndex 14
+map_Kd minecraft:block/oak_planks
+
+newmtl middleL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 15
+map_Kd minecraft:block/oak_planks
+
+newmtl middleLT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 16
+map_Kd minecraft:block/oak_planks
+
+newmtl middleLB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 17
+map_Kd minecraft:block/oak_planks
+
+newmtl middleL
+Kd 1.00 1.00 1.00
+forge_TintIndex 18
+map_Kd minecraft:block/oak_planks
+
+newmtl middleBRcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 19
+map_Kd minecraft:block/oak_planks
+
+newmtl middleBLcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 20
+map_Kd minecraft:block/oak_planks
+
+newmtl middleTLcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 21
+map_Kd minecraft:block/oak_planks
+
+newmtl middleTRcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 22
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 3
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyTR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 4
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyTL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 5
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyT
+Kd 1.00 1.00 1.00
+forge_TintIndex 6
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 7
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyRB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 8
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyRT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 9
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyR
+Kd 1.00 1.00 1.00
+forge_TintIndex 10
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 11
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyBL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 12
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyBR45
+Kd 1.00 1.00 1.00
+forge_TintIndex 13
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyB
+Kd 1.00 1.00 1.00
+forge_TintIndex 14
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyL45
+Kd 1.00 1.00 1.00
+forge_TintIndex 15
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyLT45
+Kd 1.00 1.00 1.00
+forge_TintIndex 16
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyLB45
+Kd 1.00 1.00 1.00
+forge_TintIndex 17
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyL
+Kd 1.00 1.00 1.00
+forge_TintIndex 18
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyBRcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 19
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyBLcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 20
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyTLcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 21
+map_Kd minecraft:block/oak_planks
+
+newmtl fancyTRcorner
+Kd 1.00 1.00 1.00
+forge_TintIndex 22
+map_Kd minecraft:block/oak_planks

@@ -1,0 +1,36 @@
+{
+  "type": "bibliocraft:painting_frame",
+  "category": "building",
+  "group": "bibliocraft:painting_frame_flat",
+  "pattern": [
+    "SSS",
+    "SFS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:mangrove_slab"
+    },
+    "F": {
+      "item": "bibliocraft:painting_frame_borderless",
+      "type": "forge:partial_nbt",
+      "nbt": {
+        "BlockEntityTag": {
+          "FurnitureMaterial": {
+            "wood": "mangrove"
+          }
+        }
+      }
+    }
+  },
+  "result": {
+    "item": "bibliocraft:painting_frame_flat",
+    "nbt": {
+      "BlockEntityTag": {
+        "FurnitureMaterial": {
+          "wood": "mangrove"
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "bibliocraft:painting_frame",
   "category": "building",
-  "group": "bibliocraft",
+  "group": "bibliocraft:painting_frame_fancy",
   "pattern": [
     "III",
     "IFI",

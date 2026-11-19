@@ -26,6 +26,8 @@ import art.arcane.bibliocraft.block.TableBlock;
 import art.arcane.bibliocraft.block.TypewriterBlock;
 import art.arcane.bibliocraft.block.TypesettingTableBlock;
 import art.arcane.bibliocraft.block.PrintingPressBlock;
+import art.arcane.bibliocraft.block.PaintingFrameBlock;
+import art.arcane.bibliocraft.block.PaintingPressBlock;
 import art.arcane.bibliocraft.item.ColoredBlockItem;
 import art.arcane.bibliocraft.item.FurnitureBlockItem;
 import art.arcane.bibliocraft.block.FancyWorkbenchBlock;
@@ -76,8 +78,6 @@ public final class ModBlocks {
     private static final VoxelShape SHAPE_MAP_FRAME_WALL = box(0.0, 0.0, 0.0, 0.05, 1.0, 1.0);
     private static final VoxelShape SHAPE_MAP_FRAME_FLOOR = box(0.0, 0.0, 0.0, 1.0, 0.05, 1.0);
     private static final VoxelShape SHAPE_MAP_FRAME_CEILING = box(0.0, 0.95, 0.0, 1.0, 1.0, 1.0);
-    private static final VoxelShape SHAPE_PAINTING_FRAME = box(0.0, 0.0, 0.0, 0.08, 1.0, 1.0);
-    private static final VoxelShape SHAPE_PAINTING_PRESS = box(0.0, 0.0, 0.0, 1.0, 0.98, 1.0);
     private static final VoxelShape SHAPE_TYPEWRITER = box(0.1384, 0.0, 0.2466, 0.6452, 0.1966, 0.7534);
     private static final VoxelShape SHAPE_SWORD_PEDESTAL = box(0.2758, 0.0, 0.0712, 0.7242, 0.2340, 0.9288);
     private static final VoxelShape SHAPE_BELL = box(0.36518, 0, 0.36518, 0.63482, 0.2, 0.63482);
@@ -146,17 +146,18 @@ public final class ModBlocks {
     public static final RegistryObject<Block> MAP_FRAME =
             register("map_frame", () -> mountedWoodEntity(SHAPE_MAP_FRAME_FLOOR, SHAPE_MAP_FRAME_WALL, SHAPE_MAP_FRAME_CEILING, "map_frame"));
     public static final RegistryObject<Block> PAINTING_FRAME_FLAT =
-            register("painting_frame_flat", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_flat"));
+            paintingFrame("painting_frame_flat", PaintingFrameBlock.Style.FLAT);
     public static final RegistryObject<Block> PAINTING_FRAME_SIMPLE =
-            register("painting_frame_simple", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_simple"));
+            paintingFrame("painting_frame_simple", PaintingFrameBlock.Style.SIMPLE);
     public static final RegistryObject<Block> PAINTING_FRAME_MIDDLE =
-            register("painting_frame_middle", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_middle"));
+            paintingFrame("painting_frame_middle", PaintingFrameBlock.Style.MIDDLE);
     public static final RegistryObject<Block> PAINTING_FRAME_FANCY =
-            register("painting_frame_fancy", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_fancy"));
+            paintingFrame("painting_frame_fancy", PaintingFrameBlock.Style.FANCY);
     public static final RegistryObject<Block> PAINTING_FRAME_BORDERLESS =
-            register("painting_frame_borderless", () -> shapedWoodEntity(SHAPE_PAINTING_FRAME, "painting_frame_borderless"));
+            paintingFrame("painting_frame_borderless", PaintingFrameBlock.Style.BORDERLESS);
     public static final RegistryObject<Block> PAINTING_PRESS =
-            register("painting_press", () -> shapedWoodEntity(SHAPE_PAINTING_PRESS, "painting_press"));
+            register("painting_press", () -> new PaintingPressBlock(woodProps().mapColor(MapColor.METAL)
+                    .sound(SoundType.ANVIL)));
     public static final RegistryObject<Block> TYPEWRITER =
             register("typewriter", () -> new TypewriterBlock(woodProps().mapColor(MapColor.METAL)
                             .sound(SoundType.METAL), SHAPE_TYPEWRITER),
@@ -246,5 +247,9 @@ public final class ModBlocks {
             output = Shapes.or(output, shape);
         }
         return output;
+    }
+    private static RegistryObject<Block> paintingFrame(String path, PaintingFrameBlock.Style style) {
+        return register(path, () -> new PaintingFrameBlock(woodProps().sound(SoundType.WOOD).dynamicShape(), style, path),
+                block -> new FurnitureBlockItem(block, new Item.Properties()));
     }
 }

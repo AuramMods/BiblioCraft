@@ -6,7 +6,20 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bibliocraft:painting_frame_fancy"
+          "name": "bibliocraft:painting_frame_fancy",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "source": "block_entity",
+              "ops": [
+                {
+                  "source": "FurnitureMaterial",
+                  "target": "BlockEntityTag.FurnitureMaterial",
+                  "op": "replace"
+                }
+              ]
+            }
+          ]
         }
       ],
       "conditions": [

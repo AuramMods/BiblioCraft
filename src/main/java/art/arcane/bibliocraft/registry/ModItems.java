@@ -7,6 +7,7 @@ import art.arcane.bibliocraft.item.FurnitureDrillItem;
 import art.arcane.bibliocraft.item.FurnitureLockItem;
 import art.arcane.bibliocraft.item.MenuOpeningItem;
 import art.arcane.bibliocraft.item.PrintingPlateItem;
+import art.arcane.bibliocraft.item.PaintingCanvasItem;
 import art.arcane.bibliocraft.item.RecipeBookItem;
 import art.arcane.bibliocraft.item.SeatBackItem;
 import art.arcane.bibliocraft.item.StockroomCatalogItem;
@@ -47,7 +48,7 @@ public final class ModItems {
     );
     public static final RegistryObject<Item> ATLAS_PLATE = register("atlas_plate");
     public static final RegistryObject<Item> DEATH_COMPASS = register("death_compass");
-    public static final RegistryObject<Item> PAINTING_CANVAS = register("painting_canvas");
+    public static final RegistryObject<Item> PAINTING_CANVAS = register("painting_canvas", PaintingCanvasItem::new);
     public static final RegistryObject<Item> BIG_BOOK = register("big_book", BigBookItem::new);
     public static final RegistryObject<Item> RECIPE_BOOK = register("recipe_book", RecipeBookItem::new);
     public static final RegistryObject<Item> SLOTTED_BOOK = register(

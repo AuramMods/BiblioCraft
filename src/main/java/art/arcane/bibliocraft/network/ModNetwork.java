@@ -9,6 +9,10 @@ import art.arcane.bibliocraft.menu.BigBookMenu;
 import art.arcane.bibliocraft.client.RecipeBookScreen;
 import art.arcane.bibliocraft.client.TypesettingTableScreen;
 import art.arcane.bibliocraft.menu.TypesettingTableMenu;
+import art.arcane.bibliocraft.menu.PaintingFrameMenu;
+import art.arcane.bibliocraft.menu.PaintingPressMenu;
+import art.arcane.bibliocraft.painting.PaintingArt;
+import art.arcane.bibliocraft.painting.PaintingSettings;
 import art.arcane.bibliocraft.crafting.RecordedRecipe;
 import art.arcane.bibliocraft.menu.RecipeBookMenu;
 import art.arcane.bibliocraft.item.WaypointCompassItem;
@@ -37,7 +41,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "8";
+    private static final String PROTOCOL = "9";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(BiblioCraft.MODID, "main"),
             () -> PROTOCOL,
@@ -190,9 +194,26 @@ public final class ModNetwork {
                     }
                     context.get().setPacketHandled(true);
                 }).add();
-        registerServerbound(PaintPressPacket.class, PaintPressPacket::new);
-        registerServerbound(PaintingPacket.class, PaintingPacket::new);
-        registerServerbound(PaintingClearPacket.class, PaintingClearPacket::new);
+        CHANNEL.messageBuilder(PaintPressPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(PaintPressPacket::encode).decoder(PaintPressPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof PaintingPressMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.transfer(player, message.art(), message.start());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
+        CHANNEL.messageBuilder(PaintingPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(PaintingPacket::encode).decoder(PaintingPacket::decode)
+                .consumerMainThread((message, context) -> {
+                    var player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof PaintingFrameMenu menu
+                            && menu.containerId == message.menuId()) {
+                        menu.edit(player, message.previous(), message.desired());
+                    }
+                    context.get().setPacketHandled(true);
+                }).add();
 
         registerClientbound(DrillTextPacket.class, DrillTextPacket::new);
         registerClientbound(AtlasClientPacket.class, AtlasClientPacket::new);
@@ -434,9 +455,29 @@ public final class ModNetwork {
             return new ClockPacket(buffer.readVarInt(), ClockSettings.read(buffer));
         }
     }
-    public static final class PaintPressPacket extends EmptyPacket {}
-    public static final class PaintingPacket extends EmptyPacket {}
-    public static final class PaintingClearPacket extends EmptyPacket {}
+    public record PaintPressPacket(int menuId, PaintingArt art, boolean start) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            art.write(buffer);
+            buffer.writeBoolean(start);
+        }
+
+        private static PaintPressPacket decode(FriendlyByteBuf buffer) {
+            return new PaintPressPacket(buffer.readVarInt(), PaintingArt.read(buffer), buffer.readBoolean());
+        }
+    }
+
+    public record PaintingPacket(int menuId, PaintingSettings previous, PaintingSettings desired) {
+        private void encode(FriendlyByteBuf buffer) {
+            buffer.writeVarInt(menuId);
+            previous.write(buffer);
+            desired.write(buffer);
+        }
+
+        private static PaintingPacket decode(FriendlyByteBuf buffer) {
+            return new PaintingPacket(buffer.readVarInt(), PaintingSettings.read(buffer), PaintingSettings.read(buffer));
+        }
+    }
 
     public static final class DrillTextPacket extends EmptyPacket {}
     public static final class AtlasClientPacket extends EmptyPacket {}
