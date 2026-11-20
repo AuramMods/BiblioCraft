@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Both drills have the same placement controls. Right-click shelves, bookcases, and racks to cycle between flush, quarter-block, and half-block depth. Sneak-right-click to rotate them. On display cases and lights a normal click changes the mount."
+      "text": "Either drill shifts shelves, bookcases, and racks through flush, quarter-block, and half-block depth. Sneak-right-click to rotate them. On display cases and lights, right-click changes the mount."
     },
     {
       "type": "patchouli:crafting",

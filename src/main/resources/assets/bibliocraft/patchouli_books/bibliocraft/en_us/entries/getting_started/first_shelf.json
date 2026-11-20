@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Make a shelf from six slabs and a plank of the same wood. Place it facing you and look at the open side. Each corner of the opening is a separate slot.$(br2)Right-click a slot with the stack you want to display. Right-click an occupied slot with an empty hand to pop the stack out in front of the shelf."
+      "text": "Make a shelf with six slabs and a plank of the same wood. Place it facing you. Each corner of the opening is a slot.$(br2)Right-click a slot with an item to display it. Right-click with an empty hand to eject the stack."
     },
     {
       "type": "patchouli:crafting",
@@ -16,7 +16,7 @@
     {
       "type": "patchouli:text",
       "title": "Inventory and Drops",
-      "text": "Sneak-right-click with an empty hand to open the inventory. Use it to move stacks between slots without dropping them. When you mine the shelf with an axe, the contents drop separately from the shelf. The shelf keeps its wood or custom panel."
+      "text": "Sneak-right-click empty-handed to open the inventory and move stacks between slots. Mine the shelf with an axe to recover the contents separately. The shelf keeps its wood or custom panel."
     }
   ]
 }

@@ -7,7 +7,7 @@
     {
       "type": "patchouli:text",
       "title": "Missing Recipes",
-      "text": "Check BiblioCraft’s common config and any modpack recipe changes. Turning a feature off can hide its creative entries, remove its recipes and placement, or disable its interaction. An unavailable recipe page can still show its notes."
+      "text": "Check BiblioCraft’s common config and any pack recipe changes. Turning a feature off can hide items, recipes, or interactions. Unavailable recipe diagrams are omitted. The guide’s instruction pages remain available."
     },
     {
       "type": "patchouli:text",

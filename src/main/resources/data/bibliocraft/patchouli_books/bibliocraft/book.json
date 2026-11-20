@@ -13,6 +13,7 @@
   "nameplate_color": "d9e9b8",
   "link_color": "296244",
   "link_hover_color": "15724b",
+  "use_blocky_font": true,
   "show_progress": false,
   "show_toasts": false
 }

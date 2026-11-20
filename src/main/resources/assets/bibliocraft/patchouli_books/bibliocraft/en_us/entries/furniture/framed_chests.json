@@ -16,7 +16,7 @@
     {
       "type": "patchouli:text",
       "title": "Join and Separate",
-      "text": "Sneak-drill both aligned chests in turn to join their menus into 54 slots. Repeat the pair to split them. Each half retains its own material and contents. An ordinary drill click separates and rotates the clicked half. Locking either half protects the shared menu."
+      "text": "Sneak-drill two aligned chests to join them into 54 slots. Repeat to split them. Each half keeps its material and contents. Drill normally to split and rotate the clicked half. Lock either half to protect both."
     }
   ]
 }

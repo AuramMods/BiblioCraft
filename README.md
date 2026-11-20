@@ -26,7 +26,7 @@ BiblioWoods recipes and creative tabs appear for supported woods from installed 
 
 With Patchouli installed, craft **BiblioCraft Guide** from a vanilla book and green dye in any arrangement. Hold the guide and right-click to open it. The guide also appears in the BiblioCraft creative tab. BiblioCraft gameplay is available without Patchouli.
 
-The item is `patchouli:guide_book` with the `patchouli:book` tag set to `bibliocraft:bibliocraft`. With administrator permissions, run:
+The item is `patchouli:guide_book` with the `patchouli:book` tag set to `bibliocraft:bibliocraft`. With administrator permissions, use this command.
 
 ```mcfunction
 /give @s patchouli:guide_book{"patchouli:book":"bibliocraft:bibliocraft"}

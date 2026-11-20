@@ -16,7 +16,7 @@
     {
       "type": "patchouli:text",
       "title": "Lining and Signal",
-      "text": "With no exhibit inside, right-click with carpet to add or swap the lining. Right-click the open, empty case with an empty hand for its menu. A displayed redstone block powers neighbors. Use a drill to switch mount or sneak-use it to rotate."
+      "text": "With the exhibit removed, right-click with carpet to change the lining or empty-handed to open the menu. A displayed redstone block powers neighbors. Drill to change the mount or sneak-drill to rotate."
     }
   ]
 }
