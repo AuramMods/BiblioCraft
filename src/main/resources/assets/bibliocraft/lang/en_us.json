@@ -1,4 +1,6 @@
 {
+  "book.bibliocraft.name": "BiblioCraft Guide",
+  "book.bibliocraft.landing": "Furnish a room, put your collections on display, and bind what you learn. Start with $(l:getting_started/first_shelf)your first shelf$(/l).",
   "itemGroup.bibliocraft.bibliocraft_tab": "BiblioCraft",
   "itemGroup.bibliocraft.bibliowoods_biomesoplenty": "BiblioWoods Biomes O' Plenty",
   "itemGroup.bibliocraft.bibliowoods_forestry": "BiblioWoods Forestry",

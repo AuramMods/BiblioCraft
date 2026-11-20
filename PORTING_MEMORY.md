@@ -2,6 +2,11 @@
 
 **FIRST STEP EVERY SESSION: read this file first, then `PORTING.md`, then `PORTING_MANIFEST.md` before touching code.**
 
+## Patchouli Guide
+
+- The guide definition is in the data namespace and its English content is in the asset namespace. The dark-green item sprite and GUI atlases adapt the Satiscraftory book assets, preserving their dimensions and alpha channels. Recipe and recipe discovery are conditional on Patchouli and grant no item automatically.
+- On Forge 47.4.10 with Patchouli 84.1, a fresh survival player had an empty inventory on join and rejoin. Crafting from a book and green dye and the explicit administrator command both created `patchouli:guide_book` with `{"patchouli:book":"bibliocraft:bibliocraft"}`. In the muted client the crafted item opened to the dark-green landing page, and its first link opened the real oak shelf recipe. Forge booted without Patchouli and skipped the guide recipe and discovery advancement.
+
 ## Release Verification in Auram
 
 - The reobfuscated `build/libs/bibliocraft-1.0.0.jar` with SHA-256 `5f6ce8e23b0dea62a28229e9d3084338c9e079b6a05ad788cb4a3327ebde7860` passed the smoke test in a disposable copy of Auram's dedicated development profile. The profile retained its 479 original mod JARs. It loaded the saved cherry shelf and three emeralds, placed a new bookcase, and saved and stopped normally. The region data on disk contained both block entities and the original shelf contents.

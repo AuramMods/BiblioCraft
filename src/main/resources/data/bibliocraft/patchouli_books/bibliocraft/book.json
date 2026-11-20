@@ -1,0 +1,18 @@
+{
+  "name": "book.bibliocraft.name",
+  "landing_text": "book.bibliocraft.landing",
+  "version": 1,
+  "creative_tab": "bibliocraft:bibliocraft_tab",
+  "use_resource_pack": true,
+  "model": "bibliocraft:guide_book",
+  "book_texture": "bibliocraft:textures/gui/guide_book.png",
+  "crafting_texture": "bibliocraft:textures/gui/guide_crafting.png",
+  "filler_texture": "bibliocraft:textures/gui/guide_page_filler.png",
+  "text_color": "25372b",
+  "header_color": "1d462e",
+  "nameplate_color": "d9e9b8",
+  "link_color": "296244",
+  "link_hover_color": "15724b",
+  "show_progress": false,
+  "show_toasts": false
+}

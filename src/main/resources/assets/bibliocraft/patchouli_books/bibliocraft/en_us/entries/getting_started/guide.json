@@ -1,0 +1,13 @@
+{
+  "name": "The Guide",
+  "icon": "minecraft:book",
+  "category": "bibliocraft:getting_started",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:guide_book",
+      "text": "Combine a book and green dye in any arrangement. Hold the guide and right-click to open it."
+    }
+  ]
+}

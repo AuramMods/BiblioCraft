@@ -22,6 +22,18 @@ This produces the reobfuscated `build/libs/bibliocraft-1.0.0.jar`. The `build` t
 
 BiblioWoods recipes and creative tabs appear for supported woods from installed companion mods. The [porting manifest](PORTING_MANIFEST.md) records supported versions and save formats. Earlier Forge 1.20.1 worlds can be opened with the port. Direct Forge 1.12.2 world conversion is a separate migration project.
 
+## In-Game Guide
+
+With Patchouli installed, craft **BiblioCraft Guide** from a vanilla book and green dye in any arrangement. Hold the guide and right-click to open it. The guide also appears in the BiblioCraft creative tab. BiblioCraft gameplay is available without Patchouli.
+
+The item is `patchouli:guide_book` with the `patchouli:book` tag set to `bibliocraft:bibliocraft`. With administrator permissions, run:
+
+```mcfunction
+/give @s patchouli:guide_book{"patchouli:book":"bibliocraft:bibliocraft"}
+```
+
+The recipe and command have been verified with Patchouli 84.1 for Minecraft 1.20.1 Forge.
+
 ## Source-of-Truth Docs
 Always use these files together:
 

@@ -1,0 +1,19 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        { "type": "forge:mod_loaded", "modid": "patchouli" }
+      ],
+      "recipe": {
+        "type": "patchouli:shapeless_book_recipe",
+        "book": "bibliocraft:bibliocraft",
+        "ingredients": [
+          { "item": "minecraft:book" },
+          { "item": "minecraft:green_dye" }
+        ],
+        "result": { "item": "patchouli:guide_book", "count": 1 }
+      }
+    }
+  ]
+}
