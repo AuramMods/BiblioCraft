@@ -1,0 +1,22 @@
+{
+  "name": "Big Book",
+  "icon": "bibliocraft:big_book",
+  "category": "bibliocraft:writing",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Right-click the Big Book in hand or open it at a writing desk. It holds up to 256 pages with 44 lines per page. Select a line to change its format, color, or size. Use the arrows to move between pages."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:big_book",
+      "text": "Wrap a Book and Quill in paper to make a blank Big Book."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Chapters and Signing",
+      "text": "Set up to eight chapter tabs to jump to their assigned pages. Save while drafting. Once you sign with a title, the pages and chapter labels become permanent. Readers can keep a bookmark."
+    }
+  ]
+}

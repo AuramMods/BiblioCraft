@@ -1,0 +1,28 @@
+{
+  "name": "Armor & Swords",
+  "icon": "bibliocraft:armor_stand",
+  "category": "bibliocraft:furniture",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Armor Stand",
+      "text": "Leave two blocks of vertical clearance. Right-click the appropriate height with armor to fill that slot, or use an empty hand for the equipment menu. Sneak-right-click at a worn piece’s height to swap it with your own."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:armor_stand",
+      "text": "Apply redstone power to either half and sneak-right-click to swap the full set."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Sword Pedestal",
+      "text": "Right-click with a sword to stand it upright. Right-click again to eject it. A displayed sword emits full redstone power. Right-click with dye to change the trim. Sneak-use either drill to rotate it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:sword_pedestal",
+      "text": "Use the wool color you want when crafting."
+    }
+  ]
+}

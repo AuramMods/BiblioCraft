@@ -1,0 +1,32 @@
+{
+  "name": "Seats & Benches",
+  "icon": "bibliocraft:seat",
+  "category": "bibliocraft:furniture",
+  "sortnum": 60,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Right-click to sit and sneak to dismount. A nearby named mob can sit in an empty seat. Sneak-right-click the seat to release it. An occupied seat can emit full redstone power when chair redstone is enabled."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:seat",
+      "text": "You can use a seat alone or join two or more into a bench."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Backs and Fabrics",
+      "text": "Right-click with a seat back to attach it. There are five styles. Use carpet on top for the cushion or against the side for a rug. Drill an attachment to remove it. Sneak-drill a side to rotate the seat."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:seatback1",
+      "text": "One of five seat back patterns. The frame material may differ from the seat."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Joining Seats",
+      "text": "Sneak-drill the top of one seat, then the top of a directly adjacent seat on the same level. Repeat on the same pair to separate it. Right-click in the air with the drill to clear a selection."
+    }
+  ]
+}

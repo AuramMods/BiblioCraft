@@ -1,0 +1,32 @@
+{
+  "name": "Lamps & Lanterns",
+  "icon": "bibliocraft:lantern_iron",
+  "category": "bibliocraft:furniture",
+  "sortnum": 100,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Gold and iron lamps and lanterns can mount on the floor, a wall, or the ceiling. Right-click with dye to change their shade. Both drills cycle the mount. Sneak-use the drill to rotate the light."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:lamp_gold",
+      "text": "A gold lamp. The iron version uses iron hardware."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:lamp_iron",
+      "text": "An iron lamp. It gives the same light as gold."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:lantern_gold",
+      "text": "Lanterns show a flame inside the glass."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:lantern_iron",
+      "text": "All four lights keep their shade when picked up."
+    }
+  ]
+}

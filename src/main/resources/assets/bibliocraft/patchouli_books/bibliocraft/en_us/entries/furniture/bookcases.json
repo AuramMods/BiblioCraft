@@ -1,0 +1,22 @@
+{
+  "name": "Bookcases",
+  "icon": "bibliocraft:bookcase",
+  "category": "bibliocraft:furniture",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Look at a slot and right-click with a book to fill it. Sneak-right-click the slot to eject its book. Right-click empty-handed without sneaking to open a menu with all sixteen slots."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:bookcase",
+      "text": "This is the oak version. Other woods use their own plank and slab recipes."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Books and Redstone",
+      "text": "Each occupied slot adds one eighth of a vanilla bookshelf’s enchanting power. With redstone books enabled, a redstone book powers every side except the opening. The creative-only bookcase fills itself with generated books on placement."
+    }
+  ]
+}

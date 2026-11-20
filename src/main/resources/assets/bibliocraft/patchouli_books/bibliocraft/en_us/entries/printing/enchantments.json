@@ -1,0 +1,17 @@
+{
+  "name": "Enchanted Plates",
+  "icon": "bibliocraft:enchanted_plate",
+  "category": "bibliocraft:printing",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Load an enchanted book in the typesetting table’s source slot and put chases in the supply stack. Sneak-right-click the source. Stamping consumes the enchanted book and one chase and charges experience levels in survival."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Cost and Wear",
+      "text": "The level cost depends on the book’s enchantments and the server’s printing multiplier. Aim at the source with $(l:bibliocraft:writing/reading)Reading$(/l) to see the cost. Print onto a blank vanilla book with ink. Each successful copy wears the plate."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Stockroom Catalog",
+  "icon": "bibliocraft:stockroom_catalog",
+  "category": "bibliocraft:storage",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Hold the catalog and sneak-right-click a chest or another supported inventory to register that location. Repeat to remove it. Right-click in the air to open the catalog. Nearby tracked storage is marked while you hold it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:stockroom_catalog",
+      "text": "Rename a catalog to tell different stockrooms apart."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Find a Stack",
+      "text": "Sort the summary by name or quantity, then select an item to see its counts and locations. Double chest halves are counted separately. Locked or unloaded containers may be unavailable."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Follow a Location",
+      "text": "Select one of the waypoint compasses you are carrying and assign it to a container location from the catalog. Follow it in the recorded dimension. The catalog can read compatible modded storage through its exposed inventory."
+    }
+  ]
+}

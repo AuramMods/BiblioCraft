@@ -1,0 +1,37 @@
+{
+  "name": "Map Frame & Map Tool",
+  "icon": "bibliocraft:map_frame",
+  "category": "bibliocraft:navigation",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Craft an empty map and use it in the area you want to record. Explore to fill the terrain. Mount a map frame on a wall, floor, or ceiling and right-click with the filled map. Adjacent frames in the same plane hide their shared edges."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "minecraft:map",
+      "text": "Right-click with the blank map in the area you want to chart."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:map_frame",
+      "text": "Use maps of adjacent areas at the same scale for a wall-sized map."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Rotate and Remove",
+      "text": "Sneak-right-click a filled frame empty-handed to rotate the map by a quarter turn. Right-click with either drill to remove it. If you harvest the frame, the map comes out with its pins intact."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:maptool",
+      "text": "Use the tool on a point of the displayed map to edit a pin."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Place Pins",
+      "text": "Use the Map Tool to name and color a pin. A map holds up to 32 pins. Right-click a pin to read its target. Click it with a $(l:bibliocraft:navigation/waypoint_compass)waypoint compass$(/l) to copy that target."
+    }
+  ]
+}

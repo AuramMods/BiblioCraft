@@ -1,0 +1,22 @@
+{
+  "name": "Lock & Key",
+  "icon": "bibliocraft:biblio_creative_lock",
+  "category": "bibliocraft:storage",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Right-click supported furniture with the Lock & Key to claim it. As the owner, use it again to unlock. An owner can use the furniture while other players lose menu access, drill access, and the ability to mine it in survival."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Locking and Automation",
+      "text": "Locks block hopper and other item-handler transfers, even for the owner’s automation. Unlock before connecting a machine. A lock on either half of a joined framed chest protects its shared menu."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Getting a Key",
+      "text": "Find the Lock & Key in creative. If the server enables its recipe, place gold nuggets in the left slots of the top two rows and gold ingots down the middle column of a crafting table."
+    }
+  ]
+}

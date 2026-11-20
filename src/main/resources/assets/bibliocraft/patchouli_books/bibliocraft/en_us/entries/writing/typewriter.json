@@ -1,0 +1,22 @@
+{
+  "name": "Typewriter",
+  "icon": "bibliocraft:typewriter",
+  "category": "bibliocraft:writing",
+  "sortnum": 60,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Right-click the typewriter with at least eight paper. With an empty hand, repeatedly click the keys to type. When a signed book is finished, right-click to collect it. Sneak-right-click to retrieve unused paper."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:typewriter",
+      "text": "Pick a shell color when crafting or right-click with dye later."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Named Typists",
+      "text": "Place a named mob in front of the keyboard to let it type with its own vocabulary. The machine uses eight paper for an eight-page signed book. A writing desk directly beneath the typewriter can receive the finished book."
+    }
+  ]
+}

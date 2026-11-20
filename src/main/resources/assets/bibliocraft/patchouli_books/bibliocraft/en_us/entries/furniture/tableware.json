@@ -1,0 +1,28 @@
+{
+  "name": "Jar & Dinner Plate",
+  "icon": "bibliocraft:cookie_jar",
+  "category": "bibliocraft:furniture",
+  "sortnum": 70,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Cookie Jar",
+      "text": "Open the jar and fill its eight inventory slots. Each visible cookie represents an occupied slot. Opening the menu gives a one-second redstone pulse, even through an adjacent solid block."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:cookie_jar",
+      "text": "Keep the jar within reach if you want to use it as a redstone trigger."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Dinner Plate",
+      "text": "Right-click with food to serve it into one of three slots. Sneak-right-click empty-handed to open the menu. When hungry, right-click a served plate four times to finish a portion. Bowls and other containers are returned when appropriate."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:dinner_plate",
+      "text": "The plate shows either one or three food piles as you fill it."
+    }
+  ]
+}

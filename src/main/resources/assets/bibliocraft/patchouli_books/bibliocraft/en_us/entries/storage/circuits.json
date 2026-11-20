@@ -1,0 +1,23 @@
+{
+  "name": "Signals & Lighting",
+  "icon": "bibliocraft:biblio_red_book",
+  "category": "bibliocraft:storage",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Display Circuits",
+      "text": "Use a redstone block in a display case, a sword in a pedestal, or a $(l:bibliocraft:writing/special_books)redstone book$(/l) in a bookcase as a signal source. A cookie jar pulses when its menu opens. An occupied seat can emit power."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Timed Circuits",
+      "text": "Use the $(l:bibliocraft:furniture/bells_and_clocks)clock editor$(/l) to set redstone times. A desk bell rings when its input gets stronger. A rising signal at the typesetting table stamps the selected title onto a chase."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Light from Furniture",
+      "text": "With display lighting enabled, wooden furniture can shine when you display a luminous block, such as glowstone. It emits the brightest stored block’s light. Removing that block changes the emitted light."
+    }
+  ]
+}

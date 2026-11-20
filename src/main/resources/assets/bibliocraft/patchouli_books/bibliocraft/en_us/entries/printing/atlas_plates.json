@@ -1,0 +1,18 @@
+{
+  "name": "Copying an Atlas",
+  "icon": "bibliocraft:atlas_plate",
+  "category": "bibliocraft:printing",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Stamp an Atlas Plate",
+      "text": "Put an atlas with filled maps in the source slot and load a chase. Sneak-right-click the source. One chase and experience levels are spent. The cost grows with the number of maps. A two-map atlas costs five levels."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Print the Copy",
+      "text": "Put the resulting plate, ink, and an empty atlas into the press. The press consumes the plate on completion. The copy contains the original sheets and waypoints. Blank maps, compasses, and other supplies stay in the source atlas."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "BiblioWoods",
+  "icon": "bibliocraft:bookcase",
+  "category": "bibliocraft:materials",
+  "sortnum": 50,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "BiblioWoods recipes appear automatically for supported wood mods. Use each wood’s matching planks and slabs to craft furniture with that panel. For recipes with a furniture ingredient, use a piece with the same panel."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Supported Woods",
+      "text": "Biomes O’ Plenty contributes 13 wood families, Forestry CE 43, and either supported Natura port 13. Use one Natura port at a time. Installed sources with supported woods appear as separate BiblioWoods creative tabs."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Missing Materials",
+      "text": "If a source mod is removed, its recipes disappear and existing furniture uses the default frame texture. Its saved panel survives, so restoring the source restores the texture. Use the $(l:bibliocraft:materials/framing)paneler$(/l) to change the finish."
+    }
+  ]
+}

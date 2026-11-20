@@ -1,0 +1,33 @@
+{
+  "name": "Typesetting Table",
+  "icon": "bibliocraft:typesetting_table",
+  "category": "bibliocraft:printing",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Save a Title",
+      "text": "Put a signed written book, Big Book, signed Recipe Book, or Stockroom Catalog in the source slot on top. Sneak-right-click the source to save it to the world’s printing library."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:typesetting_table",
+      "text": "Right-click a side to browse the library and select a title."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Share and Select",
+      "text": "Choose a title in the library. Owners can share a title publicly or discard it. Discarding a title invalidates any standard plates for it. Private titles can be seen only by their owner."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:biblio_chase",
+      "text": "Put blank chases in the stack on top of the typesetting table."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Stamp a Plate",
+      "text": "With a title selected and at least one chase loaded, send a rising redstone signal. Take the stamped plate from the result slot on top. To recycle an ordinary plate, put it in the source slot and sneak-right-click."
+    }
+  ]
+}

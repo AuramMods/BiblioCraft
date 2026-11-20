@@ -1,0 +1,28 @@
+{
+  "name": "Labels & Fancy Signs",
+  "icon": "bibliocraft:fancy_sign",
+  "category": "bibliocraft:furniture",
+  "sortnum": 80,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Labels",
+      "text": "Sneak-right-click the wall label to open its three slots. Put a sample of what belongs here in each slot. One item shows as a large icon. Multiple items use the smaller layout. Breaking the label returns its samples separately."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:label",
+      "text": "Craft a label in the wood that suits your storage. Framed labels can use custom panels."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Fancy Sign",
+      "text": "Mount the sign on a floor, wall, or ceiling and sneak-right-click to edit it. Format or resize each line separately. Add up to two icons and set each position, size, and angle. Harvest the sign to move its written text and icons together."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:fancy_sign",
+      "text": "Use a drill to adjust its position in the block space."
+    }
+  ]
+}

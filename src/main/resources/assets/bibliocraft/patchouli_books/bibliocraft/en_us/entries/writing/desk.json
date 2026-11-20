@@ -1,0 +1,27 @@
+{
+  "name": "Writing Desk",
+  "icon": "bibliocraft:desk",
+  "category": "bibliocraft:writing",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Place a writable book, Big Book, Recipe Book, or Clipboard in the desk’s center writing slot. Right-click the placed item to open its editor or reader. Sneak-right-click the same area to take it back."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:desk",
+      "text": "Use an axe to mine the desk and recover its stored items."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Desk Storage",
+      "text": "Right-click either book pile to add a book and sneak-right-click to remove the top one. Right-click the cloth area with carpet to dress the desk. A filled map in the writing slot shows terrain."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Desk Rows",
+      "text": "Place multiple desks with their fronts aligned. Sneak-use either drill on one desk and then its adjacent partner to join their sections. Repeat the selection to split them."
+    }
+  ]
+}

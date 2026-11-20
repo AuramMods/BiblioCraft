@@ -1,0 +1,17 @@
+{
+  "name": "Disc Rack",
+  "icon": "bibliocraft:disc_rack",
+  "category": "bibliocraft:furniture",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Mount the rack on a floor, ceiling, or wall. Aim at one of its nine grooves and right-click with a music disc. Sneak-right-click empty-handed to eject a disc. An empty-handed right-click opens the menu."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:disc_rack",
+      "text": "Both drills rotate the rack and can change its wall layout."
+    }
+  ]
+}

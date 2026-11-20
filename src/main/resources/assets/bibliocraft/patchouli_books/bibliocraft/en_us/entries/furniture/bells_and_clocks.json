@@ -1,0 +1,33 @@
+{
+  "name": "Bells & Clocks",
+  "icon": "bibliocraft:clock",
+  "category": "bibliocraft:furniture",
+  "sortnum": 110,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Desk Bell",
+      "text": "Right-click to ring the bell. Redstone also rings it each time the incoming signal grows stronger. Use a button for a single ring or raise an analog signal to ring it again."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:bell",
+      "text": "A locked bell only accepts manual clicks from its owner."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Clock Schedule",
+      "text": "Sneak-right-click the clock to edit ticking, chimes, and redstone for 48 half-hour slots. Use the hourly or six-hour preset, or set slots yourself. A redstone slot can produce a two-second pulse or hold power continuously."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:clock",
+      "text": "Both clock styles show the current world time."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Grandfather Clock",
+      "text": "Place two clocks one above the other, facing the same way. Sneak-drill both in turn to join them. Use the same pair to split them. The upper clock runs the joined schedule. Drill without sneaking to move the clock forward or back."
+    }
+  ]
+}

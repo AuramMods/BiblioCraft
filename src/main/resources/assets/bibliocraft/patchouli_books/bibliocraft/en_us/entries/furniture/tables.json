@@ -1,0 +1,22 @@
+{
+  "name": "Tables & Tablecloths",
+  "icon": "bibliocraft:table",
+  "category": "bibliocraft:furniture",
+  "sortnum": 50,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Place tables next to each other to join their tops and legs. Right-click the top with an item to display it, or click again to eject it. Filled maps show their terrain. Sneak-right-click the top to open the display slot."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:table",
+      "text": "Oak is shown here. Tables retain their wood or framed panel."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Cloth and Carpet",
+      "text": "Right-click with carpet on top for a tablecloth or on the side for a floor rug. Drill the top to remove the cloth. Sneak-drill to remove the rug. Drill a horizontal face to turn the display on that axis."
+    }
+  ]
+}

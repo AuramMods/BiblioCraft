@@ -1,0 +1,32 @@
+{
+  "name": "Hand Drill & Drill",
+  "icon": "bibliocraft:hand_drill",
+  "category": "bibliocraft:materials",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Both drills have the same placement controls. Right-click shelves, bookcases, and racks to cycle between flush, quarter-block, and half-block depth. Sneak-right-click to rotate them. On display cases and lights a normal click changes the mount."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:hand_drill",
+      "text": "The hand drill is the simplest way to start adjusting furniture."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:biblio_drill",
+      "text": "The powered drill performs the same adjustments."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Vanilla Blocks",
+      "text": "Use either drill to turn chests, dispensers, droppers, furnaces, ender chests, and comparators. Sneak-use on doors, trapdoors, repeaters, levers, anvils, or retracted pistons. Turning a double chest separates its halves."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Two-Block Joins",
+      "text": "Work through the instructions for $(l:bibliocraft:furniture/seats)seats$(/l), $(l:bibliocraft:furniture/framed_chests)chests$(/l), or $(l:bibliocraft:furniture/bells_and_clocks)clocks$(/l). Right-click in the air with the drill to clear a selection."
+    }
+  ]
+}

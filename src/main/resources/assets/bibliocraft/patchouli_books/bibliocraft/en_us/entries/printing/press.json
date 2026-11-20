@@ -1,0 +1,27 @@
+{
+  "name": "Printing Press",
+  "icon": "bibliocraft:printing_press",
+  "category": "bibliocraft:printing",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Open the press from the side. Load a stamped plate, black dye or an ink sac, and a blank vanilla book. The press starts when the output is empty. Take the copy to make room for another."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:printing_press",
+      "text": "The press also has top slots for direct loading and collection."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Supplies and Automation",
+      "text": "A copy consumes one ink and one blank book. Standard plates can be reused as long as the title exists. Automation can insert supplies from the top or sides and collect the copy from below. Locks stop automation."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Troubleshooting",
+      "text": "Check the ink, blank, and output slots. A plate from another world may have no matching library title. Use a newly stamped plate if the library entry was discarded. The press can resume a job after a world reload."
+    }
+  ]
+}

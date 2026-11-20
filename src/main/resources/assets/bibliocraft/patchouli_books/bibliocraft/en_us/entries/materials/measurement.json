@@ -1,0 +1,43 @@
+{
+  "name": "Measuring Tools",
+  "icon": "bibliocraft:tape_measure",
+  "category": "bibliocraft:materials",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Measuring Distance",
+      "text": "Right-click a block face with the tape measure to set a start point. Walk while holding the tape to see the live readout, then click the destination to finish. Right-click in the air to switch between axis distances and total distance."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:tape",
+      "text": "Make tape first to use in the tape measure recipe."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:tape_measure",
+      "text": "Each tape keeps its own starting point."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Marker Poles",
+      "text": "The tape places a temporary pole if the starting face has room. Finishing the measurement removes that pole. To mark a location permanently, craft a separate marker pole and place it on a floor, wall, or ceiling."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:marker_pole",
+      "text": "This crafted marker stays in place until it is broken."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Measuring Depth",
+      "text": "Face the edge of a drop and right-click with the plumb line. It reports the depth and surface height in the column directly ahead, including through water. Move one block at a time to sample nearby columns."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:plumb_line",
+      "text": "Use the plumb line where looking down is difficult."
+    }
+  ]
+}

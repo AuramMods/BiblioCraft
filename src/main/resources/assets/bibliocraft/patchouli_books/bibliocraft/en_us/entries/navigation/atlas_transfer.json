@@ -1,0 +1,23 @@
+{
+  "name": "Maps & Pin Transfer",
+  "icon": "bibliocraft:map_frame",
+  "category": "bibliocraft:navigation",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Copy from a Frame",
+      "text": "Keep an unused map in the atlas supplies. Sneak-right-click a filled frame with the atlas. If that map is new to the atlas, this spends one empty map and copies the sheet and its pins into a free slot."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Copy to a Frame",
+      "text": "Select a filled sheet in the atlas and sneak-right-click an empty frame. This spends one empty map to display a copy. Both copies can keep their own waypoints."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Transfer Waypoints",
+      "text": "When the framed map matches the atlas’s selected sheet, sneak-right-click it again to open the transfer screen. Choose the direction to copy the pins. If the matching sheet was in another slot, the first use selects it."
+    }
+  ]
+}

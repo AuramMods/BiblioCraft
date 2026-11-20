@@ -1,0 +1,22 @@
+{
+  "name": "Clipboard",
+  "icon": "bibliocraft:biblio_clipboard",
+  "category": "bibliocraft:writing",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Open the clipboard in hand or at the writing desk. Name the list and add tasks. Each page has nine tasks, and a clipboard can hold up to 50 pages. Click a task’s mark to cycle between blank, checked, and crossed."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:biblio_clipboard",
+      "text": "Any vanilla wooden pressure plate works."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Wall Checklist",
+      "text": "Sneak-right-click a wall with the clipboard to hang it. Click a checkbox on the front of the board to mark a task. Click its page controls to turn pages. Sneak-right-click with an empty hand to take it down with all its data."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "Workbench & Recipes",
+  "icon": "bibliocraft:fancy_workbench",
+  "category": "bibliocraft:writing",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Record a Recipe",
+      "text": "Open the Fancy Workbench, put a plain book or an unsigned Recipe Book in its active book slot, and lay out a valid recipe. With the crafting result visible, click the button to save the recipe to the book."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:fancy_workbench",
+      "text": "The bench has a separate crafting grid for each player and eight shared book slots."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Load and Reuse",
+      "text": "Put the recorded book in the active slot and click Load. Have enough matching ingredients in your inventory and leave space in the grid. Take the result as at a normal crafting table."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:recipe_book",
+      "text": "You can craft a blank Recipe Book or record onto a plain book at the Fancy Workbench."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Keep a Recipe",
+      "text": "Open the Recipe Book in hand or at the desk to read the recipe, add notes, or sign it. Signing makes the recipe and notes permanent. Use the book’s Craft button to craft from your inventory if the server enables portable crafting."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Bookcase Wings",
+      "text": "Put accessible bookcases beside the workbench to add their inventory panels to the menu. Leave your reference recipes in the bench’s eight storage slots."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "Atlas Book",
+  "icon": "bibliocraft:atlas_book",
+  "category": "bibliocraft:navigation",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Load the Atlas",
+      "text": "Right-click in the air to open the atlas. It has 42 sheet slots and six supply slots. Load filled maps and put empty maps or waypoint compasses in the supply area. Ctrl-click or middle-click a sheet to select it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:atlas_book",
+      "text": "Bring an empty sheet and a compass when you set out."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Navigate Sheets",
+      "text": "Open the map view to see the selected sheet, pins, and neighboring maps. Use the arrows to move between neighboring sheets at the same scale. Change zoom for a closer look."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Auto Center",
+      "text": "Turn on Auto Center to select the matching saved sheet as you move. It looks for the current dimension and selected scale. Return to a previously mapped area to see its existing sheet again."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Auto Create",
+      "text": "Enable Auto Create as well to start a new sheet when you cross into an unmapped area. Each new sheet needs one empty map in the supplies and a free sheet slot. Keep the atlas in hand as you travel."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Waypoints",
+      "text": "Use the map toolbar to add a waypoint, name it, and choose a color. Edit an existing pin with the edit tool. Select a stored compass and assign it to a waypoint so it points there in that dimension."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Make a Second Copy",
+      "text": "If you want to duplicate the entire set of filled maps and pins, use the $(l:bibliocraft:printing/atlas_plates)typesetting table and printing press$(/l)."
+    }
+  ]
+}

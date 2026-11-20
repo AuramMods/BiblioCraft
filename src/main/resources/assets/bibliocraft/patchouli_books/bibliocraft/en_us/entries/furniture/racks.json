@@ -1,0 +1,28 @@
+{
+  "name": "Potion & Tool Racks",
+  "icon": "bibliocraft:potion_shelf",
+  "category": "bibliocraft:furniture",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Potion Shelf",
+      "text": "The potion shelf has twelve slots shared by both faces. Right-click a compartment with a potion to store it. Sneak-right-click the compartment to eject its potion. Click without a potion to open the menu."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:potion_shelf",
+      "text": "Use the same wood for the plank and slab pieces."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Tool Rack",
+      "text": "Right-click the front with a tool to hang it in one of four slots. Right-click the same slot with an empty hand to take the tool down. Sneak-right-click to open the menu."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:tool_rack",
+      "text": "Both drills cycle a rack’s depth. Sneak-use rotates the opening and the displayed items."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Framed Chests",
+  "icon": "bibliocraft:framed_chest",
+  "category": "bibliocraft:furniture",
+  "sortnum": 90,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A framed chest has 27 slots and a front label based on its contents. Apply a material at the $(l:bibliocraft:materials/framing)Furniture Paneler$(/l). Set two chests side by side with their fronts aligned to make a double chest."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:framed_chest",
+      "text": "Blank framed chests can be used immediately or customized first."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Join and Separate",
+      "text": "Sneak-drill both aligned chests in turn to join their menus into 54 slots. Repeat the pair to split them. Each half retains its own material and contents. An ordinary drill click separates and rotates the clicked half. Locking either half protects the shared menu."
+    }
+  ]
+}

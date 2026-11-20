@@ -1,0 +1,22 @@
+{
+  "name": "Woods & Colors",
+  "icon": "bibliocraft:shelf",
+  "category": "bibliocraft:materials",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "For wooden furniture, use the same wood throughout the recipe. The vanilla options are oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo, crimson, and warped. A framed version takes a custom panel instead."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:shelf_cherry",
+      "text": "Cherry planks and slabs produce a cherry shelf."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Color Variants",
+      "text": "Use wool or dye as the recipe calls for. Lamps, lanterns, sword pedestals, and typewriters keep their color when placed and picked up. Right-click one with a dye to recolor it. Carpet styles tables, seats, cases, and desks."
+    }
+  ]
+}

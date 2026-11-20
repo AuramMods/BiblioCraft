@@ -1,0 +1,12 @@
+{
+  "name": "Item Tester",
+  "icon": "bibliocraft:tester_item",
+  "category": "bibliocraft:materials",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Item Tester is a creative and debug tool. Hold it and right-click to open it. Put a sample in the single slot to see its display name, translation key, registry ID, and damage value. Take the sample back out when done."
+    }
+  ]
+}

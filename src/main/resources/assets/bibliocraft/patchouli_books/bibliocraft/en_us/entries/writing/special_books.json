@@ -1,0 +1,28 @@
+{
+  "name": "Slotted & Redstone Books",
+  "icon": "bibliocraft:slotted_book",
+  "category": "bibliocraft:writing",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Slotted Book",
+      "text": "Right-click in hand to open the book. Store one item stack inside and write a title and up to five lines of description. Click Save to keep the text. A slotted book cannot store another slotted book."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:slotted_book",
+      "text": "Use it to pair a labeled sample with notes about where it came from."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Redstone Book",
+      "text": "Right-click in hand to edit its title. Put it in a BiblioCraft bookcase to emit the slot index as signal strength, from 0 to 15. The first redstone book in slot order sets the strength. The opening stays unpowered."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:biblio_red_book",
+      "text": "A Redstone: Volume I book works under its original or custom title."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Death Compass",
+  "icon": "bibliocraft:death_compass",
+  "category": "bibliocraft:navigation",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Enchant the Atlas",
+      "text": "Apply Death Compass to an atlas at the enchanting table. The crafting alternative keeps your maps. Put the atlas in the center, ender pearls in all four corners, and two waypoint compasses opposite each other."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Finish the Upgrade",
+      "text": "Put enchanted books in the other two opposite slots. Either orientation works. Keep the enchanted atlas in your inventory when exploring. The Death Compass feature and atlas must both be enabled."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Recover Your Items",
+      "text": "After a tracked death you receive one Death Compass on respawn. Right-click it for the dimension and coordinates, including height. Return to that dimension to follow the needle to the death point."
+    }
+  ]
+}

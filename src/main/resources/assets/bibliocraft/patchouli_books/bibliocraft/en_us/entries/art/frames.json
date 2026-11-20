@@ -1,0 +1,47 @@
+{
+  "name": "Frames & Murals",
+  "icon": "bibliocraft:painting_frame_borderless",
+  "category": "bibliocraft:art",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Choose borderless, flat, simple, middle, or fancy frames. Right-click an empty frame with a painted canvas. Right-click the filled frame with an empty hand to edit. Sneak-right-click to remove its canvas."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:painting_frame_borderless",
+      "text": "Adjacent borderless frames on the same plane join automatically."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:painting_frame_flat",
+      "text": "Flat is one of the four bordered styles."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:painting_frame_simple",
+      "text": "Each style comes in the vanilla woods and in framed form."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:painting_frame_middle",
+      "text": "Use a single frame for a small piece or join multiple frames."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:painting_frame_fancy",
+      "text": "Fancy frames inherit the panel from the base frame."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Build a Mural",
+      "text": "Place frames edge to edge in the same plane. Sneak-drill two neighbors to join them, or repeat the pair to separate them. Use an ordinary drill click to rotate the artwork."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Lay Out the Image",
+      "text": "In the frame editor, set the master corner and choose the image scale, resolution, aspect, and rotation. Hide the borderless frame to reveal just the picture. When you mine a filled frame, collect the canvas and frame separately."
+    }
+  ]
+}

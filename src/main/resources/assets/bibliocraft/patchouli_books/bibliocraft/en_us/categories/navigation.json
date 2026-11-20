@@ -1,0 +1,6 @@
+{
+  "name": "Maps & Navigation",
+  "description": "Display terrain, set waypoints, and take an atlas on the road.",
+  "icon": "bibliocraft:atlas_book",
+  "sortnum": 60
+}

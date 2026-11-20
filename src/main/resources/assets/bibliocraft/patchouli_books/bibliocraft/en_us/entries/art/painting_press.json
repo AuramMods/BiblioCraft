@@ -1,0 +1,32 @@
+{
+  "name": "Painting Press",
+  "icon": "bibliocraft:painting_press",
+  "category": "bibliocraft:art",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Place a blank canvas in the press. Open the gallery and choose art from BiblioCraft, vanilla paintings, or custom images. Click Transfer, or use the press handle with the artwork selected. Wait for the lid to finish moving."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:painting_press",
+      "text": "The press saves its active transfer when the world is saved."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:painting_canvas",
+      "text": "Place one blank canvas in the press for each transfer."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Take the Canvas",
+      "text": "Sneak-right-click the press to retrieve the finished canvas. Right-click an empty painting frame with the canvas to hang it. Painted canvases carry the selected art and do not stack."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Custom Art",
+      "text": "Add PNGs to assets/bibliocraft/textures/custompaintings/ in a resource pack. Select them in the custom gallery. Other players need the same resource pack to see the artwork. A missing image shows a placeholder."
+    }
+  ]
+}

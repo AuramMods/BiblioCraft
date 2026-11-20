@@ -1,0 +1,43 @@
+{
+  "name": "Custom Furniture Panels",
+  "icon": "bibliocraft:furniture_paneler",
+  "category": "bibliocraft:materials",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Making Frame Parts",
+      "text": "Craft a framing saw. Use it in the framing board and framing sheet recipes. The saw remains in the crafting grid when you take the parts. Assemble the furniture’s framed variant from the matching frame parts."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:framing_saw",
+      "text": "One saw can prepare more than one set of frame parts."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:framing_board",
+      "text": "Make boards for the furniture’s structure."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:framing_sheet",
+      "text": "Make sheets for its flat panels."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:shelf_framed",
+      "text": "Start with a framed item, such as this shelf."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:furniture_paneler",
+      "text": "Use this workstation to preview and apply a block’s texture."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Applying a Panel",
+      "text": "Open the Furniture Paneler and put a solid full block in the panel slot and framed furniture in the furniture slot. Pick up the previewed result to consume one of each. To change the panel later, use the framed piece and a different block."
+    }
+  ]
+}

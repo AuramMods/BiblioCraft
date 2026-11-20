@@ -1,0 +1,22 @@
+{
+  "name": "Waypoint Compass",
+  "icon": "bibliocraft:compass",
+  "category": "bibliocraft:navigation",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sneak-right-click in the air with a waypoint compass to enter an X and Z coordinate and a name. Right-click normally to read its current location. The needle tracks a saved target in its recorded dimension."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:compass",
+      "text": "This is BiblioCraft’s waypoint compass. You can also assign a target from a map pin, an atlas waypoint, or a Stockroom Catalog location."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Find a Target",
+      "text": "To reuse a point, click a pin on a map frame with the waypoint compass in hand, or assign a stored compass in the atlas. A compass with no target points toward the world origin."
+    }
+  ]
+}

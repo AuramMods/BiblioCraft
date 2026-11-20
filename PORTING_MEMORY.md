@@ -6,6 +6,7 @@
 
 - The guide definition is in the data namespace and its English content is in the asset namespace. The dark-green item sprite and GUI atlases adapt the Satiscraftory book assets, preserving their dimensions and alpha channels. Recipe and recipe discovery are conditional on Patchouli and grant no item automatically.
 - On Forge 47.4.10 with Patchouli 84.1, a fresh survival player had an empty inventory on join and rejoin. Crafting from a book and green dye and the explicit administrator command both created `patchouli:guide_book` with `{"patchouli:book":"bibliocraft:bibliocraft"}`. In the muted client the crafted item opened to the dark-green landing page, and its first link opened the real oak shelf recipe. Forge booted without Patchouli and skipped the guide recipe and discovery advancement.
+- The complete English guide has eight categories and 42 entries. The workshop entries cover materials, furniture, writing, printing, paintings, maps, storage, signals, and troubleshooting. The reobfuscated JAR bundled all guide resources. The text, icons, category IDs, 61 crafting references, and 11 link targets were checked against the source, and all 151 Forge GameTests passed.
 
 ## Release Verification in Auram
 

@@ -1,0 +1,22 @@
+{
+  "name": "Display Cases",
+  "icon": "bibliocraft:case",
+  "category": "bibliocraft:furniture",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Place the case on a surface or against a wall. Sneak-right-click to open or shut the glass lid. With the case open, right-click with an item to display it. Right-click again to eject the exhibit."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:case",
+      "text": "Other woods and framed versions follow the same layout."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Lining and Signal",
+      "text": "With no exhibit inside, right-click with carpet to add or swap the lining. Right-click the open, empty case with an empty hand for its menu. A displayed redstone block powers neighbors. Use a drill to switch mount or sneak-use it to rotate."
+    }
+  ]
+}

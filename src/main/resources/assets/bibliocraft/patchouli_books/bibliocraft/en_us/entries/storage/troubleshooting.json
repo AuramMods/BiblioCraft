@@ -1,0 +1,33 @@
+{
+  "name": "Settings & Saves",
+  "icon": "bibliocraft:furniture_paneler",
+  "category": "bibliocraft:storage",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Missing Recipes",
+      "text": "Check BiblioCraft’s common config and any modpack recipe changes. Turning a feature off can hide its creative entries, remove its recipes and placement, or disable its interaction. An unavailable recipe page can still show its notes."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Common Settings",
+      "text": "Look in config/bibliocraft-common.toml. blocks_enabled controls features. recipes.enable_lock_recipe enables the gold key. rendering.emit_light controls display light. rendering.disable_renderers skips furniture displays."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Missing Textures",
+      "text": "If furniture is visible but displayed items are missing, check the renderer setting. If a saved framed item shows a default texture, restore its companion mod or apply a new panel. The saved panel ID remains with the item."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Existing Worlds",
+      "text": "Saves from earlier BiblioCraft Forge 1.20.1 builds keep their registry IDs and furniture data. Back up a world before upgrading. The 1.20.1 port does not directly convert BiblioCraft content from 1.12.2 worlds."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Getting Help",
+      "text": "Use the $(l:bibliocraft:getting_started/first_shelf)first shelf$(/l) walkthrough to check basic placement and storage. A missing display recipe may depend on its material or on $(l:bibliocraft:materials/bibliowoods)installed wood mods$(/l)."
+    }
+  ]
+}

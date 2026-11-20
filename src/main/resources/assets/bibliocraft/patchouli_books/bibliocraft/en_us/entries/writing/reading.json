@@ -1,0 +1,32 @@
+{
+  "name": "Glasses & Reading",
+  "icon": "bibliocraft:biblio_glasses",
+  "category": "bibliocraft:writing",
+  "sortnum": 50,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Wear reading glasses in the head slot and aim at a displayed item. Details appear below the crosshair, including book titles, stack counts, and typesetting costs. The overlay respects locks and private titles."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:biblio_glasses",
+      "text": "All three wearable styles grant the same reading ability."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Tinting Glasses",
+      "text": "Put a pair of ordinary reading glasses and gray dye in any two crafting slots. The tinted pair retains the original glasses’ name and enchantments."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bibliocraft:monocle",
+      "text": "The monocle provides the same readout."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Enchanting a Helmet",
+      "text": "Enchant a book to obtain Reading, then use an anvil to apply it to head armor. Wear the enchanted armor for the same readout. Servers can disable the ability with the reading_glasses setting."
+    }
+  ]
+}
