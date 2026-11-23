@@ -12,6 +12,8 @@ The active 1.20.1 port code is in:
 
 ## Install and Build
 
+Build, test, and package BiblioCraft locally with the Gradle wrapper. Keep GitHub Actions workflows out of this repository. Publish release JARs built locally through GitHub Releases.
+
 Use Java 17 to run Minecraft 1.20.1. The port is tested on Forge 47.4.10. Place the same BiblioCraft JAR in the `mods` folder on each client and the dedicated server.
 
 ```bash
