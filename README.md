@@ -20,7 +20,7 @@ Use Java 17 to run Minecraft 1.20.1. The port is tested on Forge 47.4.10. Place 
 ./gradlew jar
 ```
 
-This produces the reobfuscated `build/libs/bibliocraft-1.0.1.jar`. The `build` task also copies the JAR to the configured local Auram instance.
+This produces the reobfuscated `build/libs/bibliocraft-1.0.2.jar`. The `build` task also copies the JAR to the configured local Auram instance.
 
 BiblioWoods recipes and creative tabs appear for supported woods from installed companion mods. The [porting manifest](PORTING_MANIFEST.md) records supported versions and save formats. Earlier Forge 1.20.1 worlds can be opened with the port. Direct Forge 1.12.2 world conversion is a separate migration project.
 
